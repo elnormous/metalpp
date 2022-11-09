@@ -2,6 +2,7 @@
 #define METALPP_FOUNDATION_STRING_HPP
 
 #include <string_view>
+#include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 
 namespace foundation
@@ -58,7 +59,6 @@ namespace foundation
                                          static_cast<NSUInteger>(str.length()),
                                          encoding)}
         {
-
         }
 
         const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const
