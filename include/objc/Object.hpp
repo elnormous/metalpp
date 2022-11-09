@@ -19,6 +19,8 @@ namespace objc
         Object() noexcept
         {
         }
+        
+        Object(id p) noexcept: ptr{p} {}
 
         ~Object()
         {
@@ -70,9 +72,6 @@ namespace objc
         {
             return ptr;
         }
-
-    protected:
-        Object(id p) noexcept: ptr{p} {}
 
     private:
         id ptr = nil;

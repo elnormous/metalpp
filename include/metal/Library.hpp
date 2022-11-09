@@ -14,13 +14,13 @@ namespace metal
     class Function final: public objc::Object
     {
     public:
-        Function(id p): Object{p} {}
+        using Object::Object;
     };
     
     class Library final: public objc::Object
     {
     public:
-        Library(id p): Object{p} {}
+        using Object::Object;
 
         Function newFunctionWithName(const foundation::String name)
         {

@@ -48,8 +48,7 @@ namespace foundation
     class String final: public objc::Object
     {
     public:
-        String() = default;
-        String(id p): Object{p} {}
+        using Object::Object;
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
