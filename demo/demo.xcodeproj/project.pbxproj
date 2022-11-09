@@ -71,6 +71,7 @@
 		3071976B291A0BB800C321B0 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				30719782291C504600C321B0 /* foundation */,
 				30719771291B6E4E00C321B0 /* objc */,
 				3071976F291A140400C321B0 /* metal */,
 			);
@@ -94,9 +95,16 @@
 			children = (
 				3071977C291B794700C321B0 /* Object.hpp */,
 				30719772291B6E6600C321B0 /* Runtime.hpp */,
-				3071977D291C05CB00C321B0 /* String.hpp */,
 			);
 			path = objc;
+			sourceTree = "<group>";
+		};
+		30719782291C504600C321B0 /* foundation */ = {
+			isa = PBXGroup;
+			children = (
+				3071977D291C05CB00C321B0 /* String.hpp */,
+			);
+			path = foundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

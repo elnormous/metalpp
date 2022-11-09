@@ -254,7 +254,7 @@ int main(int argc, const char* argv[]) {
     metal::Library library = device.newDefaultLibrary();
     NSLog(@"Library: %p\n", (id)library);
 
-    objc::String str{"test"};
+    foundation::String str{"test"};
     NSLog(@"String: %s\n", str.cString());
 
     metalLayer.device = device; // assign device

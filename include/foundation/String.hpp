@@ -1,10 +1,10 @@
-#ifndef METALPP_OBJC_STRING_HPP
-#define METALPP_OBJC_STRING_HPP
+#ifndef METALPP_FOUNDATION_STRING_HPP
+#define METALPP_FOUNDATION_STRING_HPP
 
 #include <string_view>
-#include "Object.hpp"
+#include "../objc/Object.hpp"
 
-namespace objc
+namespace foundation
 {
     inline namespace detail
     {
@@ -44,7 +44,7 @@ namespace objc
         UTF32LittleEndianStringEncoding = 0x9c000100        /* NSUTF32StringEncoding encoding with explicit endianness specified */
     };
 
-    class String final: public Object
+    class String final: public objc::Object
     {
     public:
         String() = default;
@@ -52,20 +52,20 @@ namespace objc
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(stringClass, allocSel),
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(stringClass, objc::allocSel),
                                          initWithBytesSel,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),
-                                         static_cast<NSUInteger>(encoding))}
+                                         encoding)}
         {
 
         }
 
         const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const
         {
-            const char* str = objc::sendMessage<const char*, NSUInteger>(*this,
-                                                                         cStringUsingEncodingSel,
-                                                                         static_cast<NSUInteger>(encoding));
+            const char* str = objc::sendMessage<const char*>(*this,
+                                                             cStringUsingEncodingSel,
+                                                             encoding);
             return str;
         }
     };

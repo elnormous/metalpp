@@ -3,7 +3,7 @@
 
 #include <type_traits>
 #include "../objc/Object.hpp"
-#include "../objc/String.hpp"
+#include "../foundation/String.hpp"
 #include "Error.hpp"
 #include "Library.hpp"
 
@@ -32,10 +32,10 @@ namespace metal
             return Library{library};
         }
 
-        objc::String getName() const
+        foundation::String getName() const
         {
             id name = objc::sendMessage<id>(*this, nameSel);
-            return objc::String{name};
+            return foundation::String{name};
         }
     };
 }

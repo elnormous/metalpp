@@ -2,7 +2,7 @@
 #define METALPP_METAL_LIBRARY_HPP
 
 #include "../objc/Object.hpp"
-#include "../objc/String.hpp"
+#include "../foundation/String.hpp"
 
 namespace metal
 {
@@ -22,7 +22,7 @@ namespace metal
     public:
         Library(id p): Object{p} {}
 
-        Function newFunctionWithName(const objc::String name)
+        Function newFunctionWithName(const foundation::String name)
         {
             id function = objc::sendMessage<id>(*this,
                                                 newFunctionWithNameSel,
