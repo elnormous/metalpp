@@ -22,6 +22,7 @@
 		30719770291A16BE00C321B0 /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		30719772291B6E6600C321B0 /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
 		3071977C291B794700C321B0 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		3071977D291C05CB00C321B0 /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
 		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +90,7 @@
 			children = (
 				3071977C291B794700C321B0 /* Object.hpp */,
 				30719772291B6E6600C321B0 /* Runtime.hpp */,
+				3071977D291C05CB00C321B0 /* String.hpp */,
 			);
 			path = objc;
 			sourceTree = "<group>";

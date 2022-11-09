@@ -7,6 +7,8 @@ namespace objc
 {
     inline namespace detail
     {
+        inline const auto allocSel = sel_registerName("alloc");
+        inline const auto initSel = sel_registerName("init");
         inline const auto retainSel = sel_registerName("retain");
         inline const auto releaseSel = sel_registerName("release");
     }

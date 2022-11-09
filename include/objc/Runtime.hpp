@@ -1,6 +1,7 @@
 #ifndef METALPP_OBJC_RUNTIME_HPP
 #define METALPP_OBJC_RUNTIME_HPP
 
+#include <cstdint>
 #include <objc/message.h>
 #include <objc/NSObjCRuntime.h>
 #include <objc/runtime.h>

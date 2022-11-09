@@ -249,7 +249,13 @@ int main(int argc, const char* argv[]) {
     CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
 
     metal::Device device;
-    NSLog(@"Device name: %s\n", device.getName().c_str());
+    NSLog(@"Device name: %s\n", device.getName().cString());
+
+    metal::Library library = device.newDefaultLibrary();
+    NSLog(@"Library: %p\n", (id)library);
+
+    objc::String str{"test"};
+    NSLog(@"String: %s\n", str.cString());
 
     metalLayer.device = device; // assign device
     const CGSize drawableSize = windowSize;
