@@ -48,7 +48,7 @@ namespace objc
     {
     public:
         String() = default;
-        String(id str): Object{str} {}
+        String(id p): Object{p} {}
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):

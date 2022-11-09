@@ -23,6 +23,8 @@
 		30719772291B6E6600C321B0 /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
 		3071977C291B794700C321B0 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		3071977D291C05CB00C321B0 /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
+		30719780291C4ECF00C321B0 /* Device.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
+		30719781291C4F1B00C321B0 /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
 		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +81,9 @@
 		3071976F291A140400C321B0 /* metal */ = {
 			isa = PBXGroup;
 			children = (
+				30719780291C4ECF00C321B0 /* Device.hpp */,
 				30719770291A16BE00C321B0 /* Error.hpp */,
+				30719781291C4F1B00C321B0 /* Library.hpp */,
 				3071976C291A0BDE00C321B0 /* Metal.hpp */,
 			);
 			path = metal;
