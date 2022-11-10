@@ -4,7 +4,7 @@
 #include "../objc/Object.hpp"
 #include "../foundation/String.hpp"
 
-namespace metal
+namespace mtl
 {
     inline namespace detail
     {
@@ -22,7 +22,7 @@ namespace metal
     public:
         using Object::Object;
 
-        Function newFunctionWithName(const foundation::String name)
+        Function newFunctionWithName(const ns::String name)
         {
             id function = objc::sendMessage<id>(*this,
                                                 newFunctionWithNameSel,

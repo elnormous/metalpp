@@ -248,13 +248,16 @@ int main(int argc, const char* argv[]) {
 
     CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
 
-    metal::Device device;
+    mtl::Device device;
     NSLog(@"Device name: %s\n", device.getName().cString());
 
-    metal::Library library = device.newDefaultLibrary();
+    mtl::Library library = device.newDefaultLibrary();
     NSLog(@"Library: %p\n", (id)library);
 
-    foundation::String str{"test"};
+    ns::String str{"test"};
+    NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
+
+    str = ns::String{"test2"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
 
     metalLayer.device = device; // assign device

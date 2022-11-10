@@ -20,7 +20,7 @@ namespace objc
         {
         }
         
-        Object(id p) noexcept: ptr{p} {}
+        Object(const id p) noexcept: ptr{p} {}
 
         ~Object()
         {

@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-namespace metal
+namespace mtl
 {
     class Error final: public std::runtime_error
     {

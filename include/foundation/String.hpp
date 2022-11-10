@@ -6,7 +6,7 @@
 #include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 
-namespace foundation
+namespace ns
 {
     inline namespace detail
     {

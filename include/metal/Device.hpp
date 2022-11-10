@@ -9,7 +9,7 @@
 
 extern "C" id MTLCreateSystemDefaultDevice();
 
-namespace metal
+namespace mtl
 {
     inline namespace detail
     {
@@ -32,10 +32,10 @@ namespace metal
             return Library{library};
         }
 
-        foundation::String getName() const
+        ns::String getName() const
         {
             id name = objc::sendMessage<id>(*this, nameSel);
-            return foundation::String{name};
+            return ns::String{name};
         }
     };
 }
