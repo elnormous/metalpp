@@ -24,13 +24,13 @@ namespace ns
 
         ~Object()
         {
-            if (ptr) objc::sendMessage(ptr, releaseSel);
+            objc::sendMessage(ptr, releaseSel);
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            if (ptr) objc::sendMessage(ptr, retainSel);
+            objc::sendMessage(ptr, retainSel);
         }
 
         Object(Object&& other) noexcept:
@@ -42,8 +42,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            if (other.ptr) objc::sendMessage(other.ptr, retainSel);
-            if (ptr) objc::sendMessage(ptr, releaseSel);
+            objc::sendMessage(other.ptr, retainSel);
+            objc::sendMessage(ptr, releaseSel);
             ptr = other.ptr;
             return *this;
         }
