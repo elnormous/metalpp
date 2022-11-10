@@ -30,6 +30,7 @@
 		30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
 		30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
 		30D7680A291CDD1900EDBCB7 /* PixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelFormat.hpp; sourceTree = "<group>"; };
+		30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 		3071976F291A140400C321B0 /* metal */ = {
 			isa = PBXGroup;
 			children = (
+				30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */,
 				30719780291C4ECF00C321B0 /* Device.hpp */,
 				30719781291C4F1B00C321B0 /* Library.hpp */,
 				3071976C291A0BDE00C321B0 /* Metal.hpp */,
