@@ -3,6 +3,8 @@
 
 #include "Device.hpp"
 #include "Library.hpp"
+#include "PixelFormat.hpp"
 #include "RenderPipeline.hpp"
+#include "VertexDescriptor.hpp"
 
 #endif

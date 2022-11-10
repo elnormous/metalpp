@@ -29,13 +29,13 @@ namespace mtl
             return ns::String{objc::sendMessage<id>(name, retainSel)};
         }
 
-        Library newDefaultLibrary() const noexcept
+        Library newDefaultLibrary() const
         {
             const id library = objc::sendMessage<id>(*this, newDefaultLibrarySel);
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String source) const noexcept
+        Library newLibraryWithSource(const ns::String source) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -50,12 +50,16 @@ namespace mtl
             return Library{objc::sendMessage<id>(library, retainSel)};
         }
 
-        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const noexcept
+        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this, newRenderPipelineStateWithDescriptorErrorSel,
                                                                  static_cast<id>(renderPipelineDescriptor),
                                                                  &error);
+
+            if (error != nil)
+                throw ns::Error{objc::sendMessage<id>(error, retainSel)};
+
             return RenderPipelineState{objc::sendMessage<id>(renderPipelineState, retainSel)};
         }
     };

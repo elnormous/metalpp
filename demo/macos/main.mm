@@ -206,6 +206,60 @@ static CVReturn renderCallback(CVDisplayLinkRef,
     return kCVReturnSuccess;
 }
 
+static const char* fragmentShader =
+"#include <metal_stdlib>\n" \
+"#include <simd/simd.h>\n" \
+
+"using namespace metal;\n" \
+
+"typedef struct\n" \
+"{\n" \
+"    float4 color;\n" \
+"} uniforms_t;\n" \
+
+"typedef struct\n" \
+"{\n" \
+"    float4 position [[position]];\n" \
+"    half4 color;\n" \
+"} VS2PS;\n" \
+
+"fragment half4 mainPS(VS2PS input [[stage_in]],\n" \
+"                      constant uniforms_t& uniforms [[buffer(1)]])\n" \
+"{\n" \
+"    return input.color * half4(uniforms.color);\n" \
+"}";
+
+static const char* vertexShader =
+"#include <simd/simd.h>\n"
+
+"using namespace metal;\n"
+
+"typedef struct\n"
+"{\n"
+"    float4x4 modelViewProj;\n"
+"} uniforms_t;\n"
+
+"typedef struct\n"
+"{\n"
+"    float3 position [[attribute(0)]];\n"
+"    half4 color [[attribute(1)]];\n"
+"} VSInput;\n"
+
+"typedef struct\n"
+"{\n"
+"    float4 position [[position]];\n"
+"    half4 color;\n"
+"} VS2PS;\n"
+
+"vertex VS2PS mainVS(VSInput input [[stage_in]],\n"
+"                    constant uniforms_t& uniforms [[buffer(1)]])\n"
+"{\n"
+"    VS2PS output;\n"
+"    output.position = uniforms.modelViewProj * float4(input.position, 1.0);\n"
+"    output.color = input.color;\n"
+"    return output;\n"
+"}";
+
 int main(int argc, const char* argv[]) {
     ns::AutoreleasePool autoreleasePool;
 
@@ -271,25 +325,31 @@ int main(int argc, const char* argv[]) {
 
     try
     {
-        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
+        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader});
         NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
 
-        mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"main"});
+        mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
 
-        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
+        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
         NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
 
-        mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"main"});
-        renderPipelineDescriptor.setVertexFunction(fragmentFunction);
+        mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
+        renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
+
+        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
+        NSLog(@"Render pipeline state: %p\n", (id)renderPipelineState);
+
+        mtl::VertexDescriptor vertexDescriptor;
+        renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+
+        renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+        renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
     }
     catch (const ns::Error& error)
     {
         NSLog(@"Error: %ld, %s, %s", error.code(), error.domain().cString(), error.localizedDescription().cString());
     }
-
-//    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
-//    NSLog(@"Render pipeline state: %p\n", (id)renderPipelineState);
 
     metalLayer.device = device; // assign device
     const CGSize drawableSize = windowSize;
