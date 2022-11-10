@@ -75,8 +75,8 @@ namespace ns
 
         std::size_t length() const noexcept
         {
-            NSUInteger len = objc::sendMessage<NSUInteger>(*this, lengthSel);
-            return static_cast<std::size_t>(len);
+            NSUInteger length = objc::sendMessage<NSUInteger>(*this, lengthSel);
+            return static_cast<std::size_t>(length);
         }
 
         const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept

@@ -114,7 +114,7 @@
 
 @end
 
-void createMainMenu(NSApplication* sharedApplication)
+static void createMainMenu(NSApplication* sharedApplication)
 {
     NSMenu* mainMenu = [[[NSMenu alloc] init] autorelease];
     // Apple menu
@@ -217,6 +217,7 @@ int main(int argc, const char* argv[]) {
     const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
 
     NSScreen* screen = [NSScreen mainScreen];
+    NSLog(@"Screen: %ld\n", screen.retainCount);
 
     const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
                                          round(screen.frame.size.height * 0.6));
@@ -251,18 +252,25 @@ int main(int argc, const char* argv[]) {
 
     mtl::Device device;
     {
-        ns::String name = device.getName();
+        ns::String name = device.name();
         NSLog(@"Device name: %s, %ld\n", name.cString(), name.retainCount());
     }
 
     mtl::Library library = device.newDefaultLibrary();
     NSLog(@"Default library: %p\n", (id)library);
 
-    mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
-    NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
+    try
+    {
+        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
+        NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
 
-    mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
-    NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
+        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
+        NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
+    }
+    catch (const ns::Error& error)
+    {
+        NSLog(@"Error: %ld, %s, %s", error.code(), error.domain().cString(), error.localizedDescription().cString());
+    }
 
     ns::String str{"test"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
