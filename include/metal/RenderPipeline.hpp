@@ -19,9 +19,7 @@ namespace mtl
 
         void setLabel(const ns::String label) noexcept
         {
-            id function = objc::sendMessage<id>(*this,
-                                                setLabelSel,
-                                                static_cast<id>(label));
+            objc::sendMessage(*this, setLabelSel, static_cast<id>(label));
         }
     };
 
