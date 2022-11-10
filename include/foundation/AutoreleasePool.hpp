@@ -9,14 +9,11 @@ namespace ns
     {
         inline static const Class cls = objc_lookUpClass("NSAutoreleasePool");
 
-        inline static const auto allocSel = sel_registerName("alloc");
-        inline static const auto initSel = sel_registerName("init");
         inline static const auto drainSel = sel_registerName("drain");
 
     public:
-        AutoreleasePool():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
-                                         initSel), false}
+        AutoreleasePool() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
         {            
         }
 

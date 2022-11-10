@@ -9,7 +9,10 @@ namespace mtl
     class Function final: public ns::Object
     {
     public:
-        using Object::Object;
+        Function(const id p) noexcept: Object{p}
+        {
+            if (p) objc::sendMessage(p, retainSel);
+        }
     };
     
     class Library final: public ns::Object
@@ -17,7 +20,10 @@ namespace mtl
         inline static const auto newFunctionWithNameSel = sel_registerName("newFunctionWithName:");
 
     public:
-        using Object::Object;
+        Library(const id p) noexcept: Object{p}
+        {
+            if (p) objc::sendMessage(p, retainSel);
+        }
 
         Function newFunctionWithName(const ns::String name)
         {

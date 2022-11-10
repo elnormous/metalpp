@@ -9,14 +9,11 @@ namespace mtl
     {
         inline static const Class cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
 
-        inline static const auto allocSel = sel_registerName("alloc");
-        inline static const auto initSel = sel_registerName("init");
         inline static const auto setLabelSel = sel_registerName("setLabel:");
 
     public:
-        RenderPipelineDescriptor():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
-                                         initSel), false}
+        RenderPipelineDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
         {
         }
 
@@ -31,7 +28,10 @@ namespace mtl
     class RenderPipelineState final: public ns::Object
     {
     public:
-        using Object::Object;
+        RenderPipelineState(const id p) noexcept: Object{p}
+        {
+            if (p) objc::sendMessage(p, retainSel);
+        }
     };
 }
 

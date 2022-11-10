@@ -7,6 +7,9 @@ namespace ns
 {
     class Object
     {
+    protected:
+        inline static const Class cls = objc_lookUpClass("NSObject");
+
         inline static const auto allocSel = sel_registerName("alloc");
         inline static const auto initSel = sel_registerName("init");
         inline static const auto retainSel = sel_registerName("retain");
@@ -14,14 +17,9 @@ namespace ns
         inline static const auto retainCountSel = sel_registerName("retainCount");
 
     public:
-        Object() noexcept
+        Object() noexcept:
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
         {
-        }
-        
-        Object(const id p, const bool retain = true) noexcept: ptr{p}
-        {
-            if (ptr && retain)
-                objc::sendMessage(ptr, retainSel);
         }
 
         ~Object()
@@ -80,6 +78,11 @@ namespace ns
         {
             const NSUInteger count = objc::sendMessage<NSUInteger>(ptr, retainCountSel);
             return static_cast<std::size_t>(count);
+        }
+
+    protected:
+        Object(const id p) noexcept: ptr{p}
+        {
         }
 
     private:

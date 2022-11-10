@@ -42,14 +42,21 @@ namespace ns
     {
         inline static const Class cls = objc_lookUpClass("NSString");
 
-        inline static const auto allocSel = sel_registerName("alloc");
         inline static const auto initWithBytesLengthEncodingSel = sel_registerName("initWithBytes:length:encoding:");
         inline static const auto lengthSel = sel_registerName("length");
         inline static const auto characterAtIndexSel = sel_registerName("characterAtIndex:");
         inline static const auto cStringUsingEncodingSel = sel_registerName("cStringUsingEncoding:");
 
     public:
-        using Object::Object;
+        String():
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
+        {
+        }
+
+        String(const id p) noexcept: Object{p}
+        {
+            if (p) objc::sendMessage(p, retainSel);
+        }
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
@@ -57,7 +64,7 @@ namespace ns
                                          initWithBytesLengthEncodingSel,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),
-                                         encoding), false}
+                                         encoding)}
         {
         }
 
