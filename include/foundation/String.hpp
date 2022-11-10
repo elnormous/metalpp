@@ -12,7 +12,7 @@ namespace ns
     {
         inline const Class stringClass = objc_lookUpClass("NSString");
 
-        inline const auto initWithBytesLengthEncodingSel = sel_registerName("initWithBytes:length:encoding:");
+        inline const auto stringWithCStringEncoding = sel_registerName("stringWithCString:encoding:");
         inline const auto lengthSel = sel_registerName("length");
         inline const auto characterAtIndexSel = sel_registerName("characterAtIndex:");
         inline const auto cStringUsingEncodingSel = sel_registerName("cStringUsingEncoding:");
@@ -55,10 +55,9 @@ namespace ns
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(stringClass, ns::allocSel),
-                                         initWithBytesLengthEncodingSel,
+            Object{objc::sendMessage<id>(stringClass,
+                                         stringWithCStringEncoding,
                                          str.data(),
-                                         static_cast<NSUInteger>(str.length()),
                                          encoding)}
         {
         }

@@ -43,11 +43,18 @@ namespace mtl
 
         Library newLibraryWithSource(const ns::String source) const
         {
+            id error;
             id library = objc::sendMessage<id>(*this,
                                                newLibraryWithSourceOptionsErrorSel,
                                                static_cast<id>(source),
                                                nil,
-                                               nil);
+                                               &error);
+
+            if (error != nil)
+            {
+                
+            }
+
             return Library{library};
         }
 
