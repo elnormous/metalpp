@@ -26,10 +26,7 @@ namespace mtl
     class RenderPipelineState final: public ns::Object
     {
     public:
-        RenderPipelineState(const id p) noexcept: Object{p}
-        {
-            if (p) objc::sendMessage(p, retainSel);
-        }
+        RenderPipelineState(const id p) noexcept: Object{p} {}
     };
 }
 

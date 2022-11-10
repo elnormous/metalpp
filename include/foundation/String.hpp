@@ -53,10 +53,7 @@ namespace ns
         {
         }
 
-        String(const id p) noexcept: Object{p}
-        {
-            if (p) objc::sendMessage(p, retainSel);
-        }
+        String(const id p) noexcept: Object{p} {}
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):

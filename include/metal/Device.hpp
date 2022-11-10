@@ -29,7 +29,7 @@ namespace mtl
         ns::String getName() const
         {
             id name = objc::sendMessage<id>(*this, nameSel);
-            return ns::String{name};
+            return ns::String{objc::sendMessage<id>(name, retainSel)};
         }
 
         Library newDefaultLibrary() const
@@ -52,7 +52,7 @@ namespace mtl
 
             }
 
-            return Library{library};
+            return Library{objc::sendMessage<id>(library, retainSel)};
         }
 
         RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
@@ -61,7 +61,7 @@ namespace mtl
             id renderPipelineState = objc::sendMessage<id>(*this, newRenderPipelineStateWithDescriptorErrorSel,
                                                            static_cast<id>(renderPipelineDescriptor),
                                                            &error);
-            return RenderPipelineState{renderPipelineState};
+            return RenderPipelineState{objc::sendMessage<id>(renderPipelineState, retainSel)};
         }
     };
 }
