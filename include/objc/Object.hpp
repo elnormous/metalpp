@@ -21,9 +21,9 @@ namespace ns
         {
         }
         
-        Object(const id p) noexcept: ptr{p}
+        Object(const id p, const bool retain = true) noexcept: ptr{p}
         {
-            if (ptr)
+            if (ptr && retain)
                 objc::sendMessage(ptr, retainSel);
         }
 

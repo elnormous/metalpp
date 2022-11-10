@@ -1,6 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
 #include "AppDelegate.h"
+#include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 
 @interface WindowDelegate: NSObject<NSWindowDelegate>
@@ -206,7 +207,7 @@ static CVReturn renderCallback(CVDisplayLinkRef,
 }
 
 int main(int argc, const char* argv[]) {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    ns::AutoreleasePool autoreleasePool;
 
     NSApplication* sharedApplication = [NSApplication sharedApplication];
     [sharedApplication activateIgnoringOtherApps:YES];
@@ -249,7 +250,10 @@ int main(int argc, const char* argv[]) {
     CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
 
     mtl::Device device;
-    NSLog(@"Device name: %s\n", device.getName().cString());
+    {
+        ns::String name = device.getName();
+        NSLog(@"Device name: %s, %ld\n", name.cString(), name.retainCount());
+    }
 
     mtl::Library library = device.newDefaultLibrary();
     NSLog(@"Default library: %p\n", (id)library);
@@ -295,5 +299,4 @@ int main(int argc, const char* argv[]) {
     CVDisplayLinkRelease(displayLink);
     [window release];
     [windowDelegate release];
-    [pool release];
 }

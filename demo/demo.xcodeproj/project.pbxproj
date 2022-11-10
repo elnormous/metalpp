@@ -27,6 +27,7 @@
 		30719781291C4F1B00C321B0 /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
 		30719783291C838000C321B0 /* RenderPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPipeline.hpp; sourceTree = "<group>"; };
 		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		30719782291C504600C321B0 /* foundation */ = {
 			isa = PBXGroup;
 			children = (
+				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
 				3071977D291C05CB00C321B0 /* String.hpp */,
 			);
 			path = foundation;
