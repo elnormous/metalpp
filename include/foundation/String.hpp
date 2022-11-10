@@ -40,7 +40,7 @@ namespace ns
 
     class String final: public ns::Object
     {
-        inline static const Class cls = objc_lookUpClass("NSString");
+        inline static const auto cls = objc_lookUpClass("NSString");
 
         inline static const auto initWithBytesLengthEncodingSel = sel_registerName("initWithBytes:length:encoding:");
         inline static const auto lengthSel = sel_registerName("length");

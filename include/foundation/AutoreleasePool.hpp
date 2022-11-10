@@ -7,7 +7,7 @@ namespace ns
 {
     class AutoreleasePool final: public ns::Object
     {
-        inline static const Class cls = objc_lookUpClass("NSAutoreleasePool");
+        inline static const auto cls = objc_lookUpClass("NSAutoreleasePool");
 
         inline static const auto drainSel = sel_registerName("drain");
 

@@ -7,7 +7,7 @@ namespace mtl
 {
     class RenderPipelineDescriptor final: public ns::Object
     {
-        inline static const Class cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
+        inline static const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
 
         inline static const auto setLabelSel = sel_registerName("setLabel:");
 

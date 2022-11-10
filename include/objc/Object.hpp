@@ -8,7 +8,7 @@ namespace ns
     class Object
     {
     protected:
-        inline static const Class cls = objc_lookUpClass("NSObject");
+        inline static const auto cls = objc_lookUpClass("NSObject");
 
         inline static const auto allocSel = sel_registerName("alloc");
         inline static const auto initSel = sel_registerName("init");
