@@ -252,13 +252,26 @@ int main(int argc, const char* argv[]) {
     NSLog(@"Device name: %s\n", device.getName().cString());
 
     mtl::Library library = device.newDefaultLibrary();
-    NSLog(@"Library: %p\n", (id)library);
+    NSLog(@"Default library: %p\n", (id)library);
+
+    mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
+    NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
+
+    mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
+    NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
 
     ns::String str{"test"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
 
     str = ns::String{"test2"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
+
+    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+    renderPipelineDescriptor.setLabel(ns::String{"renderPipeline"});
+    NSLog(@"Render pipeline descriptor: %p\n", (id)renderPipelineDescriptor);
+
+//    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
+//    NSLog(@"Render pipeline state: %p\n", (id)renderPipelineState);
 
     metalLayer.device = device; // assign device
     const CGSize drawableSize = windowSize;

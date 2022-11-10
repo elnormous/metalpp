@@ -3,5 +3,6 @@
 
 #include "Device.hpp"
 #include "Library.hpp"
+#include "RenderPipeline.hpp"
 
 #endif

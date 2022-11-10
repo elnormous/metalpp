@@ -11,13 +11,13 @@ namespace mtl
         inline const auto newFunctionWithNameSel = sel_registerName("newFunctionWithName:");
     }
     
-    class Function final: public objc::Object
+    class Function final: public ns::Object
     {
     public:
         using Object::Object;
     };
     
-    class Library final: public objc::Object
+    class Library final: public ns::Object
     {
     public:
         using Object::Object;

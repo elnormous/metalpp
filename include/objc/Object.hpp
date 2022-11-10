@@ -3,7 +3,7 @@
 
 #include "Runtime.hpp"
 
-namespace objc
+namespace ns
 {
     inline namespace detail
     {
@@ -24,7 +24,8 @@ namespace objc
 
         ~Object()
         {
-            if (ptr) free(ptr);
+            if (ptr)
+                objc::sendMessage(ptr, releaseSel);
         }
 
         Object(const Object& other) noexcept:
