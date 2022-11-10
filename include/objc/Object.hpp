@@ -5,17 +5,14 @@
 
 namespace ns
 {
-    inline namespace detail
-    {
-        inline const auto allocSel = sel_registerName("alloc");
-        inline const auto initSel = sel_registerName("init");
-        inline const auto retainSel = sel_registerName("retain");
-        inline const auto releaseSel = sel_registerName("release");
-        inline const auto retainCountSel = sel_registerName("retainCount");
-    }
-
     class Object
     {
+        inline static const auto allocSel = sel_registerName("alloc");
+        inline static const auto initSel = sel_registerName("init");
+        inline static const auto retainSel = sel_registerName("retain");
+        inline static const auto releaseSel = sel_registerName("release");
+        inline static const auto retainCountSel = sel_registerName("retainCount");
+
     public:
         Object() noexcept
         {

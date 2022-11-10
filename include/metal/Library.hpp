@@ -6,11 +6,6 @@
 
 namespace mtl
 {
-    inline namespace detail
-    {
-        inline const auto newFunctionWithNameSel = sel_registerName("newFunctionWithName:");
-    }
-    
     class Function final: public ns::Object
     {
     public:
@@ -19,6 +14,8 @@ namespace mtl
     
     class Library final: public ns::Object
     {
+        inline static const auto newFunctionWithNameSel = sel_registerName("newFunctionWithName:");
+
     public:
         using Object::Object;
 

@@ -5,19 +5,18 @@
 
 namespace ns
 {
-    inline namespace detail
-    {
-        inline const Class autoreleasePoolClass = objc_lookUpClass("NSAutoreleasePool");
-
-        inline const auto drainSel = sel_registerName("drain");
-    }
-
     class AutoreleasePool final: public ns::Object
     {
+        inline static const Class cls = objc_lookUpClass("NSAutoreleasePool");
+
+        inline static const auto allocSel = sel_registerName("alloc");
+        inline static const auto initSel = sel_registerName("init");
+        inline static const auto drainSel = sel_registerName("drain");
+
     public:
         AutoreleasePool():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(autoreleasePoolClass, ns::allocSel),
-                                         ns::initSel), false}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
+                                         initSel), false}
         {            
         }
 

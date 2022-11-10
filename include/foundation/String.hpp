@@ -8,16 +8,6 @@
 
 namespace ns
 {
-    inline namespace detail
-    {
-        inline const Class stringClass = objc_lookUpClass("NSString");
-
-        inline const auto initWithBytesLengthEncodingSel = sel_registerName("initWithBytes:length:encoding:");
-        inline const auto lengthSel = sel_registerName("length");
-        inline const auto characterAtIndexSel = sel_registerName("characterAtIndex:");
-        inline const auto cStringUsingEncodingSel = sel_registerName("cStringUsingEncoding:");
-    }
-
     enum class StringEncoding: NSUInteger
     {
         ASCIIStringEncoding = 1,        // 0..127 only
@@ -50,12 +40,20 @@ namespace ns
 
     class String final: public ns::Object
     {
+        inline static const Class cls = objc_lookUpClass("NSString");
+
+        inline static const auto allocSel = sel_registerName("alloc");
+        inline static const auto initWithBytesLengthEncodingSel = sel_registerName("initWithBytes:length:encoding:");
+        inline static const auto lengthSel = sel_registerName("length");
+        inline static const auto characterAtIndexSel = sel_registerName("characterAtIndex:");
+        inline static const auto cStringUsingEncodingSel = sel_registerName("cStringUsingEncoding:");
+
     public:
         using Object::Object;
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(stringClass, ns::allocSel),
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
                                          initWithBytesLengthEncodingSel,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),

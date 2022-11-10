@@ -12,16 +12,13 @@ extern "C" id MTLCreateSystemDefaultDevice();
 
 namespace mtl
 {
-    inline namespace detail
-    {
-        inline const auto newDefaultLibrarySel = sel_registerName("newDefaultLibrary");
-        inline const auto newLibraryWithSourceOptionsErrorSel = sel_registerName("newLibraryWithSource:options:error:");
-        inline const auto nameSel = sel_registerName("name");
-        inline const auto newRenderPipelineStateWithDescriptorErrorSel = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
-    }
-
     class Device final: public ns::Object
     {
+        inline static const auto newDefaultLibrarySel = sel_registerName("newDefaultLibrary");
+        inline static const auto newLibraryWithSourceOptionsErrorSel = sel_registerName("newLibraryWithSource:options:error:");
+        inline static const auto nameSel = sel_registerName("name");
+        inline static const auto newRenderPipelineStateWithDescriptorErrorSel = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
+
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()}
         {
@@ -52,7 +49,7 @@ namespace mtl
 
             if (error != nil)
             {
-                
+
             }
 
             return Library{library};

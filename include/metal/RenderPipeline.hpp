@@ -5,18 +5,18 @@
 
 namespace mtl
 {
-    inline namespace detail
-    {
-        inline const Class renderPipelineDescriptorClass = objc_lookUpClass("MTLRenderPipelineDescriptor");
-
-        inline const auto setLabelSel = sel_registerName("setLabel:");
-    }
-
     class RenderPipelineDescriptor final: public ns::Object
     {
+        inline static const Class cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
+
+        inline static const auto allocSel = sel_registerName("alloc");
+        inline static const auto initSel = sel_registerName("init");
+        inline static const auto setLabelSel = sel_registerName("setLabel:");
+
     public:
         RenderPipelineDescriptor():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(renderPipelineDescriptorClass, ns::allocSel), ns::initSel)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
+                                         initSel), false}
         {
         }
 
