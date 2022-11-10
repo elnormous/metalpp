@@ -259,19 +259,6 @@ int main(int argc, const char* argv[]) {
     mtl::Library library = device.newDefaultLibrary();
     NSLog(@"Default library: %p\n", (id)library);
 
-    try
-    {
-        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
-        NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
-
-        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
-        NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
-    }
-    catch (const ns::Error& error)
-    {
-        NSLog(@"Error: %ld, %s, %s", error.code(), error.domain().cString(), error.localizedDescription().cString());
-    }
-
     ns::String str{"test"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
 
@@ -281,6 +268,25 @@ int main(int argc, const char* argv[]) {
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.setLabel(ns::String{"renderPipeline"});
     NSLog(@"Render pipeline descriptor: %p\n", (id)renderPipelineDescriptor);
+
+    try
+    {
+        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{"test"});
+        NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
+
+        mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"main"});
+        renderPipelineDescriptor.setVertexFunction(vertexFunction);
+
+        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{"test"});
+        NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
+
+        mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"main"});
+        renderPipelineDescriptor.setVertexFunction(fragmentFunction);
+    }
+    catch (const ns::Error& error)
+    {
+        NSLog(@"Error: %ld, %s, %s", error.code(), error.domain().cString(), error.localizedDescription().cString());
+    }
 
 //    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
 //    NSLog(@"Render pipeline state: %p\n", (id)renderPipelineState);
