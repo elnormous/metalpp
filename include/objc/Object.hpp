@@ -11,6 +11,7 @@ namespace ns
         inline const auto initSel = sel_registerName("init");
         inline const auto retainSel = sel_registerName("retain");
         inline const auto releaseSel = sel_registerName("release");
+        inline const auto retainCountSel = sel_registerName("retainCount");
     }
 
     class Object
@@ -20,7 +21,11 @@ namespace ns
         {
         }
         
-        Object(const id p) noexcept: ptr{p} {}
+        Object(const id p) noexcept: ptr{p}
+        {
+            if (ptr)
+                objc::sendMessage(ptr, retainSel);
+        }
 
         ~Object()
         {
@@ -72,6 +77,12 @@ namespace ns
         operator id() const noexcept
         {
             return ptr;
+        }
+
+        std::size_t retainCount() const noexcept
+        {
+            const NSUInteger count = objc::sendMessage<NSUInteger>(ptr, retainCountSel);
+            return static_cast<std::size_t>(count);
         }
 
     private:
