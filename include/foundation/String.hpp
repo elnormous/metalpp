@@ -1,6 +1,7 @@
 #ifndef METALPP_FOUNDATION_STRING_HPP
 #define METALPP_FOUNDATION_STRING_HPP
 
+#include <string>
 #include <string_view>
 #include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
@@ -12,6 +13,8 @@ namespace foundation
         inline const Class stringClass = objc_lookUpClass("NSString");
 
         inline const auto initWithBytesSel = sel_registerName("initWithBytes:length:encoding:");
+        inline const auto lengthSel = sel_registerName("length");
+        inline const auto characterAtIndexSel = sel_registerName("characterAtIndex:");
         inline const auto cStringUsingEncodingSel = sel_registerName("cStringUsingEncoding:");
     }
 
@@ -60,12 +63,34 @@ namespace foundation
         {
         }
 
-        const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const
+        char operator[](std::size_t index) const noexcept
+        {
+            unichar c = objc::sendMessage<unichar>(*this,
+                                                   characterAtIndexSel,
+                                                   static_cast<NSUInteger>(index));
+            return static_cast<char>(c);
+        }
+
+        std::size_t length() const noexcept
+        {
+            NSUInteger len = objc::sendMessage<NSUInteger>(*this, lengthSel);
+            return static_cast<std::size_t>(len);
+        }
+
+        const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
         {
             const char* str = objc::sendMessage<const char*>(*this,
                                                              cStringUsingEncodingSel,
                                                              encoding);
             return str;
+        }
+
+        std::string string(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
+        {
+            const char* str = objc::sendMessage<const char*>(*this,
+                                                             cStringUsingEncodingSel,
+                                                             encoding);
+            return std::string{str};
         }
     };
 }

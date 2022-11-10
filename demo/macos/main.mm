@@ -255,7 +255,7 @@ int main(int argc, const char* argv[]) {
     NSLog(@"Library: %p\n", (id)library);
 
     foundation::String str{"test"};
-    NSLog(@"String: %s\n", str.cString());
+    NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
 
     metalLayer.device = device; // assign device
     const CGSize drawableSize = windowSize;
