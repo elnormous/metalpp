@@ -67,31 +67,31 @@ namespace ns
 
         char operator[](std::size_t index) const noexcept
         {
-            unichar c = objc::sendMessage<unichar>(*this,
-                                                   characterAtIndexSel,
-                                                   static_cast<NSUInteger>(index));
+            const auto c = objc::sendMessage<unichar>(*this,
+                                                      characterAtIndexSel,
+                                                      static_cast<NSUInteger>(index));
             return static_cast<char>(c);
         }
 
         std::size_t length() const noexcept
         {
-            NSUInteger length = objc::sendMessage<NSUInteger>(*this, lengthSel);
+            const auto length = objc::sendMessage<NSUInteger>(*this, lengthSel);
             return static_cast<std::size_t>(length);
         }
 
         const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
         {
-            const char* str = objc::sendMessage<const char*>(*this,
-                                                             cStringUsingEncodingSel,
-                                                             encoding);
+            const auto str = objc::sendMessage<const char*>(*this,
+                                                            cStringUsingEncodingSel,
+                                                            encoding);
             return str;
         }
 
         std::string string(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
         {
-            const char* str = objc::sendMessage<const char*>(*this,
-                                                             cStringUsingEncodingSel,
-                                                             encoding);
+            const auto str = objc::sendMessage<const char*>(*this,
+                                                            cStringUsingEncodingSel,
+                                                            encoding);
             return std::string{str};
         }
     };

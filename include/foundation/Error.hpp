@@ -22,13 +22,13 @@ namespace ns
 
         ns::String domain() const noexcept
         {
-            id domain = objc::sendMessage<id>(*this, domainSel);
+            const id domain = objc::sendMessage<id>(*this, domainSel);
             return ns::String{objc::sendMessage<id>(domain, retainSel)};
         }
 
         ns::String localizedDescription() const noexcept
         {
-            id localizedDescription = objc::sendMessage<id>(*this, localizedDescriptionSel);
+            const id localizedDescription = objc::sendMessage<id>(*this, localizedDescriptionSel);
             return ns::String{objc::sendMessage<id>(localizedDescription, retainSel)};
         }
     };

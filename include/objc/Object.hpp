@@ -73,8 +73,8 @@ namespace ns
 
         std::size_t retainCount() const noexcept
         {
-            const NSUInteger count = objc::sendMessage<NSUInteger>(ptr, retainCountSel);
-            return static_cast<std::size_t>(count);
+            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, retainCountSel);
+            return static_cast<std::size_t>(retainCount);
         }
 
     protected:

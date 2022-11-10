@@ -21,9 +21,9 @@ namespace mtl
 
         Function newFunctionWithName(const ns::String name)
         {
-            id function = objc::sendMessage<id>(*this,
-                                                newFunctionWithNameSel,
-                                                static_cast<id>(name));
+            const id function = objc::sendMessage<id>(*this,
+                                                      newFunctionWithNameSel,
+                                                      static_cast<id>(name));
             return Function{objc::sendMessage<id>(function, retainSel)};
         }
     };
