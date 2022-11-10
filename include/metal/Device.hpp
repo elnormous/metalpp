@@ -23,19 +23,19 @@ namespace mtl
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()} {}
 
-        ns::String name() const
+        ns::String name() const noexcept
         {
             const id name = objc::sendMessage<id>(*this, nameSel);
             return ns::String{objc::sendMessage<id>(name, retainSel)};
         }
 
-        Library newDefaultLibrary() const
+        Library newDefaultLibrary() const noexcept
         {
             const id library = objc::sendMessage<id>(*this, newDefaultLibrarySel);
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String source) const
+        Library newLibraryWithSource(const ns::String source) const noexcept
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -50,7 +50,7 @@ namespace mtl
             return Library{objc::sendMessage<id>(library, retainSel)};
         }
 
-        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
+        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const noexcept
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this, newRenderPipelineStateWithDescriptorErrorSel,

@@ -19,7 +19,7 @@ namespace mtl
     public:
         Library(const id p) noexcept: Object{p} {}
 
-        Function newFunctionWithName(const ns::String name)
+        Function newFunctionWithName(const ns::String name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
                                                       newFunctionWithNameSel,
