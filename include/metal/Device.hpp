@@ -34,7 +34,7 @@ namespace mtl
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
-                                                     objc::newLibraryWithSourceOptionsErrorSel,
+                                                     objc::newLibraryWithSource_options_error_Sel,
                                                      static_cast<id>(source),
                                                      nil,
                                                      &error);
@@ -49,7 +49,7 @@ namespace mtl
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,
-                                                                 objc::newRenderPipelineStateWithDescriptorErrorSel,
+                                                                 objc::newRenderPipelineStateWithDescriptor_error_Sel,
                                                                  static_cast<id>(renderPipelineDescriptor),
                                                                  &error);
 

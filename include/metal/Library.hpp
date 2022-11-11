@@ -21,7 +21,7 @@ namespace mtl
         Function newFunctionWithName(const ns::String name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
-                                                      objc::newFunctionWithNameSel,
+                                                      objc::newFunctionWithName_Sel,
                                                       static_cast<id>(name));
             return Function{function};
         }

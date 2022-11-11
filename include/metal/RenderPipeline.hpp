@@ -20,32 +20,32 @@ namespace mtl
 
         void setLabel(const ns::String label) noexcept
         {
-            objc::sendMessage(*this, objc::setLabelSel, static_cast<id>(label));
+            objc::sendMessage(*this, objc::setLabel_Sel, static_cast<id>(label));
         }
 
         void setVertexFunction(const mtl::Function function) noexcept
         {
-            objc::sendMessage(*this, objc::setVertexFunctionSel, static_cast<id>(function));
+            objc::sendMessage(*this, objc::setVertexFunction_Sel, static_cast<id>(function));
         }
 
         void setFragmentFunction(const mtl::Function function) noexcept
         {
-            objc::sendMessage(*this, objc::setFragmentFunctionSel, static_cast<id>(function));
+            objc::sendMessage(*this, objc::setFragmentFunction_Sel, static_cast<id>(function));
         }
 
         void setVertexDescriptor(const mtl::VertexDescriptor vertexDescriptor) noexcept
         {
-            objc::sendMessage(*this, objc::setVertexDescriptorSel, static_cast<id>(vertexDescriptor));
+            objc::sendMessage(*this, objc::setVertexDescriptor_Sel, static_cast<id>(vertexDescriptor));
         }
 
         void setDepthAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
         {
-            objc::sendMessage(*this, objc::setDepthAttachmentPixelFormatSel, pixelFormat);
+            objc::sendMessage(*this, objc::setDepthAttachmentPixelFormat_Sel, pixelFormat);
         }
 
         void setStencilAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
         {
-            objc::sendMessage(*this, objc::setStencilAttachmentPixelFormatSel, pixelFormat);
+            objc::sendMessage(*this, objc::setStencilAttachmentPixelFormat_Sel, pixelFormat);
         }
     };
 

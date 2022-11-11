@@ -53,7 +53,7 @@ namespace ns
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCII):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, objc::allocSel),
-                                         objc::initWithBytesLengthEncodingSel,
+                                         objc::initWithBytes_length_encoding_Sel,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),
                                          encoding)}
@@ -68,7 +68,7 @@ namespace ns
         char charAtIndex(const NSUInteger index) const noexcept
         {
             const auto c = objc::sendMessage<unichar>(*this,
-                                                      objc::characterAtIndexSel,
+                                                      objc::characterAtIndex_Sel,
                                                       index);
             return static_cast<char>(c);
         }
@@ -82,7 +82,7 @@ namespace ns
         const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
-                                                            objc::cStringUsingEncodingSel,
+                                                            objc::cStringUsingEncoding_Sel,
                                                             encoding);
             return str;
         }
@@ -90,7 +90,7 @@ namespace ns
         std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
-                                                            objc::cStringUsingEncodingSel,
+                                                            objc::cStringUsingEncoding_Sel,
                                                             encoding);
             return std::string{str};
         }

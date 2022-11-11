@@ -342,14 +342,49 @@ int main(int argc, const char* argv[]) {
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
         NSLog(@"Vertex layouts: %p, %lu\n", (id)vertexLayouts, vertexLayouts.retainCount());
 
-        mtl::VertexBufferLayoutDescriptor vertexLayout = vertexLayouts[0];
-        NSLog(@"Vertex layout: %p, %lu\n", (id)vertexLayout, vertexLayout.retainCount());
+        mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+        NSLog(@"Vertex layout 0: %p, %lu\n", (id)vertexLayout0, vertexLayout0.retainCount());
+        vertexLayout0.setStride(44);
+        vertexLayout0.setStepRate(1);
+        vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
 
         mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
         NSLog(@"Vertex attributes: %p, %lu\n", (id)vertexAttributes, vertexAttributes.retainCount());
 
-        mtl::VertexAttributeDescriptor vertexAttribute = vertexAttributes[0];
-        NSLog(@"Vertex attribute: %p, %lu\n", (id)vertexAttribute, vertexAttribute.retainCount());
+        // position
+        mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+        NSLog(@"Vertex attribute 0: %p, %lu\n", (id)vertexAttribute0, vertexAttribute0.retainCount());
+        vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
+        vertexAttribute0.setOffset(0);
+        vertexAttribute0.setBufferIndex(0);
+
+        // color
+        mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
+        NSLog(@"Vertex attribute 1: %p, %lu\n", (id)vertexAttribute1, vertexAttribute1.retainCount());
+        vertexAttribute1.setFormat(mtl::VertexFormat::UChar4Normalized);
+        vertexAttribute1.setOffset(12);
+        vertexAttribute1.setBufferIndex(0);
+
+        // texture coordinates 0
+        mtl::VertexAttributeDescriptor vertexAttribute2 = vertexAttributes[2];
+        NSLog(@"Vertex attribute 2: %p, %lu\n", (id)vertexAttribute2, vertexAttribute2.retainCount());
+        vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
+        vertexAttribute2.setOffset(16);
+        vertexAttribute2.setBufferIndex(0);
+
+        // texture coordinates 1
+        mtl::VertexAttributeDescriptor vertexAttribute3 = vertexAttributes[3];
+        NSLog(@"Vertex attribute 3: %p, %lu\n", (id)vertexAttribute3, vertexAttribute3.retainCount());
+        vertexAttribute3.setFormat(mtl::VertexFormat::Float2);
+        vertexAttribute3.setOffset(24);
+        vertexAttribute3.setBufferIndex(0);
+
+        // normal
+        mtl::VertexAttributeDescriptor vertexAttribute4 = vertexAttributes[4];
+        NSLog(@"Vertex attribute 4: %p, %lu\n", (id)vertexAttribute4, vertexAttribute4.retainCount());
+        vertexAttribute4.setFormat(mtl::VertexFormat::Float3);
+        vertexAttribute4.setOffset(32);
+        vertexAttribute4.setBufferIndex(0);
 
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 
