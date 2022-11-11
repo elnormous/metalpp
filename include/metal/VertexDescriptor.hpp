@@ -1,6 +1,10 @@
 #ifndef METALPP_METAL_VERTEXDESCRIPTOR_HPP
 #define METALPP_METAL_VERTEXDESCRIPTOR_HPP
 
+#include "../objc/Classes.hpp"
+#include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
+
 namespace mtl
 {
     enum class VertexFormat: NSUInteger
@@ -85,21 +89,41 @@ namespace mtl
         PerPatchControlPoint = 4,
     };
 
+    class VertexBufferLayoutDescriptorArray final: public ns::Object
+    {
+    public:
+        VertexBufferLayoutDescriptorArray(const id p) noexcept: Object{p} {}
+    };
+
+    class VertexAttributeDescriptorArray final: public ns::Object
+    {
+    public:
+        VertexAttributeDescriptorArray(const id p) noexcept: Object{p} {}
+    };
+
     class VertexDescriptor final: public ns::Object
     {
-        inline static const auto cls = objc_lookUpClass("MTLVertexDescriptor");
-
-        inline static const auto resetSel = sel_registerName("reset");
-
     public:
         VertexDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::vertexDescriptorClass, objc::allocSel), objc::initSel)}
         {
+        }
+
+        VertexBufferLayoutDescriptorArray layouts() noexcept
+        {
+            const id layouts = objc::sendMessage<id>(*this, objc::layoutsSel);
+            return VertexBufferLayoutDescriptorArray{objc::sendMessage<id>(layouts, objc::retainSel)};
+        }
+
+        VertexAttributeDescriptorArray attributes() noexcept
+        {
+            const id attributes = objc::sendMessage<id>(*this, objc::attributesSel);
+            return VertexAttributeDescriptorArray{objc::sendMessage<id>(attributes, objc::retainSel)};
         }
 
         void reset() noexcept
         {
-            objc::sendMessage(*this, resetSel);
+            objc::sendMessage(*this, objc::resetSel);
         }
     };
 }

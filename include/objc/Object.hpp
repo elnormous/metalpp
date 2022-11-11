@@ -1,36 +1,29 @@
 #ifndef METALPP_OBJC_OBJECT_HPP
 #define METALPP_OBJC_OBJECT_HPP
 
+#include "Classes.hpp"
 #include "Runtime.hpp"
+#include "Selectors.hpp"
 
 namespace ns
 {
     class Object
     {
-    protected:
-        inline static const auto cls = objc_lookUpClass("NSObject");
-
-        inline static const auto allocSel = sel_registerName("alloc");
-        inline static const auto initSel = sel_registerName("init");
-        inline static const auto retainSel = sel_registerName("retain");
-        inline static const auto releaseSel = sel_registerName("release");
-        inline static const auto retainCountSel = sel_registerName("retainCount");
-
     public:
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(objc::objectClass, objc::allocSel), objc::initSel)}
         {
         }
 
         ~Object()
         {
-            objc::sendMessage(ptr, releaseSel);
+            objc::sendMessage(ptr, objc::releaseSel);
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            objc::sendMessage(ptr, retainSel);
+            objc::sendMessage(ptr, objc::retainSel);
         }
 
         Object(Object&& other) noexcept:
@@ -42,8 +35,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            objc::sendMessage(other.ptr, retainSel);
-            objc::sendMessage(ptr, releaseSel);
+            objc::sendMessage(other.ptr, objc::retainSel);
+            objc::sendMessage(ptr, objc::releaseSel);
             ptr = other.ptr;
             return *this;
         }
@@ -73,7 +66,7 @@ namespace ns
 
         std::size_t retainCount() const noexcept
         {
-            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, retainCountSel);
+            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, objc::retainCountSel);
             return static_cast<std::size_t>(retainCount);
         }
 

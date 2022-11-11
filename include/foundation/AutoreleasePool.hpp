@@ -1,25 +1,23 @@
 #ifndef METALPP_FOUNDATION_AUTORELEASEPOOL_HPP
 #define METALPP_FOUNDATION_AUTORELEASEPOOL_HPP
 
+#include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
 
 namespace ns
 {
     class AutoreleasePool final: public ns::Object
     {
-        inline static const auto cls = objc_lookUpClass("NSAutoreleasePool");
-
-        inline static const auto drainSel = sel_registerName("drain");
-
     public:
         AutoreleasePool() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel), initSel)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::autoreleasePoolClass, objc::allocSel), objc::initSel)}
         {            
         }
 
         void drain() noexcept
         {
-            objc::sendMessage(*this, drainSel);
+            objc::sendMessage(*this, objc::drainSel);
         }
     };
 }

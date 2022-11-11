@@ -31,6 +31,8 @@
 		30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
 		30D7680A291CDD1900EDBCB7 /* PixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelFormat.hpp; sourceTree = "<group>"; };
 		30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
+		30D7680C291DF48000EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		30D7680D291DF4BC00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +103,10 @@
 		30719771291B6E4E00C321B0 /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				30D7680D291DF4BC00EDBCB7 /* Classes.hpp */,
 				3071977C291B794700C321B0 /* Object.hpp */,
 				30719772291B6E6600C321B0 /* Runtime.hpp */,
+				30D7680C291DF48000EDBCB7 /* Selectors.hpp */,
 			);
 			path = objc;
 			sourceTree = "<group>";

@@ -338,6 +338,13 @@ int main(int argc, const char* argv[]) {
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
 
         mtl::VertexDescriptor vertexDescriptor;
+
+        mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+        NSLog(@"Vertex layouts: %p, %lu\n", (id)vertexLayouts, vertexLayouts.retainCount());
+
+        mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+        NSLog(@"Vertex attributes: %p, %lu\n", (id)vertexAttributes, vertexAttributes.retainCount());
+
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 
         renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);

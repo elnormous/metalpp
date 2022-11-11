@@ -2,6 +2,7 @@
 #define METALPP_METAL_LIBRARY_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
 #include "../foundation/String.hpp"
 
 namespace mtl
@@ -14,15 +15,13 @@ namespace mtl
     
     class Library final: public ns::Object
     {
-        inline static const auto newFunctionWithNameSel = sel_registerName("newFunctionWithName:");
-
     public:
         Library(const id p) noexcept: Object{p} {}
 
         Function newFunctionWithName(const ns::String name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
-                                                      newFunctionWithNameSel,
+                                                      objc::newFunctionWithNameSel,
                                                       static_cast<id>(name));
             return Function{function};
         }

@@ -3,6 +3,7 @@
 
 #include <type_traits>
 #include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "Library.hpp"
@@ -14,23 +15,18 @@ namespace mtl
 {
     class Device final: public ns::Object
     {
-        inline static const auto newDefaultLibrarySel = sel_registerName("newDefaultLibrary");
-        inline static const auto newLibraryWithSourceOptionsErrorSel = sel_registerName("newLibraryWithSource:options:error:");
-        inline static const auto nameSel = sel_registerName("name");
-        inline static const auto newRenderPipelineStateWithDescriptorErrorSel = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
-
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()} {}
 
         ns::String name() const noexcept
         {
-            const id name = objc::sendMessage<id>(*this, nameSel);
-            return ns::String{objc::sendMessage<id>(name, retainSel)};
+            const id name = objc::sendMessage<id>(*this, objc::nameSel);
+            return ns::String{objc::sendMessage<id>(name, objc::retainSel)};
         }
 
         Library newDefaultLibrary() const
         {
-            const id library = objc::sendMessage<id>(*this, newDefaultLibrarySel);
+            const id library = objc::sendMessage<id>(*this, objc::newDefaultLibrarySel);
             return Library{library};
         }
 
@@ -38,13 +34,13 @@ namespace mtl
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
-                                                     newLibraryWithSourceOptionsErrorSel,
+                                                     objc::newLibraryWithSourceOptionsErrorSel,
                                                      static_cast<id>(source),
                                                      nil,
                                                      &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, retainSel)};
+                throw ns::Error{objc::sendMessage<id>(error, objc::retainSel)};
 
             return Library{library};
         }
@@ -52,12 +48,13 @@ namespace mtl
         RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
         {
             id error;
-            const id renderPipelineState = objc::sendMessage<id>(*this, newRenderPipelineStateWithDescriptorErrorSel,
+            const id renderPipelineState = objc::sendMessage<id>(*this,
+                                                                 objc::newRenderPipelineStateWithDescriptorErrorSel,
                                                                  static_cast<id>(renderPipelineDescriptor),
                                                                  &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, retainSel)};
+                throw ns::Error{objc::sendMessage<id>(error, objc::retainSel)};
 
             return RenderPipelineState{renderPipelineState};
         }
