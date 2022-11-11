@@ -19,7 +19,6 @@ namespace mtl
         inline static const auto nameSel = sel_registerName("name");
         inline static const auto newRenderPipelineStateWithDescriptorErrorSel = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
 
-
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()} {}
 
@@ -47,7 +46,7 @@ namespace mtl
             if (error != nil)
                 throw ns::Error{objc::sendMessage<id>(error, retainSel)};
 
-            return Library{objc::sendMessage<id>(library, retainSel)};
+            return Library{library};
         }
 
         RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
@@ -60,7 +59,7 @@ namespace mtl
             if (error != nil)
                 throw ns::Error{objc::sendMessage<id>(error, retainSel)};
 
-            return RenderPipelineState{objc::sendMessage<id>(renderPipelineState, retainSel)};
+            return RenderPipelineState{renderPipelineState};
         }
     };
 }

@@ -271,7 +271,7 @@ int main(int argc, const char* argv[]) {
     const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
 
     NSScreen* screen = [NSScreen mainScreen];
-    NSLog(@"Screen: %ld\n", screen.retainCount);
+    NSLog(@"Screen: %lu\n", screen.retainCount);
 
     const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
                                          round(screen.frame.size.height * 0.6));
@@ -307,11 +307,11 @@ int main(int argc, const char* argv[]) {
     mtl::Device device;
     {
         ns::String name = device.name();
-        NSLog(@"Device name: %s, %ld\n", name.cString(), name.retainCount());
+        NSLog(@"Device name: %s, %lu\n", name.cString(), name.retainCount());
     }
 
     mtl::Library library = device.newDefaultLibrary();
-    NSLog(@"Default library: %p\n", (id)library);
+    NSLog(@"Default library: %p, %lu\n", (id)library, library.retainCount());
 
     ns::String str{"test"};
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
@@ -326,29 +326,29 @@ int main(int argc, const char* argv[]) {
     try
     {
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader});
-        NSLog(@"Vertex library: %p\n", (id)vertexLibrary);
+        NSLog(@"Vertex library: %p, %lu\n", (id)vertexLibrary, vertexLibrary.retainCount());
 
         mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
 
         mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
-        NSLog(@"Fragment library: %p\n", (id)fragmentLibrary);
+        NSLog(@"Fragment library: %p, %lu\n", (id)fragmentLibrary, fragmentLibrary.retainCount());
 
         mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
-
-        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
-        NSLog(@"Render pipeline state: %p\n", (id)renderPipelineState);
 
         mtl::VertexDescriptor vertexDescriptor;
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 
         renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
         renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+
+        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
+        NSLog(@"Render pipeline state: %p, %lu\n", (id)renderPipelineState, renderPipelineState.retainCount());
     }
     catch (const ns::Error& error)
     {
-        NSLog(@"Error: %ld, %s, %s", error.code(), error.domain().cString(), error.localizedDescription().cString());
+        NSLog(@"Error: %ld, %s, %s, %lu", error.code(), error.domain().cString(), error.localizedDescription().cString(), error.retainCount());
     }
 
     metalLayer.device = device; // assign device
