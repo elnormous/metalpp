@@ -4,6 +4,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/String.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -21,7 +22,7 @@ namespace mtl
         Function newFunctionWithName(const ns::String name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
-                                                      objc::sel::newFunctionWithName_,
+                                                      sel::newFunctionWithName_,
                                                       static_cast<id>(name));
             return Function{function};
         }

@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/String.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -12,7 +13,7 @@ namespace mtl
     {
     public:
         DepthStencilDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::depthStencilDescriptorClass, objc::sel::alloc), objc::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::depthStencilDescriptorClass, ns::sel::alloc), ns::sel::init)}
         {
         }
     };
@@ -22,8 +23,8 @@ namespace mtl
     public:
         ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, objc::sel::label);
-            return ns::String{objc::sendMessage<id>(label, objc::sel::retain)};
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
         }
     };
 }

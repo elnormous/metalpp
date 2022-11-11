@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Selectors.hpp"
 #include "String.hpp"
 
 namespace ns
@@ -14,19 +15,19 @@ namespace ns
 
         NSInteger code() const noexcept
         {
-            return objc::sendMessage<NSInteger>(*this, objc::sel::code);
+            return objc::sendMessage<NSInteger>(*this, sel::code);
         }
 
         ns::String domain() const noexcept
         {
-            const id domain = objc::sendMessage<id>(*this, objc::sel::domain);
-            return ns::String{objc::sendMessage<id>(domain, objc::sel::retain)};
+            const id domain = objc::sendMessage<id>(*this, sel::domain);
+            return ns::String{objc::sendMessage<id>(domain, ns::sel::retain)};
         }
 
         ns::String localizedDescription() const noexcept
         {
-            const id localizedDescription = objc::sendMessage<id>(*this, objc::sel::localizedDescription);
-            return ns::String{objc::sendMessage<id>(localizedDescription, objc::sel::retain)};
+            const id localizedDescription = objc::sendMessage<id>(*this, sel::localizedDescription);
+            return ns::String{objc::sendMessage<id>(localizedDescription, ns::sel::retain)};
         }
     };
 }

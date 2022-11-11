@@ -7,6 +7,7 @@
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "Library.hpp"
+#include "Selectors.hpp"
 #include "RenderPipeline.hpp"
 
 extern "C" id MTLCreateSystemDefaultDevice();
@@ -20,13 +21,13 @@ namespace mtl
 
         ns::String name() const noexcept
         {
-            const id name = objc::sendMessage<id>(*this, objc::sel::name);
-            return ns::String{objc::sendMessage<id>(name, objc::sel::retain)};
+            const id name = objc::sendMessage<id>(*this, sel::name);
+            return ns::String{objc::sendMessage<id>(name, ns::sel::retain)};
         }
 
         Library newDefaultLibrary() const
         {
-            const id library = objc::sendMessage<id>(*this, objc::sel::newDefaultLibrary);
+            const id library = objc::sendMessage<id>(*this, sel::newDefaultLibrary);
             return Library{library};
         }
 
@@ -34,13 +35,13 @@ namespace mtl
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
-                                                     objc::sel::newLibraryWithSource_options_error_,
+                                                     sel::newLibraryWithSource_options_error_,
                                                      static_cast<id>(source),
                                                      nil,
                                                      &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, objc::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
 
             return Library{library};
         }
@@ -49,12 +50,12 @@ namespace mtl
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,
-                                                                 objc::sel::newRenderPipelineStateWithDescriptor_error_,
+                                                                 sel::newRenderPipelineStateWithDescriptor_error_,
                                                                  static_cast<id>(renderPipelineDescriptor),
                                                                  &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, objc::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
 
             return RenderPipelineState{renderPipelineState};
         }

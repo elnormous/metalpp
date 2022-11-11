@@ -4,6 +4,8 @@
 #include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "../foundation/Selectors.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -96,32 +98,32 @@ namespace mtl
 
         NSUInteger stride() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, objc::sel::stride);
+            return objc::sendMessage<NSUInteger>(*this, sel::stride);
         }
 
         void setStride(NSUInteger stride) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setStride_, stride);
+            objc::sendMessage(*this, sel::setStride_, stride);
         }
 
         VertexStepFunction stepFunction() const noexcept
         {
-            return objc::sendMessage<VertexStepFunction>(*this, objc::sel::stepFunction);
+            return objc::sendMessage<VertexStepFunction>(*this, sel::stepFunction);
         }
 
         void setStepFunction(VertexStepFunction stepFunction) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setStepFunction_, stepFunction);
+            objc::sendMessage(*this, sel::setStepFunction_, stepFunction);
         }
 
         NSUInteger stepRate() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, objc::sel::stepRate);
+            return objc::sendMessage<NSUInteger>(*this, sel::stepRate);
         }
 
         void setStepRate(NSUInteger stepRate) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setStepRate_, stepRate);
+            objc::sendMessage(*this, sel::setStepRate_, stepRate);
         }
     };
 
@@ -138,9 +140,9 @@ namespace mtl
         VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
-                                                    objc::sel::objectAtIndexedSubscript_,
+                                                    ns::sel::objectAtIndexedSubscript_,
                                                     index);
-            return VertexBufferLayoutDescriptor{objc::sendMessage<id>(object, objc::sel::retain)};
+            return VertexBufferLayoutDescriptor{objc::sendMessage<id>(object, ns::sel::retain)};
         }
     };
 
@@ -151,32 +153,32 @@ namespace mtl
 
         VertexFormat format() const noexcept
         {
-            return objc::sendMessage<VertexFormat>(*this, objc::sel::format);
+            return objc::sendMessage<VertexFormat>(*this, sel::format);
         }
 
         void setFormat(VertexFormat vertexFormat) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setFormat_, vertexFormat);
+            objc::sendMessage(*this, sel::setFormat_, vertexFormat);
         }
 
         NSUInteger offset() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, objc::sel::offset);
+            return objc::sendMessage<NSUInteger>(*this, sel::offset);
         }
 
         void setOffset(NSUInteger offset) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setOffset_, offset);
+            objc::sendMessage(*this, sel::setOffset_, offset);
         }
 
         NSUInteger bufferIndex() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, objc::sel::bufferIndex);
+            return objc::sendMessage<NSUInteger>(*this, sel::bufferIndex);
         }
 
         void setBufferIndex(NSUInteger bufferIndex) const noexcept
         {
-            objc::sendMessage(*this, objc::sel::setBufferIndex_, bufferIndex);
+            objc::sendMessage(*this, sel::setBufferIndex_, bufferIndex);
         }
     };
 
@@ -193,9 +195,9 @@ namespace mtl
         VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
-                                                    objc::sel::objectAtIndexedSubscript_,
+                                                    ns::sel::objectAtIndexedSubscript_,
                                                     index);
-            return VertexAttributeDescriptor{objc::sendMessage<id>(object, objc::sel::retain)};
+            return VertexAttributeDescriptor{objc::sendMessage<id>(object, ns::sel::retain)};
         }
     };
 
@@ -203,7 +205,7 @@ namespace mtl
     {
     public:
         VertexDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::vertexDescriptorClass, objc::sel::alloc), objc::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::vertexDescriptorClass, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -211,19 +213,19 @@ namespace mtl
 
         VertexBufferLayoutDescriptorArray layouts() const noexcept
         {
-            const id layouts = objc::sendMessage<id>(*this, objc::sel::layouts);
-            return VertexBufferLayoutDescriptorArray{objc::sendMessage<id>(layouts, objc::sel::retain)};
+            const id layouts = objc::sendMessage<id>(*this, sel::layouts);
+            return VertexBufferLayoutDescriptorArray{objc::sendMessage<id>(layouts, ns::sel::retain)};
         }
 
         VertexAttributeDescriptorArray attributes() const noexcept
         {
-            const id attributes = objc::sendMessage<id>(*this, objc::sel::attributes);
-            return VertexAttributeDescriptorArray{objc::sendMessage<id>(attributes, objc::sel::retain)};
+            const id attributes = objc::sendMessage<id>(*this, sel::attributes);
+            return VertexAttributeDescriptorArray{objc::sendMessage<id>(attributes, ns::sel::retain)};
         }
 
         void reset() noexcept
         {
-            objc::sendMessage(*this, objc::sel::reset);
+            objc::sendMessage(*this, sel::reset);
         }
     };
 }

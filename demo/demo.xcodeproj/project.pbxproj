@@ -33,6 +33,8 @@
 		30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
 		30D7680C291DF48000EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		30D7680D291DF4BC00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
+		30D7680E291E1A2700EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				3071976C291A0BDE00C321B0 /* Metal.hpp */,
 				30D7680A291CDD1900EDBCB7 /* PixelFormat.hpp */,
 				30719783291C838000C321B0 /* RenderPipeline.hpp */,
+				30D7680E291E1A2700EDBCB7 /* Selectors.hpp */,
 				30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */,
 			);
 			path = metal;
@@ -116,6 +119,7 @@
 			children = (
 				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
 				30719770291A16BE00C321B0 /* Error.hpp */,
+				30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */,
 				3071977D291C05CB00C321B0 /* String.hpp */,
 			);
 			path = foundation;

@@ -7,6 +7,7 @@
 #include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Selectors.hpp"
 
 namespace ns
 {
@@ -44,7 +45,7 @@ namespace ns
     {
     public:
         String():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, objc::sel::alloc), objc::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -52,8 +53,8 @@ namespace ns
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCII):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, objc::sel::alloc),
-                                         objc::sel::initWithBytes_length_encoding_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, ns::sel::alloc),
+                                         sel::initWithBytes_length_encoding_,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),
                                          encoding)}
@@ -68,21 +69,21 @@ namespace ns
         char charAtIndex(const NSUInteger index) const noexcept
         {
             const auto c = objc::sendMessage<unichar>(*this,
-                                                      objc::sel::characterAtIndex_,
+                                                      sel::characterAtIndex_,
                                                       index);
             return static_cast<char>(c);
         }
 
         std::size_t length() const noexcept
         {
-            const auto length = objc::sendMessage<NSUInteger>(*this, objc::sel::length);
+            const auto length = objc::sendMessage<NSUInteger>(*this, sel::length);
             return static_cast<std::size_t>(length);
         }
 
         const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
-                                                            objc::sel::cStringUsingEncoding_,
+                                                            sel::cStringUsingEncoding_,
                                                             encoding);
             return str;
         }
@@ -90,7 +91,7 @@ namespace ns
         std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
-                                                            objc::sel::cStringUsingEncoding_,
+                                                            sel::cStringUsingEncoding_,
                                                             encoding);
             return std::string{str};
         }

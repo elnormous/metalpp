@@ -4,6 +4,7 @@
 #include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Selectors.hpp"
 
 namespace ns
 {
@@ -11,13 +12,13 @@ namespace ns
     {
     public:
         AutoreleasePool() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::autoreleasePoolClass, objc::sel::alloc), objc::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::autoreleasePoolClass, ns::sel::alloc), ns::sel::init)}
         {            
         }
 
         void drain() noexcept
         {
-            objc::sendMessage(*this, objc::sel::drain);
+            objc::sendMessage(*this, sel::drain);
         }
     };
 }
