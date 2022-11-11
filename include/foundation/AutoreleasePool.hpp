@@ -11,13 +11,13 @@ namespace ns
     {
     public:
         AutoreleasePool() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::autoreleasePoolClass, objc::allocSel), objc::initSel)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::autoreleasePoolClass, objc::sel::alloc), objc::sel::init)}
         {            
         }
 
         void drain() noexcept
         {
-            objc::sendMessage(*this, objc::drainSel);
+            objc::sendMessage(*this, objc::sel::drain);
         }
     };
 }

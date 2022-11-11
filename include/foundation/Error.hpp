@@ -14,19 +14,19 @@ namespace ns
 
         NSInteger code() const noexcept
         {
-            return objc::sendMessage<NSInteger>(*this, objc::codeSel);
+            return objc::sendMessage<NSInteger>(*this, objc::sel::code);
         }
 
         ns::String domain() const noexcept
         {
-            const id domain = objc::sendMessage<id>(*this, objc::domainSel);
-            return ns::String{objc::sendMessage<id>(domain, objc::retainSel)};
+            const id domain = objc::sendMessage<id>(*this, objc::sel::domain);
+            return ns::String{objc::sendMessage<id>(domain, objc::sel::retain)};
         }
 
         ns::String localizedDescription() const noexcept
         {
-            const id localizedDescription = objc::sendMessage<id>(*this, objc::localizedDescriptionSel);
-            return ns::String{objc::sendMessage<id>(localizedDescription, objc::retainSel)};
+            const id localizedDescription = objc::sendMessage<id>(*this, objc::sel::localizedDescription);
+            return ns::String{objc::sendMessage<id>(localizedDescription, objc::sel::retain)};
         }
     };
 }

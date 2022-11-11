@@ -11,19 +11,19 @@ namespace ns
     {
     public:
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(objc::objectClass, objc::allocSel), objc::initSel)}
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(objc::objectClass, objc::sel::alloc), objc::sel::init)}
         {
         }
 
         ~Object()
         {
-            objc::sendMessage(ptr, objc::releaseSel);
+            objc::sendMessage(ptr, objc::sel::release);
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            objc::sendMessage(ptr, objc::retainSel);
+            objc::sendMessage(ptr, objc::sel::retain);
         }
 
         Object(Object&& other) noexcept:
@@ -35,8 +35,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            objc::sendMessage(other.ptr, objc::retainSel);
-            objc::sendMessage(ptr, objc::releaseSel);
+            objc::sendMessage(other.ptr, objc::sel::retain);
+            objc::sendMessage(ptr, objc::sel::release);
             ptr = other.ptr;
             return *this;
         }
@@ -66,7 +66,7 @@ namespace ns
 
         std::size_t retainCount() const noexcept
         {
-            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, objc::retainCountSel);
+            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, objc::sel::retainCount);
             return static_cast<std::size_t>(retainCount);
         }
 

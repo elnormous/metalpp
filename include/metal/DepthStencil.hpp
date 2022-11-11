@@ -12,7 +12,7 @@ namespace mtl
     {
     public:
         DepthStencilDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::depthStencilDescriptorClass, objc::allocSel), objc::initSel)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::depthStencilDescriptorClass, objc::sel::alloc), objc::sel::init)}
         {
         }
     };
@@ -22,8 +22,8 @@ namespace mtl
     public:
         ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, objc::labelSel);
-            return ns::String{objc::sendMessage<id>(label, objc::retainSel)};
+            const id label = objc::sendMessage<id>(*this, objc::sel::label);
+            return ns::String{objc::sendMessage<id>(label, objc::sel::retain)};
         }
     };
 }

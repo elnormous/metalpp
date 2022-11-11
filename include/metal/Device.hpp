@@ -20,13 +20,13 @@ namespace mtl
 
         ns::String name() const noexcept
         {
-            const id name = objc::sendMessage<id>(*this, objc::nameSel);
-            return ns::String{objc::sendMessage<id>(name, objc::retainSel)};
+            const id name = objc::sendMessage<id>(*this, objc::sel::name);
+            return ns::String{objc::sendMessage<id>(name, objc::sel::retain)};
         }
 
         Library newDefaultLibrary() const
         {
-            const id library = objc::sendMessage<id>(*this, objc::newDefaultLibrarySel);
+            const id library = objc::sendMessage<id>(*this, objc::sel::newDefaultLibrary);
             return Library{library};
         }
 
@@ -34,13 +34,13 @@ namespace mtl
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
-                                                     objc::newLibraryWithSource_options_error_Sel,
+                                                     objc::sel::newLibraryWithSource_options_error_,
                                                      static_cast<id>(source),
                                                      nil,
                                                      &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, objc::retainSel)};
+                throw ns::Error{objc::sendMessage<id>(error, objc::sel::retain)};
 
             return Library{library};
         }
@@ -49,12 +49,12 @@ namespace mtl
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,
-                                                                 objc::newRenderPipelineStateWithDescriptor_error_Sel,
+                                                                 objc::sel::newRenderPipelineStateWithDescriptor_error_,
                                                                  static_cast<id>(renderPipelineDescriptor),
                                                                  &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, objc::retainSel)};
+                throw ns::Error{objc::sendMessage<id>(error, objc::sel::retain)};
 
             return RenderPipelineState{renderPipelineState};
         }
