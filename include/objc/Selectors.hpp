@@ -25,8 +25,6 @@ namespace objc
     inline const auto characterAtIndex_Sel = sel_registerName("characterAtIndex:");
     inline const auto cStringUsingEncoding_Sel = sel_registerName("cStringUsingEncoding:");
 
-    inline const auto labelSel = sel_registerName("label");
-
     inline const auto newDefaultLibrarySel = sel_registerName("newDefaultLibrary");
     inline const auto newLibraryWithSource_options_error_Sel = sel_registerName("newLibraryWithSource:options:error:");
     inline const auto nameSel = sel_registerName("name");
@@ -34,11 +32,18 @@ namespace objc
 
     inline const auto newFunctionWithName_Sel = sel_registerName("newFunctionWithName:");
 
+    inline const auto labelSel = sel_registerName("label");
     inline const auto setLabel_Sel = sel_registerName("setLabel:");
+
+    inline const auto vertexFunctionSel = sel_registerName("setVertexFunction");
     inline const auto setVertexFunction_Sel = sel_registerName("setVertexFunction:");
+    inline const auto fragmentFunctionSel = sel_registerName("fragmentFunction");
     inline const auto setFragmentFunction_Sel = sel_registerName("setFragmentFunction:");
+    inline const auto vertexDescriptorSel = sel_registerName("vertexDescriptor");
     inline const auto setVertexDescriptor_Sel = sel_registerName("setVertexDescriptor:");
+    inline const auto depthAttachmentPixelFormatSel = sel_registerName("depthAttachmentPixelFormat");
     inline const auto setDepthAttachmentPixelFormat_Sel = sel_registerName("setDepthAttachmentPixelFormat:");
+    inline const auto stencilAttachmentPixelFormatSel = sel_registerName("stencilAttachmentPixelFormat");
     inline const auto setStencilAttachmentPixelFormat_Sel = sel_registerName("setStencilAttachmentPixelFormat:");
 
     inline const auto layoutsSel = sel_registerName("layouts");

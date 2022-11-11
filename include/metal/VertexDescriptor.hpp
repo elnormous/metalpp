@@ -207,13 +207,15 @@ namespace mtl
         {
         }
 
-        VertexBufferLayoutDescriptorArray layouts() noexcept
+        VertexDescriptor(const id p) noexcept: Object{p} {}
+
+        VertexBufferLayoutDescriptorArray layouts() const noexcept
         {
             const id layouts = objc::sendMessage<id>(*this, objc::layoutsSel);
             return VertexBufferLayoutDescriptorArray{objc::sendMessage<id>(layouts, objc::retainSel)};
         }
 
-        VertexAttributeDescriptorArray attributes() noexcept
+        VertexAttributeDescriptorArray attributes() const noexcept
         {
             const id attributes = objc::sendMessage<id>(*this, objc::attributesSel);
             return VertexAttributeDescriptorArray{objc::sendMessage<id>(attributes, objc::retainSel)};
