@@ -10,32 +10,32 @@ namespace ns
 {
     enum class StringEncoding: NSUInteger
     {
-        ASCIIStringEncoding = 1,        // 0..127 only
-        NEXTSTEPStringEncoding = 2,
-        JapaneseEUCStringEncoding = 3,
-        UTF8StringEncoding = 4,
-        ISOLatin1StringEncoding = 5,
-        SymbolStringEncoding = 6,
-        NonLossyASCIIStringEncoding = 7,
-        ShiftJISStringEncoding = 8,          // kCFStringEncodingDOSJapanese
-        ISOLatin2StringEncoding = 9,
-        UnicodeStringEncoding = 10,
-        WindowsCP1251StringEncoding = 11,    // Cyrillic; same as AdobeStandardCyrillic
-        WindowsCP1252StringEncoding = 12,    // WinLatin1
-        WindowsCP1253StringEncoding = 13,    // Greek
-        WindowsCP1254StringEncoding = 14,    // Turkish
-        WindowsCP1250StringEncoding = 15,    // WinLatin2
-        ISO2022JPStringEncoding = 21,        // ISO 2022 Japanese encoding for e-mail
-        MacOSRomanStringEncoding = 30,
+        ASCII = 1,        // 0..127 only
+        NEXTSTEP = 2,
+        JapaneseEUC = 3,
+        UTF8 = 4,
+        ISOLatin1 = 5,
+        Symbol = 6,
+        NonLossyASCII = 7,
+        ShiftJIS = 8,          // kCFStringEncodingDOSJapanese
+        ISOLatin2 = 9,
+        Unicode = 10,
+        WindowsCP1251 = 11,    // Cyrillic; same as AdobeStandardCyrillic
+        WindowsCP1252 = 12,    // WinLatin1
+        WindowsCP1253 = 13,    // Greek
+        WindowsCP1254 = 14,    // Turkish
+        WindowsCP1250 = 15,    // WinLatin2
+        ISO2022JP = 21,        // ISO 2022 Japanese encoding for e-mail
+        MacOSRoman = 30,
 
-        UTF16StringEncoding = NSUnicodeStringEncoding,      // An alias for NSUnicodeStringEncoding
+        UTF16 = Unicode,      // An alias for Unicode
 
-        UTF16BigEndianStringEncoding = 0x90000100,          // NSUTF16StringEncoding encoding with explicit endianness specified
-        UTF16LittleEndianStringEncoding = 0x94000100,       // NSUTF16StringEncoding encoding with explicit endianness specified
+        UTF16BigEndian = 0x90000100,          // UTF16 encoding with explicit endianness specified
+        UTF16LittleEndian = 0x94000100,       // UTF16 encoding with explicit endianness specified
 
-        UTF32StringEncoding = 0x8c000100,
-        UTF32BigEndianStringEncoding = 0x98000100,          // NSUTF32StringEncoding encoding with explicit endianness specified
-        UTF32LittleEndianStringEncoding = 0x9c000100        // NSUTF32StringEncoding encoding with explicit endianness specified
+        UTF32 = 0x8c000100,
+        UTF32BigEndian = 0x98000100,          // UTF32 encoding with explicit endianness specified
+        UTF32LittleEndian = 0x9c000100        // UTF32 encoding with explicit endianness specified
     };
 
     class String final: public ns::Object
@@ -56,7 +56,7 @@ namespace ns
         String(const id p) noexcept: Object{p} {}
 
         String(const std::string_view str,
-               const StringEncoding encoding = StringEncoding::ASCIIStringEncoding):
+               const StringEncoding encoding = StringEncoding::ASCII):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, allocSel),
                                          initWithBytesLengthEncodingSel,
                                          str.data(),
@@ -79,7 +79,7 @@ namespace ns
             return static_cast<std::size_t>(length);
         }
 
-        const char* cString(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
+        const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
                                                             cStringUsingEncodingSel,
@@ -87,7 +87,7 @@ namespace ns
             return str;
         }
 
-        std::string string(const StringEncoding encoding = StringEncoding::ASCIIStringEncoding) const noexcept
+        std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
                                                             cStringUsingEncodingSel,
