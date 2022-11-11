@@ -11,7 +11,7 @@ namespace objc
     inline const auto releaseSel = sel_registerName("release");
     inline const auto retainCountSel = sel_registerName("retainCount");
 
-    inline const auto objectAtIndexedSubscriptSel = sel_registerName("objectAtIndexedSubscript");
+    inline const auto objectAtIndexedSubscriptSel = sel_registerName("objectAtIndexedSubscript:");
     inline const auto setObjectAtIndexedSubscriptSel = sel_registerName("setObject:atIndexedSubscript:");
 
     inline const auto drainSel = sel_registerName("drain");

@@ -62,9 +62,14 @@ namespace ns
 
         char operator[](std::size_t index) const noexcept
         {
+            return charAtIndex(static_cast<NSUInteger>(index));
+        }
+
+        char charAtIndex(const NSUInteger index) const noexcept
+        {
             const auto c = objc::sendMessage<unichar>(*this,
                                                       objc::characterAtIndexSel,
-                                                      static_cast<NSUInteger>(index));
+                                                      index);
             return static_cast<char>(c);
         }
 

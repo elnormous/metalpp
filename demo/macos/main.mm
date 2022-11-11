@@ -342,8 +342,14 @@ int main(int argc, const char* argv[]) {
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
         NSLog(@"Vertex layouts: %p, %lu\n", (id)vertexLayouts, vertexLayouts.retainCount());
 
+        mtl::VertexBufferLayoutDescriptor vertexLayout = vertexLayouts[0];
+        NSLog(@"Vertex layout: %p, %lu\n", (id)vertexLayout, vertexLayout.retainCount());
+
         mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
         NSLog(@"Vertex attributes: %p, %lu\n", (id)vertexAttributes, vertexAttributes.retainCount());
+
+        mtl::VertexAttributeDescriptor vertexAttribute = vertexAttributes[0];
+        NSLog(@"Vertex attribute: %p, %lu\n", (id)vertexAttribute, vertexAttribute.retainCount());
 
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 

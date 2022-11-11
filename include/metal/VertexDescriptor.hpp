@@ -89,16 +89,54 @@ namespace mtl
         PerPatchControlPoint = 4,
     };
 
+    class VertexBufferLayoutDescriptor final: public ns::Object
+    {
+    public:
+        VertexBufferLayoutDescriptor(const id p) noexcept: Object{p} {}
+    };
+
     class VertexBufferLayoutDescriptorArray final: public ns::Object
     {
     public:
         VertexBufferLayoutDescriptorArray(const id p) noexcept: Object{p} {}
+
+        VertexBufferLayoutDescriptor operator[](const std::size_t index) const noexcept
+        {
+            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+        }
+
+        VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        {
+            const id object = objc::sendMessage<id>(*this,
+                                                    objc::objectAtIndexedSubscriptSel,
+                                                    index);
+            return VertexBufferLayoutDescriptor{objc::sendMessage<id>(object, objc::retainSel)};
+        }
+    };
+
+    class VertexAttributeDescriptor final: public ns::Object
+    {
+    public:
+        VertexAttributeDescriptor(const id p) noexcept: Object{p} {}
     };
 
     class VertexAttributeDescriptorArray final: public ns::Object
     {
     public:
         VertexAttributeDescriptorArray(const id p) noexcept: Object{p} {}
+
+        VertexAttributeDescriptor operator[](const std::size_t index) const noexcept
+        {
+            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+        }
+
+        VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        {
+            const id object = objc::sendMessage<id>(*this,
+                                                    objc::objectAtIndexedSubscriptSel,
+                                                    index);
+            return VertexAttributeDescriptor{objc::sendMessage<id>(object, objc::retainSel)};
+        }
     };
 
     class VertexDescriptor final: public ns::Object
