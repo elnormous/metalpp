@@ -1,9 +1,9 @@
 #ifndef METALPP_METAL_RENDERPIPELINE_HPP
 #define METALPP_METAL_RENDERPIPELINE_HPP
 
-#include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Classes.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
 #include "Selectors.hpp"
@@ -15,7 +15,7 @@ namespace mtl
     {
     public:
         RenderPipelineDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::renderPipelineDescriptorClass, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::renderPipelineDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
 

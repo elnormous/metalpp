@@ -35,6 +35,8 @@
 		30D7680D291DF4BC00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
 		30D7680E291E1A2700EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		30D76810291E1CAB00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
+		30D76811291E1CB200EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		3071976F291A140400C321B0 /* metal */ = {
 			isa = PBXGroup;
 			children = (
+				30D76810291E1CAB00EDBCB7 /* Classes.hpp */,
 				30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */,
 				30719780291C4ECF00C321B0 /* Device.hpp */,
 				30719781291C4F1B00C321B0 /* Library.hpp */,
@@ -118,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
+				30D76811291E1CB200EDBCB7 /* Classes.hpp */,
 				30719770291A16BE00C321B0 /* Error.hpp */,
 				30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */,
 				3071977D291C05CB00C321B0 /* String.hpp */,

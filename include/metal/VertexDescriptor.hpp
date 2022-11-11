@@ -1,10 +1,10 @@
 #ifndef METALPP_METAL_VERTEXDESCRIPTOR_HPP
 #define METALPP_METAL_VERTEXDESCRIPTOR_HPP
 
-#include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Selectors.hpp"
+#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
@@ -205,7 +205,7 @@ namespace mtl
     {
     public:
         VertexDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::vertexDescriptorClass, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::vertexDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
 

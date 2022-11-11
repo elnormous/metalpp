@@ -4,9 +4,9 @@
 #include <string>
 #include <string_view>
 #include <objc/NSObjCRuntime.h>
-#include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -45,7 +45,7 @@ namespace ns
     {
     public:
         String():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::string, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -53,7 +53,7 @@ namespace ns
 
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCII):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::stringClass, ns::sel::alloc),
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::string, ns::sel::alloc),
                                          sel::initWithBytes_length_encoding_,
                                          str.data(),
                                          static_cast<NSUInteger>(str.length()),

@@ -11,7 +11,7 @@ namespace ns
     {
     public:
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(objc::objectClass, ns::sel::alloc), ns::sel::init)}
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::object, ns::sel::alloc), ns::sel::init)}
         {
         }
 

@@ -1,10 +1,10 @@
 #ifndef METALPP_METAL_DEPTHSTENCIL_HPP
 #define METALPP_METAL_DEPTHSTENCIL_HPP
 
-#include "../objc/Classes.hpp"
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/String.hpp"
+#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
@@ -13,7 +13,7 @@ namespace mtl
     {
     public:
         DepthStencilDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(objc::depthStencilDescriptorClass, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::depthStencilDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
     };
