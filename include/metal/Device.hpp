@@ -31,13 +31,13 @@ namespace mtl
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String source) const
+        Library newLibraryWithSource(const ns::String source, const CompileOptions* compileOptions = nullptr) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
                                                      sel::newLibraryWithSource_options_error_,
                                                      static_cast<id>(source),
-                                                     nil,
+                                                     compileOptions ? static_cast<id>(*compileOptions) : nil,
                                                      &error);
 
             if (error != nil)
