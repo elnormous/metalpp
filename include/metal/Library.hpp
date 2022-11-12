@@ -15,6 +15,31 @@ namespace mtl
         Size = 1,
     };
 
+    enum class LanguageVersion: NSUInteger
+    {
+        Version1_0 = (1 << 16),
+        Version1_1 = (1 << 16) + 1,
+        Version1_2 = (1 << 16) + 2,
+        Version2_0 = (2 << 16),
+        Version2_1 = (2 << 16) + 1,
+        Version2_2 = (2 << 16) + 2,
+        Version2_3 = (2 << 16) + 3,
+        Version2_4 = (2 << 16) + 4,
+        Version3_0 = (3 << 16) + 0,
+    };
+
+    enum class LibraryType: NSInteger
+    {
+        Executable = 0,
+        Dynamic = 1,
+    };
+
+    enum class LibraryOptimizationLevel: NSInteger
+    {
+        Default = 0,
+        Size = 1,
+    };
+
     class CompileOptions final: public ns::Object
     {
     public:
