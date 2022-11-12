@@ -11,6 +11,84 @@
 
 namespace mtl
 {
+    enum class BlendFactor: NSUInteger
+    {
+        Zero = 0,
+        One = 1,
+        SourceColor = 2,
+        OneMinusSourceColor = 3,
+        SourceAlpha = 4,
+        OneMinusSourceAlpha = 5,
+        DestinationColor = 6,
+        OneMinusDestinationColor = 7,
+        DestinationAlpha = 8,
+        OneMinusDestinationAlpha = 9,
+        SourceAlphaSaturated = 10,
+        BlendColor = 11,
+        OneMinusBlendColor = 12,
+        BlendAlpha = 13,
+        OneMinusBlendAlpha = 14,
+        Source1Color = 15,
+        OneMinusSource1Color = 16,
+        Source1Alpha = 17,
+        OneMinusSource1Alpha = 18,
+    };
+
+    enum class BlendOperation: NSUInteger
+    {
+        Add = 0,
+        Subtract = 1,
+        ReverseSubtract = 2,
+        Min = 3,
+        Max = 4,
+    };
+
+    enum class ColorWriteMask: NSUInteger
+    {
+        None  = 0,
+        Red   = 0x1 << 3,
+        Green = 0x1 << 2,
+        Blue  = 0x1 << 1,
+        Alpha = 0x1 << 0,
+        All   = 0xf
+    };
+
+    enum class PrimitiveTopologyClass: NSUInteger
+    {
+        Unspecified = 0,
+        Point = 1,
+        Line = 2,
+        Triangle = 3,
+    };
+
+    enum class TessellationPartitionMode: NSUInteger
+    {
+        Pow2 = 0,
+        Integer = 1,
+        FractionalOdd = 2,
+        FractionalEven = 3,
+    };
+
+    enum class TessellationFactorStepFunction: NSUInteger
+    {
+        Constant = 0,
+        PerPatch = 1,
+        PerInstance = 2,
+        PerPatchAndPerInstance = 3,
+    };
+
+    enum class TessellationFactorFormat: NSUInteger
+    {
+        Half = 0,
+    };
+
+    enum class TessellationControlPointIndexType: NSUInteger
+    {
+        None = 0,
+        UInt16 = 1,
+        UInt32 = 2,
+    };
+
     class RenderPipelineDescriptor final: public ns::Object
     {
     public:
