@@ -103,7 +103,7 @@ namespace mtl
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
         }
 
-        void setLabel(const ns::String label) noexcept
+        void setLabel(const ns::String& label) noexcept
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
@@ -114,7 +114,7 @@ namespace mtl
             return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
         }
 
-        void setVertexFunction(const mtl::Function function) noexcept
+        void setVertexFunction(const mtl::Function& function) noexcept
         {
             objc::sendMessage(*this, sel::setVertexFunction_, static_cast<id>(function));
         }
@@ -125,7 +125,7 @@ namespace mtl
             return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
         }
 
-        void setFragmentFunction(const mtl::Function function) noexcept
+        void setFragmentFunction(const mtl::Function& function) noexcept
         {
             objc::sendMessage(*this, sel::setFragmentFunction_, static_cast<id>(function));
         }
@@ -136,7 +136,7 @@ namespace mtl
             return mtl::VertexDescriptor{objc::sendMessage<id>(vertexDescriptor, ns::sel::retain)};
         }
 
-        void setVertexDescriptor(const mtl::VertexDescriptor vertexDescriptor) noexcept
+        void setVertexDescriptor(const mtl::VertexDescriptor& vertexDescriptor) noexcept
         {
             objc::sendMessage(*this, sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
         }

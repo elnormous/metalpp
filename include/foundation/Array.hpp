@@ -17,6 +17,8 @@ namespace ns
         {
         }
 
+        Array(const id p) noexcept: Object{p} {}
+
         template <class ...Args>
         Array(const Args&... objects) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::array, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}

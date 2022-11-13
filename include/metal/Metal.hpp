@@ -3,6 +3,7 @@
 
 #include "DepthStencil.hpp"
 #include "Device.hpp"
+#include "DynamicLibrary.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
 #include "RenderPipeline.hpp"

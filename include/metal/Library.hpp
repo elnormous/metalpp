@@ -3,8 +3,10 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "../foundation/Array.hpp"
 #include "../foundation/String.hpp"
 #include "Classes.hpp"
+#include "DynamicLibrary.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
@@ -83,6 +85,17 @@ namespace mtl
             objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
         }
 
+        ns::Array<DynamicLibrary> libraries() const noexcept
+        {
+            const id libraries = objc::sendMessage<id>(*this, sel::libraries);
+            return ns::Array<DynamicLibrary>{objc::sendMessage<id>(libraries, ns::sel::retain)};
+        }
+
+        void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept
+        {
+            objc::sendMessage(*this, sel::setLibraries_, static_cast<id>(libraries));
+        }
+
         bool preserveInvariance() const noexcept
         {
             return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
@@ -121,12 +134,12 @@ namespace mtl
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
         }
 
-        void setLabel(const ns::String label) noexcept
+        void setLabel(const ns::String& label) noexcept
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
-        Function newFunctionWithName(const ns::String name) const noexcept
+        Function newFunctionWithName(const ns::String& name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
                                                       sel::newFunctionWithName_,

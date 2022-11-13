@@ -31,7 +31,7 @@ namespace mtl
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String source) const
+        Library newLibraryWithSource(const ns::String& source) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -46,7 +46,7 @@ namespace mtl
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String source, const CompileOptions& compileOptions) const
+        Library newLibraryWithSource(const ns::String& source, const CompileOptions& compileOptions) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -61,7 +61,7 @@ namespace mtl
             return Library{library};
         }
 
-        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor renderPipelineDescriptor) const
+        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,
