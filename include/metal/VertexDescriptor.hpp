@@ -101,7 +101,7 @@ namespace mtl
             return objc::sendMessage<NSUInteger>(*this, sel::stride);
         }
 
-        void setStride(NSUInteger stride) const noexcept
+        void setStride(NSUInteger stride) noexcept
         {
             objc::sendMessage(*this, sel::setStride_, stride);
         }
@@ -111,7 +111,7 @@ namespace mtl
             return objc::sendMessage<VertexStepFunction>(*this, sel::stepFunction);
         }
 
-        void setStepFunction(VertexStepFunction stepFunction) const noexcept
+        void setStepFunction(VertexStepFunction stepFunction) noexcept
         {
             objc::sendMessage(*this, sel::setStepFunction_, stepFunction);
         }
@@ -121,7 +121,7 @@ namespace mtl
             return objc::sendMessage<NSUInteger>(*this, sel::stepRate);
         }
 
-        void setStepRate(NSUInteger stepRate) const noexcept
+        void setStepRate(NSUInteger stepRate) noexcept
         {
             objc::sendMessage(*this, sel::setStepRate_, stepRate);
         }
@@ -156,7 +156,7 @@ namespace mtl
             return objc::sendMessage<VertexFormat>(*this, sel::format);
         }
 
-        void setFormat(VertexFormat vertexFormat) const noexcept
+        void setFormat(VertexFormat vertexFormat) noexcept
         {
             objc::sendMessage(*this, sel::setFormat_, vertexFormat);
         }
@@ -166,7 +166,7 @@ namespace mtl
             return objc::sendMessage<NSUInteger>(*this, sel::offset);
         }
 
-        void setOffset(NSUInteger offset) const noexcept
+        void setOffset(NSUInteger offset) noexcept
         {
             objc::sendMessage(*this, sel::setOffset_, offset);
         }
@@ -176,7 +176,7 @@ namespace mtl
             return objc::sendMessage<NSUInteger>(*this, sel::bufferIndex);
         }
 
-        void setBufferIndex(NSUInteger bufferIndex) const noexcept
+        void setBufferIndex(NSUInteger bufferIndex) noexcept
         {
             objc::sendMessage(*this, sel::setBufferIndex_, bufferIndex);
         }

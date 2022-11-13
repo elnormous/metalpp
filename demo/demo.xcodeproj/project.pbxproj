@@ -26,6 +26,7 @@
 		30719780291C4ECF00C321B0 /* Device.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
 		30719781291C4F1B00C321B0 /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
 		30719783291C838000C321B0 /* RenderPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPipeline.hpp; sourceTree = "<group>"; };
+		30B952E22920988E007C8914 /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
 		30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
@@ -120,6 +121,7 @@
 		30719782291C504600C321B0 /* foundation */ = {
 			isa = PBXGroup;
 			children = (
+				30B952E22920988E007C8914 /* Array.hpp */,
 				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
 				30D76811291E1CB200EDBCB7 /* Classes.hpp */,
 				30719770291A16BE00C321B0 /* Error.hpp */,

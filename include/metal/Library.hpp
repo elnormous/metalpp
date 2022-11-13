@@ -47,7 +47,7 @@ namespace mtl
             return objc::sendMessage<BOOL>(*this, sel::fastMathEnabled) == YES;
         }
 
-        void setFastMathEnabled(bool fastMathEnabled) const noexcept
+        void setFastMathEnabled(bool fastMathEnabled) noexcept
         {
             objc::sendMessage(*this, sel::setFastMathEnabled_, static_cast<BOOL>(fastMathEnabled));
         }
@@ -57,7 +57,7 @@ namespace mtl
             return objc::sendMessage<LanguageVersion>(*this, sel::languageVersion);
         }
 
-        void setLanguageVersion(LanguageVersion languageVersion) const noexcept
+        void setLanguageVersion(LanguageVersion languageVersion) noexcept
         {
             objc::sendMessage(*this, sel::setLanguageVersion_, languageVersion);
         }
@@ -67,7 +67,7 @@ namespace mtl
             return objc::sendMessage<LibraryType>(*this, sel::libraryType);
         }
 
-        void setFastMathEnabled(LibraryType libraryType) const noexcept
+        void setFastMathEnabled(LibraryType libraryType) noexcept
         {
             objc::sendMessage(*this, sel::setLibraryType_, static_cast<BOOL>(libraryType));
         }
@@ -78,7 +78,7 @@ namespace mtl
             return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};
         }
 
-        void setInstallName(ns::String installName) const noexcept
+        void setInstallName(ns::String installName) noexcept
         {
             objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
         }
@@ -88,7 +88,7 @@ namespace mtl
             return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
         }
 
-        void setPreserveInstance(bool preserveInvariance) const noexcept
+        void setPreserveInstance(bool preserveInvariance) noexcept
         {
             objc::sendMessage(*this, sel::setPreserveInvariance_, static_cast<BOOL>(preserveInvariance));
         }
@@ -98,7 +98,7 @@ namespace mtl
             return objc::sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
         }
 
-        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) const noexcept
+        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept
         {
             objc::sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
         }

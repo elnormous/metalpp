@@ -7,8 +7,10 @@ namespace ns
 {
     namespace cls
     {
-        inline const auto string = objc_lookUpClass("NSString");
         inline const auto autoreleasePool = objc_lookUpClass("NSAutoreleasePool");
+        inline const auto array = objc_lookUpClass("NSArray");
+        inline const auto dictionary = objc_lookUpClass("NSDictionary");
+        inline const auto string = objc_lookUpClass("NSString");
     }
 }
 

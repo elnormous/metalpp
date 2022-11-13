@@ -313,15 +313,31 @@ int main(int argc, const char* argv[]) {
     mtl::Library library = device.newDefaultLibrary();
     NSLog(@"Default library: %p, %lu\n", (id)library, library.retainCount());
 
-    ns::String str{"test"};
-    NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
+    NSString* nsstr = [[NSString alloc] initWithCString:"test" encoding:NSASCIIStringEncoding];
+    NSLog(@"NSString: %s (%lu), %c, %lu\n", [nsstr cStringUsingEncoding:NSASCIIStringEncoding], nsstr.length, (char)[nsstr characterAtIndex:1], (unsigned long)nsstr.retainCount);
 
-    str = ns::String{"test2"};
-    NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
+    ns::String str{"test"};
+    NSLog(@"String: %s (%lu), %c, %lu\n", str.cString(), str.length(), str[1], str.retainCount());
+
+    str = ns::String{"test1"};
+    NSLog(@"String: %s (%lu), %c, %lu\n", str.cString(), str.length(), str[1], str.retainCount());
 
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.setLabel("renderPipeline");
-    NSLog(@"Render pipeline descriptor: %p\n", (id)renderPipelineDescriptor);
+    NSLog(@"Render pipeline descriptor: %p, %lu\n", (id)renderPipelineDescriptor, renderPipelineDescriptor.retainCount());
+
+    ns::Object obj1;
+    NSLog(@"Object 1: %lu\n", obj1.retainCount());
+    ns::Object obj2;
+    NSLog(@"Object 2: %lu\n", obj2.retainCount());
+
+    ns::Array<ns::String> array{obj1, obj2};
+    NSLog(@"Array: %p, %lu\n", (id)array, array.retainCount());
+    NSLog(@"Object 1: %lu\n", obj1.retainCount());
+    NSLog(@"Object 2: %lu\n", obj2.retainCount());
+
+//    ns::String invalidString = array.objectAtIndexedSubscript(10);
+//    NSLog(@"Invalid string: %p\n", (id)invalidString);
 
     try
     {
