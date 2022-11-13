@@ -54,7 +54,7 @@ namespace ns
         String(const char* str,
                const StringEncoding encoding = StringEncoding::ASCII):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::string, ns::sel::alloc),
-                                         sel::initWithString_encoding_,
+                                         sel::initWithCString_encoding_,
                                          str,
                                          encoding)}
         {

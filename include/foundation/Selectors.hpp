@@ -15,7 +15,7 @@ namespace ns
         inline const auto localizedDescription = sel_registerName("localizedDescription");
 
         inline const auto initWithBytes_length_encoding_ = sel_registerName("initWithBytes:length:encoding:");
-        inline const auto initWithString_encoding_ = sel_registerName("initWithString:encoding:");
+        inline const auto initWithCString_encoding_ = sel_registerName("initWithCString:encoding:");
 
         inline const auto length = sel_registerName("length");
         inline const auto characterAtIndex_ = sel_registerName("characterAtIndex:");
