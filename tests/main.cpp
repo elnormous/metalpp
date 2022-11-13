@@ -3,7 +3,7 @@
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 
-TEST_CASE("NSObject")
+TEST_CASE("Object")
 {
     const ns::Object obj;
     CHECK(obj.retainCount() == 1);
@@ -17,7 +17,7 @@ TEST_CASE("NSObject")
     CHECK(obj.retainCount() == 1);
 }
 
-TEST_CASE("NSAutoreleasePool")
+TEST_CASE("AutoreleasePool")
 {
     ns::AutoreleasePool autoreleasePool;
     mtl::Device device;
@@ -27,7 +27,7 @@ TEST_CASE("NSAutoreleasePool")
     CHECK(name.retainCount() == 1);
 }
 
-TEST_CASE("NSArray")
+TEST_CASE("Array")
 {
     ns::Object obj1;
     ns::Object obj2;
@@ -44,7 +44,7 @@ TEST_CASE("NSArray")
     CHECK(obj2 == obj2Copy);
 }
 
-TEST_CASE("NSDictionary")
+TEST_CASE("Dictionary")
 {
     ns::String key1 = "key1";
     ns::Object obj1;
@@ -73,7 +73,7 @@ TEST_CASE("NSDictionary")
     CHECK(keysForObject[0].string() == "key1");
 }
 
-TEST_CASE("NSString")
+TEST_CASE("String")
 {
     const ns::String str = "ab";
     CHECK(str.length() == 2);
