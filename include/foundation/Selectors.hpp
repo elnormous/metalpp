@@ -11,6 +11,7 @@ namespace ns
         inline const auto setObject_atIndexedSubscript_ = sel_registerName("setObject:atIndexedSubscript:");
         inline const auto count = sel_registerName("count");
 
+        inline const auto initWithObjects_forKeys_ = sel_registerName("initWithObjects:forKeys:");
         inline const auto initWithObjectsAndKeys_ = sel_registerName("initWithObjectsAndKeys:");
         inline const auto objectForKey_ = sel_registerName("objectForKey:");
 
