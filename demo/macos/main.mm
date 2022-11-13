@@ -353,6 +353,8 @@ int main(int argc, const char* argv[]) {
         NSLog(@"Key 0: %s\n", keys[0].cString());
         const ns::Array<ns::Object> values = preprocessorMacros.allValues();
         NSLog(@"Value 0: %p\n", static_cast<id>(values[0]));
+        const ns::Array<ns::String> keysForObject = preprocessorMacros.allKeysForObject(values[0]);
+        NSLog(@"Key 0 for object: %s\n", keysForObject[0].cString());
         options.setPreprocessorMacros(preprocessorMacros);
 
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);

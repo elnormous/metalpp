@@ -50,6 +50,12 @@ namespace ns
             return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
         }
 
+        ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
+        {
+            const id keys = objc::sendMessage<id>(*this, ns::sel::allKeysForObject_, static_cast<id>(object));
+            return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
+        }
+
         ns::Array<ObjectType> allValues() const noexcept
         {
             const id values = objc::sendMessage<id>(*this, ns::sel::allValues);
