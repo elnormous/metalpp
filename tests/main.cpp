@@ -49,6 +49,17 @@ TEST_CASE("NSDictionary")
     ns::Object obj2Copy = dict.objectForKey("key2");
     CHECK(obj1 == obj1Copy);
     CHECK(obj2 == obj2Copy);
+
+    ns::Array<ns::String> keys = dict.allKeys();
+    CHECK(keys[0].string() == "key1");
+    CHECK(keys[1].string() == "key2");
+
+    ns::Array<ns::Object> values = dict.allValues();
+    CHECK(values[0] == obj1);
+    CHECK(values[1] == obj2);
+
+    ns::Array<ns::String> keysForObject = dict.allKeysForObject(obj1);
+    CHECK(keysForObject[0].string() == "key1");
 }
 
 TEST_CASE("NSString")
