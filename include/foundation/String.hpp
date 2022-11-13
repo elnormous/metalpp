@@ -70,12 +70,12 @@ namespace ns
         {
         }
 
-        char operator[](std::size_t index) const noexcept
+        [[nodiscard]] char operator[](std::size_t index) const noexcept
         {
             return charAtIndex(static_cast<NSUInteger>(index));
         }
 
-        char charAtIndex(const NSUInteger index) const noexcept
+        [[nodiscard]] char charAtIndex(const NSUInteger index) const noexcept
         {
             const auto c = objc::sendMessage<unichar>(*this,
                                                       sel::characterAtIndex_,
@@ -83,13 +83,13 @@ namespace ns
             return static_cast<char>(c);
         }
 
-        std::size_t length() const noexcept
+        [[nodiscard]] std::size_t length() const noexcept
         {
             const auto length = objc::sendMessage<NSUInteger>(*this, sel::length);
             return static_cast<std::size_t>(length);
         }
 
-        const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
+        [[nodiscard]] const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
                                                             sel::cStringUsingEncoding_,
@@ -97,7 +97,7 @@ namespace ns
             return str;
         }
 
-        std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
+        [[nodiscard]] std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = objc::sendMessage<const char*>(*this,
                                                             sel::cStringUsingEncoding_,

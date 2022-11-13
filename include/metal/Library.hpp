@@ -45,7 +45,7 @@ namespace mtl
         {
         }
 
-        ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
+        [[nodiscard]] ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
         {
             const id preprocessorMacros = objc::sendMessage<id>(*this, sel::preprocessorMacros);
             return ns::Dictionary<ns::String, ns::Object>{objc::sendMessage<id>(preprocessorMacros, ns::sel::retain)};
@@ -56,7 +56,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
         }
 
-        bool fastMathEnabled() const noexcept
+        [[nodiscard]] bool fastMathEnabled() const noexcept
         {
             return objc::sendMessage<BOOL>(*this, sel::fastMathEnabled) == YES;
         }
@@ -66,7 +66,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setFastMathEnabled_, static_cast<BOOL>(fastMathEnabled));
         }
 
-        LanguageVersion languageVersion() const noexcept
+        [[nodiscard]] LanguageVersion languageVersion() const noexcept
         {
             return objc::sendMessage<LanguageVersion>(*this, sel::languageVersion);
         }
@@ -76,7 +76,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLanguageVersion_, languageVersion);
         }
 
-        LibraryType libraryType() const noexcept
+        [[nodiscard]] LibraryType libraryType() const noexcept
         {
             return objc::sendMessage<LibraryType>(*this, sel::libraryType);
         }
@@ -86,7 +86,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLibraryType_, static_cast<BOOL>(libraryType));
         }
 
-        bool installName() const noexcept
+        [[nodiscard]] bool installName() const noexcept
         {
             const id installName = objc::sendMessage<id>(*this, sel::installName);
             return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};
@@ -97,7 +97,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
         }
 
-        ns::Array<DynamicLibrary> libraries() const noexcept
+        [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept
         {
             const id libraries = objc::sendMessage<id>(*this, sel::libraries);
             return ns::Array<DynamicLibrary>{objc::sendMessage<id>(libraries, ns::sel::retain)};
@@ -108,7 +108,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLibraries_, static_cast<id>(libraries));
         }
 
-        bool preserveInvariance() const noexcept
+        [[nodiscard]] bool preserveInvariance() const noexcept
         {
             return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
         }
@@ -118,7 +118,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setPreserveInvariance_, static_cast<BOOL>(preserveInvariance));
         }
 
-        LibraryOptimizationLevel optimizationLevel() const noexcept
+        [[nodiscard]] LibraryOptimizationLevel optimizationLevel() const noexcept
         {
             return objc::sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
         }
@@ -140,7 +140,7 @@ namespace mtl
     public:
         Library(const id p) noexcept: Object{p} {}
 
-        ns::String label() const noexcept
+        [[nodiscard]] ns::String label() const noexcept
         {
             const id label = objc::sendMessage<id>(*this, sel::label);
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
@@ -151,7 +151,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
-        Function newFunctionWithName(const ns::String& name) const noexcept
+        [[nodiscard]] Function newFunctionWithName(const ns::String& name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
                                                       sel::newFunctionWithName_,

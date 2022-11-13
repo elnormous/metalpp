@@ -96,7 +96,7 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptor(const id p) noexcept: Object{p} {}
 
-        NSUInteger stride() const noexcept
+        [[nodiscard]] NSUInteger stride() const noexcept
         {
             return objc::sendMessage<NSUInteger>(*this, sel::stride);
         }
@@ -106,7 +106,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setStride_, stride);
         }
 
-        VertexStepFunction stepFunction() const noexcept
+        [[nodiscard]] VertexStepFunction stepFunction() const noexcept
         {
             return objc::sendMessage<VertexStepFunction>(*this, sel::stepFunction);
         }
@@ -116,7 +116,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setStepFunction_, stepFunction);
         }
 
-        NSUInteger stepRate() const noexcept
+        [[nodiscard]] NSUInteger stepRate() const noexcept
         {
             return objc::sendMessage<NSUInteger>(*this, sel::stepRate);
         }
@@ -132,12 +132,12 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptorArray(const id p) noexcept: Object{p} {}
 
-        VertexBufferLayoutDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const std::size_t index) const noexcept
         {
             return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
         }
 
-        VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
                                                     ns::sel::objectAtIndexedSubscript_,
@@ -151,7 +151,7 @@ namespace mtl
     public:
         VertexAttributeDescriptor(const id p) noexcept: Object{p} {}
 
-        VertexFormat format() const noexcept
+        [[nodiscard]] VertexFormat format() const noexcept
         {
             return objc::sendMessage<VertexFormat>(*this, sel::format);
         }
@@ -161,7 +161,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setFormat_, vertexFormat);
         }
 
-        NSUInteger offset() const noexcept
+        [[nodiscard]] NSUInteger offset() const noexcept
         {
             return objc::sendMessage<NSUInteger>(*this, sel::offset);
         }
@@ -171,7 +171,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setOffset_, offset);
         }
 
-        NSUInteger bufferIndex() const noexcept
+        [[nodiscard]] NSUInteger bufferIndex() const noexcept
         {
             return objc::sendMessage<NSUInteger>(*this, sel::bufferIndex);
         }
@@ -187,12 +187,12 @@ namespace mtl
     public:
         VertexAttributeDescriptorArray(const id p) noexcept: Object{p} {}
 
-        VertexAttributeDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] VertexAttributeDescriptor operator[](const std::size_t index) const noexcept
         {
             return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
         }
 
-        VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
                                                     ns::sel::objectAtIndexedSubscript_,
@@ -211,13 +211,13 @@ namespace mtl
 
         VertexDescriptor(const id p) noexcept: Object{p} {}
 
-        VertexBufferLayoutDescriptorArray layouts() const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptorArray layouts() const noexcept
         {
             const id layouts = objc::sendMessage<id>(*this, sel::layouts);
             return VertexBufferLayoutDescriptorArray{objc::sendMessage<id>(layouts, ns::sel::retain)};
         }
 
-        VertexAttributeDescriptorArray attributes() const noexcept
+        [[nodiscard]] VertexAttributeDescriptorArray attributes() const noexcept
         {
             const id attributes = objc::sendMessage<id>(*this, sel::attributes);
             return VertexAttributeDescriptorArray{objc::sendMessage<id>(attributes, ns::sel::retain)};

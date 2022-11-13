@@ -19,19 +19,19 @@ namespace mtl
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()} {}
 
-        ns::String name() const noexcept
+        [[nodiscard]] ns::String name() const noexcept
         {
             const id name = objc::sendMessage<id>(*this, sel::name);
             return ns::String{objc::sendMessage<id>(name, ns::sel::retain)};
         }
 
-        Library newDefaultLibrary() const
+        [[nodiscard]] Library newDefaultLibrary() const
         {
             const id library = objc::sendMessage<id>(*this, sel::newDefaultLibrary);
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String& source) const
+        [[nodiscard]] Library newLibraryWithSource(const ns::String& source) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -46,7 +46,7 @@ namespace mtl
             return Library{library};
         }
 
-        Library newLibraryWithSource(const ns::String& source, const CompileOptions& compileOptions) const
+        [[nodiscard]] Library newLibraryWithSource(const ns::String& source, const CompileOptions& compileOptions) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -61,7 +61,7 @@ namespace mtl
             return Library{library};
         }
 
-        RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor& renderPipelineDescriptor) const
+        [[nodiscard]] RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,

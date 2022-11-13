@@ -25,12 +25,12 @@ namespace ns
         {
         }
 
-        Type operator[](const std::size_t index) const noexcept
+        [[nodiscard]] Type operator[](const std::size_t index) const noexcept
         {
             return objectAtIndex(static_cast<NSUInteger>(index));
         }
 
-        Type objectAtIndex(const NSUInteger index) const noexcept
+        [[nodiscard]] Type objectAtIndex(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
                                                     ns::sel::objectAtIndex_,
@@ -38,7 +38,7 @@ namespace ns
             return Type{objc::sendMessage<id>(object, ns::sel::retain)};
         }
 
-        std::size_t count() const noexcept
+        [[nodiscard]] std::size_t count() const noexcept
         {
             const auto count = objc::sendMessage<NSUInteger>(*this, sel::count);
             return static_cast<std::size_t>(count);

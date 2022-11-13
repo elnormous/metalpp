@@ -21,7 +21,7 @@ namespace mtl
     class DepthStencilState final: public ns::Object
     {        
     public:
-        ns::String label() const noexcept
+        [[nodiscard]] ns::String label() const noexcept
         {
             const id label = objc::sendMessage<id>(*this, sel::label);
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};

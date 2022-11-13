@@ -31,12 +31,12 @@ namespace ns
         {
         }
 
-        ObjectType operator[](const KeyType& key) const noexcept
+        [[nodiscard]] ObjectType operator[](const KeyType& key) const noexcept
         {
             return objectForKey(key);
         }
 
-        ObjectType objectForKey(const KeyType& key) const noexcept
+        [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
                                                     ns::sel::objectForKey_,
@@ -44,25 +44,25 @@ namespace ns
             return ObjectType{objc::sendMessage<id>(object, ns::sel::retain)};
         }
 
-        ns::Array<KeyType> allKeys() const noexcept
+        [[nodiscard]] ns::Array<KeyType> allKeys() const noexcept
         {
             const id keys = objc::sendMessage<id>(*this, ns::sel::allKeys);
             return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
         }
 
-        ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
+        [[nodiscard]] ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
         {
             const id keys = objc::sendMessage<id>(*this, ns::sel::allKeysForObject_, static_cast<id>(object));
             return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
         }
 
-        ns::Array<ObjectType> allValues() const noexcept
+        [[nodiscard]] ns::Array<ObjectType> allValues() const noexcept
         {
             const id values = objc::sendMessage<id>(*this, ns::sel::allValues);
             return ns::Array<ObjectType>{objc::sendMessage<id>(values, ns::sel::retain)};
         }
 
-        std::size_t count() const noexcept
+        [[nodiscard]] std::size_t count() const noexcept
         {
             const auto count = objc::sendMessage<NSUInteger>(*this, sel::count);
             return static_cast<std::size_t>(count);

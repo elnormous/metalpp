@@ -97,7 +97,7 @@ namespace mtl
         {
         }
 
-        ns::String label() const noexcept
+        [[nodiscard]] ns::String label() const noexcept
         {
             const id label = objc::sendMessage<id>(*this, sel::label);
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
@@ -108,7 +108,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
-        mtl::Function vertexFunction() const noexcept
+        [[nodiscard]] mtl::Function vertexFunction() const noexcept
         {
             const id function = objc::sendMessage<id>(*this, sel::vertexFunction);
             return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
@@ -119,7 +119,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setVertexFunction_, static_cast<id>(function));
         }
 
-        mtl::Function fragmentFunction() const noexcept
+        [[nodiscard]] mtl::Function fragmentFunction() const noexcept
         {
             const id function = objc::sendMessage<id>(*this, sel::fragmentFunction);
             return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
@@ -130,7 +130,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setFragmentFunction_, static_cast<id>(function));
         }
 
-        mtl::VertexDescriptor vertexDescriptor() const noexcept
+        [[nodiscard]] mtl::VertexDescriptor vertexDescriptor() const noexcept
         {
             const id vertexDescriptor = objc::sendMessage<id>(*this, sel::vertexDescriptor);
             return mtl::VertexDescriptor{objc::sendMessage<id>(vertexDescriptor, ns::sel::retain)};
@@ -141,7 +141,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
         }
 
-        mtl::PixelFormat depthAttachmentPixelFormat() const noexcept
+        [[nodiscard]] mtl::PixelFormat depthAttachmentPixelFormat() const noexcept
         {
             return objc::sendMessage<mtl::PixelFormat>(*this, sel::depthAttachmentPixelFormat);
         }
@@ -151,7 +151,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setDepthAttachmentPixelFormat_, pixelFormat);
         }
 
-        mtl::PixelFormat stencilAttachmentPixelFormat() const noexcept
+        [[nodiscard]] mtl::PixelFormat stencilAttachmentPixelFormat() const noexcept
         {
             return objc::sendMessage<mtl::PixelFormat>(*this, sel::stencilAttachmentPixelFormat);
         }
