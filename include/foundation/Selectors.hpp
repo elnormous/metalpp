@@ -7,6 +7,7 @@ namespace ns
     {
         inline const auto initWithObjects_ = sel_registerName("initWithObjects:");
         inline const auto initWithObjects_count_ = sel_registerName("initWithObjects:count:");
+        inline const auto objectAtIndex_ = sel_registerName("objectAtIndex:");
         inline const auto objectAtIndexedSubscript_ = sel_registerName("objectAtIndexedSubscript:");
         inline const auto setObject_atIndexedSubscript_ = sel_registerName("setObject:atIndexedSubscript:");
         inline const auto count = sel_registerName("count");

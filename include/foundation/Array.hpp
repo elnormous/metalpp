@@ -27,13 +27,13 @@ namespace ns
 
         Type operator[](const std::size_t index) const noexcept
         {
-            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+            return objectAtIndex(static_cast<NSUInteger>(index));
         }
 
-        Type objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        Type objectAtIndex(const NSUInteger index) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
-                                                    ns::sel::objectAtIndexedSubscript_,
+                                                    ns::sel::objectAtIndex_,
                                                     index);
             return Type{objc::sendMessage<id>(object, ns::sel::retain)};
         }
