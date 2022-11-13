@@ -11,6 +11,8 @@
 
 namespace ns
 {
+    using unichar = unsigned short;
+
     enum class StringEncoding: NSUInteger
     {
         ASCII = 1,        // 0..127 only

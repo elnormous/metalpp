@@ -37,17 +37,17 @@ namespace objc
 #endif
 
     template <typename Ret = void, typename... Args>
-    inline Ret sendMessage(id self, SEL selector, Args... args) noexcept
+    inline Ret sendMessage(const void* self, SEL selector, Args... args) noexcept
     {
         if constexpr (reguiresFpret<Ret>::value)
         {
-            using SendMessageFpretProc = Ret(id, SEL, Args...);
+            using SendMessageFpretProc = Ret(const void*, SEL, Args...);
             SendMessageFpretProc* proc = reinterpret_cast<SendMessageFpretProc*>(&objc_msgSend_fpret);
             return proc(self, selector, args...);
         }
         else if constexpr (reguiresStret<Ret>::value)
         {
-            using SendMessageStretProc = void(Ret*, id, SEL, Args...);
+            using SendMessageStretProc = void(Ret*, const void*, SEL, Args...);
             SendMessageStretProc* proc = reinterpret_cast<SendMessageStretProc*>(&objc_msgSend_stret);
             Ret ret;
             proc(&ret, self, selector, args...);
@@ -55,7 +55,7 @@ namespace objc
         }
         else
         {
-            using SendMessageProc = Ret(id, SEL, Args...);
+            using SendMessageProc = Ret(const void*, SEL, Args...);
             SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
             return proc(self, selector, args...);
         }

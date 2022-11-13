@@ -1,6 +1,7 @@
 #ifndef METALPP_OBJC_OBJECT_HPP
 #define METALPP_OBJC_OBJECT_HPP
 
+#include <objc/NSObjCRuntime.h>
 #include "Classes.hpp"
 #include "Runtime.hpp"
 #include "Selectors.hpp"
