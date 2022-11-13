@@ -1,7 +1,6 @@
 #ifndef METALPP_FOUNDATION_ARRAY_HPP
 #define METALPP_FOUNDATION_ARRAY_HPP
 
-#include <type_traits>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Classes.hpp"
@@ -18,13 +17,7 @@ namespace ns
         {
         }
 
-        template <typename...> struct correctTypes;
-        template <> struct correctTypes<> : std::true_type { };
-        template <typename T, typename ...Rest> struct correctTypes<T, Rest...>:
-            std::integral_constant<bool, std::is_same<T, Type>::value && correctTypes<Rest...>::value>
-        { };
-
-        template <class ...Args, typename std::enable_if<correctTypes<Args...>::value>::type* = nullptr>
+        template <class ...Args>
         Array(const Args&... objects) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::array, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}
         {
