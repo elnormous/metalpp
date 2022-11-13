@@ -346,9 +346,13 @@ int main(int argc, const char* argv[]) {
         options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
         options.setFastMathEnabled(true);
 
-        ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
+        const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
         NSLog(@"Preprocessor Macros: %p (%lu), %lu\n", (id)preprocessorMacros, preprocessorMacros.count(), preprocessorMacros.retainCount());
         NSLog(@"ONE: %p\n", static_cast<id>(preprocessorMacros["ONE"]));
+        const ns::Array<ns::String> keys = preprocessorMacros.allKeys();
+        NSLog(@"Key 0: %s\n", keys[0].cString());
+        const ns::Array<ns::Object> values = preprocessorMacros.allValues();
+        NSLog(@"Value 0: %p\n", static_cast<id>(values[0]));
         options.setPreprocessorMacros(preprocessorMacros);
 
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);

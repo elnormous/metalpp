@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Array.hpp"
 #include "Classes.hpp"
 #include "Selectors.hpp"
 
@@ -41,6 +42,18 @@ namespace ns
                                                     ns::sel::objectForKey_,
                                                     static_cast<id>(key));
             return ObjectType{objc::sendMessage<id>(object, ns::sel::retain)};
+        }
+
+        ns::Array<KeyType> allKeys() const noexcept
+        {
+            const id keys = objc::sendMessage<id>(*this, ns::sel::allKeys);
+            return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
+        }
+
+        ns::Array<ObjectType> allValues() const noexcept
+        {
+            const id values = objc::sendMessage<id>(*this, ns::sel::allValues);
+            return ns::Array<ObjectType>{objc::sendMessage<id>(values, ns::sel::retain)};
         }
 
         std::size_t count() const noexcept

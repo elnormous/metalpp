@@ -13,6 +13,8 @@ namespace ns
 
         inline const auto initWithObjects_forKeys_ = sel_registerName("initWithObjects:forKeys:");
         inline const auto initWithObjectsAndKeys_ = sel_registerName("initWithObjectsAndKeys:");
+        inline const auto allKeys = sel_registerName("allKeys");
+        inline const auto allValues = sel_registerName("allValues");
         inline const auto objectForKey_ = sel_registerName("objectForKey:");
 
         inline const auto drain = sel_registerName("drain");
