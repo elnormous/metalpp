@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 
 TEST_CASE("NSObject")
@@ -14,6 +15,16 @@ TEST_CASE("NSObject")
     }
 
     CHECK(obj.retainCount() == 1);
+}
+
+TEST_CASE("NSAutoreleasePool")
+{
+    ns::AutoreleasePool autoreleasePool;
+    mtl::Device device;
+    ns::String name = device.name();
+    CHECK(name.retainCount() == 2);
+    autoreleasePool.drain();
+    CHECK(name.retainCount() == 1);
 }
 
 TEST_CASE("NSArray")

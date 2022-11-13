@@ -75,6 +75,14 @@ namespace ns
             return static_cast<std::size_t>(retainCount);
         }
 
+        // Releases the ownership of the pointer without sending a release message
+        id release() noexcept
+        {
+            id result = ptr;
+            ptr = nil;
+            return result;
+        }
+
     private:
         id ptr = nil;
     };

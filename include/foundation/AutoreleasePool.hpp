@@ -19,6 +19,7 @@ namespace ns
         void drain() noexcept
         {
             objc::sendMessage(*this, sel::drain);
+            release();
         }
     };
 }
