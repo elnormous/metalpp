@@ -255,7 +255,7 @@ static const char* vertexShader =
 "                    constant uniforms_t& uniforms [[buffer(1)]])\n"
 "{\n"
 "    VS2PS output;\n"
-"    output.position = uniforms.modelViewProj * float4(input.position, 1.0);\n"
+"    output.position = uniforms.modelViewProj * float4(input.position, ONE);\n"
 "    output.color = input.color;\n"
 "    return output;\n"
 "}";
@@ -332,7 +332,7 @@ int main(int argc, const char* argv[]) {
     NSLog(@"Object 2: %lu\n", obj2.retainCount());
 
     ns::Array<ns::Object> array{obj1, obj2};
-    NSLog(@"Array: %p, %lu\n", (id)array, array.retainCount());
+    NSLog(@"Array: %p (%lu), %lu\n", (id)array, array.count(), array.retainCount());
     NSLog(@"Object 1: %lu\n", obj1.retainCount());
     NSLog(@"Object 2: %lu\n", obj2.retainCount());
 
@@ -345,6 +345,11 @@ int main(int argc, const char* argv[]) {
         NSLog(@"Compile options: %p, %lu\n", (id)options, options.retainCount());
         options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
         options.setFastMathEnabled(true);
+
+        ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
+        NSLog(@"Preprocessor Macros: %p (%lu), %lu\n", (id)preprocessorMacros, preprocessorMacros.count(), preprocessorMacros.retainCount());
+        NSLog(@"ONE: %p\n", static_cast<id>(preprocessorMacros["ONE"]));
+        options.setPreprocessorMacros(preprocessorMacros);
 
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
         NSLog(@"Vertex library: %p, %lu\n", (id)vertexLibrary, vertexLibrary.retainCount());

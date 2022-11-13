@@ -28,6 +28,7 @@
 		30719783291C838000C321B0 /* RenderPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPipeline.hpp; sourceTree = "<group>"; };
 		30B952E22920988E007C8914 /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		30B952E32920B02A007C8914 /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
+		30B952E42920B2EF007C8914 /* Dictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dictionary.hpp; sourceTree = "<group>"; };
 		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
 		30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 				30B952E22920988E007C8914 /* Array.hpp */,
 				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
 				30D76811291E1CB200EDBCB7 /* Classes.hpp */,
+				30B952E42920B2EF007C8914 /* Dictionary.hpp */,
 				30719770291A16BE00C321B0 /* Error.hpp */,
 				30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */,
 				3071977D291C05CB00C321B0 /* String.hpp */,

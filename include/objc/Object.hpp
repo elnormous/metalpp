@@ -59,6 +59,10 @@ namespace ns
             return ptr != other.ptr;
         }
 
+        Object(const id p) noexcept: ptr{p}
+        {
+        }
+
         operator id() const noexcept
         {
             return ptr;
@@ -68,11 +72,6 @@ namespace ns
         {
             const auto retainCount = objc::sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
             return static_cast<std::size_t>(retainCount);
-        }
-
-    protected:
-        Object(const id p) noexcept: ptr{p}
-        {
         }
 
     private:

@@ -4,6 +4,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Array.hpp"
+#include "../foundation/Dictionary.hpp"
 #include "../foundation/String.hpp"
 #include "Classes.hpp"
 #include "DynamicLibrary.hpp"
@@ -42,6 +43,17 @@ namespace mtl
         CompileOptions():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls::compileOptions, ns::sel::alloc), ns::sel::init)}
         {
+        }
+
+        ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
+        {
+            const id preprocessorMacros = objc::sendMessage<id>(*this, sel::preprocessorMacros);
+            return ns::Dictionary<ns::String, ns::Object>{objc::sendMessage<id>(preprocessorMacros, ns::sel::retain)};
+        }
+
+        void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
+        {
+            objc::sendMessage(*this, sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
         }
 
         bool fastMathEnabled() const noexcept
