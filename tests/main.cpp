@@ -50,6 +50,7 @@ TEST_CASE("Dictionary")
     ns::Object obj1;
     ns::String key2 = "key2";
     ns::Object obj2;
+
     const ns::Dictionary<ns::String, ns::Object> dict{obj1, key1, obj2, key2};
     CHECK(dict.retainCount() == 1);
     CHECK(dict.count() == 2);
@@ -71,6 +72,10 @@ TEST_CASE("Dictionary")
 
     ns::Array<ns::String> keysForObject = dict.allKeysForObject(obj1);
     CHECK(keysForObject[0].string() == "key1");
+
+    const ns::Dictionary<ns::String, ns::Object> dict2{values, keys};
+    CHECK(obj1 == dict["key1"]);
+    CHECK(obj2 == dict["key2"]);
 }
 
 TEST_CASE("String")
