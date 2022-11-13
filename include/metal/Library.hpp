@@ -9,12 +9,6 @@
 
 namespace mtl
 {
-    enum class LibraryOptimizationLevel: NSInteger
-    {
-        Default = 0,
-        Size = 1,
-    };
-
     enum class LanguageVersion: NSUInteger
     {
         Version1_0 = (1 << 16),
@@ -59,6 +53,17 @@ namespace mtl
     {
     public:
         Library(const id p) noexcept: Object{p} {}
+
+        ns::String label() const noexcept
+        {
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+        }
+
+        void setLabel(const ns::String label) noexcept
+        {
+            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
 
         Function newFunctionWithName(const ns::String name) const noexcept
         {
