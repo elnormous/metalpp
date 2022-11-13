@@ -33,10 +33,10 @@ namespace ns
 
         ObjectType operator[](const KeyType& key) const noexcept
         {
-            return objectAtIndexedSubscript(key);
+            return objectForKey(key);
         }
 
-        ObjectType objectAtIndexedSubscript(const KeyType& key) const noexcept
+        ObjectType objectForKey(const KeyType& key) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,
                                                     ns::sel::objectForKey_,
