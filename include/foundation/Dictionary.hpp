@@ -1,6 +1,7 @@
 #ifndef METALPP_FOUNDATION_DICTIONARY_HPP
 #define METALPP_FOUNDATION_DICTIONARY_HPP
 
+#include <cstdint>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Array.hpp"

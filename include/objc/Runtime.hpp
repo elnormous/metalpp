@@ -2,6 +2,7 @@
 #define METALPP_OBJC_RUNTIME_HPP
 
 #include <cstdint>
+#include <type_traits>
 #include <objc/message.h>
 #include <objc/runtime.h>
 

@@ -1,6 +1,7 @@
 #ifndef METALPP_FOUNDATION_STRING_HPP
 #define METALPP_FOUNDATION_STRING_HPP
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <objc/NSObjCRuntime.h>

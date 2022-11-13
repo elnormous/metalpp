@@ -1,6 +1,7 @@
 #ifndef METALPP_FOUNDATION_ARRAY_HPP
 #define METALPP_FOUNDATION_ARRAY_HPP
 
+#include <cstdint>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Classes.hpp"
