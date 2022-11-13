@@ -72,6 +72,17 @@ namespace mtl
             objc::sendMessage(*this, sel::setLibraryType_, static_cast<BOOL>(libraryType));
         }
 
+        bool installName() const noexcept
+        {
+            const id installName = objc::sendMessage<id>(*this, sel::installName);
+            return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};
+        }
+
+        void setInstallName(ns::String installName) const noexcept
+        {
+            objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
+        }
+
         bool preserveInvariance() const noexcept
         {
             return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
