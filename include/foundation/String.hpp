@@ -51,6 +51,15 @@ namespace ns
 
         String(const id p) noexcept: Object{p} {}
 
+        String(const char* str,
+               const StringEncoding encoding = StringEncoding::ASCII):
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::string, ns::sel::alloc),
+                                         sel::initWithString_encoding_,
+                                         str,
+                                         encoding)}
+        {
+        }
+
         String(const std::string_view str,
                const StringEncoding encoding = StringEncoding::ASCII):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::string, ns::sel::alloc),

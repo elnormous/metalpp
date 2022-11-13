@@ -320,14 +320,14 @@ int main(int argc, const char* argv[]) {
     NSLog(@"String: %s (%lu), %c\n", str.cString(), str.length(), str[1]);
 
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.setLabel(ns::String{"renderPipeline"});
+    renderPipelineDescriptor.setLabel("renderPipeline");
     NSLog(@"Render pipeline descriptor: %p\n", (id)renderPipelineDescriptor);
 
     try
     {
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader});
         NSLog(@"Vertex library: %p, %lu\n", (id)vertexLibrary, vertexLibrary.retainCount());
-        vertexLibrary.setLabel(ns::String{"Vertex library"});
+        vertexLibrary.setLabel("Vertex library");
         NSLog(@"%s\n", vertexLibrary.label().cString());
 
         mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
@@ -335,7 +335,7 @@ int main(int argc, const char* argv[]) {
 
         mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
         NSLog(@"Fragment library: %p, %lu\n", (id)fragmentLibrary, fragmentLibrary.retainCount());
-        fragmentLibrary.setLabel(ns::String{"Fragment library"});
+        fragmentLibrary.setLabel("Fragment library");
         NSLog(@"%s\n", fragmentLibrary.label().cString());
 
         mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
