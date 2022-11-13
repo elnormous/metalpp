@@ -43,6 +43,23 @@ namespace mtl
         inline const auto setStepFunction_ = sel_registerName("setStepFunction:");
         inline const auto stepRate = sel_registerName("stepRate");
         inline const auto setStepRate_ = sel_registerName("setStepRate:");
+        inline const auto preprocessorMacros = sel_registerName("preprocessorMacros");
+        inline const auto setPreprocessorMacros_ = sel_registerName("setPreprocessorMacros:");
+        inline const auto fastMathEnabled = sel_registerName("fastMathEnabled");
+        inline const auto setFastMathEnabled_ = sel_registerName("setFastMathEnabled:");
+        inline const auto languageVersion = sel_registerName("languageVersion");
+        inline const auto setLanguageVersion_ = sel_registerName("setLanguageVersion:");
+        inline const auto libraryType = sel_registerName("libraryType");
+        inline const auto setLibraryType_ = sel_registerName("setLibraryType:");
+        inline const auto installName = sel_registerName("installName");
+        inline const auto setInstallName_ = sel_registerName("setInstallName:");
+        inline const auto libraries = sel_registerName("libraries");
+        inline const auto setLibraries_ = sel_registerName("setLibraries:");
+        inline const auto preserveInvariance = sel_registerName("preserveInvariance");
+        inline const auto setPreserveInvariance_ = sel_registerName("setPreserveInvariance:");
+        inline const auto optimizationLevel = sel_registerName("optimizationLevel");
+        inline const auto setOptimizationLevel_ = sel_registerName("setOptimizationLevel:");
+
     }
 }
 

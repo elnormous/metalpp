@@ -41,6 +41,56 @@ namespace mtl
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls::compileOptions, ns::sel::alloc), ns::sel::init)}
         {
         }
+
+        bool fastMathEnabled() const noexcept
+        {
+            return objc::sendMessage<BOOL>(*this, sel::fastMathEnabled) == YES;
+        }
+
+        void setFastMathEnabled(bool fastMathEnabled) const noexcept
+        {
+            objc::sendMessage(*this, sel::setFastMathEnabled_, static_cast<BOOL>(fastMathEnabled));
+        }
+
+        LanguageVersion languageVersion() const noexcept
+        {
+            return objc::sendMessage<LanguageVersion>(*this, sel::languageVersion);
+        }
+
+        void setLanguageVersion(LanguageVersion languageVersion) const noexcept
+        {
+            objc::sendMessage(*this, sel::setLanguageVersion_, languageVersion);
+        }
+
+        LibraryType libraryType() const noexcept
+        {
+            return objc::sendMessage<LibraryType>(*this, sel::libraryType);
+        }
+
+        void setFastMathEnabled(LibraryType libraryType) const noexcept
+        {
+            objc::sendMessage(*this, sel::setLibraryType_, static_cast<BOOL>(libraryType));
+        }
+
+        bool preserveInvariance() const noexcept
+        {
+            return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
+        }
+
+        void setPreserveInstance(bool preserveInvariance) const noexcept
+        {
+            objc::sendMessage(*this, sel::setPreserveInvariance_, static_cast<BOOL>(preserveInvariance));
+        }
+
+        LibraryOptimizationLevel optimizationLevel() const noexcept
+        {
+            return objc::sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
+        }
+
+        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) const noexcept
+        {
+            objc::sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
+        }
     };
 
     class Function final: public ns::Object

@@ -325,7 +325,12 @@ int main(int argc, const char* argv[]) {
 
     try
     {
-        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader});
+        mtl::CompileOptions options;
+        NSLog(@"Compile options: %p, %lu\n", (id)options, options.retainCount());
+        options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
+        options.setFastMathEnabled(true);
+
+        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
         NSLog(@"Vertex library: %p, %lu\n", (id)vertexLibrary, vertexLibrary.retainCount());
         vertexLibrary.setLabel("Vertex library");
         NSLog(@"%s\n", vertexLibrary.label().cString());
