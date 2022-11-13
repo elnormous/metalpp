@@ -9,6 +9,7 @@ namespace ns
         inline const auto initWithObjects_count_ = sel_registerName("initWithObjects:count:");
         inline const auto objectAtIndexedSubscript_ = sel_registerName("objectAtIndexedSubscript:");
         inline const auto setObject_atIndexedSubscript_ = sel_registerName("setObject:atIndexedSubscript:");
+        inline const auto count = sel_registerName("count");
 
         inline const auto drain = sel_registerName("drain");
 

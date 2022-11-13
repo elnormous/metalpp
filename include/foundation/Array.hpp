@@ -37,6 +37,12 @@ namespace ns
                                                     index);
             return Type{objc::sendMessage<id>(object, ns::sel::retain)};
         }
+
+        std::size_t count() const noexcept
+        {
+            const auto count = objc::sendMessage<NSUInteger>(*this, sel::count);
+            return static_cast<std::size_t>(count);
+        }
     };
 }
 
