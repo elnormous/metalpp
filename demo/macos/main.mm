@@ -331,7 +331,7 @@ int main(int argc, const char* argv[]) {
     ns::Object obj2;
     NSLog(@"Object 2: %lu\n", obj2.retainCount());
 
-    ns::Array<ns::String> array{obj1, obj2};
+    ns::Array<ns::Object> array{obj1, obj2};
     NSLog(@"Array: %p, %lu\n", (id)array, array.retainCount());
     NSLog(@"Object 1: %lu\n", obj1.retainCount());
     NSLog(@"Object 2: %lu\n", obj2.retainCount());
