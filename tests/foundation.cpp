@@ -1,3 +1,4 @@
+#define DOCTEST_CONFIG_USE_STD_HEADERS
 #include "doctest.h"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Array.hpp"
