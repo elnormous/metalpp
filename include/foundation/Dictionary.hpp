@@ -37,6 +37,11 @@ namespace ns
             return objectForKey(key);
         }
 
+        [[nodiscard]] ObjectType operator[](KeyType&& key) const noexcept
+        {
+            return objectForKey(std::move(key));
+        }
+
         [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
             const id object = objc::sendMessage<id>(*this,

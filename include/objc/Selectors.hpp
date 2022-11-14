@@ -12,6 +12,7 @@ namespace ns
         inline const auto retain = sel_registerName("retain");
         inline const auto release = sel_registerName("release");
         inline const auto retainCount = sel_registerName("retainCount");
+        inline const auto autorelease = sel_registerName("autorelease");
     }
 }
 

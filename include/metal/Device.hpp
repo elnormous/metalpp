@@ -25,7 +25,7 @@ namespace mtl
             return ns::String{objc::sendMessage<id>(name, ns::sel::retain)};
         }
 
-        [[nodiscard]] Library newDefaultLibrary() const
+        [[nodiscard]] Library newDefaultLibrary() const noexcept
         {
             const id library = objc::sendMessage<id>(*this, sel::newDefaultLibrary);
             return Library{library};

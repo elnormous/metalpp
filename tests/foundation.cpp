@@ -1,15 +1,20 @@
 #include "doctest.h"
 #include "foundation/AutoreleasePool.hpp"
-#include "metal/Metal.hpp"
+#include "foundation/Array.hpp"
+#include "foundation/Dictionary.hpp"
+#include "foundation/String.hpp"
 
 TEST_CASE("AutoreleasePool")
 {
     ns::AutoreleasePool autoreleasePool;
-    mtl::Device device;
-    ns::String name = device.name();
-    REQUIRE(name.retainCount() == 2);
+    REQUIRE(autoreleasePool);
+
+    ns::Object obj{};
+    objc::sendMessage<id>(objc::sendMessage<id>(static_cast<id>(obj), ns::sel::retain), ns::sel::autorelease);
+    
+    REQUIRE(obj.retainCount() == 2);
     autoreleasePool.drain();
-    REQUIRE(name.retainCount() == 1);
+    REQUIRE(obj.retainCount() == 1);
 }
 
 TEST_CASE("Array")
@@ -17,6 +22,7 @@ TEST_CASE("Array")
     ns::Object obj1;
     ns::Object obj2;
     const ns::Array<ns::Object> arr{obj1, obj2};
+    REQUIRE(arr);
     CHECK(arr.retainCount() == 1);
     REQUIRE(arr.count() == 2);
 
@@ -37,6 +43,7 @@ TEST_CASE("Dictionary")
     ns::Object obj2;
 
     const ns::Dictionary<ns::String, ns::Object> dict{obj1, key1, obj2, key2};
+    REQUIRE(dict);
     CHECK(dict.retainCount() == 1);
     REQUIRE(dict.count() == 2);
     CHECK(obj1.retainCount() == 2);
@@ -66,6 +73,7 @@ TEST_CASE("Dictionary")
 TEST_CASE("String")
 {
     const ns::String str = "ab";
+    REQUIRE(str);
     REQUIRE(str.retainCount() > 0);
     REQUIRE(str.length() == 2);
     CHECK(str[0] == 'a');

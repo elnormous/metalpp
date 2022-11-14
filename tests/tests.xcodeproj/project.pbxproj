@@ -11,6 +11,7 @@
 		30B9530F2920C8EB007C8914 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B9530E2920C8EB007C8914 /* Foundation.framework */; };
 		30B953112920C8F1007C8914 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
 		30B953132921B911007C8914 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
+		30B953152921B9FB007C8914 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,7 @@
 		30B9530E2920C8EB007C8914 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		30B953102920C8F1007C8914 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
+		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				30B9530D2920C8EB007C8914 /* Frameworks */,
 				30B9530C2920C7CB007C8914 /* include */,
 				30B953042920C60E007C8914 /* main.cpp */,
+				30B953142921B9FB007C8914 /* metal.cpp */,
 				30B953022920C60E007C8914 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30B953152921B9FB007C8914 /* metal.cpp in Sources */,
 				30B953132921B911007C8914 /* foundation.cpp in Sources */,
 				30B953052920C60E007C8914 /* main.cpp in Sources */,
 			);
@@ -148,7 +152,6 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -223,7 +226,6 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;

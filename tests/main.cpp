@@ -5,6 +5,7 @@
 TEST_CASE("Object")
 {
     const ns::Object obj;
+    REQUIRE(obj);
     CHECK(obj.retainCount() == 1);
 
     {
