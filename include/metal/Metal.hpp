@@ -6,6 +6,7 @@
 #include "DynamicLibrary.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
+#include "RenderCommandEncoder.hpp"
 #include "RenderPipeline.hpp"
 #include "VertexDescriptor.hpp"
 

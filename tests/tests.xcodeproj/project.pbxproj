@@ -20,6 +20,7 @@
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
 		30B9532A2921E91F007C8914 /* tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +44,7 @@
 				30B9530C2920C7CB007C8914 /* include */,
 				30B953042920C60E007C8914 /* main.cpp */,
 				30B953142921B9FB007C8914 /* metal.cpp */,
+				30B953402921ED99007C8914 /* objc.cpp */,
 				30B953022920C60E007C8914 /* Products */,
 			);
 			sourceTree = "<group>";
