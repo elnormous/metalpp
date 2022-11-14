@@ -112,6 +112,12 @@ namespace mtl
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
+    inline Device CommandQueue::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
     inline Device DepthStencilState::device() const noexcept
     {
         id device = objc::sendMessage<id>(*this, sel::device);
