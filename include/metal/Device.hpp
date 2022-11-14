@@ -35,7 +35,14 @@ namespace mtl
         [[nodiscard]] CommandQueue newCommandQueue() const noexcept
         {
             const id commandQueue = objc::sendMessage<id>(*this, sel::newCommandQueue);
+            return CommandQueue{commandQueue};
+        }
 
+        [[nodiscard]] CommandQueue newCommandQueueWithMaxCommandBufferCount(const std::size_t maxCommandBufferCount) const noexcept
+        {
+            const id commandQueue = objc::sendMessage<id>(*this,
+                                                          sel::newCommandQueueWithMaxCommandBufferCount_,
+                                                          static_cast<NSUInteger>(maxCommandBufferCount));
             return CommandQueue{commandQueue};
         }
 
