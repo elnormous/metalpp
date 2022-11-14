@@ -10,6 +10,7 @@
 #include "Library.hpp"
 #include "PixelFormat.hpp"
 #include "RenderCommandEncoder.hpp"
+#include "RenderPass.hpp"
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
 #include "Sampler.hpp"

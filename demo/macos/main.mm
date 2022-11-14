@@ -382,6 +382,9 @@ int main(int argc, const char* argv[]) {
 
         mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
         NSLog(@"Render pipeline state: %p, %lu\n", (id)renderPipelineState, renderPipelineState.retainCount());
+
+        mtl::CommandQueue commandQueue = device.newCommandQueue();
+        NSLog(@"Command Queue: %p, %lu\n", (id)commandQueue, commandQueue.retainCount());
     }
     catch (const ns::Error& error)
     {

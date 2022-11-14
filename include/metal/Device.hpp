@@ -7,6 +7,7 @@
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "CommandEncoder.hpp"
+#include "CommandQueue.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
 #include "Library.hpp"
@@ -29,6 +30,13 @@ namespace mtl
         {
             const id name = objc::sendMessage<id>(*this, sel::name);
             return ns::String{objc::sendMessage<id>(name, ns::sel::retain)};
+        }
+
+        [[nodiscard]] CommandQueue newCommandQueue() const noexcept
+        {
+            const id commandQueue = objc::sendMessage<id>(*this, sel::newCommandQueue);
+
+            return CommandQueue{commandQueue};
         }
 
         [[nodiscard]] DepthStencilState newDepthStencilStateWithDescriptor(const DepthStencilDescriptor& depthStencilDescriptor) const noexcept

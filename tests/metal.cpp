@@ -17,6 +17,14 @@ TEST_CASE("Device name")
     CHECK(name.length());
 }
 
+TEST_CASE("Command queue")
+{
+    mtl::Device device;
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    REQUIRE(commandQueue);
+    REQUIRE(commandQueue.retainCount());
+}
+
 TEST_CASE("Depth stencil state")
 {
     mtl::Device device;
