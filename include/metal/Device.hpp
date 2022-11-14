@@ -10,8 +10,9 @@
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
 #include "Library.hpp"
-#include "Selectors.hpp"
 #include "RenderPipeline.hpp"
+#include "Resource.hpp"
+#include "Selectors.hpp"
 
 extern "C" id MTLCreateSystemDefaultDevice();
 
@@ -121,6 +122,12 @@ namespace mtl
     }
 
     inline Device RenderPipelineState::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device Resource::device() const noexcept
     {
         id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
