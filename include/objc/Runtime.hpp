@@ -40,13 +40,16 @@ namespace objc
     template <typename Ret = void, typename... Args>
     inline Ret sendMessage(const void* self, SEL selector, Args... args) noexcept
     {
+#if defined(__i386__) || defined(__x86_64__) || defined(__arm__)
         if constexpr (reguiresFpret<Ret>::value)
         {
             using SendMessageFpretProc = Ret(const void*, SEL, Args...);
             SendMessageFpretProc* proc = reinterpret_cast<SendMessageFpretProc*>(&objc_msgSend_fpret);
             return proc(self, selector, args...);
         }
-        else if constexpr (reguiresStret<Ret>::value)
+#endif
+#if defined(__i386__) || defined(__x86_64__)
+        if constexpr (reguiresStret<Ret>::value)
         {
             using SendMessageStretProc = void(Ret*, const void*, SEL, Args...);
             SendMessageStretProc* proc = reinterpret_cast<SendMessageStretProc*>(&objc_msgSend_stret);
@@ -54,12 +57,10 @@ namespace objc
             proc(&ret, self, selector, args...);
             return ret;
         }
-        else
-        {
-            using SendMessageProc = Ret(const void*, SEL, Args...);
-            SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
-            return proc(self, selector, args...);
-        }
+#endif
+        using SendMessageProc = Ret(const void*, SEL, Args...);
+        SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
+        return proc(self, selector, args...);
     }
 }
 
