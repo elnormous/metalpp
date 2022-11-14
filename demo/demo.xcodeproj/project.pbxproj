@@ -10,6 +10,7 @@
 		3008F03E28FC42F100A74CB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3008F03D28FC42F100A74CB8 /* AppDelegate.m */; };
 		3008F04328FC42F300A74CB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3008F04228FC42F300A74CB8 /* Assets.xcassets */; };
 		3008F04828FC42F300A74CB8 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3008F04728FC42F300A74CB8 /* main.mm */; };
+		30B9534529220419007C8914 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 30B9534429220419007C8914 /* include */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,28 +19,7 @@
 		3008F03D28FC42F100A74CB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3008F04228FC42F300A74CB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3008F04728FC42F300A74CB8 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		3071976C291A0BDE00C321B0 /* Metal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Metal.hpp; sourceTree = "<group>"; };
-		30719770291A16BE00C321B0 /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
-		30719772291B6E6600C321B0 /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
-		3071977C291B794700C321B0 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
-		3071977D291C05CB00C321B0 /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
-		30719780291C4ECF00C321B0 /* Device.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
-		30719781291C4F1B00C321B0 /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
-		30719783291C838000C321B0 /* RenderPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPipeline.hpp; sourceTree = "<group>"; };
-		30B952E22920988E007C8914 /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
-		30B952E32920B02A007C8914 /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
-		30B952E42920B2EF007C8914 /* Dictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dictionary.hpp; sourceTree = "<group>"; };
-		30D4759F290A01CF0098BE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
-		30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
-		30D7680A291CDD1900EDBCB7 /* PixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelFormat.hpp; sourceTree = "<group>"; };
-		30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
-		30D7680C291DF48000EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
-		30D7680D291DF4BC00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
-		30D7680E291E1A2700EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
-		30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
-		30D76810291E1CAB00EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
-		30D76811291E1CB200EDBCB7 /* Classes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Classes.hpp; sourceTree = "<group>"; };
+		30B9534429220419007C8914 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +36,7 @@
 		3008F02328FC42AA00A74CB8 = {
 			isa = PBXGroup;
 			children = (
-				3071976B291A0BB800C321B0 /* include */,
+				30B9534429220419007C8914 /* include */,
 				3008F03B28FC42F100A74CB8 /* macos */,
 				3008F02D28FC42AA00A74CB8 /* Products */,
 			);
@@ -73,66 +53,12 @@
 		3008F03B28FC42F100A74CB8 /* macos */ = {
 			isa = PBXGroup;
 			children = (
-				30D4759F290A01CF0098BE3E /* Info.plist */,
 				3008F03C28FC42F100A74CB8 /* AppDelegate.h */,
 				3008F03D28FC42F100A74CB8 /* AppDelegate.m */,
 				3008F04228FC42F300A74CB8 /* Assets.xcassets */,
 				3008F04728FC42F300A74CB8 /* main.mm */,
 			);
 			path = macos;
-			sourceTree = "<group>";
-		};
-		3071976B291A0BB800C321B0 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				30719782291C504600C321B0 /* foundation */,
-				30719771291B6E4E00C321B0 /* objc */,
-				3071976F291A140400C321B0 /* metal */,
-			);
-			name = include;
-			path = ../include;
-			sourceTree = "<group>";
-		};
-		3071976F291A140400C321B0 /* metal */ = {
-			isa = PBXGroup;
-			children = (
-				30D76810291E1CAB00EDBCB7 /* Classes.hpp */,
-				30D7680B291CE04800EDBCB7 /* DepthStencil.hpp */,
-				30719780291C4ECF00C321B0 /* Device.hpp */,
-				30B952E32920B02A007C8914 /* DynamicLibrary.hpp */,
-				30719781291C4F1B00C321B0 /* Library.hpp */,
-				3071976C291A0BDE00C321B0 /* Metal.hpp */,
-				30D7680A291CDD1900EDBCB7 /* PixelFormat.hpp */,
-				30719783291C838000C321B0 /* RenderPipeline.hpp */,
-				30D7680E291E1A2700EDBCB7 /* Selectors.hpp */,
-				30D76809291CDB1800EDBCB7 /* VertexDescriptor.hpp */,
-			);
-			path = metal;
-			sourceTree = "<group>";
-		};
-		30719771291B6E4E00C321B0 /* objc */ = {
-			isa = PBXGroup;
-			children = (
-				30D7680D291DF4BC00EDBCB7 /* Classes.hpp */,
-				3071977C291B794700C321B0 /* Object.hpp */,
-				30719772291B6E6600C321B0 /* Runtime.hpp */,
-				30D7680C291DF48000EDBCB7 /* Selectors.hpp */,
-			);
-			path = objc;
-			sourceTree = "<group>";
-		};
-		30719782291C504600C321B0 /* foundation */ = {
-			isa = PBXGroup;
-			children = (
-				30B952E22920988E007C8914 /* Array.hpp */,
-				30D76808291CA34000EDBCB7 /* AutoreleasePool.hpp */,
-				30D76811291E1CB200EDBCB7 /* Classes.hpp */,
-				30B952E42920B2EF007C8914 /* Dictionary.hpp */,
-				30719770291A16BE00C321B0 /* Error.hpp */,
-				30D7680F291E1BAF00EDBCB7 /* Selectors.hpp */,
-				3071977D291C05CB00C321B0 /* String.hpp */,
-			);
-			path = foundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3008F04328FC42F300A74CB8 /* Assets.xcassets in Resources */,
+				30B9534529220419007C8914 /* include in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +289,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = macos/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -384,7 +310,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = macos/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
