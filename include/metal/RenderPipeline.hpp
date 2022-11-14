@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_RENDERPIPELINE_HPP
 #define METALPP_METAL_RENDERPIPELINE_HPP
 
+#include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Classes.hpp"

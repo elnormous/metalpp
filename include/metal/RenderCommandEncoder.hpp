@@ -1,6 +1,8 @@
 #ifndef METALPP_METAL_RENDERCOMMANDENCODER_HPP
 #define METALPP_METAL_RENDERCOMMANDENCODER_HPP
 
+#include <objc/NSObjCRuntime.h>
+
 namespace mtl
 {
     enum class PrimitiveType: NSUInteger

@@ -10,6 +10,9 @@
 		30B9533D2921E9B4007C8914 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953042920C60E007C8914 /* main.cpp */; };
 		30B9533E2921EA12007C8914 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
 		30B9533F2921EA3C007C8914 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B9530E2920C8EB007C8914 /* Foundation.framework */; };
+		30B953412921EFC3007C8914 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
+		30B953422921EFC8007C8914 /* objc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953402921ED99007C8914 /* objc.cpp */; };
+		30B953432921EFCB007C8914 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +137,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B9533D2921E9B4007C8914 /* main.cpp in Sources */,
+				30B953412921EFC3007C8914 /* metal.cpp in Sources */,
+				30B953432921EFCB007C8914 /* foundation.cpp in Sources */,
+				30B953422921EFC8007C8914 /* objc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
