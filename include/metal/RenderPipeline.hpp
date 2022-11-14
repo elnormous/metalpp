@@ -12,6 +12,8 @@
 
 namespace mtl
 {
+    class Device;
+
     enum class BlendFactor: NSUInteger
     {
         Zero = 0,
@@ -167,6 +169,19 @@ namespace mtl
     {
     public:
         RenderPipelineState(const id p) noexcept: Object{p} {}
+
+        Device device() const noexcept;
+
+        [[nodiscard]] ns::String label() const noexcept
+        {
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+        }
+
+        void setLabel(const ns::String& label) noexcept
+        {
+            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
     };
 }
 

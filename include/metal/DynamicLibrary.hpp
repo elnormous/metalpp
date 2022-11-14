@@ -6,6 +6,7 @@ namespace mtl
     class DynamicLibrary final: public ns::Object
     {
     public:
+        Device device() const noexcept;
     };
 }
 

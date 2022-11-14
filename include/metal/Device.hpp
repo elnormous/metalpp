@@ -6,7 +6,9 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
+#include "CommandEncoder.hpp"
 #include "DepthStencil.hpp"
+#include "DynamicLibrary.hpp"
 #include "Library.hpp"
 #include "Selectors.hpp"
 #include "RenderPipeline.hpp"
@@ -88,7 +90,37 @@ namespace mtl
         }
     };
 
-    inline Device DepthStencilState::device()
+    inline Device CommandEncoder::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device DepthStencilState::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device DynamicLibrary::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device Function::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device Library::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
+
+    inline Device RenderPipelineState::device() const noexcept
     {
         id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};

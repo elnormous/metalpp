@@ -6,6 +6,8 @@
 
 namespace mtl
 {
+    class Device;
+
     enum class ResourceUsage: NSUInteger
     {
         Read   = 1 << 0,
@@ -22,7 +24,7 @@ namespace mtl
 
     class CommandEncoder: public ns::Object
     {
-
+        Device device() const noexcept;
     };
 }
 

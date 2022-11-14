@@ -13,6 +13,8 @@
 
 namespace mtl
 {
+    class Device;
+
     enum class LanguageVersion: NSUInteger
     {
         Version1_0 = (1 << 16),
@@ -134,12 +136,16 @@ namespace mtl
     {
     public:
         Function(const id p) noexcept: Object{p} {}
+
+        Device device() const noexcept;
     };
     
     class Library final: public ns::Object
     {
     public:
         Library(const id p) noexcept: Object{p} {}
+
+        Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {
