@@ -9,6 +9,8 @@
 
 namespace mtl
 {
+    class Device;
+
     class DepthStencilDescriptor final: public ns::Object
     {
     public:
@@ -21,6 +23,8 @@ namespace mtl
     class DepthStencilState final: public ns::Object
     {        
     public:
+        Device device();
+
         [[nodiscard]] ns::String label() const noexcept
         {
             const id label = objc::sendMessage<id>(*this, sel::label);

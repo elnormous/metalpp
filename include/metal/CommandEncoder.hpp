@@ -2,6 +2,7 @@
 #define METALPP_METAL_RENDERCOMMANDENCODER_HPP
 
 #include <objc/NSObjCRuntime.h>
+#include "../objc/Object.hpp"
 
 namespace mtl
 {
@@ -17,6 +18,11 @@ namespace mtl
         Buffers = 1 << 0,
         Textures = 1 << 1,
         RenderTargets = 1 << 2,
+    };
+
+    class CommandEncoder: public ns::Object
+    {
+
     };
 }
 

@@ -6,6 +6,7 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
+#include "DepthStencil.hpp"
 #include "Library.hpp"
 #include "Selectors.hpp"
 #include "RenderPipeline.hpp"
@@ -19,10 +20,21 @@ namespace mtl
     public:
         Device(): Object{MTLCreateSystemDefaultDevice()} {}
 
+        Device(const id p) noexcept: Object{p} {}
+
         [[nodiscard]] ns::String name() const noexcept
         {
             const id name = objc::sendMessage<id>(*this, sel::name);
             return ns::String{objc::sendMessage<id>(name, ns::sel::retain)};
+        }
+
+        [[nodiscard]] DepthStencilState newDepthStencilStateWithDescriptor(const DepthStencilDescriptor& depthStencilDescriptor) const noexcept
+        {
+            const id depthStencilState = objc::sendMessage<id>(*this,
+                                                               sel::newDepthStencilStateWithDescriptor_,
+                                                               static_cast<id>(depthStencilDescriptor));
+
+            return DepthStencilState{depthStencilState};
         }
 
         [[nodiscard]] Library newDefaultLibrary() const noexcept
@@ -75,8 +87,12 @@ namespace mtl
             return RenderPipelineState{renderPipelineState};
         }
     };
+
+    inline Device DepthStencilState::device()
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
 }
-
-
 
 #endif

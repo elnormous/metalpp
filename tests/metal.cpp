@@ -1,4 +1,5 @@
 #include "doctest.h"
+#include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 
 TEST_CASE("Device")
@@ -14,4 +15,28 @@ TEST_CASE("Device name")
     REQUIRE(name);
     REQUIRE(name.retainCount());
     CHECK(name.length());
+}
+
+TEST_CASE("Depth stencil state")
+{
+    mtl::Device device;
+    mtl::DepthStencilDescriptor descriptor;
+    REQUIRE(descriptor);
+    REQUIRE(descriptor.retainCount());
+
+    mtl::DepthStencilState depthStencilState = device.newDepthStencilStateWithDescriptor(descriptor);
+    REQUIRE(depthStencilState);
+    REQUIRE(depthStencilState.retainCount());
+
+    const auto retainCount = device.retainCount();
+    {
+        ns::AutoreleasePool autoreleasePool;
+
+        mtl::Device depthStencilStateDevice = depthStencilState.device();
+        CHECK(depthStencilStateDevice == device);
+
+        autoreleasePool.drain();
+        CHECK(device.retainCount() == retainCount + 1);
+    }
+    CHECK(device.retainCount() == retainCount);
 }

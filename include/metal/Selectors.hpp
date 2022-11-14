@@ -5,6 +5,8 @@ namespace mtl
 {
     namespace sel
     {
+        inline const auto device = sel_registerName("device");
+        inline const auto newDepthStencilStateWithDescriptor_ = sel_registerName("newDepthStencilStateWithDescriptor:");
         inline const auto newDefaultLibrary = sel_registerName("newDefaultLibrary");
         inline const auto newLibraryWithSource_options_error_ = sel_registerName("newLibraryWithSource:options:error:");
         inline const auto name = sel_registerName("name");
