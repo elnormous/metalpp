@@ -271,7 +271,6 @@ int main(int argc, const char* argv[]) {
     const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
 
     NSScreen* screen = [NSScreen mainScreen];
-    NSLog(@"Screen: %lu\n", screen.retainCount);
 
     const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
                                          round(screen.frame.size.height * 0.6));
@@ -305,60 +304,23 @@ int main(int argc, const char* argv[]) {
     CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
 
     mtl::Device device;
-    {
-        ns::String name = device.name();
-        NSLog(@"Device name: %s, %lu\n", name.cString(), name.retainCount());
-    }
+    NSLog(@"Device name: %s\n", device.name().cString());
 
     mtl::Library library = device.newDefaultLibrary();
-    NSLog(@"Default library: %p, %lu\n", (id)library, library.retainCount());
-
-    NSString* nsstr = [[NSString alloc] initWithCString:"test" encoding:NSASCIIStringEncoding];
-    NSLog(@"NSString: %s (%lu), %c, %lu\n", [nsstr cStringUsingEncoding:NSASCIIStringEncoding], nsstr.length, (char)[nsstr characterAtIndex:1], (unsigned long)nsstr.retainCount);
-
-    ns::String str{"test"};
-    NSLog(@"String: %s (%lu), %c, %lu\n", str.cString(), str.length(), str[1], str.retainCount());
-
-    str = ns::String{"test1"};
-    NSLog(@"String: %s (%lu), %c, %lu\n", str.cString(), str.length(), str[1], str.retainCount());
 
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.setLabel("renderPipeline");
-    NSLog(@"Render pipeline descriptor: %p, %lu\n", (id)renderPipelineDescriptor, renderPipelineDescriptor.retainCount());
-
-    ns::Object obj1;
-    NSLog(@"Object 1: %lu\n", obj1.retainCount());
-    ns::Object obj2;
-    NSLog(@"Object 2: %lu\n", obj2.retainCount());
-
-    ns::Array<ns::Object> array{obj1, obj2};
-    NSLog(@"Array: %p (%lu), %lu\n", (id)array, array.count(), array.retainCount());
-    NSLog(@"Object 1: %lu\n", obj1.retainCount());
-    NSLog(@"Object 2: %lu\n", obj2.retainCount());
-
-//    ns::String invalidString = array.objectAtIndexedSubscript(10);
-//    NSLog(@"Invalid string: %p\n", (id)invalidString);
 
     try
     {
         mtl::CompileOptions options;
-        NSLog(@"Compile options: %p, %lu\n", (id)options, options.retainCount());
         options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
         options.setFastMathEnabled(true);
 
         const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
-        NSLog(@"Preprocessor Macros: %p (%lu), %lu\n", (id)preprocessorMacros, preprocessorMacros.count(), preprocessorMacros.retainCount());
-        NSLog(@"ONE: %p\n", static_cast<id>(preprocessorMacros["ONE"]));
-        const ns::Array<ns::String> keys = preprocessorMacros.allKeys();
-        NSLog(@"Key 0: %s\n", keys[0].cString());
-        const ns::Array<ns::Object> values = preprocessorMacros.allValues();
-        NSLog(@"Value 0: %p\n", static_cast<id>(values[0]));
-        const ns::Array<ns::String> keysForObject = preprocessorMacros.allKeysForObject(values[0]);
-        NSLog(@"Key 0 for object: %s\n", keysForObject[0].cString());
         options.setPreprocessorMacros(preprocessorMacros);
 
         mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
-        NSLog(@"Vertex library: %p, %lu\n", (id)vertexLibrary, vertexLibrary.retainCount());
         vertexLibrary.setLabel("Vertex library");
         NSLog(@"%s\n", vertexLibrary.label().cString());
 
@@ -366,7 +328,6 @@ int main(int argc, const char* argv[]) {
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
 
         mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
-        NSLog(@"Fragment library: %p, %lu\n", (id)fragmentLibrary, fragmentLibrary.retainCount());
         fragmentLibrary.setLabel("Fragment library");
         NSLog(@"%s\n", fragmentLibrary.label().cString());
 
@@ -376,48 +337,40 @@ int main(int argc, const char* argv[]) {
         mtl::VertexDescriptor vertexDescriptor;
 
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
-        NSLog(@"Vertex layouts: %p, %lu\n", (id)vertexLayouts, vertexLayouts.retainCount());
 
         mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-        NSLog(@"Vertex layout 0: %p, %lu\n", (id)vertexLayout0, vertexLayout0.retainCount());
         vertexLayout0.setStride(44);
         vertexLayout0.setStepRate(1);
         vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
 
         mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-        NSLog(@"Vertex attributes: %p, %lu\n", (id)vertexAttributes, vertexAttributes.retainCount());
 
         // position
         mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-        NSLog(@"Vertex attribute 0: %p, %lu\n", (id)vertexAttribute0, vertexAttribute0.retainCount());
         vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
         vertexAttribute0.setOffset(0);
         vertexAttribute0.setBufferIndex(0);
 
         // color
         mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
-        NSLog(@"Vertex attribute 1: %p, %lu\n", (id)vertexAttribute1, vertexAttribute1.retainCount());
         vertexAttribute1.setFormat(mtl::VertexFormat::UChar4Normalized);
         vertexAttribute1.setOffset(12);
         vertexAttribute1.setBufferIndex(0);
 
         // texture coordinates 0
         mtl::VertexAttributeDescriptor vertexAttribute2 = vertexAttributes[2];
-        NSLog(@"Vertex attribute 2: %p, %lu\n", (id)vertexAttribute2, vertexAttribute2.retainCount());
         vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
         vertexAttribute2.setOffset(16);
         vertexAttribute2.setBufferIndex(0);
 
         // texture coordinates 1
         mtl::VertexAttributeDescriptor vertexAttribute3 = vertexAttributes[3];
-        NSLog(@"Vertex attribute 3: %p, %lu\n", (id)vertexAttribute3, vertexAttribute3.retainCount());
         vertexAttribute3.setFormat(mtl::VertexFormat::Float2);
         vertexAttribute3.setOffset(24);
         vertexAttribute3.setBufferIndex(0);
 
         // normal
         mtl::VertexAttributeDescriptor vertexAttribute4 = vertexAttributes[4];
-        NSLog(@"Vertex attribute 4: %p, %lu\n", (id)vertexAttribute4, vertexAttribute4.retainCount());
         vertexAttribute4.setFormat(mtl::VertexFormat::Float3);
         vertexAttribute4.setOffset(32);
         vertexAttribute4.setBufferIndex(0);
