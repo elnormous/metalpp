@@ -27,6 +27,10 @@ TEST_CASE("Command queue")
     mtl::CommandQueue commandQueueWithMax = device.newCommandQueueWithMaxCommandBufferCount(10);
     REQUIRE(commandQueueWithMax);
     REQUIRE(commandQueueWithMax.retainCount());
+
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+    REQUIRE(commandBuffer);
+    REQUIRE(commandBuffer.retainCount());
 }
 
 TEST_CASE("Depth stencil state")

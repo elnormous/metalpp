@@ -3,6 +3,8 @@
 
 #include "../objc/Object.hpp"
 #include "Classes.hpp"
+#include "CommandBuffer.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -29,6 +31,12 @@ namespace mtl
         void setLabel(const ns::String& label) noexcept
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
+
+        [[nodiscard]] CommandBuffer commandBuffer() const noexcept
+        {
+            const id commandBuffer = objc::sendMessage<id>(*this, sel::commandBuffer);
+            return CommandBuffer{objc::sendMessage<id>(commandBuffer, ns::sel::retain)};
         }
     };
 }

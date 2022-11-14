@@ -2,6 +2,7 @@
 #define METALPP_METAL_METAL_HPP
 
 #include "Buffer.hpp"
+#include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
 #include "DepthStencil.hpp"
