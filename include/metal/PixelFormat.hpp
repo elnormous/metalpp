@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_PIXELFORMAT_HPP
 #define METALPP_METAL_PIXELFORMAT_HPP
 
+#include <os/availability.h>
 #include <objc/NSObjCRuntime.h>
 
 namespace mtl
@@ -14,7 +15,7 @@ namespace mtl
         A8Unorm      = 1,
 
         R8Unorm      = 10,
-        R8Unorm_sRGB = 11,
+        R8Unorm_sRGB API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 11,
         R8Snorm      = 12,
         R8Uint       = 13,
         R8Sint       = 14,
@@ -28,17 +29,17 @@ namespace mtl
         R16Float     = 25,
 
         RG8Unorm      = 30,
-        RG8Unorm_sRGB = 31,
+        RG8Unorm_sRGB API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 31,
         RG8Snorm      = 32,
         RG8Uint       = 33,
         RG8Sint       = 34,
 
         // Packed 16 bit formats
 
-        B5G6R5Unorm = 40,
-        A1BGR5Unorm = 41,
-        ABGR4Unorm  = 42,
-        BGR5A1Unorm = 43,
+        B5G6R5Unorm API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 40,
+        A1BGR5Unorm API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 41,
+        ABGR4Unorm  API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 42,
+        BGR5A1Unorm API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 43,
 
         // Normal 32 bit formats
 
@@ -69,10 +70,10 @@ namespace mtl
         RG11B10Float = 92,
         RGB9E5Float  = 93,
 
-        BGR10A2Unorm  = 94,
+        BGR10A2Unorm  API_AVAILABLE(macos(10.13), ios(11.0)) = 94,
 
-        BGR10_XR      = 554,
-        BGR10_XR_sRGB = 555,
+        BGR10_XR      API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = 554,
+        BGR10_XR_sRGB API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = 555,
 
         // Normal 64 bit formats
 
@@ -86,8 +87,8 @@ namespace mtl
         RGBA16Sint   = 114,
         RGBA16Float  = 115,
 
-        BGRA10_XR      = 552,
-        BGRA10_XR_sRGB = 553,
+        BGRA10_XR      API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = 552,
+        BGRA10_XR_sRGB API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = 553,
 
         // Normal 128 bit formats
 
@@ -98,95 +99,95 @@ namespace mtl
         // Compressed formats.
 
         // S3TC/DXT
-        BC1_RGBA      = 130,
-        BC1_RGBA_sRGB = 131,
-        BC2_RGBA      = 132,
-        BC2_RGBA_sRGB = 133,
-        BC3_RGBA      = 134,
-        BC3_RGBA_sRGB = 135,
+        BC1_RGBA              API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 130,
+        BC1_RGBA_sRGB         API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 131,
+        BC2_RGBA              API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 132,
+        BC2_RGBA_sRGB         API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 133,
+        BC3_RGBA              API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 134,
+        BC3_RGBA_sRGB         API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 135,
 
         // RGTC
-        BC4_RUnorm  = 140,
-        BC4_RSnorm  = 141,
-        BC5_RGUnorm = 142,
-        BC5_RGSnorm = 143,
+        BC4_RUnorm            API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 140,
+        BC4_RSnorm            API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 141,
+        BC5_RGUnorm           API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 142,
+        BC5_RGSnorm           API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 143,
 
         // BPTC
-        BC6H_RGBFloat      = 150,
-        BC6H_RGBUfloat     = 151,
-        BC7_RGBAUnorm      = 152,
-        BC7_RGBAUnorm_sRGB = 153,
+        BC6H_RGBFloat         API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 150,
+        BC6H_RGBUfloat        API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 151,
+        BC7_RGBAUnorm         API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 152,
+        BC7_RGBAUnorm_sRGB    API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 153,
 
         // PVRTC
-        PVRTC_RGB_2BPP       = 160,
-        PVRTC_RGB_2BPP_sRGB  = 161,
-        PVRTC_RGB_4BPP       = 162,
-        PVRTC_RGB_4BPP_sRGB  = 163,
-        PVRTC_RGBA_2BPP      = 164,
-        PVRTC_RGBA_2BPP_sRGB = 165,
-        PVRTC_RGBA_4BPP      = 166,
-        PVRTC_RGBA_4BPP_sRGB = 167,
+        PVRTC_RGB_2BPP        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 160,
+        PVRTC_RGB_2BPP_sRGB   API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 161,
+        PVRTC_RGB_4BPP        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 162,
+        PVRTC_RGB_4BPP_sRGB   API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 163,
+        PVRTC_RGBA_2BPP       API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 164,
+        PVRTC_RGBA_2BPP_sRGB  API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 165,
+        PVRTC_RGBA_4BPP       API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 166,
+        PVRTC_RGBA_4BPP_sRGB  API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 167,
 
         // ETC2
-        EAC_R11Unorm     = 170,
-        EAC_R11Snorm     = 172,
-        EAC_RG11Unorm    = 174,
-        EAC_RG11Snorm    = 176,
-        EAC_RGBA8        = 178,
-        EAC_RGBA8_sRGB   = 179,
+        EAC_R11Unorm          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 170,
+        EAC_R11Snorm          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 172,
+        EAC_RG11Unorm         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 174,
+        EAC_RG11Snorm         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 176,
+        EAC_RGBA8             API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 178,
+        EAC_RGBA8_sRGB        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 179,
 
-        ETC2_RGB8        = 180,
-        ETC2_RGB8_sRGB   = 181,
-        ETC2_RGB8A1      = 182,
-        ETC2_RGB8A1_sRGB = 183,
+        ETC2_RGB8             API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 180,
+        ETC2_RGB8_sRGB        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 181,
+        ETC2_RGB8A1           API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 182,
+        ETC2_RGB8A1_sRGB      API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 183,
 
         // ASTC
-        ASTC_4x4_sRGB    = 186,
-        ASTC_5x4_sRGB    = 187,
-        ASTC_5x5_sRGB    = 188,
-        ASTC_6x5_sRGB    = 189,
-        ASTC_6x6_sRGB    = 190,
-        ASTC_8x5_sRGB    = 192,
-        ASTC_8x6_sRGB    = 193,
-        ASTC_8x8_sRGB    = 194,
-        ASTC_10x5_sRGB   = 195,
-        ASTC_10x6_sRGB   = 196,
-        ASTC_10x8_sRGB   = 197,
-        ASTC_10x10_sRGB  = 198,
-        ASTC_12x10_sRGB  = 199,
-        ASTC_12x12_sRGB  = 200,
+        ASTC_4x4_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 186,
+        ASTC_5x4_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 187,
+        ASTC_5x5_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 188,
+        ASTC_6x5_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 189,
+        ASTC_6x6_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 190,
+        ASTC_8x5_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 192,
+        ASTC_8x6_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 193,
+        ASTC_8x8_sRGB         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 194,
+        ASTC_10x5_sRGB        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 195,
+        ASTC_10x6_sRGB        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 196,
+        ASTC_10x8_sRGB        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 197,
+        ASTC_10x10_sRGB       API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 198,
+        ASTC_12x10_sRGB       API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 199,
+        ASTC_12x12_sRGB       API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 200,
 
-        ASTC_4x4_LDR     = 204,
-        ASTC_5x4_LDR     = 205,
-        ASTC_5x5_LDR     = 206,
-        ASTC_6x5_LDR     = 207,
-        ASTC_6x6_LDR     = 208,
-        ASTC_8x5_LDR     = 210,
-        ASTC_8x6_LDR     = 211,
-        ASTC_8x8_LDR     = 212,
-        ASTC_10x5_LDR    = 213,
-        ASTC_10x6_LDR    = 214,
-        ASTC_10x8_LDR    = 215,
-        ASTC_10x10_LDR   = 216,
-        ASTC_12x10_LDR   = 217,
-        ASTC_12x12_LDR   = 218,
+        ASTC_4x4_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 204,
+        ASTC_5x4_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 205,
+        ASTC_5x5_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 206,
+        ASTC_6x5_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 207,
+        ASTC_6x6_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 208,
+        ASTC_8x5_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 210,
+        ASTC_8x6_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 211,
+        ASTC_8x8_LDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 212,
+        ASTC_10x5_LDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 213,
+        ASTC_10x6_LDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 214,
+        ASTC_10x8_LDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 215,
+        ASTC_10x10_LDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 216,
+        ASTC_12x10_LDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 217,
+        ASTC_12x12_LDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(8.0)) = 218,
 
 
         // ASTC HDR (High Dynamic Range) Formats
-        ASTC_4x4_HDR   = 222,
-        ASTC_5x4_HDR   = 223,
-        ASTC_5x5_HDR   = 224,
-        ASTC_6x5_HDR   = 225,
-        ASTC_6x6_HDR   = 226,
-        ASTC_8x5_HDR   = 228,
-        ASTC_8x6_HDR   = 229,
-        ASTC_8x8_HDR   = 230,
-        ASTC_10x5_HDR  = 231,
-        ASTC_10x6_HDR  = 232,
-        ASTC_10x8_HDR  = 233,
-        ASTC_10x10_HDR = 234,
-        ASTC_12x10_HDR = 235,
-        ASTC_12x12_HDR = 236,
+        ASTC_4x4_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 222,
+        ASTC_5x4_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 223,
+        ASTC_5x5_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 224,
+        ASTC_6x5_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 225,
+        ASTC_6x6_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 226,
+        ASTC_8x5_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 228,
+        ASTC_8x6_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 229,
+        ASTC_8x8_HDR          API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 230,
+        ASTC_10x5_HDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 231,
+        ASTC_10x6_HDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 232,
+        ASTC_10x8_HDR         API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 233,
+        ASTC_10x10_HDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 234,
+        ASTC_12x10_HDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 235,
+        ASTC_12x12_HDR        API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0)) = 236,
         
         /*!
          @constant GBGR422
@@ -204,7 +205,7 @@ namespace mtl
 
         // Depth
 
-        Depth16Unorm  = 250,
+        Depth16Unorm  API_AVAILABLE(macos(10.12), ios(13.0)) = 250,
         Depth32Float  = 252,
 
         // Stencil
@@ -213,12 +214,12 @@ namespace mtl
 
         // Depth Stencil
 
-        Depth24Unorm_Stencil8 = 255,
-        Depth32Float_Stencil8 = 260,
+        Depth24Unorm_Stencil8 API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 255,
+        Depth32Float_Stencil8 API_AVAILABLE(macos(10.11), ios(9.0)) = 260,
 
-        X32_Stencil8 = 261,
-        X24_Stencil8 = 262,
-    };
+        X32_Stencil8 API_AVAILABLE(macos(10.12), ios(10.0)) = 261,
+        X24_Stencil8 API_AVAILABLE(macos(10.12), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 262,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

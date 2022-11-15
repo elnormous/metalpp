@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_COMMANDQUEUE_HPP
 #define METALPP_METAL_COMMANDQUEUE_HPP
 
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "Classes.hpp"
 #include "CommandBuffer.hpp"
@@ -38,7 +39,7 @@ namespace mtl
             const id commandBuffer = objc::sendMessage<id>(*this, sel::commandBuffer);
             return CommandBuffer{objc::sendMessage<id>(commandBuffer, ns::sel::retain)};
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

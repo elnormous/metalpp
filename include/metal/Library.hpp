@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_LIBRARY_HPP
 #define METALPP_METAL_LIBRARY_HPP
 
+#include <os/availability.h>
 #include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
@@ -17,28 +18,28 @@ namespace mtl
 
     enum class LanguageVersion: NSUInteger
     {
-        Version1_0 = (1 << 16),
-        Version1_1 = (1 << 16) + 1,
-        Version1_2 = (1 << 16) + 2,
-        Version2_0 = (2 << 16),
-        Version2_1 = (2 << 16) + 1,
-        Version2_2 = (2 << 16) + 2,
-        Version2_3 = (2 << 16) + 3,
-        Version2_4 = (2 << 16) + 4,
-        Version3_0 = (3 << 16) + 0,
-    };
+        Version1_0 API_DEPRECATED("Use a newer language standard", ios(9.0, 16.0)) API_UNAVAILABLE(macos, macCatalyst) = (1 << 16),
+        Version1_1 API_AVAILABLE(macos(10.11), ios(9.0)) = (1 << 16) + 1,
+        Version1_2 API_AVAILABLE(macos(10.12), ios(10.0)) = (1 << 16) + 2,
+        Version2_0 API_AVAILABLE(macos(10.13), ios(11.0)) = (2 << 16),
+        Version2_1 API_AVAILABLE(macos(10.14), ios(12.0)) = (2 << 16) + 1,
+        Version2_2 API_AVAILABLE(macos(10.15), ios(13.0)) = (2 << 16) + 2,
+        Version2_3 API_AVAILABLE(macos(11.0), ios(14.0)) = (2 << 16) + 3,
+        Version2_4 API_AVAILABLE(macos(12.0), ios(15.0)) = (2 << 16) + 4,
+        Version3_0 API_AVAILABLE(macos(13.0), ios(16.0)) = (3 << 16) + 0,
+    } API_AVAILABLE(macos(10.11), ios(9.0));
 
     enum class LibraryType: NSInteger
     {
         Executable = 0,
         Dynamic = 1,
-    };
+    } API_AVAILABLE(macos(11.0), ios(14.0));
 
     enum class LibraryOptimizationLevel: NSInteger
     {
         Default = 0,
         Size = 1,
-    };
+    } API_AVAILABLE(macos(13.0), ios(16.0));
 
     class CompileOptions final: public ns::Object
     {
@@ -130,7 +131,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class Function final: public ns::Object
     {
@@ -165,7 +166,7 @@ namespace mtl
                                                       static_cast<id>(name));
             return Function{function};
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif /* Library_h */

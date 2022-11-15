@@ -43,7 +43,7 @@ namespace mtl
             Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::depthStencilDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class DepthStencilState final: public ns::Object
     {        
@@ -55,7 +55,7 @@ namespace mtl
             const id label = objc::sendMessage<id>(*this, sel::label);
             return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

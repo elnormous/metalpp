@@ -2,6 +2,7 @@
 #define METALPP_METAL_DEVICE_HPP
 
 #include <type_traits>
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
@@ -104,7 +105,7 @@ namespace mtl
 
             return RenderPipelineState{renderPipelineState};
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     inline Device CommandEncoder::device() const noexcept
     {
