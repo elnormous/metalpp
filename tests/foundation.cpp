@@ -82,4 +82,6 @@ TEST_CASE("String")
     CHECK(str.charAtIndex(1) == 'b');
     CHECK(str.string() == "ab");
     CHECK(strcmp(str.cString(), "ab") == 0);
+    CHECK(str.isEqualToString("ab"));
+    CHECK(!str.isEqualToString("abc"));
 }

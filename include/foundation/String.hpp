@@ -105,6 +105,11 @@ namespace ns
                                                             encoding);
             return std::string{str};
         }
+
+        [[nodiscard]] bool isEqualToString(const String& string) const noexcept
+        {
+            return objc::sendMessage<BOOL>(*this, sel::isEqualToString_, static_cast<id>(string)) == YES;
+        }
     };
 }
 
