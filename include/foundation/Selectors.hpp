@@ -24,6 +24,7 @@ namespace ns
         inline const auto initWithDomain_code_userInfo_ = sel_registerName("initWithDomain:code:userInfo:");
         inline const auto code = sel_registerName("code");
         inline const auto domain = sel_registerName("domain");
+        inline const auto userInfo = sel_registerName("userInfo");
         inline const auto localizedDescription = sel_registerName("localizedDescription");
 
         inline const auto initWithBytes_length_encoding_ = sel_registerName("initWithBytes:length:encoding:");

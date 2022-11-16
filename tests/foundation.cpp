@@ -75,9 +75,17 @@ TEST_CASE("Error")
 {
     ns::Error error{"test", 10};
     REQUIRE(error);
-    REQUIRE(error.retainCount() > 0);
+    REQUIRE(error.retainCount() == 1);
     CHECK(error.domain().isEqualToString("test"));
     CHECK(error.code() == 10);
+
+    ns::Error errorWithUserInfo{"test2", 11, ns::Dictionary<ns::String, ns::Object>{ns::String{"key"}, ns::String{"value"}}};
+    CHECK(errorWithUserInfo.domain().isEqualToString("test2"));
+    CHECK(errorWithUserInfo.code() == 11);
+    const ns::Dictionary<ns::String, ns::Object> userInfo = errorWithUserInfo.userInfo();
+    REQUIRE(userInfo);
+    REQUIRE(userInfo.retainCount() > 0);
+    CHECK(userInfo.count() == 1);
 }
 
 TEST_CASE("String")
