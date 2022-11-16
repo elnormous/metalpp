@@ -2,6 +2,7 @@
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Array.hpp"
 #include "foundation/Dictionary.hpp"
+#include "foundation/Error.hpp"
 #include "foundation/String.hpp"
 
 TEST_CASE("AutoreleasePool")
@@ -68,6 +69,15 @@ TEST_CASE("Dictionary")
     const ns::Dictionary<ns::String, ns::Object> dict2{values, keys};
     CHECK(obj1 == dict["key1"]);
     CHECK(obj2 == dict["key2"]);
+}
+
+TEST_CASE("Error")
+{
+    ns::Error error{"test", 10};
+    REQUIRE(error);
+    REQUIRE(error.retainCount() > 0);
+    CHECK(error.domain().isEqualToString("test"));
+    CHECK(error.code() == 10);
 }
 
 TEST_CASE("String")

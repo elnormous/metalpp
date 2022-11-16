@@ -21,6 +21,7 @@ namespace ns
 
         inline const auto drain = sel_registerName("drain");
 
+        inline const auto initWithDomain_code_userInfo_ = sel_registerName("initWithDomain:code:userInfo:");
         inline const auto code = sel_registerName("code");
         inline const auto domain = sel_registerName("domain");
         inline const auto localizedDescription = sel_registerName("localizedDescription");

@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
+#include "Classes.hpp"
 #include "Selectors.hpp"
 #include "String.hpp"
 
@@ -12,6 +13,15 @@ namespace ns
     {
     public:
         Error(const id p) noexcept: Object{p} {}
+
+        Error(const ns::String& domain, const NSInteger& code) noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::error, ns::sel::alloc),
+                                         sel::initWithDomain_code_userInfo_,
+                                         static_cast<id>(domain),
+                                         code,
+                                         nil)}
+        {
+        }
 
         NSInteger code() const noexcept
         {
