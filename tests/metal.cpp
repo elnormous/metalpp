@@ -88,7 +88,7 @@ TEST_CASE("Render pipeline state")
     REQUIRE(vertexLibrary);
     REQUIRE(vertexLibrary.retainCount() == 1);
     vertexLibrary.setLabel("Vertex library");
-    CHECK(vertexLibrary.label().string() == "Vertex library");
+    CHECK(vertexLibrary.label().isEqualToString("Vertex library"));
 
     mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"vsh_flat"});
 
@@ -97,7 +97,7 @@ TEST_CASE("Render pipeline state")
     REQUIRE(fragmentLibrary);
     REQUIRE(fragmentLibrary.retainCount() == 1);
     fragmentLibrary.setLabel("Fragment library");
-    CHECK(fragmentLibrary.label().string() == "Fragment library");
+    CHECK(fragmentLibrary.label().isEqualToString("Fragment library"));
 
     mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"fsh_flat"});
 
@@ -130,7 +130,7 @@ TEST_CASE("Render pipeline state")
     REQUIRE(renderPipelineDescriptor);
     REQUIRE(renderPipelineDescriptor.retainCount() == 1);
     renderPipelineDescriptor.setLabel("Render pipeline");
-    CHECK(renderPipelineDescriptor.label().string() == "Render pipeline");
+    CHECK(renderPipelineDescriptor.label().isEqualToString("Render pipeline"));
 
     renderPipelineDescriptor.setVertexFunction(vertexFunction);
     CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
