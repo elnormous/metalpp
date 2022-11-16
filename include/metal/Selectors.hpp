@@ -66,6 +66,7 @@ namespace mtl
         inline const auto setOptimizationLevel_ = sel_registerName("setOptimizationLevel:");
 
         inline const auto commandBuffer = sel_registerName("commandBuffer");
+        inline const auto renderCommandEncoderWithDescriptor_ = sel_registerName("renderCommandEncoderWithDescriptor:");
     }
 }
 

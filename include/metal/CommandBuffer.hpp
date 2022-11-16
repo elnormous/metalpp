@@ -4,10 +4,14 @@
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "RenderCommandEncoder.hpp"
+#include "RenderPass.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
 {
+    class Device;
+
     enum class CommandBufferStatus: NSUInteger
     {
         NotEnqueued = 0,
@@ -66,7 +70,14 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
-    };
+
+        RenderCommandEncoder renderCommandEncoderWithDescriptor(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        {
+            const id renderCommandEncoder = objc::sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
+            return RenderCommandEncoder{objc::sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
+        }
+
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

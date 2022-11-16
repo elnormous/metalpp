@@ -1,5 +1,5 @@
-#ifndef METALPP_METAL_RENDERCOMMANDENCODER_HPP
-#define METALPP_METAL_RENDERCOMMANDENCODER_HPP
+#ifndef METALPP_METAL_COMMANDENCODER_HPP
+#define METALPP_METAL_COMMANDENCODER_HPP
 
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
@@ -25,6 +25,9 @@ namespace mtl
 
     class CommandEncoder: public ns::Object
     {
+    public:
+        CommandEncoder() = delete;
+
         Device device() const noexcept;
     };
 }

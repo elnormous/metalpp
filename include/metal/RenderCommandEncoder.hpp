@@ -3,6 +3,7 @@
 
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "CommandEncoder.hpp"
 
 namespace mtl
 {
@@ -55,6 +56,12 @@ namespace mtl
     {
         Fill = 0,
         Lines = 1,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    class RenderCommandEncoder: public CommandEncoder
+    {
+    public:
+        RenderCommandEncoder() = delete;
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
