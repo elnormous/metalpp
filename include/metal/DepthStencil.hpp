@@ -43,6 +43,17 @@ namespace mtl
             Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::depthStencilDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
+
+        [[nodiscard]] ns::String label() const noexcept
+        {
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+        }
+
+        void setLabel(const ns::String& label) noexcept
+        {
+            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class DepthStencilState final: public ns::Object

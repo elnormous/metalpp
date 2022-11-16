@@ -25,6 +25,7 @@ namespace mtl
         inline const auto setFragmentFunction_ = sel_registerName("setFragmentFunction:");
         inline const auto vertexDescriptor = sel_registerName("vertexDescriptor");
         inline const auto setVertexDescriptor_ = sel_registerName("setVertexDescriptor:");
+        inline const auto colorAttachments = sel_registerName("colorAttachments");
         inline const auto depthAttachmentPixelFormat = sel_registerName("depthAttachmentPixelFormat");
         inline const auto setDepthAttachmentPixelFormat_ = sel_registerName("setDepthAttachmentPixelFormat:");
         inline const auto stencilAttachmentPixelFormat = sel_registerName("stencilAttachmentPixelFormat");

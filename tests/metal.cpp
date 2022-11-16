@@ -22,15 +22,25 @@ TEST_CASE("Command queue")
     mtl::Device device;
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     REQUIRE(commandQueue);
-    REQUIRE(commandQueue.retainCount());
+    REQUIRE(commandQueue.retainCount() == 1);
+
+    CHECK(commandQueue.label().retainCount() == 0);
+    char labelStr[] = "Command queue";
+    ns::String label{labelStr};
+    CHECK(label.retainCount() == 1);
+    commandQueue.setLabel(label);
+    CHECK(label.retainCount() > 0);
+
+    CHECK(commandQueue.label().isEqualToString(labelStr));
+    CHECK(commandQueue.label().retainCount() > 0);
 
     mtl::CommandQueue commandQueueWithMax = device.newCommandQueueWithMaxCommandBufferCount(10);
     REQUIRE(commandQueueWithMax);
-    REQUIRE(commandQueueWithMax.retainCount());
+    REQUIRE(commandQueueWithMax.retainCount() == 1);
 
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
-    REQUIRE(commandBuffer.retainCount());
+    REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
 }
 
 TEST_CASE("Depth stencil state")
@@ -39,10 +49,21 @@ TEST_CASE("Depth stencil state")
     mtl::DepthStencilDescriptor descriptor;
     REQUIRE(descriptor);
     REQUIRE(descriptor.retainCount());
+    char labelStr[] = "Depth stencil state";
+    ns::String label{labelStr};
+    CHECK(label.retainCount() == 1);
+    descriptor.setLabel(label);
+    CHECK(label.retainCount() == 2);
+    CHECK(descriptor.label().isEqualToString(labelStr));
+    CHECK(descriptor.label().retainCount() == 3);
+    CHECK(descriptor.label().retainCount() == 3);
+    CHECK(descriptor.label().retainCount() == 3);
 
     mtl::DepthStencilState depthStencilState = device.newDepthStencilStateWithDescriptor(descriptor);
     REQUIRE(depthStencilState);
     REQUIRE(depthStencilState.retainCount());
+    CHECK(depthStencilState.label().isEqualToString(labelStr));
+    CHECK(depthStencilState.label().retainCount() > 0);
 
     const auto retainCount = device.retainCount();
     {
@@ -80,8 +101,15 @@ TEST_CASE("Render pipeline state")
     options.setFastMathEnabled(true);
     CHECK(options.fastMathEnabled());
 
-    const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
-    options.setPreprocessorMacros(preprocessorMacros);
+    {
+        const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
+        options.setPreprocessorMacros(preprocessorMacros);
+        CHECK(options.preprocessorMacros().retainCount() == 3);
+    }
+
+    CHECK(options.preprocessorMacros());
+    CHECK(options.preprocessorMacros().retainCount() == 2);
+    CHECK(options.preprocessorMacros().retainCount() == 2);
 
     // vertex shader
     mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
@@ -101,6 +129,7 @@ TEST_CASE("Render pipeline state")
 
     mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"fsh_flat"});
 
+    // vertex descriptor
     mtl::VertexDescriptor vertexDescriptor;
     REQUIRE(vertexDescriptor);
     REQUIRE(vertexDescriptor.retainCount() == 1);
@@ -154,6 +183,7 @@ TEST_CASE("Render pipeline state")
     renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
     CHECK(renderPipelineDescriptor.fragmentFunction() == fragmentFunction);
 
+    // depth and stencil attachments
     renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
     CHECK(renderPipelineDescriptor.depthAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
     // test stencil format setter with a different color format
@@ -161,6 +191,11 @@ TEST_CASE("Render pipeline state")
     CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Stencil8);
     renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
     CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
+
+    // color attachments
+    mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments = renderPipelineDescriptor.colorAttachments();
+    REQUIRE(colorAttachments);
+    REQUIRE(colorAttachments.retainCount() == 2);
 
     renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 

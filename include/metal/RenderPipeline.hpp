@@ -93,6 +93,32 @@ namespace mtl
         UInt32 = 2,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
+    class RenderPipelineColorAttachmentDescriptor final: public ns::Object
+    {
+    public:
+        RenderPipelineColorAttachmentDescriptor() = delete;
+
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    class RenderPipelineColorAttachmentDescriptorArray final: public ns::Object
+    {
+    public:
+        RenderPipelineColorAttachmentDescriptorArray() = delete;
+
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const std::size_t index) const noexcept
+        {
+            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+        }
+
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        {
+            const id object = objc::sendMessage<id>(*this,
+                                                    ns::sel::objectAtIndexedSubscript_,
+                                                    index);
+            return RenderPipelineColorAttachmentDescriptor{objc::sendMessage<id>(object, ns::sel::retain)};
+        }
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
     class RenderPipelineDescriptor final: public ns::Object
     {
     public:
@@ -143,6 +169,12 @@ namespace mtl
         void setVertexDescriptor(const mtl::VertexDescriptor& vertexDescriptor) noexcept
         {
             objc::sendMessage(*this, sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
+        }
+
+        [[nodiscard]] mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
+        {
+            const id colorAttachments = objc::sendMessage<id>(*this, sel::colorAttachments);
+            return mtl::RenderPipelineColorAttachmentDescriptorArray{objc::sendMessage<id>(colorAttachments, ns::sel::retain)};
         }
 
         [[nodiscard]] mtl::PixelFormat depthAttachmentPixelFormat() const noexcept
