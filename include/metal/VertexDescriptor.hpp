@@ -2,6 +2,7 @@
 #define METALPP_METAL_VERTEXDESCRIPTOR_HPP
 
 #include <objc/NSObjCRuntime.h>
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Selectors.hpp"
@@ -68,29 +69,29 @@ namespace mtl
         Int1010102Normalized = 40,
         UInt1010102Normalized = 41,
 
-        UChar4Normalized_BGRA = 42,
+        UChar4Normalized_BGRA API_AVAILABLE(macos(10.13), ios(11.0)) = 42,
 
-        UChar = 45,
-        Char = 46,
-        UCharNormalized = 47,
-        CharNormalized = 48,
+        UChar API_AVAILABLE(macos(10.13), ios(11.0)) = 45,
+        Char API_AVAILABLE(macos(10.13), ios(11.0)) = 46,
+        UCharNormalized API_AVAILABLE(macos(10.13), ios(11.0)) = 47,
+        CharNormalized API_AVAILABLE(macos(10.13), ios(11.0)) = 48,
 
-        UShort = 49,
-        Short = 50,
-        UShortNormalized = 51,
-        ShortNormalized = 52,
+        UShort API_AVAILABLE(macos(10.13), ios(11.0)) = 49,
+        Short API_AVAILABLE(macos(10.13), ios(11.0)) = 50,
+        UShortNormalized API_AVAILABLE(macos(10.13), ios(11.0)) = 51,
+        ShortNormalized API_AVAILABLE(macos(10.13), ios(11.0)) = 52,
 
-        Half = 53,
-    };
+        Half API_AVAILABLE(macos(10.13), ios(11.0)) = 53,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     enum class VertexStepFunction: NSUInteger
     {
         Constant = 0,
         PerVertex = 1,
         PerInstance = 2,
-        PerPatch = 3,
-        PerPatchControlPoint = 4,
-    };
+        PerPatch API_AVAILABLE(macos(10.12), ios(10.0)) = 3,
+        PerPatchControlPoint API_AVAILABLE(macos(10.12), ios(10.0)) = 4,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexBufferLayoutDescriptor final: public ns::Object
     {
@@ -126,7 +127,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setStepRate_, stepRate);
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexBufferLayoutDescriptorArray final: public ns::Object
     {
@@ -145,7 +146,7 @@ namespace mtl
                                                     index);
             return VertexBufferLayoutDescriptor{objc::sendMessage<id>(object, ns::sel::retain)};
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexAttributeDescriptor final: public ns::Object
     {
@@ -181,7 +182,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setBufferIndex_, bufferIndex);
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexAttributeDescriptorArray final: public ns::Object
     {
@@ -228,7 +229,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::reset);
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

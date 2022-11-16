@@ -1,8 +1,8 @@
 #ifndef METALPP_METAL_PIXELFORMAT_HPP
 #define METALPP_METAL_PIXELFORMAT_HPP
 
-#include <os/availability.h>
 #include <objc/NSObjCRuntime.h>
+#include <os/availability.h>
 
 namespace mtl
 {

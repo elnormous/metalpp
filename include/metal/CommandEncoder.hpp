@@ -1,8 +1,8 @@
 #ifndef METALPP_METAL_RENDERCOMMANDENCODER_HPP
 #define METALPP_METAL_RENDERCOMMANDENCODER_HPP
 
-#include <os/availability.h>
 #include <objc/NSObjCRuntime.h>
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 
 namespace mtl

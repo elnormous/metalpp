@@ -1,8 +1,8 @@
 #ifndef METALPP_METAL_LIBRARY_HPP
 #define METALPP_METAL_LIBRARY_HPP
 
-#include <os/availability.h>
 #include <objc/NSObjCRuntime.h>
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Array.hpp"

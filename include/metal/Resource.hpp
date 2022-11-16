@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_RESOURCE_HPP
 #define METALPP_METAL_RESOURCE_HPP
 
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../foundation/String.hpp"
 #include "Selectors.hpp"
@@ -26,7 +27,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif

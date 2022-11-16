@@ -2,6 +2,7 @@
 #define METALPP_METAL_RENDERPIPELINE_HPP
 
 #include <objc/NSObjCRuntime.h>
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Classes.hpp"
@@ -31,11 +32,11 @@ namespace mtl
         OneMinusBlendColor = 12,
         BlendAlpha = 13,
         OneMinusBlendAlpha = 14,
-        Source1Color = 15,
-        OneMinusSource1Color = 16,
-        Source1Alpha = 17,
-        OneMinusSource1Alpha = 18,
-    };
+        Source1Color              API_AVAILABLE(macos(10.12), ios(10.11)) = 15,
+        OneMinusSource1Color      API_AVAILABLE(macos(10.12), ios(10.11)) = 16,
+        Source1Alpha              API_AVAILABLE(macos(10.12), ios(10.11)) = 17,
+        OneMinusSource1Alpha      API_AVAILABLE(macos(10.12), ios(10.11)) = 18,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     enum class BlendOperation: NSUInteger
     {
@@ -44,7 +45,7 @@ namespace mtl
         ReverseSubtract = 2,
         Min = 3,
         Max = 4,
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     enum class ColorWriteMask: NSUInteger
     {
@@ -54,7 +55,7 @@ namespace mtl
         Blue  = 0x1 << 1,
         Alpha = 0x1 << 0,
         All   = 0xf
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     enum class PrimitiveTopologyClass: NSUInteger
     {
@@ -62,7 +63,7 @@ namespace mtl
         Point = 1,
         Line = 2,
         Triangle = 3,
-    };
+    } API_AVAILABLE(macos(10.11), ios(12.0));
 
     enum class TessellationPartitionMode: NSUInteger
     {
@@ -70,7 +71,7 @@ namespace mtl
         Integer = 1,
         FractionalOdd = 2,
         FractionalEven = 3,
-    };
+    } API_AVAILABLE(macos(10.12), ios(10.0));
 
     enum class TessellationFactorStepFunction: NSUInteger
     {
@@ -78,19 +79,19 @@ namespace mtl
         PerPatch = 1,
         PerInstance = 2,
         PerPatchAndPerInstance = 3,
-    };
+    } API_AVAILABLE(macos(10.12), ios(10.0));
 
     enum class TessellationFactorFormat: NSUInteger
     {
         Half = 0,
-    };
+    } API_AVAILABLE(macos(10.12), ios(10.0));
 
     enum class TessellationControlPointIndexType: NSUInteger
     {
         None = 0,
         UInt16 = 1,
         UInt32 = 2,
-    };
+    } API_AVAILABLE(macos(10.12), ios(10.0));
 
     class RenderPipelineDescriptor final: public ns::Object
     {
@@ -163,7 +164,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setStencilAttachmentPixelFormat_, pixelFormat);
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPipelineState final: public ns::Object
     {
@@ -182,7 +183,7 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
-    };
+    } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
 #endif
