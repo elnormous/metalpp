@@ -41,19 +41,19 @@ namespace ns
         ns::String domain() const noexcept
         {
             const id domain = objc::sendMessage<id>(*this, sel::domain);
-            return ns::String{domain};
+            return ns::String{objc::sendMessage<id>(domain, ns::sel::retain)};
         }
 
         ns::Dictionary<ns::String, ns::Object> userInfo() const noexcept
         {
             const id userInfo = objc::sendMessage<id>(*this, sel::userInfo);
-            return ns::Dictionary<ns::String, ns::Object>{userInfo};
+            return ns::Dictionary<ns::String, ns::Object>{objc::sendMessage<id>(userInfo, ns::sel::retain)};
         }
 
         ns::String localizedDescription() const noexcept
         {
             const id localizedDescription = objc::sendMessage<id>(*this, sel::localizedDescription);
-            return ns::String{localizedDescription};
+            return ns::String{objc::sendMessage<id>(localizedDescription, ns::sel::retain)};
         }
     };
 }

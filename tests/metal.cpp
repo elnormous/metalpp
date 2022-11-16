@@ -4,12 +4,16 @@
 
 TEST_CASE("Device")
 {
+    ns::AutoreleasePool pool;
+
     mtl::Device device;
     REQUIRE(device);
 }
 
 TEST_CASE("Device name")
 {
+    ns::AutoreleasePool pool;
+
     mtl::Device device;
     const ns::String name = device.name();
     REQUIRE(name);
@@ -19,6 +23,8 @@ TEST_CASE("Device name")
 
 TEST_CASE("Command queue")
 {
+    ns::AutoreleasePool pool;
+
     mtl::Device device;
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     REQUIRE(commandQueue);
@@ -43,8 +49,21 @@ TEST_CASE("Command queue")
     REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
 }
 
+TEST_CASE("Command buffer")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device;
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+    REQUIRE(commandBuffer);
+    REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
+}
+
 TEST_CASE("Depth stencil state")
 {
+    ns::AutoreleasePool pool;
+
     mtl::Device device;
     mtl::DepthStencilDescriptor descriptor;
     REQUIRE(descriptor);
@@ -80,6 +99,8 @@ TEST_CASE("Depth stencil state")
 
 TEST_CASE("Render pipeline state")
 {
+    ns::AutoreleasePool pool;
+
     const char* vertexShader =
     "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
     "    return float4(vertexArray[vid], ONE);" \

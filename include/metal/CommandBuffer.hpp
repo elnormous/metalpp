@@ -52,7 +52,6 @@ namespace mtl
     {
     public:
         CommandBuffer(const id p) noexcept: ns::Object{p} {}
-
     };
 }
 

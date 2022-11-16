@@ -7,7 +7,6 @@ namespace mtl
 {
     namespace cls
     {
-
         inline const auto commandQueue = objc_lookUpClass("MTLCommandQueue");
         inline const auto compileOptions = objc_lookUpClass("MTLCompileOptions");
         inline const auto depthStencilDescriptor = objc_lookUpClass("MTLDepthStencilDescriptor");

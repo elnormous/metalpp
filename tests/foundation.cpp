@@ -20,6 +20,8 @@ TEST_CASE("AutoreleasePool")
 
 TEST_CASE("Array")
 {
+    ns::AutoreleasePool pool;
+
     ns::Object obj1;
     ns::Object obj2;
     const ns::Array<ns::Object> arr{obj1, obj2};
@@ -84,6 +86,8 @@ TEST_CASE("Dictionary")
 
 TEST_CASE("Error")
 {
+    ns::AutoreleasePool pool;
+
     ns::Error error{"test", 10};
     REQUIRE(error);
     REQUIRE(error.retainCount() == 1);
@@ -101,6 +105,8 @@ TEST_CASE("Error")
 
 TEST_CASE("String")
 {
+    ns::AutoreleasePool pool;
+
     const ns::String str = "ab";
     REQUIRE(str);
     REQUIRE(str.retainCount() > 0);
