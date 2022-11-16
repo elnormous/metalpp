@@ -56,3 +56,57 @@ TEST_CASE("Depth stencil state")
     }
     CHECK(device.retainCount() == retainCount);
 }
+
+TEST_CASE("Render pipeline state")
+{
+    const char* vertexShader =
+    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "    return float4(vertexArray[vid], 1.0);" \
+    "}";
+
+    const char* fragmentShader =
+    "fragment half4 fsh_flat() {" \
+    "    return half4(1.0);" \
+    "}";
+
+    mtl::Device device;
+
+    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+    REQUIRE(renderPipelineDescriptor);
+    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
+    renderPipelineDescriptor.setLabel("Render pipeline");
+    CHECK(renderPipelineDescriptor.label().string() == "Render pipeline");
+
+    mtl::CompileOptions options;
+    REQUIRE(options);
+    REQUIRE(options.retainCount() == 1);
+    options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
+    CHECK(options.languageVersion() == mtl::LanguageVersion::Version1_1);
+    options.setFastMathEnabled(true);
+    CHECK(options.fastMathEnabled());
+
+    const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
+    options.setPreprocessorMacros(preprocessorMacros);
+
+    // vertex shader
+    mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
+    REQUIRE(vertexLibrary);
+    REQUIRE(vertexLibrary.retainCount() == 1);
+    vertexLibrary.setLabel("Vertex library");
+    CHECK(vertexLibrary.label().string() == "Vertex library");
+
+    mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
+    renderPipelineDescriptor.setVertexFunction(vertexFunction);
+    CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
+
+    // fragment shader
+    mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
+    REQUIRE(fragmentLibrary);
+    REQUIRE(fragmentLibrary.retainCount() == 1);
+    fragmentLibrary.setLabel("Fragment library");
+    CHECK(fragmentLibrary.label().string() == "Fragment library");
+
+    mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
+    renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
+    CHECK(renderPipelineDescriptor.fragmentFunction() == fragmentFunction);
+}

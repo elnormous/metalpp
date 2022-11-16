@@ -19,7 +19,7 @@ namespace mtl
         inline const auto label = sel_registerName("label");
         inline const auto setLabel_ = sel_registerName("setLabel:");
 
-        inline const auto vertexFunction = sel_registerName("setVertexFunction");
+        inline const auto vertexFunction = sel_registerName("vertexFunction");
         inline const auto setVertexFunction_ = sel_registerName("setVertexFunction:");
         inline const auto fragmentFunction = sel_registerName("fragmentFunction");
         inline const auto setFragmentFunction_ = sel_registerName("setFragmentFunction:");
