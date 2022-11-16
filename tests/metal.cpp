@@ -61,7 +61,7 @@ TEST_CASE("Render pipeline state")
 {
     const char* vertexShader =
     "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
-    "    return float4(vertexArray[vid], 1.0);" \
+    "    return float4(vertexArray[vid], ONE);" \
     "}";
 
     const char* fragmentShader =
@@ -71,12 +71,7 @@ TEST_CASE("Render pipeline state")
 
     mtl::Device device;
 
-    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
-    REQUIRE(renderPipelineDescriptor);
-    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
-    renderPipelineDescriptor.setLabel("Render pipeline");
-    CHECK(renderPipelineDescriptor.label().string() == "Render pipeline");
-
+    // compile options
     mtl::CompileOptions options;
     REQUIRE(options);
     REQUIRE(options.retainCount() == 1);
@@ -95,9 +90,7 @@ TEST_CASE("Render pipeline state")
     vertexLibrary.setLabel("Vertex library");
     CHECK(vertexLibrary.label().string() == "Vertex library");
 
-    mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
-    renderPipelineDescriptor.setVertexFunction(vertexFunction);
-    CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
+    mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"vsh_flat"});
 
     // fragment shader
     mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
@@ -106,7 +99,54 @@ TEST_CASE("Render pipeline state")
     fragmentLibrary.setLabel("Fragment library");
     CHECK(fragmentLibrary.label().string() == "Fragment library");
 
-    mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
+    mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"fsh_flat"});
+
+    mtl::VertexDescriptor vertexDescriptor;
+    REQUIRE(vertexDescriptor);
+    REQUIRE(vertexDescriptor.retainCount() == 1);
+
+    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+
+    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+    vertexLayout0.setStride(16);
+    vertexLayout0.setStepRate(1);
+    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+
+    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+    // position
+    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+    vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
+    vertexAttribute0.setOffset(0);
+    vertexAttribute0.setBufferIndex(0);
+
+    // color
+    mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
+    vertexAttribute1.setFormat(mtl::VertexFormat::UChar4Normalized);
+    vertexAttribute1.setOffset(12);
+    vertexAttribute1.setBufferIndex(0);
+
+    // render pipeline descriptor
+    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+    REQUIRE(renderPipelineDescriptor);
+    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
+    renderPipelineDescriptor.setLabel("Render pipeline");
+    CHECK(renderPipelineDescriptor.label().string() == "Render pipeline");
+
+    renderPipelineDescriptor.setVertexFunction(vertexFunction);
+    CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
     renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
     CHECK(renderPipelineDescriptor.fragmentFunction() == fragmentFunction);
+
+    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    CHECK(renderPipelineDescriptor.depthAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
+    // test stencil format setter with a different color format
+    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Stencil8);
+    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Stencil8);
+    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
+
+    renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+
+    // render pipeline state
+    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
 }
