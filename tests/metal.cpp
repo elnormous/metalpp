@@ -29,6 +29,7 @@ TEST_CASE("Command queue")
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     REQUIRE(commandQueue);
     REQUIRE(commandQueue.retainCount() == 1);
+    CHECK(commandQueue.device() == device);
 
     CHECK(commandQueue.label().retainCount() == 0);
     char labelStr[] = "Command queue";
@@ -58,6 +59,14 @@ TEST_CASE("Command buffer")
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
     REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
+    CHECK(commandBuffer.device() == device);
+
+    char labelStr[] = "Command buffer";
+    ns::String label{labelStr};
+    CHECK(label.retainCount() == 1);
+    commandBuffer.setLabel(label);
+    CHECK(label.retainCount() > 0);
+    CHECK(commandBuffer.label().isEqualToString(labelStr));
 }
 
 TEST_CASE("Depth stencil state")
@@ -81,6 +90,8 @@ TEST_CASE("Depth stencil state")
     mtl::DepthStencilState depthStencilState = device.newDepthStencilStateWithDescriptor(descriptor);
     REQUIRE(depthStencilState);
     REQUIRE(depthStencilState.retainCount());
+    CHECK(depthStencilState.device() == device);
+
     CHECK(depthStencilState.label().isEqualToString(labelStr));
     CHECK(depthStencilState.label().retainCount() > 0);
 
@@ -136,19 +147,25 @@ TEST_CASE("Render pipeline state")
     mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
     REQUIRE(vertexLibrary);
     REQUIRE(vertexLibrary.retainCount() == 1);
+    CHECK(vertexLibrary.device() == device);
+
     vertexLibrary.setLabel("Vertex library");
     CHECK(vertexLibrary.label().isEqualToString("Vertex library"));
 
     mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"vsh_flat"});
+    CHECK(vertexFunction.device() == device);
 
     // fragment shader
     mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
     REQUIRE(fragmentLibrary);
     REQUIRE(fragmentLibrary.retainCount() == 1);
+    CHECK(fragmentLibrary.device() == device);
+
     fragmentLibrary.setLabel("Fragment library");
     CHECK(fragmentLibrary.label().isEqualToString("Fragment library"));
 
     mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"fsh_flat"});
+    CHECK(fragmentFunction.device() == device);
 
     // vertex descriptor
     mtl::VertexDescriptor vertexDescriptor;
@@ -224,4 +241,5 @@ TEST_CASE("Render pipeline state")
     mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
     REQUIRE(renderPipelineState);
     REQUIRE(renderPipelineState.retainCount() == 1);
+    CHECK(renderPipelineState.device() == device);
 }

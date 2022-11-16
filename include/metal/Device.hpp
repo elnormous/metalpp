@@ -7,6 +7,7 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
+#include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
 #include "DepthStencil.hpp"
@@ -106,6 +107,12 @@ namespace mtl
             return RenderPipelineState{renderPipelineState};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    inline Device CommandBuffer::device() const noexcept
+    {
+        id device = objc::sendMessage<id>(*this, sel::device);
+        return Device{objc::sendMessage<id>(device, ns::sel::retain)};
+    }
 
     inline Device CommandEncoder::device() const noexcept
     {

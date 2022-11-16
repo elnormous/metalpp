@@ -4,6 +4,7 @@
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -52,6 +53,19 @@ namespace mtl
     {
     public:
         CommandBuffer(const id p) noexcept: ns::Object{p} {}
+
+        Device device() const noexcept;
+
+        [[nodiscard]] ns::String label() const noexcept
+        {
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+        }
+
+        void setLabel(const ns::String& label) noexcept
+        {
+            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
     };
 }
 
