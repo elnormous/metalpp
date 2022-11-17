@@ -67,6 +67,10 @@ TEST_CASE("Command buffer")
     commandBuffer.setLabel(label);
     CHECK(label.retainCount() > 0);
     CHECK(commandBuffer.label().isEqualToString(labelStr));
+
+    mtl::RenderPassDescriptor renderPassDescriptor;
+    REQUIRE(renderPassDescriptor);
+    REQUIRE(renderPassDescriptor.retainCount() == 1);
 }
 
 TEST_CASE("Depth stencil state")

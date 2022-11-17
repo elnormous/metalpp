@@ -12,7 +12,7 @@ namespace mtl
     {
     public:
         RenderPassDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::array, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls::renderPassDescriptor, ns::sel::alloc), ns::sel::init)}
         {
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
