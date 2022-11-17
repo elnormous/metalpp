@@ -97,7 +97,6 @@ namespace mtl
     {
     public:
         RenderPipelineColorAttachmentDescriptor() = delete;
-
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPipelineColorAttachmentDescriptorArray final: public ns::Object
@@ -201,7 +200,7 @@ namespace mtl
     class RenderPipelineState final: public ns::Object
     {
     public:
-        RenderPipelineState(const id p) noexcept: Object{p} {}
+        RenderPipelineState() = delete;
 
         Device device() const noexcept;
 

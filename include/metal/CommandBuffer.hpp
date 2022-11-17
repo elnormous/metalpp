@@ -56,7 +56,7 @@ namespace mtl
     class CommandBuffer: public ns::Object
     {
     public:
-        CommandBuffer(const id p) noexcept: ns::Object{p} {}
+        CommandBuffer() = delete;
 
         Device device() const noexcept;
 

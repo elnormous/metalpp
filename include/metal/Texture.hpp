@@ -9,7 +9,7 @@ namespace mtl
     class Texture: public Resource
     {
     public:
-        Texture(const id p) noexcept: Resource{p} {}
+        Texture() = delete;
 
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

@@ -59,6 +59,8 @@ namespace mtl
     class DepthStencilState final: public ns::Object
     {        
     public:
+        DepthStencilState() = delete;
+
         Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept

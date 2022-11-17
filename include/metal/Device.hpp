@@ -110,55 +110,55 @@ namespace mtl
 
     inline Device CommandBuffer::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device CommandEncoder::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device CommandQueue::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device DepthStencilState::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device DynamicLibrary::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device Function::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device Library::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device RenderPipelineState::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 
     inline Device Resource::device() const noexcept
     {
-        id device = objc::sendMessage<id>(*this, sel::device);
+        const id device = objc::sendMessage<id>(*this, sel::device);
         return Device{objc::sendMessage<id>(device, ns::sel::retain)};
     }
 }

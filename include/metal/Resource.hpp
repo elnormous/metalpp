@@ -13,7 +13,7 @@ namespace mtl
     class Resource: public ns::Object
     {
     public:
-        Resource(const id p) noexcept: Object{p} {}
+        Resource() = delete;
 
         Device device() const noexcept;
 

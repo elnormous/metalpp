@@ -96,7 +96,7 @@ namespace mtl
     class VertexBufferLayoutDescriptor final: public ns::Object
     {
     public:
-        VertexBufferLayoutDescriptor(const id p) noexcept: Object{p} {}
+        VertexBufferLayoutDescriptor() = delete;
 
         [[nodiscard]] NSUInteger stride() const noexcept
         {
@@ -132,7 +132,7 @@ namespace mtl
     class VertexBufferLayoutDescriptorArray final: public ns::Object
     {
     public:
-        VertexBufferLayoutDescriptorArray(const id p) noexcept: Object{p} {}
+        VertexBufferLayoutDescriptorArray() = delete;
 
         [[nodiscard]] VertexBufferLayoutDescriptor operator[](const std::size_t index) const noexcept
         {
@@ -151,7 +151,7 @@ namespace mtl
     class VertexAttributeDescriptor final: public ns::Object
     {
     public:
-        VertexAttributeDescriptor(const id p) noexcept: Object{p} {}
+        VertexAttributeDescriptor() = delete;
 
         [[nodiscard]] VertexFormat format() const noexcept
         {
@@ -187,7 +187,7 @@ namespace mtl
     class VertexAttributeDescriptorArray final: public ns::Object
     {
     public:
-        VertexAttributeDescriptorArray(const id p) noexcept: Object{p} {}
+        VertexAttributeDescriptorArray() = delete;
 
         [[nodiscard]] VertexAttributeDescriptor operator[](const std::size_t index) const noexcept
         {

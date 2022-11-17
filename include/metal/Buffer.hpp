@@ -9,8 +9,7 @@ namespace mtl
     class Buffer: public Resource
     {
     public:
-        Buffer(const id p) noexcept: Resource{p} {}
-
+        Buffer() = delete;
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

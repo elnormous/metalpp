@@ -136,7 +136,7 @@ namespace mtl
     class Function final: public ns::Object
     {
     public:
-        Function(const id p) noexcept: Object{p} {}
+        Function() = delete;
 
         Device device() const noexcept;
     };
@@ -144,7 +144,7 @@ namespace mtl
     class Library final: public ns::Object
     {
     public:
-        Library(const id p) noexcept: Object{p} {}
+        Library() = delete;
 
         Device device() const noexcept;
 
