@@ -253,3 +253,16 @@ TEST_CASE("Render pipeline state")
     REQUIRE(renderPipelineState.retainCount() == 1);
     CHECK(renderPipelineState.device() == device);
 }
+
+TEST_CASE("Texture")
+{
+    mtl::Device device;
+
+    mtl::TextureDescriptor textureDescriptor;
+    REQUIRE(textureDescriptor);
+    REQUIRE(textureDescriptor.retainCount() == 1);
+
+    mtl::Texture texture = device.newTextureWithDescriptor(textureDescriptor);
+    REQUIRE(texture);
+    REQUIRE(texture.retainCount() == 1);
+}

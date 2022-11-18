@@ -16,6 +16,7 @@
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
 #include "Selectors.hpp"
+#include "Texture.hpp"
 
 extern "C" id MTLCreateSystemDefaultDevice();
 
@@ -48,13 +49,22 @@ namespace mtl
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] DepthStencilState newDepthStencilStateWithDescriptor(const DepthStencilDescriptor& depthStencilDescriptor) const noexcept
+        [[nodiscard]] DepthStencilState newDepthStencilStateWithDescriptor(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = objc::sendMessage<id>(*this,
                                                                sel::newDepthStencilStateWithDescriptor_,
-                                                               static_cast<id>(depthStencilDescriptor));
+                                                               static_cast<id>(descriptor));
 
             return DepthStencilState{depthStencilState};
+        }
+
+        [[nodiscard]] Texture newTextureWithDescriptor(const TextureDescriptor& descriptor) const noexcept
+        {
+            const id texture = objc::sendMessage<id>(*this,
+                                                     sel::newTextureWithDescriptor_,
+                                                     static_cast<id>(descriptor));
+
+            return Texture{texture};
         }
 
         [[nodiscard]] Library newDefaultLibrary() const noexcept

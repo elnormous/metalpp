@@ -72,13 +72,13 @@ namespace mtl
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
-        BlitCommandEncoder blitCommandEncoder() const noexcept
+        [[nodiscard]] BlitCommandEncoder blitCommandEncoder() const noexcept
         {
             const id blitCommandEncoder = objc::sendMessage<id>(*this, sel::blitCommandEncoder);
             return BlitCommandEncoder{objc::sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
         }
 
-        RenderCommandEncoder renderCommandEncoderWithDescriptor(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        [[nodiscard]] RenderCommandEncoder renderCommandEncoderWithDescriptor(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
             const id renderCommandEncoder = objc::sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
             return RenderCommandEncoder{objc::sendMessage<id>(renderCommandEncoder, ns::sel::retain)};

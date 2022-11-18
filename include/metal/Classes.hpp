@@ -12,6 +12,7 @@ namespace mtl
         inline const auto depthStencilDescriptor = objc_lookUpClass("MTLDepthStencilDescriptor");
         inline const auto renderPassDescriptor = objc_lookUpClass("MTLRenderPassDescriptor");
         inline const auto renderPipelineDescriptor = objc_lookUpClass("MTLRenderPipelineDescriptor");
+        inline const auto textureDescriptor = objc_lookUpClass("MTLTextureDescriptor");
         inline const auto vertexDescriptor = objc_lookUpClass("MTLVertexDescriptor");
     }
 }
