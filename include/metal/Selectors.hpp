@@ -70,6 +70,8 @@ namespace mtl
         inline const auto endEncoding = sel_registerName("endEncoding");
         inline const auto blitCommandEncoder = sel_registerName("blitCommandEncoder");
         inline const auto renderCommandEncoderWithDescriptor_ = sel_registerName("renderCommandEncoderWithDescriptor:");
+        inline const auto commit = sel_registerName("commit");
+        inline const auto waitUntilCompleted = sel_registerName("waitUntilCompleted");
 
         inline const auto cpuCacheMode = sel_registerName("cpuCacheMode");
         inline const auto setCpuCacheMode_ = sel_registerName("setCpuCacheMode:");

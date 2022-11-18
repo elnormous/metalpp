@@ -98,6 +98,9 @@ TEST_CASE("Command buffer")
     REQUIRE(renderCommandEncoder.retainCount() == 2);
 
     renderCommandEncoder.endEncoding();
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 }
 
 TEST_CASE("Depth stencil state")
