@@ -58,7 +58,7 @@ namespace mtl
         Lines = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class RenderCommandEncoder: public CommandEncoder
+    class RenderCommandEncoder final: public CommandEncoder
     {
     public:
         RenderCommandEncoder() = delete;

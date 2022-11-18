@@ -71,6 +71,12 @@ TEST_CASE("Command buffer")
     mtl::RenderPassDescriptor renderPassDescriptor;
     REQUIRE(renderPassDescriptor);
     REQUIRE(renderPassDescriptor.retainCount() == 1);
+
+    mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
+    REQUIRE(blitCommandEncoder);
+    REQUIRE(blitCommandEncoder.retainCount() == 2);
+
+    blitCommandEncoder.endEncoding();
 }
 
 TEST_CASE("Depth stencil state")

@@ -4,6 +4,7 @@
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -29,6 +30,11 @@ namespace mtl
         CommandEncoder() = delete;
 
         Device device() const noexcept;
+
+        void endEncoding() noexcept
+        {
+            objc::sendMessage(*this, sel::endEncoding);
+        }
     };
 }
 

@@ -4,6 +4,7 @@
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "BlitCommandEncoder.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
 #include "Selectors.hpp"
@@ -69,6 +70,12 @@ namespace mtl
         void setLabel(const ns::String& label) noexcept
         {
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
+
+        BlitCommandEncoder blitCommandEncoder() const noexcept
+        {
+            const id blitCommandEncoder = objc::sendMessage<id>(*this, sel::blitCommandEncoder);
+            return BlitCommandEncoder{objc::sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
         }
 
         RenderCommandEncoder renderCommandEncoderWithDescriptor(const RenderPassDescriptor& renderPassDescriptor) const noexcept
