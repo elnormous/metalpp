@@ -7,32 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30B9533D2921E9B4007C8914 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953042920C60E007C8914 /* main.cpp */; };
-		30B9533E2921EA12007C8914 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
-		30B9533F2921EA3C007C8914 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B9530E2920C8EB007C8914 /* Foundation.framework */; };
-		30B953412921EFC3007C8914 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
-		30B953422921EFC8007C8914 /* objc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953402921ED99007C8914 /* objc.cpp */; };
-		30B953432921EFCB007C8914 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
+		30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
+		30B19E55292738A3002BA9A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953042920C60E007C8914 /* main.cpp */; };
+		30B19E56292738A6002BA9A2 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
+		30B19E57292738A8002BA9A2 /* objc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953402921ED99007C8914 /* objc.cpp */; };
+		30B19E58292738DC002BA9A2 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
+		30B19E5A292738E1002BA9A2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B19E59292738E1002BA9A2 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		30B19E4B29273892002BA9A2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		30B19E4D29273892002BA9A2 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		30B19E59292738E1002BA9A2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		30B953042920C60E007C8914 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		30B9530C2920C7CB007C8914 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
 		30B9530E2920C8EB007C8914 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		30B953102920C8F1007C8914 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
-		30B9532A2921E91F007C8914 /* tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		30B953272921E91F007C8914 /* Frameworks */ = {
+		30B19E4A29273892002BA9A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30B9533F2921EA3C007C8914 /* Foundation.framework in Frameworks */,
-				30B9533E2921EA12007C8914 /* Metal.framework in Frameworks */,
+				30B19E5A292738E1002BA9A2 /* Cocoa.framework in Frameworks */,
+				30B19E58292738DC002BA9A2 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +68,7 @@
 		30B953022920C60E007C8914 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				30B9532A2921E91F007C8914 /* tests.app */,
+				30B19E4D29273892002BA9A2 /* tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,6 +76,7 @@
 		30B9530D2920C8EB007C8914 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30B19E59292738E1002BA9A2 /* Cocoa.framework */,
 				30B953102920C8F1007C8914 /* Metal.framework */,
 				30B9530E2920C8EB007C8914 /* Foundation.framework */,
 			);
@@ -72,22 +86,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		30B953292921E91F007C8914 /* tests */ = {
+		30B19E4C29273892002BA9A2 /* tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30B9533A2921E921007C8914 /* Build configuration list for PBXNativeTarget "tests" */;
+			buildConfigurationList = 30B19E5129273892002BA9A2 /* Build configuration list for PBXNativeTarget "tests" */;
 			buildPhases = (
-				30B953262921E91F007C8914 /* Sources */,
-				30B953272921E91F007C8914 /* Frameworks */,
-				30B953282921E91F007C8914 /* Resources */,
+				30B19E4929273892002BA9A2 /* Sources */,
+				30B19E4A29273892002BA9A2 /* Frameworks */,
+				30B19E4B29273892002BA9A2 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = tests;
-			productName = tests;
-			productReference = 30B9532A2921E91F007C8914 /* tests.app */;
-			productType = "com.apple.product-type.application";
+			productName = console_tests;
+			productReference = 30B19E4D29273892002BA9A2 /* tests */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -98,7 +112,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
-					30B953292921E91F007C8914 = {
+					30B19E4C29273892002BA9A2 = {
 						CreatedOnToolsVersion = 14.1;
 					};
 				};
@@ -116,36 +130,40 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				30B953292921E91F007C8914 /* tests */,
+				30B19E4C29273892002BA9A2 /* tests */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		30B953282921E91F007C8914 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		30B953262921E91F007C8914 /* Sources */ = {
+		30B19E4929273892002BA9A2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30B9533D2921E9B4007C8914 /* main.cpp in Sources */,
-				30B953412921EFC3007C8914 /* metal.cpp in Sources */,
-				30B953432921EFCB007C8914 /* foundation.cpp in Sources */,
-				30B953422921EFC8007C8914 /* objc.cpp in Sources */,
+				30B19E56292738A6002BA9A2 /* metal.cpp in Sources */,
+				30B19E55292738A3002BA9A2 /* main.cpp in Sources */,
+				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
+				30B19E57292738A8002BA9A2 /* objc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		30B19E5229273892002BA9A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		30B19E5329273892002BA9A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		30B953062920C60E007C8914 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -291,69 +309,23 @@
 			};
 			name = Release;
 		};
-		30B9533B2921E921007C8914 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lv.elviss.tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-			};
-			name = Debug;
-		};
-		30B9533C2921E921007C8914 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lv.elviss.tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		30B19E5129273892002BA9A2 /* Build configuration list for PBXNativeTarget "tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30B19E5229273892002BA9A2 /* Debug */,
+				30B19E5329273892002BA9A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		30B952FC2920C60E007C8914 /* Build configuration list for PBXProject "tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				30B953062920C60E007C8914 /* Debug */,
 				30B953072920C60E007C8914 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		30B9533A2921E921007C8914 /* Build configuration list for PBXNativeTarget "tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				30B9533B2921E921007C8914 /* Debug */,
-				30B9533C2921E921007C8914 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
