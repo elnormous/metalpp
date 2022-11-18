@@ -71,6 +71,21 @@ namespace mtl
         inline const auto blitCommandEncoder = sel_registerName("blitCommandEncoder");
         inline const auto renderCommandEncoderWithDescriptor_ = sel_registerName("renderCommandEncoderWithDescriptor:");
 
+        inline const auto cpuCacheMode = sel_registerName("cpuCacheMode");
+        inline const auto setCpuCacheMode_ = sel_registerName("setCpuCacheMode:");
+        inline const auto storageMode = sel_registerName("storageMode");
+        inline const auto setStorageMode_ = sel_registerName("setStorageMode:");
+        inline const auto hazardTrackingMode = sel_registerName("hazardTrackingMode");
+        inline const auto setHazardTrackingMode_ = sel_registerName("setHazardTrackingMode:");
+        inline const auto usage = sel_registerName("usage");
+        inline const auto setUsage_ = sel_registerName("setUsage:");
+        inline const auto allowGPUOptimizedContents = sel_registerName("allowGPUOptimizedContents");
+        inline const auto setAllowGPUOptimizedContents_ = sel_registerName("setAllowGPUOptimizedContents:");
+        inline const auto compressionType = sel_registerName("compressionType");
+        inline const auto setCompressionType_ = sel_registerName("setCompressionType:");
+        inline const auto swizzle = sel_registerName("swizzle");
+        inline const auto setSwizzle_ = sel_registerName("setSwizzle:");
+
         inline const auto textureType = sel_registerName("textureType");
         inline const auto setTextureType_ = sel_registerName("setTextureType:");
         inline const auto pixelFormat = sel_registerName("pixelFormat");

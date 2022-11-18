@@ -143,6 +143,76 @@ namespace mtl
         {
             objc::sendMessage(*this, sel::setArrayLength_, arrayLength);
         }
+
+        [[nodiscard]] CPUCacheMode cpuCacheMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            return objc::sendMessage<CPUCacheMode>(*this, sel::cpuCacheMode);
+        }
+
+        void setCpuCacheMode(CPUCacheMode cpuCacheMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            objc::sendMessage(*this, sel::setCpuCacheMode_, cpuCacheMode);
+        }
+
+        [[nodiscard]] StorageMode storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            return objc::sendMessage<StorageMode>(*this, sel::storageMode);
+        }
+
+        void setStorageMode(StorageMode storageMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            objc::sendMessage(*this, sel::setStorageMode_, storageMode);
+        }
+
+        [[nodiscard]] HazardTrackingMode hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return objc::sendMessage<HazardTrackingMode>(*this, sel::hazardTrackingMode);
+        }
+
+        void setHazardTrackingMode(HazardTrackingMode hazardTrackingMode) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            objc::sendMessage(*this, sel::setHazardTrackingMode_, hazardTrackingMode);
+        }
+
+        [[nodiscard]] TextureUsage usage() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            return objc::sendMessage<TextureUsage>(*this, sel::usage);
+        }
+
+        void setUsage(TextureUsage usage) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            objc::sendMessage(*this, sel::setUsage_, usage);
+        }
+
+        [[nodiscard]] bool allowGPUOptimizedContents() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            return objc::sendMessage<BOOL>(*this, sel::allowGPUOptimizedContents) == YES;
+        }
+
+        void setAllowGPUOptimizedContents(bool allowGPUOptimizedContents) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            objc::sendMessage(*this, sel::setAllowGPUOptimizedContents_, allowGPUOptimizedContents ? YES : NO);
+        }
+
+        [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        {
+            return objc::sendMessage<TextureCompressionType>(*this, sel::compressionType);
+        }
+
+        void setCompressionType(TextureCompressionType compressionType) noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        {
+            objc::sendMessage(*this, sel::setCompressionType_, compressionType);
+        }
+
+        [[nodiscard]] TextureSwizzleChannels swizzle() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return objc::sendMessage<TextureSwizzleChannels>(*this, sel::swizzle);
+        }
+
+        void setSwizzle(const TextureSwizzleChannels& swizzle) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            objc::sendMessage(*this, sel::setSwizzle_, swizzle);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class Texture: public Resource

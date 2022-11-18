@@ -67,67 +67,67 @@ namespace mtl
 
         void setFastMathEnabled(bool fastMathEnabled) noexcept
         {
-            objc::sendMessage(*this, sel::setFastMathEnabled_, static_cast<BOOL>(fastMathEnabled));
+            objc::sendMessage(*this, sel::setFastMathEnabled_, fastMathEnabled ? YES : NO);
         }
 
-        [[nodiscard]] LanguageVersion languageVersion() const noexcept
+        [[nodiscard]] LanguageVersion languageVersion() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return objc::sendMessage<LanguageVersion>(*this, sel::languageVersion);
         }
 
-        void setLanguageVersion(LanguageVersion languageVersion) noexcept
+        void setLanguageVersion(LanguageVersion languageVersion) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             objc::sendMessage(*this, sel::setLanguageVersion_, languageVersion);
         }
 
-        [[nodiscard]] LibraryType libraryType() const noexcept
+        [[nodiscard]] LibraryType libraryType() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             return objc::sendMessage<LibraryType>(*this, sel::libraryType);
         }
 
-        void setFastMathEnabled(LibraryType libraryType) noexcept
+        void setLibraryType(LibraryType libraryType) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setLibraryType_, static_cast<BOOL>(libraryType));
+            objc::sendMessage(*this, sel::setLibraryType_, libraryType);
         }
 
-        [[nodiscard]] bool installName() const noexcept
+        [[nodiscard]] bool installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             const id installName = objc::sendMessage<id>(*this, sel::installName);
             return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};
         }
 
-        void setInstallName(ns::String installName) noexcept
+        void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
         }
 
-        [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept
+        [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             const id libraries = objc::sendMessage<id>(*this, sel::libraries);
             return ns::Array<DynamicLibrary>{objc::sendMessage<id>(libraries, ns::sel::retain)};
         }
 
-        void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept
+        void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             objc::sendMessage(*this, sel::setLibraries_, static_cast<id>(libraries));
         }
 
-        [[nodiscard]] bool preserveInvariance() const noexcept
+        [[nodiscard]] bool preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
             return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
         }
 
-        void setPreserveInstance(bool preserveInvariance) noexcept
+        void setPreserveInstance(bool preserveInvariance) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setPreserveInvariance_, static_cast<BOOL>(preserveInvariance));
+            objc::sendMessage(*this, sel::setPreserveInvariance_, preserveInvariance ? YES : NO);
         }
 
-        [[nodiscard]] LibraryOptimizationLevel optimizationLevel() const noexcept
+        [[nodiscard]] LibraryOptimizationLevel optimizationLevel() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             return objc::sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
         }
 
-        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept
+        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             objc::sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
         }
