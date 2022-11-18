@@ -6,7 +6,6 @@
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Selectors.hpp"
-#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
@@ -205,9 +204,10 @@ namespace mtl
 
     class VertexDescriptor final: public ns::Object
     {
+        static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
     public:
         VertexDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(mtl::cls::vertexDescriptor, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 

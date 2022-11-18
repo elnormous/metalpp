@@ -5,7 +5,6 @@
 #include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
-#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -13,9 +12,10 @@ namespace ns
     template <class Type>
     class Array final: public ns::Object
     {
+        static inline const auto cls = objc_lookUpClass("NSArray");
     public:
         Array() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::array, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -23,7 +23,7 @@ namespace ns
 
         template <class ...Args>
         Array(const Args&... objects) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::array, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}
         {
         }
 

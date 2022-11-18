@@ -3,7 +3,6 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
-#include "Classes.hpp"
 #include "Dictionary.hpp"
 #include "Selectors.hpp"
 #include "String.hpp"
@@ -12,11 +11,12 @@ namespace ns
 {
     class Error final: public ns::Object
     {
+        static inline const auto cls = objc_lookUpClass("NSError");
     public:
         Error(const id p) noexcept: Object{p} {}
 
         Error(const ns::String& domain, const NSInteger& code) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::error, ns::sel::alloc),
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
                                          sel::initWithDomain_code_userInfo_,
                                          static_cast<id>(domain),
                                          code,
@@ -25,7 +25,7 @@ namespace ns
         }
 
         Error(const ns::String& domain, const NSInteger& code, const ns::Dictionary<ns::String, ns::Object>& userInfo) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::error, ns::sel::alloc),
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
                                          sel::initWithDomain_code_userInfo_,
                                          static_cast<id>(domain),
                                          code,

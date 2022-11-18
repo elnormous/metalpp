@@ -70,6 +70,23 @@ namespace mtl
         inline const auto endEncoding = sel_registerName("endEncoding");
         inline const auto blitCommandEncoder = sel_registerName("blitCommandEncoder");
         inline const auto renderCommandEncoderWithDescriptor_ = sel_registerName("renderCommandEncoderWithDescriptor:");
+
+        inline const auto textureType = sel_registerName("textureType");
+        inline const auto setTextureType_ = sel_registerName("setTextureType:");
+        inline const auto pixelFormat = sel_registerName("pixelFormat");
+        inline const auto setPixelFormat_ = sel_registerName("setPixelFormat:");
+        inline const auto width = sel_registerName("width");
+        inline const auto setWidth_ = sel_registerName("setWidth:");
+        inline const auto height = sel_registerName("height");
+        inline const auto setHeight_ = sel_registerName("setHeight:");
+        inline const auto depth = sel_registerName("depth");
+        inline const auto setDepth_ = sel_registerName("setDepth:");
+        inline const auto mipmapLevelCount = sel_registerName("mipmapLevelCount");
+        inline const auto setMipmapLevelCount_ = sel_registerName("setMipmapLevelCount:");
+        inline const auto sampleCount = sel_registerName("sampleCount");
+        inline const auto setSampleCount_ = sel_registerName("setSampleCount:");
+        inline const auto arrayLength = sel_registerName("arrayLength");
+        inline const auto setArrayLength_ = sel_registerName("setArrayLength:");
     }
 }
 

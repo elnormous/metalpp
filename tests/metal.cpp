@@ -261,6 +261,35 @@ TEST_CASE("Texture")
     mtl::TextureDescriptor textureDescriptor;
     REQUIRE(textureDescriptor);
     REQUIRE(textureDescriptor.retainCount() == 1);
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    CHECK(textureDescriptor.textureType() == mtl::TextureType::Type2D);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    CHECK(textureDescriptor.pixelFormat() == mtl::PixelFormat::BGRA8Unorm);
+
+    textureDescriptor.setWidth(1024);
+    CHECK(textureDescriptor.width() == 1024);
+    textureDescriptor.setHeight(768);
+    CHECK(textureDescriptor.height() == 768);
+
+    textureDescriptor.setDepth(10);
+    CHECK(textureDescriptor.depth() == 10);
+    textureDescriptor.setDepth(1);
+    CHECK(textureDescriptor.depth() == 1);
+
+    textureDescriptor.setMipmapLevelCount(20);
+    CHECK(textureDescriptor.mipmapLevelCount() == 20);
+    textureDescriptor.setMipmapLevelCount(1);
+    CHECK(textureDescriptor.mipmapLevelCount() == 1);
+
+    textureDescriptor.setSampleCount(4);
+    CHECK(textureDescriptor.sampleCount() == 4);
+    textureDescriptor.setSampleCount(1);
+    CHECK(textureDescriptor.sampleCount() == 1);
+
+    textureDescriptor.setArrayLength(8);
+    CHECK(textureDescriptor.arrayLength() == 8);
+    textureDescriptor.setArrayLength(1);
+    CHECK(textureDescriptor.arrayLength() == 1);
 
     mtl::Texture texture = device.newTextureWithDescriptor(textureDescriptor);
     REQUIRE(texture);

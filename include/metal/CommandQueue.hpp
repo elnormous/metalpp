@@ -3,7 +3,6 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
-#include "Classes.hpp"
 #include "CommandBuffer.hpp"
 #include "Selectors.hpp"
 
@@ -13,9 +12,11 @@ namespace mtl
 
     class CommandQueue: public ns::Object
     {
+        static inline const auto cls = objc_lookUpClass("MTLCommandQueue");
+
     public:
         CommandQueue() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls::commandQueue, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 

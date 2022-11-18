@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <objc/NSObjCRuntime.h>
-#include "Classes.hpp"
 #include "Runtime.hpp"
 #include "Selectors.hpp"
 
@@ -11,9 +10,11 @@ namespace ns
 {
     class Object
     {
+        static inline const auto cls = objc_lookUpClass("NSObject");
+
     public:
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::object, ns::sel::alloc), ns::sel::init)}
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 

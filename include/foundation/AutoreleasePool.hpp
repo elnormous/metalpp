@@ -3,16 +3,16 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
-#include "Classes.hpp"
 #include "Selectors.hpp"
 
 namespace ns
 {
     class AutoreleasePool final: public ns::Object
     {
+        static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
     public:
         AutoreleasePool() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(ns::cls::autoreleasePool, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {            
         }
 
