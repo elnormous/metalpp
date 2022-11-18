@@ -194,6 +194,25 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public ns::Object
     {
     public:
+        [[nodiscard]] double clearDepth() const noexcept
+        {
+            return objc::sendMessage<double>(*this, sel::clearDepth);
+        }
+
+        void setClearDepth(double clearDepth) noexcept
+        {
+            objc::sendMessage(*this, sel::setClearDepth_, clearDepth);
+        }
+
+        [[nodiscard]] MultisampleDepthResolveFilter depthResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(9.0))
+        {
+            return objc::sendMessage<MultisampleDepthResolveFilter>(*this, sel::depthResolveFilter);
+        }
+
+        void setDepthResolveFilter(MultisampleDepthResolveFilter depthResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(9.0))
+        {
+            objc::sendMessage(*this, sel::setDepthResolveFilter_, depthResolveFilter);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     enum class MultisampleStencilResolveFilter: NSUInteger
@@ -205,6 +224,25 @@ namespace mtl
     class RenderPassStencilAttachmentDescriptor final: public ns::Object
     {
     public:
+        [[nodiscard]] uint32_t clearStencil() const noexcept
+        {
+            return objc::sendMessage<uint32_t>(*this, sel::clearStencil);
+        }
+
+        void setClearStencil(uint32_t clearStencil) noexcept
+        {
+            objc::sendMessage(*this, sel::setClearStencil_, clearStencil);
+        }
+
+        [[nodiscard]] MultisampleStencilResolveFilter stencilResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
+        {
+            return objc::sendMessage<MultisampleStencilResolveFilter>(*this, sel::stencilResolveFilter);
+        }
+
+        void setStencilResolveFilter(MultisampleStencilResolveFilter stencilResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
+        {
+            objc::sendMessage(*this, sel::setStencilResolveFilter_, stencilResolveFilter);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPassColorAttachmentDescriptorArray final: public ns::Object

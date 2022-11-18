@@ -130,6 +130,14 @@ namespace mtl
         inline const auto setStoreActionOptions_ = sel_registerName("setStoreActionOptions:");
         inline const auto clearColor = sel_registerName("clearColor");
         inline const auto setClearColor_ = sel_registerName("setClearColor:");
+        inline const auto clearDepth = sel_registerName("clearDepth");
+        inline const auto setClearDepth_ = sel_registerName("setClearDepth:");
+        inline const auto depthResolveFilter = sel_registerName("depthResolveFilter");
+        inline const auto setDepthResolveFilter_ = sel_registerName("setDepthResolveFilter:");
+        inline const auto clearStencil = sel_registerName("clearStencil");
+        inline const auto setClearStencil_ = sel_registerName("setClearStencil:");
+        inline const auto stencilResolveFilter = sel_registerName("stencilResolveFilter");
+        inline const auto setStencilResolveFilter_ = sel_registerName("setStencilResolveFilter:");
     }
 }
 
