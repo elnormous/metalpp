@@ -102,6 +102,34 @@ namespace mtl
         inline const auto setSampleCount_ = sel_registerName("setSampleCount:");
         inline const auto arrayLength = sel_registerName("arrayLength");
         inline const auto setArrayLength_ = sel_registerName("setArrayLength:");
+
+        inline const auto depthAttachment = sel_registerName("depthAttachment");
+        inline const auto stencilAttachment = sel_registerName("stencilAttachment");
+        inline const auto texture = sel_registerName("texture");
+        inline const auto setTexture_ = sel_registerName("setTexture:");
+
+        inline const auto level = sel_registerName("level");
+        inline const auto setLevel_ = sel_registerName("setLevel:");
+        inline const auto slice = sel_registerName("slice");
+        inline const auto setSlice_ = sel_registerName("setSlice:");
+        inline const auto depthPlane = sel_registerName("depthPlane");
+        inline const auto setDepthPlane_ = sel_registerName("setDepthPlane:");
+        inline const auto resolveTexture = sel_registerName("resolveTexture");
+        inline const auto setResolveTexture_ = sel_registerName("setResolveTexture:");
+        inline const auto resolveLevel = sel_registerName("resolveLevel");
+        inline const auto setResolveLevel_ = sel_registerName("setResolveLevel:");
+        inline const auto resolveSlice = sel_registerName("resolveSlice");
+        inline const auto setResolveSlice_ = sel_registerName("setResolveSlice:");
+        inline const auto resolveDepthPlane = sel_registerName("resolveDepthPlane");
+        inline const auto setResolveDepthPlane_ = sel_registerName("setResolveDepthPlane:");
+        inline const auto loadAction = sel_registerName("loadAction");
+        inline const auto setLoadAction_ = sel_registerName("setLoadAction:");
+        inline const auto storeAction = sel_registerName("storeAction");
+        inline const auto setStoreAction_ = sel_registerName("setStoreAction:");
+        inline const auto storeActionOptions = sel_registerName("storeActionOptions");
+        inline const auto setStoreActionOptions_ = sel_registerName("setStoreActionOptions:");
+        inline const auto clearColor = sel_registerName("clearColor");
+        inline const auto setClearColor_ = sel_registerName("setClearColor:");
     }
 }
 

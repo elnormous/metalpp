@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_METAL_HPP
 #define METALPP_METAL_METAL_HPP
 
+#include "BlitCommandEncoder.hpp"
 #include "Buffer.hpp"
 #include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"

@@ -77,6 +77,27 @@ TEST_CASE("Command buffer")
     REQUIRE(blitCommandEncoder.retainCount() == 2);
 
     blitCommandEncoder.endEncoding();
+
+    mtl::TextureDescriptor renderTargetDescriptor;
+    renderTargetDescriptor.setTextureType(mtl::TextureType::Type2D);
+    renderTargetDescriptor.setWidth(1024);
+    renderTargetDescriptor.setHeight(1024);
+    renderTargetDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+    renderTargetDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    renderTargetDescriptor.setStorageMode(mtl::StorageMode::Managed);
+
+    mtl::Texture renderTarget = device.newTextureWithDescriptor(renderTargetDescriptor);
+    renderPassDescriptor.colorAttachments()[0].setTexture(renderTarget);
+    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
+    CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
+    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+    CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+
+    mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor);
+    REQUIRE(renderCommandEncoder);
+    REQUIRE(renderCommandEncoder.retainCount() == 2);
+
+    renderCommandEncoder.endEncoding();
 }
 
 TEST_CASE("Depth stencil state")
