@@ -1,6 +1,6 @@
 DEBUG=0
 CXXFLAGS=-std=c++17 -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror -I../include
-LDFLAGS=-framework Foundation -framework Metal
+LDFLAGS=-framework Cocoa -framework Metal
 SOURCES=main.cpp foundation.cpp metal.cpp objc.cpp
 BASE_NAMES=$(basename $(SOURCES))
 OBJECTS=$(BASE_NAMES:=.o)
