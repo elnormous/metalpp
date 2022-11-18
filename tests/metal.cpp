@@ -318,7 +318,23 @@ TEST_CASE("Texture")
     textureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
     CHECK(textureDescriptor.usage() == mtl::TextureUsage::RenderTarget);
 
+    textureDescriptor.setCompressionType(mtl::TextureCompressionType::Lossy);
+    CHECK(textureDescriptor.compressionType() == mtl::TextureCompressionType::Lossy);
+    textureDescriptor.setCompressionType(mtl::TextureCompressionType::Lossless);
+    CHECK(textureDescriptor.compressionType() == mtl::TextureCompressionType::Lossless);
+
     mtl::Texture texture = device.newTextureWithDescriptor(textureDescriptor);
     REQUIRE(texture);
     REQUIRE(texture.retainCount() == 1);
+
+    CHECK(texture.textureType() == mtl::TextureType::Type2D);
+    CHECK(texture.pixelFormat() == mtl::PixelFormat::BGRA8Unorm);
+    CHECK(texture.width() == 1024);
+    CHECK(texture.height() == 768);
+    CHECK(texture.depth() == 1);
+    CHECK(texture.mipmapLevelCount() == 1);
+    CHECK(texture.sampleCount() == 1);
+    CHECK(texture.arrayLength() == 1);
+    CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
+    CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
 }

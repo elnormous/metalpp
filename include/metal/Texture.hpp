@@ -219,6 +219,56 @@ namespace mtl
     {
     public:
         Texture() = delete;
+
+        [[nodiscard]] TextureType textureType() const noexcept
+        {
+            return objc::sendMessage<TextureType>(*this, sel::textureType);
+        }
+
+        [[nodiscard]] PixelFormat pixelFormat() const noexcept
+        {
+            return objc::sendMessage<PixelFormat>(*this, sel::pixelFormat);
+        }
+
+        [[nodiscard]] NSUInteger width() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::width);
+        }
+
+        [[nodiscard]] NSUInteger height() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::height);
+        }
+
+        [[nodiscard]] NSUInteger depth() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::depth);
+        }
+
+        [[nodiscard]] NSUInteger mipmapLevelCount() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::mipmapLevelCount);
+        }
+
+        [[nodiscard]] NSUInteger sampleCount() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::sampleCount);
+        }
+
+        [[nodiscard]] NSUInteger arrayLength() const noexcept
+        {
+            return objc::sendMessage<NSUInteger>(*this, sel::arrayLength);
+        }
+
+        [[nodiscard]] TextureUsage usage() const noexcept
+        {
+            return objc::sendMessage<TextureUsage>(*this, sel::usage);
+        }
+
+        [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        {
+            return objc::sendMessage<TextureCompressionType>(*this, sel::compressionType);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
