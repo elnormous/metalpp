@@ -41,7 +41,7 @@ TEST_CASE("Command queue")
     CHECK(commandQueue.label().isEqualToString(labelStr));
     CHECK(commandQueue.label().retainCount() > 0);
 
-    mtl::CommandQueue commandQueueWithMax = device.newCommandQueueWithMaxCommandBufferCount(10);
+    mtl::CommandQueue commandQueueWithMax = device.newCommandQueue(10);
     REQUIRE(commandQueueWithMax);
     REQUIRE(commandQueueWithMax.retainCount() == 1);
 
@@ -86,14 +86,14 @@ TEST_CASE("Command buffer")
     renderTargetDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
     renderTargetDescriptor.setStorageMode(mtl::StorageMode::Managed);
 
-    mtl::Texture renderTarget = device.newTextureWithDescriptor(renderTargetDescriptor);
+    mtl::Texture renderTarget = device.newTexture(renderTargetDescriptor);
     renderPassDescriptor.colorAttachments()[0].setTexture(renderTarget);
     renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
     CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
     renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
     CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
 
-    mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor);
+    mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
     REQUIRE(renderCommandEncoder);
     REQUIRE(renderCommandEncoder.retainCount() == 2);
 
@@ -121,7 +121,7 @@ TEST_CASE("Depth stencil state")
     CHECK(descriptor.label().retainCount() == 3);
     CHECK(descriptor.label().retainCount() == 3);
 
-    mtl::DepthStencilState depthStencilState = device.newDepthStencilStateWithDescriptor(descriptor);
+    mtl::DepthStencilState depthStencilState = device.newDepthStencilState(descriptor);
     REQUIRE(depthStencilState);
     REQUIRE(depthStencilState.retainCount());
     CHECK(depthStencilState.device() == device);
@@ -193,7 +193,7 @@ TEST_CASE("Render pipeline state")
     CHECK(options.preprocessorMacros().retainCount() == 2);
 
     // vertex shader
-    mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
+    mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
     REQUIRE(vertexLibrary);
     REQUIRE(vertexLibrary.retainCount() == 1);
     CHECK(vertexLibrary.device() == device);
@@ -201,11 +201,11 @@ TEST_CASE("Render pipeline state")
     vertexLibrary.setLabel("Vertex library");
     CHECK(vertexLibrary.label().isEqualToString("Vertex library"));
 
-    mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"vsh_flat"});
+    mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"vsh_flat"});
     CHECK(vertexFunction.device() == device);
 
     // fragment shader
-    mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
+    mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
     REQUIRE(fragmentLibrary);
     REQUIRE(fragmentLibrary.retainCount() == 1);
     CHECK(fragmentLibrary.device() == device);
@@ -213,7 +213,7 @@ TEST_CASE("Render pipeline state")
     fragmentLibrary.setLabel("Fragment library");
     CHECK(fragmentLibrary.label().isEqualToString("Fragment library"));
 
-    mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"fsh_flat"});
+    mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"fsh_flat"});
     CHECK(fragmentFunction.device() == device);
 
     // vertex descriptor
@@ -287,7 +287,7 @@ TEST_CASE("Render pipeline state")
     renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 
     // render pipeline state
-    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
+    mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
     REQUIRE(renderPipelineState);
     REQUIRE(renderPipelineState.retainCount() == 1);
     CHECK(renderPipelineState.device() == device);
@@ -347,7 +347,7 @@ TEST_CASE("Texture")
     textureDescriptor.setCompressionType(mtl::TextureCompressionType::Lossless);
     CHECK(textureDescriptor.compressionType() == mtl::TextureCompressionType::Lossless);
 
-    mtl::Texture texture = device.newTextureWithDescriptor(textureDescriptor);
+    mtl::Texture texture = device.newTexture(textureDescriptor);
     REQUIRE(texture);
     REQUIRE(texture.retainCount() == 1);
 

@@ -41,7 +41,7 @@ namespace mtl
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] CommandQueue newCommandQueueWithMaxCommandBufferCount(const std::size_t maxCommandBufferCount) const noexcept
+        [[nodiscard]] CommandQueue newCommandQueue(const std::size_t maxCommandBufferCount) const noexcept
         {
             const id commandQueue = objc::sendMessage<id>(*this,
                                                           sel::newCommandQueueWithMaxCommandBufferCount_,
@@ -49,7 +49,7 @@ namespace mtl
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] DepthStencilState newDepthStencilStateWithDescriptor(const DepthStencilDescriptor& descriptor) const noexcept
+        [[nodiscard]] DepthStencilState newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = objc::sendMessage<id>(*this,
                                                                sel::newDepthStencilStateWithDescriptor_,
@@ -58,7 +58,7 @@ namespace mtl
             return DepthStencilState{depthStencilState};
         }
 
-        [[nodiscard]] Texture newTextureWithDescriptor(const TextureDescriptor& descriptor) const noexcept
+        [[nodiscard]] Texture newTexture(const TextureDescriptor& descriptor) const noexcept
         {
             const id texture = objc::sendMessage<id>(*this,
                                                      sel::newTextureWithDescriptor_,
@@ -73,7 +73,7 @@ namespace mtl
             return Library{library};
         }
 
-        [[nodiscard]] Library newLibraryWithSource(const ns::String& source) const
+        [[nodiscard]] Library newLibrary(const ns::String& source) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -88,7 +88,7 @@ namespace mtl
             return Library{library};
         }
 
-        [[nodiscard]] Library newLibraryWithSource(const ns::String& source, const CompileOptions& compileOptions) const
+        [[nodiscard]] Library newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
         {
             id error;
             const id library = objc::sendMessage<id>(*this,
@@ -103,7 +103,7 @@ namespace mtl
             return Library{library};
         }
 
-        [[nodiscard]] RenderPipelineState newRenderPipelineStateWithDescriptor(const RenderPipelineDescriptor& renderPipelineDescriptor) const
+        [[nodiscard]] RenderPipelineState newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error;
             const id renderPipelineState = objc::sendMessage<id>(*this,

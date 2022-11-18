@@ -320,18 +320,18 @@ int main(int argc, const char* argv[]) {
         const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
         options.setPreprocessorMacros(preprocessorMacros);
 
-        mtl::Library vertexLibrary = device.newLibraryWithSource(ns::String{vertexShader}, options);
+        mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
         vertexLibrary.setLabel("Vertex library");
         NSLog(@"%s\n", vertexLibrary.label().cString());
 
-        mtl::Function vertexFunction = vertexLibrary.newFunctionWithName(ns::String{"mainVS"});
+        mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"mainVS"});
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
 
-        mtl::Library fragmentLibrary = device.newLibraryWithSource(ns::String{fragmentShader});
+        mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
         fragmentLibrary.setLabel("Fragment library");
         NSLog(@"%s\n", fragmentLibrary.label().cString());
 
-        mtl::Function fragmentFunction = fragmentLibrary.newFunctionWithName(ns::String{"mainPS"});
+        mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"mainPS"});
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
 
         mtl::VertexDescriptor vertexDescriptor;
@@ -380,7 +380,7 @@ int main(int argc, const char* argv[]) {
         renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
         renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 
-        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineStateWithDescriptor(renderPipelineDescriptor);
+        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
         NSLog(@"Render pipeline state: %p, %lu\n", (id)renderPipelineState, renderPipelineState.retainCount());
 
         mtl::CommandQueue commandQueue = device.newCommandQueue();

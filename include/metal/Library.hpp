@@ -159,7 +159,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] Function newFunctionWithName(const ns::String& name) const noexcept
+        [[nodiscard]] Function newFunction(const ns::String& name) const noexcept
         {
             const id function = objc::sendMessage<id>(*this,
                                                       sel::newFunctionWithName_,
