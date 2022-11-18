@@ -90,7 +90,7 @@ namespace mtl
             objc::sendMessage(*this, sel::setLibraryType_, libraryType);
         }
 
-        [[nodiscard]] bool installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        [[nodiscard]] ns::String installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             const id installName = objc::sendMessage<id>(*this, sel::installName);
             return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};

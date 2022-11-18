@@ -149,6 +149,15 @@ TEST_CASE("Render pipeline state")
     options.setLibraryType(mtl::LibraryType::Executable);
     CHECK(options.libraryType() == mtl::LibraryType::Executable);
 
+    options.setInstallName("Shader");
+    CHECK(options.installName().isEqualToString("Shader"));
+
+    options.setPreserveInstance(true);
+    CHECK(options.preserveInvariance());
+
+    options.setOptimizationLevel(mtl::LibraryOptimizationLevel::Size);
+    CHECK(options.optimizationLevel() == mtl::LibraryOptimizationLevel::Size);
+
     {
         const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
         options.setPreprocessorMacros(preprocessorMacros);
