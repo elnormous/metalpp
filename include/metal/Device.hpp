@@ -42,11 +42,11 @@ namespace mtl
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] CommandQueue newCommandQueue(const std::size_t maxCommandBufferCount) const noexcept
+        [[nodiscard]] CommandQueue newCommandQueue(const NSUInteger maxCommandBufferCount) const noexcept
         {
             const id commandQueue = objc::sendMessage<id>(*this,
                                                           sel::newCommandQueueWithMaxCommandBufferCount_,
-                                                          static_cast<NSUInteger>(maxCommandBufferCount));
+                                                          maxCommandBufferCount);
             return CommandQueue{commandQueue};
         }
 
@@ -58,21 +58,21 @@ namespace mtl
             return DepthStencilState{depthStencilState};
         }
 
-        [[nodiscard]] Buffer newBuffer(const std::size_t length, const ResourceOptions options) const noexcept
+        [[nodiscard]] Buffer newBuffer(const NSUInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = objc::sendMessage<id>(*this,
                                                     sel::newBufferWithLength_options_,
-                                                    static_cast<NSUInteger>(length),
+                                                    length,
                                                     options);
             return Buffer{buffer};
         }
 
-        [[nodiscard]] Buffer newBuffer(const void* pointer, const std::size_t length, const ResourceOptions options) const noexcept
+        [[nodiscard]] Buffer newBuffer(const void* pointer, const NSUInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = objc::sendMessage<id>(*this,
                                                     sel::newBufferWithBytes_length_options_,
                                                     pointer,
-                                                    static_cast<NSUInteger>(length),
+                                                    length,
                                                     options);
             return Buffer{buffer};
         }

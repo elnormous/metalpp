@@ -248,9 +248,9 @@ namespace mtl
     class RenderPassColorAttachmentDescriptorArray final: public ns::Object
     {
     public:
-        [[nodiscard]] RenderPassColorAttachmentDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] RenderPassColorAttachmentDescriptor operator[](const NSUInteger index) const noexcept
         {
-            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+            return objectAtIndexedSubscript(index);
         }
 
         [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept

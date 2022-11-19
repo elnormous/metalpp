@@ -1,7 +1,6 @@
 #ifndef METALPP_FOUNDATION_ARRAY_HPP
 #define METALPP_FOUNDATION_ARRAY_HPP
 
-#include <cstdint>
 #include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
@@ -27,9 +26,9 @@ namespace ns
         {
         }
 
-        [[nodiscard]] Type operator[](const std::size_t index) const noexcept
+        [[nodiscard]] Type operator[](const NSUInteger index) const noexcept
         {
-            return objectAtIndex(static_cast<NSUInteger>(index));
+            return objectAtIndex(index);
         }
 
         [[nodiscard]] Type objectAtIndex(const NSUInteger index) const noexcept
@@ -40,10 +39,9 @@ namespace ns
             return Type{objc::sendMessage<id>(object, ns::sel::retain)};
         }
 
-        [[nodiscard]] std::size_t count() const noexcept
+        [[nodiscard]] NSUInteger count() const noexcept
         {
-            const auto count = objc::sendMessage<NSUInteger>(*this, sel::count);
-            return static_cast<std::size_t>(count);
+            return objc::sendMessage<NSUInteger>(*this, sel::count);
         }
     };
 }

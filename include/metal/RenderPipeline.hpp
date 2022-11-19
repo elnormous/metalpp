@@ -103,9 +103,9 @@ namespace mtl
     public:
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const NSUInteger index) const noexcept
         {
-            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+            return objectAtIndexedSubscript(index);
         }
 
         [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept

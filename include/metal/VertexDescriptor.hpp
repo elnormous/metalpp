@@ -133,9 +133,9 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptorArray() = delete;
 
-        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const NSUInteger index) const noexcept
         {
-            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+            return objectAtIndexedSubscript(index);
         }
 
         [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
@@ -188,9 +188,9 @@ namespace mtl
     public:
         VertexAttributeDescriptorArray() = delete;
 
-        [[nodiscard]] VertexAttributeDescriptor operator[](const std::size_t index) const noexcept
+        [[nodiscard]] VertexAttributeDescriptor operator[](const NSUInteger index) const noexcept
         {
-            return objectAtIndexedSubscript(static_cast<NSUInteger>(index));
+            return objectAtIndexedSubscript(index);
         }
 
         [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept

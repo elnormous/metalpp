@@ -1,7 +1,6 @@
 #ifndef METALPP_FOUNDATION_DICTIONARY_HPP
 #define METALPP_FOUNDATION_DICTIONARY_HPP
 
-#include <cstdint>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "Array.hpp"
@@ -74,10 +73,9 @@ namespace ns
             return ns::Array<ObjectType>{objc::sendMessage<id>(values, ns::sel::retain)};
         }
 
-        [[nodiscard]] std::size_t count() const noexcept
+        [[nodiscard]] NSUInteger count() const noexcept
         {
-            const auto count = objc::sendMessage<NSUInteger>(*this, sel::count);
-            return static_cast<std::size_t>(count);
+            return objc::sendMessage<NSUInteger>(*this, sel::count);
         }
     };
 }

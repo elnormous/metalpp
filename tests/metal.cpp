@@ -36,7 +36,9 @@ TEST_CASE("Buffer")
     mtl::Buffer bufferWithBytes = device.newBuffer(data, sizeof(data), mtl::ResourceOptions::StorageModeShared);
     REQUIRE(bufferWithBytes);
     REQUIRE(bufferWithBytes.retainCount() == 1);
+
     CHECK(bufferWithBytes.length() == sizeof(data));
+    CHECK(buffer.gpuAddress());
 
     void* contents = buffer.contents();
     CHECK(contents);

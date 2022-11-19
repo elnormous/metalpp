@@ -1,7 +1,6 @@
 #ifndef METALPP_FOUNDATION_STRING_HPP
 #define METALPP_FOUNDATION_STRING_HPP
 
-#include <cstdint>
 #include <string>
 #include <string_view>
 #include <objc/NSObjCRuntime.h>
@@ -71,9 +70,9 @@ namespace ns
         {
         }
 
-        [[nodiscard]] char operator[](std::size_t index) const noexcept
+        [[nodiscard]] char operator[](NSUInteger index) const noexcept
         {
-            return charAtIndex(static_cast<NSUInteger>(index));
+            return charAtIndex(index);
         }
 
         [[nodiscard]] char charAtIndex(const NSUInteger index) const noexcept
@@ -84,10 +83,9 @@ namespace ns
             return static_cast<char>(c);
         }
 
-        [[nodiscard]] std::size_t length() const noexcept
+        [[nodiscard]] NSUInteger length() const noexcept
         {
-            const auto length = objc::sendMessage<NSUInteger>(*this, sel::length);
-            return static_cast<std::size_t>(length);
+            return objc::sendMessage<NSUInteger>(*this, sel::length);
         }
 
         [[nodiscard]] const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept

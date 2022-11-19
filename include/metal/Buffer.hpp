@@ -12,15 +12,19 @@ namespace mtl
     public:
         Buffer() = delete;
 
-        [[nodiscard]] std::size_t length() const noexcept
+        [[nodiscard]] NSUInteger length() const noexcept
         {
-            const auto length = objc::sendMessage<NSUInteger>(*this, ns::sel::length);
-            return static_cast<std::size_t>(length);
+            return objc::sendMessage<NSUInteger>(*this, ns::sel::length);
         }
 
         [[nodiscard]] void* contents() const noexcept
         {
             return objc::sendMessage<void*>(*this, sel::contents);
+        }
+
+        [[nodiscard]] uint64_t gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        {
+            return objc::sendMessage<uint64_t>(*this, sel::gpuAddress);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

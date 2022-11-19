@@ -23,6 +23,7 @@ namespace mtl
         inline const auto setLabel_ = sel_registerName("setLabel:");
 
         inline const auto contents = sel_registerName("contents");
+        inline const auto gpuAddress = sel_registerName("gpuAddress");
 
         inline const auto vertexFunction = sel_registerName("vertexFunction");
         inline const auto setVertexFunction_ = sel_registerName("setVertexFunction:");

@@ -1,7 +1,6 @@
 #ifndef METALPP_OBJC_OBJECT_HPP
 #define METALPP_OBJC_OBJECT_HPP
 
-#include <cstdint>
 #include <objc/NSObjCRuntime.h>
 #include "Runtime.hpp"
 #include "Selectors.hpp"
@@ -71,10 +70,9 @@ namespace ns
             return ptr;
         }
 
-        [[nodiscard]] std::size_t retainCount() const noexcept
+        [[nodiscard]] NSUInteger retainCount() const noexcept
         {
-            const auto retainCount = objc::sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
-            return static_cast<std::size_t>(retainCount);
+            return objc::sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
         }
 
         // Releases the ownership of the pointer without sending a release message
