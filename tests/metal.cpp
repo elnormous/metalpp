@@ -33,10 +33,13 @@ TEST_CASE("Buffer")
     CHECK(buffer.length() == 1024);
 
     const char data[] = {'a', 'b', 'c', 'd'};
-    mtl::Buffer bufferWithBytes = device.newBuffer(data, sizeof(data), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+    mtl::Buffer bufferWithBytes = device.newBuffer(data, sizeof(data), mtl::ResourceOptions::StorageModeShared);
     REQUIRE(bufferWithBytes);
     REQUIRE(bufferWithBytes.retainCount() == 1);
     CHECK(bufferWithBytes.length() == sizeof(data));
+
+    void* contents = buffer.contents();
+    CHECK(contents);
 }
 
 TEST_CASE("Command queue")

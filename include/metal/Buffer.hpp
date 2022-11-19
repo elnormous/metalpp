@@ -17,6 +17,11 @@ namespace mtl
             const auto length = objc::sendMessage<NSUInteger>(*this, ns::sel::length);
             return static_cast<std::size_t>(length);
         }
+
+        [[nodiscard]] void* contents() const noexcept
+        {
+            return objc::sendMessage<void*>(*this, sel::contents);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

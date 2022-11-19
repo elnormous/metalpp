@@ -22,6 +22,8 @@ namespace mtl
         inline const auto label = sel_registerName("label");
         inline const auto setLabel_ = sel_registerName("setLabel:");
 
+        inline const auto contents = sel_registerName("contents");
+
         inline const auto vertexFunction = sel_registerName("vertexFunction");
         inline const auto setVertexFunction_ = sel_registerName("setVertexFunction:");
         inline const auto fragmentFunction = sel_registerName("fragmentFunction");
