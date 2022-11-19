@@ -169,4 +169,4 @@ namespace mtl
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
-#endif /* Library_h */
+#endif
