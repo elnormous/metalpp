@@ -79,6 +79,7 @@ namespace mtl
         inline const auto setStorageMode_ = sel_registerName("setStorageMode:");
         inline const auto hazardTrackingMode = sel_registerName("hazardTrackingMode");
         inline const auto setHazardTrackingMode_ = sel_registerName("setHazardTrackingMode:");
+        inline const auto resourceOptions = sel_registerName("resourceOptions");
         inline const auto usage = sel_registerName("usage");
         inline const auto setUsage_ = sel_registerName("setUsage:");
         inline const auto allowGPUOptimizedContents = sel_registerName("allowGPUOptimizedContents");

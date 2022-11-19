@@ -31,6 +31,59 @@ namespace mtl
         Tracked = 2,
     } API_AVAILABLE(macos(10.15), ios(13.0));
 
+    constexpr auto CPUCacheModeShift =       0;
+    constexpr auto CPUCacheModeMask =        0xfUL << CPUCacheModeShift;
+
+    constexpr auto StorageModeShift =        4;
+    constexpr auto StorageModeMask =         0xfUL << StorageModeShift;
+
+    constexpr auto HazardTrackingModeShift = 8;
+    constexpr auto HazardTrackingModeMask =  0x3UL << HazardTrackingModeShift;
+
+    enum class ResourceOptions: NSUInteger
+    {
+        CPUCacheModeDefaultCache  = static_cast<NSUInteger>(CPUCacheMode::DefaultCache)  << CPUCacheModeShift,
+        CPUCacheModeWriteCombined = static_cast<NSUInteger>(CPUCacheMode::WriteCombined) << CPUCacheModeShift,
+
+        StorageModeShared API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<NSUInteger>(StorageMode::Shared) << StorageModeShift,
+        StorageModeManaged API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = static_cast<NSUInteger>(StorageMode::Managed) << StorageModeShift,
+        StorageModePrivate API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<NSUInteger>(StorageMode::Private) << StorageModeShift,
+        StorageModeMemoryless API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = static_cast<NSUInteger>(StorageMode::Memoryless) << StorageModeShift,
+
+        HazardTrackingModeDefault API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<NSUInteger>(HazardTrackingMode::Default) << HazardTrackingModeShift,
+        HazardTrackingModeUntracked API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<NSUInteger>(HazardTrackingMode::Untracked) << HazardTrackingModeShift,
+        HazardTrackingModeTracked API_AVAILABLE(macos(10.15), ios(13.0)) = static_cast<NSUInteger>(HazardTrackingMode::Tracked) << HazardTrackingModeShift,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept
+    {
+        return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) & static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+    inline constexpr ResourceOptions operator|(const ResourceOptions a, const ResourceOptions b) noexcept
+    {
+        return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) | static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+    inline constexpr ResourceOptions operator^(const ResourceOptions a, const ResourceOptions b) noexcept
+    {
+        return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) ^ static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+    inline constexpr ResourceOptions operator~(const ResourceOptions a) noexcept
+    {
+        return static_cast<ResourceOptions>(~static_cast<std::underlying_type_t<ResourceOptions>>(a));
+    }
+    inline constexpr ResourceOptions& operator&=(ResourceOptions& a, const ResourceOptions b) noexcept
+    {
+        return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) & static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+    inline constexpr ResourceOptions& operator|=(ResourceOptions& a, const ResourceOptions b) noexcept
+    {
+        return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) | static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+    inline constexpr ResourceOptions& operator^=(ResourceOptions& a, const ResourceOptions b) noexcept
+    {
+        return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) ^ static_cast<std::underlying_type_t<ResourceOptions>>(b));
+    }
+
     class Resource: public ns::Object
     {
     public:
@@ -64,6 +117,10 @@ namespace mtl
             return objc::sendMessage<HazardTrackingMode>(*this, sel::hazardTrackingMode);
         }
 
+        [[nodiscard]] ResourceOptions resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return objc::sendMessage<ResourceOptions>(*this, sel::resourceOptions);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
