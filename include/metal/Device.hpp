@@ -55,17 +55,25 @@ namespace mtl
             const id depthStencilState = objc::sendMessage<id>(*this,
                                                                sel::newDepthStencilStateWithDescriptor_,
                                                                static_cast<id>(descriptor));
-
             return DepthStencilState{depthStencilState};
         }
 
         [[nodiscard]] Buffer newBuffer(const std::size_t length, const ResourceOptions options) const noexcept
         {
             const id buffer = objc::sendMessage<id>(*this,
-                                                    sel::newBufferWithLength_,
+                                                    sel::newBufferWithLength_options_,
                                                     static_cast<NSUInteger>(length),
                                                     options);
+            return Buffer{buffer};
+        }
 
+        [[nodiscard]] Buffer newBuffer(const void* pointer, const std::size_t length, const ResourceOptions options) const noexcept
+        {
+            const id buffer = objc::sendMessage<id>(*this,
+                                                    sel::newBufferWithBytes_length_options_,
+                                                    pointer,
+                                                    static_cast<NSUInteger>(length),
+                                                    options);
             return Buffer{buffer};
         }
 
@@ -74,7 +82,6 @@ namespace mtl
             const id texture = objc::sendMessage<id>(*this,
                                                      sel::newTextureWithDescriptor_,
                                                      static_cast<id>(descriptor));
-
             return Texture{texture};
         }
 

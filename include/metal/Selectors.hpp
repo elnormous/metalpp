@@ -9,7 +9,8 @@ namespace mtl
         inline const auto newCommandQueue = sel_registerName("newCommandQueue");
         inline const auto newCommandQueueWithMaxCommandBufferCount_ = sel_registerName("newCommandQueueWithMaxCommandBufferCount:");
         inline const auto newDepthStencilStateWithDescriptor_ = sel_registerName("newDepthStencilStateWithDescriptor:");
-        inline const auto newBufferWithLength_ = sel_registerName("newBufferWithLength:options:");
+        inline const auto newBufferWithLength_options_ = sel_registerName("newBufferWithLength:options:");
+        inline const auto newBufferWithBytes_length_options_ = sel_registerName("newBufferWithBytes:length:options:");
         inline const auto newTextureWithDescriptor_ = sel_registerName("newTextureWithDescriptor:");
         inline const auto newDefaultLibrary = sel_registerName("newDefaultLibrary");
         inline const auto newLibraryWithSource_options_error_ = sel_registerName("newLibraryWithSource:options:error:");
