@@ -40,8 +40,8 @@ TEST_CASE("Buffer")
     CHECK(bufferWithBytes.length() == sizeof(data));
     CHECK(buffer.gpuAddress());
 
-    void* contents = buffer.contents();
-    CHECK(contents);
+    mtl::Buffer bufferManaged = device.newBuffer(1024, mtl::ResourceOptions::StorageModeManaged);
+    bufferManaged.didModifyRange(ns::Range{0, 1024});
 }
 
 TEST_CASE("Command queue")
