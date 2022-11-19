@@ -7,6 +7,7 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
+#include "Buffer.hpp"
 #include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
@@ -56,6 +57,16 @@ namespace mtl
                                                                static_cast<id>(descriptor));
 
             return DepthStencilState{depthStencilState};
+        }
+
+        [[nodiscard]] Buffer newBuffer(const std::size_t length, const ResourceOptions options) const noexcept
+        {
+            const id buffer = objc::sendMessage<id>(*this,
+                                                    sel::newBufferWithLength_,
+                                                    static_cast<NSUInteger>(length),
+                                                    options);
+
+            return Buffer{buffer};
         }
 
         [[nodiscard]] Texture newTexture(const TextureDescriptor& descriptor) const noexcept

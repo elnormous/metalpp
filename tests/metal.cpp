@@ -21,6 +21,17 @@ TEST_CASE("Device name")
     CHECK(name.length());
 }
 
+TEST_CASE("Buffer")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device;
+
+    mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::CPUCacheModeDefaultCache);
+    REQUIRE(buffer);
+    REQUIRE(buffer.retainCount() == 1);
+}
+
 TEST_CASE("Command queue")
 {
     ns::AutoreleasePool pool;
