@@ -324,34 +324,34 @@ int main(int argc, const char* argv[]) {
     const auto vertexFunction = library.newFunction("vertex_function");
     const auto fragmentFunction = library.newFunction("fragment_function");
 
-//    mtl::VertexDescriptor vertexDescriptor;
-//
-//    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
-//
-//    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-//    vertexLayout0.setStride(32);
-//    vertexLayout0.setStepRate(1);
-//    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
-//
-//    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-//
-//    // position
-//    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-//    vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
-//    vertexAttribute0.setOffset(0);
-//    vertexAttribute0.setBufferIndex(0);
-//
-//    // color
-//    mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
-//    vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
-//    vertexAttribute1.setOffset(16);
-//    vertexAttribute1.setBufferIndex(0);
+    mtl::VertexDescriptor vertexDescriptor;
+
+    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+
+    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+    vertexLayout0.setStride(32);
+    vertexLayout0.setStepRate(1);
+    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+
+    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+
+    // position
+    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+    vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
+    vertexAttribute0.setOffset(0);
+    vertexAttribute0.setBufferIndex(0);
+
+    // color
+    mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
+    vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
+    vertexAttribute1.setOffset(16);
+    vertexAttribute1.setBufferIndex(0);
 
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.setLabel("renderPipeline");
     renderPipelineDescriptor.setVertexFunction(vertexFunction);
     renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
-//    renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+    renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 //    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 //    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 
@@ -360,15 +360,14 @@ int main(int argc, const char* argv[]) {
 
     auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
-    static float quadVertexData[] =
-    {
+    static std::uint16_t indexData[] = { 0, 1, 2, 3, 0, 2 };
+    const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+
+    static float quadVertexData[] = {
          0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
         -0.5, -0.5, 0.0, 1.0,     0.0, 1.0, 0.0, 1.0,
         -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
-
          0.5,  0.5, 0.0, 1.0,     1.0, 1.0, 0.0, 1.0,
-         0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
-        -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
     };
 
     const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
@@ -392,7 +391,7 @@ int main(int argc, const char* argv[]) {
     renderCommand.setRenderPipelineState(pipelineState);
     renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
     renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
-    renderCommand.drawPrimitives(mtl::PrimitiveType::Triangle, 0, 6);
+    renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
     renderCommand.endEncoding();
 
     commandBuffer.presentDrawable(mtl::Drawable{[drawable retain]});
