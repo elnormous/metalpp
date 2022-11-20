@@ -227,6 +227,9 @@ TEST_CASE("Render pipeline state")
     mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"vsh_flat"});
     CHECK(vertexFunction.device() == device);
 
+    vertexFunction.setLabel("Vertex function");
+    CHECK(vertexFunction.label().isEqualToString("Vertex function"));
+
     // fragment shader
     mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
     REQUIRE(fragmentLibrary);

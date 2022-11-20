@@ -322,14 +322,12 @@ int main(int argc, const char* argv[]) {
 
         mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
         vertexLibrary.setLabel("Vertex library");
-        NSLog(@"%s\n", vertexLibrary.label().cString());
 
         mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"mainVS"});
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
 
         mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
         fragmentLibrary.setLabel("Fragment library");
-        NSLog(@"%s\n", fragmentLibrary.label().cString());
 
         mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"mainPS"});
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);

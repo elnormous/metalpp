@@ -139,6 +139,17 @@ namespace mtl
         Function() = delete;
 
         Device device() const noexcept;
+
+        [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            const id label = objc::sendMessage<id>(*this, sel::label);
+            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+        }
+
+        void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+        }
     };
     
     class Library final: public ns::Object
