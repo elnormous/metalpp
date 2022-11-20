@@ -85,12 +85,12 @@ namespace mtl
             return RenderCommandEncoder{objc::sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
         }
 
-        [[nodiscard]] void presentDrawable(const Drawable& drawable) const noexcept
+        void presentDrawable(const Drawable& drawable) const noexcept
         {
             objc::sendMessage(*this, sel::presentDrawable_, static_cast<id>(drawable));
         }
 
-        [[nodiscard]] void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
+        void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
             objc::sendMessage(*this, sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
         }
