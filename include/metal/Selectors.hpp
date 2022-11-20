@@ -26,6 +26,23 @@ namespace mtl
         inline const auto didModifyRange_ = sel_registerName("didModifyRange:");
         inline const auto gpuAddress = sel_registerName("gpuAddress");
 
+        inline const auto isBlendingEnabled = sel_registerName("isBlendingEnabled");
+        inline const auto setBlendingEnabled_ = sel_registerName("setBlendingEnabled:");
+        inline const auto sourceRGBBlendFactor = sel_registerName("sourceRGBBlendFactor");
+        inline const auto setSourceRGBBlendFactor_ = sel_registerName("setSourceRGBBlendFactor:");
+        inline const auto destinationRGBBlendFactor = sel_registerName("destinationRGBBlendFactor");
+        inline const auto setDestinationRGBBlendFactor_ = sel_registerName("setDestinationRGBBlendFactor:");
+        inline const auto rgbBlendOperation = sel_registerName("rgbBlendOperation");
+        inline const auto setRgbBlendOperation_ = sel_registerName("setRgbBlendOperation:");
+        inline const auto sourceAlphaBlendFactor = sel_registerName("sourceAlphaBlendFactor");
+        inline const auto setSourceAlphaBlendFactor_ = sel_registerName("setSourceAlphaBlendFactor:");
+        inline const auto destinationAlphaBlendFactor = sel_registerName("destinationAlphaBlendFactor");
+        inline const auto setDestinationAlphaBlendFactor_ = sel_registerName("setDestinationAlphaBlendFactor:");
+        inline const auto alphaBlendOperation = sel_registerName("alphaBlendOperation");
+        inline const auto setAlphaBlendOperation_ = sel_registerName("setAlphaBlendOperation:");
+        inline const auto writeMask = sel_registerName("writeMask");
+        inline const auto setWriteMask_ = sel_registerName("setWriteMask:");
+
         inline const auto vertexFunction = sel_registerName("vertexFunction");
         inline const auto setVertexFunction_ = sel_registerName("setVertexFunction:");
         inline const auto fragmentFunction = sel_registerName("fragmentFunction");

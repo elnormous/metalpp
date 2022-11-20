@@ -309,6 +309,32 @@ TEST_CASE("Render pipeline state")
     mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments = renderPipelineDescriptor.colorAttachments();
     REQUIRE(colorAttachments);
     REQUIRE(colorAttachments.retainCount() == 2);
+    
+    colorAttachments[0].setBlendingEnabled(false);
+    CHECK(colorAttachments[0].isBlendingEnabled() == false);
+    colorAttachments[0].setBlendingEnabled(true);
+    CHECK(colorAttachments[0].isBlendingEnabled() == true);
+
+    colorAttachments[0].setSourceRGBBlendFactor(mtl::BlendFactor::SourceColor);
+    CHECK(colorAttachments[0].sourceRGBBlendFactor() == mtl::BlendFactor::SourceColor);
+
+    colorAttachments[0].setDestinationRGBBlendFactor(mtl::BlendFactor::BlendAlpha);
+    CHECK(colorAttachments[0].destinationRGBBlendFactor() == mtl::BlendFactor::BlendAlpha);
+
+    colorAttachments[0].setRgbBlendOperation(mtl::BlendOperation::Max);
+    CHECK(colorAttachments[0].rgbBlendOperation() == mtl::BlendOperation::Max);
+
+    colorAttachments[0].setSourceAlphaBlendFactor(mtl::BlendFactor::BlendColor);
+    CHECK(colorAttachments[0].sourceAlphaBlendFactor() == mtl::BlendFactor::BlendColor);
+
+    colorAttachments[0].setDestinationAlphaBlendFactor(mtl::BlendFactor::SourceAlphaSaturated);
+    CHECK(colorAttachments[0].destinationAlphaBlendFactor() == mtl::BlendFactor::SourceAlphaSaturated);
+
+    colorAttachments[0].setAlphaBlendOperation(mtl::BlendOperation::Min);
+    CHECK(colorAttachments[0].alphaBlendOperation() == mtl::BlendOperation::Min);
+
+    colorAttachments[0].setWriteMask(mtl::ColorWriteMask::Blue | mtl::ColorWriteMask::Green);
+    CHECK(colorAttachments[0].writeMask() == (mtl::ColorWriteMask::Blue | mtl::ColorWriteMask::Green));
 
     renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
 

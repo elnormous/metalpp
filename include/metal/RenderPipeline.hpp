@@ -56,6 +56,35 @@ namespace mtl
         All   = 0xf
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
+    inline constexpr ColorWriteMask operator&(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) & static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+    inline constexpr ColorWriteMask operator|(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) | static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+    inline constexpr ColorWriteMask operator^(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) ^ static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+    inline constexpr ColorWriteMask operator~(const ColorWriteMask a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return static_cast<ColorWriteMask>(~static_cast<std::underlying_type_t<ColorWriteMask>>(a));
+    }
+    inline constexpr ColorWriteMask& operator&=(ColorWriteMask& a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return a = static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) & static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+    inline constexpr ColorWriteMask& operator|=(ColorWriteMask& a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return a = static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) | static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+    inline constexpr ColorWriteMask& operator^=(ColorWriteMask& a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    {
+        return a = static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) ^ static_cast<std::underlying_type_t<ColorWriteMask>>(b));
+    }
+
     enum class PrimitiveTopologyClass: NSUInteger
     {
         Unspecified = 0,
@@ -96,6 +125,96 @@ namespace mtl
     {
     public:
         RenderPipelineColorAttachmentDescriptor() = delete;
+
+        [[nodiscard]] PixelFormat pixelFormat() const noexcept
+        {
+            return objc::sendMessage<PixelFormat>(*this, sel::pixelFormat);
+        }
+
+        void setPixelFormat(PixelFormat pixelFormat) noexcept
+        {
+            objc::sendMessage(*this, sel::setPixelFormat_, pixelFormat);
+        }
+
+        [[nodiscard]] bool isBlendingEnabled() const noexcept
+        {
+            return objc::sendMessage<BOOL>(*this, sel::isBlendingEnabled) == YES;
+        }
+
+        void setBlendingEnabled(bool blendingEnabled) noexcept
+        {
+            objc::sendMessage(*this, sel::setBlendingEnabled_, blendingEnabled ? YES : NO);
+        }
+
+        [[nodiscard]] BlendFactor sourceRGBBlendFactor() const noexcept
+        {
+            return objc::sendMessage<BlendFactor>(*this, sel::sourceRGBBlendFactor);
+        }
+
+        void setSourceRGBBlendFactor(BlendFactor sourceRGBBlendFactor) noexcept
+        {
+            objc::sendMessage(*this, sel::setSourceRGBBlendFactor_, sourceRGBBlendFactor);
+        }
+
+        [[nodiscard]] BlendFactor destinationRGBBlendFactor() const noexcept
+        {
+            return objc::sendMessage<BlendFactor>(*this, sel::destinationRGBBlendFactor);
+        }
+
+        void setDestinationRGBBlendFactor(BlendFactor destinationRGBBlendFactor) noexcept
+        {
+            objc::sendMessage(*this, sel::setDestinationRGBBlendFactor_, destinationRGBBlendFactor);
+        }
+
+        [[nodiscard]] BlendOperation rgbBlendOperation() const noexcept
+        {
+            return objc::sendMessage<BlendOperation>(*this, sel::rgbBlendOperation);
+        }
+
+        void setRgbBlendOperation(BlendOperation rgbBlendOperation) noexcept
+        {
+            objc::sendMessage(*this, sel::setRgbBlendOperation_, rgbBlendOperation);
+        }
+
+        [[nodiscard]] BlendFactor sourceAlphaBlendFactor() const noexcept
+        {
+            return objc::sendMessage<BlendFactor>(*this, sel::sourceAlphaBlendFactor);
+        }
+
+        void setSourceAlphaBlendFactor(BlendFactor sourceAlphaBlendFactor) noexcept
+        {
+            objc::sendMessage(*this, sel::setSourceAlphaBlendFactor_, sourceAlphaBlendFactor);
+        }
+
+        [[nodiscard]] BlendFactor destinationAlphaBlendFactor() const noexcept
+        {
+            return objc::sendMessage<BlendFactor>(*this, sel::destinationAlphaBlendFactor);
+        }
+
+        void setDestinationAlphaBlendFactor(BlendFactor destinationAlphaBlendFactor) noexcept
+        {
+            objc::sendMessage(*this, sel::setDestinationAlphaBlendFactor_, destinationAlphaBlendFactor);
+        }
+
+        [[nodiscard]] BlendOperation alphaBlendOperation() const noexcept
+        {
+            return objc::sendMessage<BlendOperation>(*this, sel::alphaBlendOperation);
+        }
+
+        void setAlphaBlendOperation(BlendOperation alphaBlendOperation) noexcept
+        {
+            objc::sendMessage(*this, sel::setAlphaBlendOperation_, alphaBlendOperation);
+        }
+
+        [[nodiscard]] ColorWriteMask writeMask() const noexcept
+        {
+            return objc::sendMessage<ColorWriteMask>(*this, sel::writeMask);
+        }
+
+        void setWriteMask(ColorWriteMask writeMask) noexcept
+        {
+            objc::sendMessage(*this, sel::setWriteMask_, writeMask);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPipelineColorAttachmentDescriptorArray final: public ns::Object
