@@ -55,31 +55,31 @@ namespace mtl
         HazardTrackingModeTracked API_AVAILABLE(macos(10.15), ios(13.0)) = static_cast<NSUInteger>(HazardTrackingMode::Tracked) << HazardTrackingModeShift,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) & static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator|(const ResourceOptions a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions operator|(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) | static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator^(const ResourceOptions a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions operator^(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) ^ static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator~(const ResourceOptions a) noexcept
+    inline constexpr ResourceOptions operator~(const ResourceOptions a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(~static_cast<std::underlying_type_t<ResourceOptions>>(a));
     }
-    inline constexpr ResourceOptions& operator&=(ResourceOptions& a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions& operator&=(ResourceOptions& a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) & static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions& operator|=(ResourceOptions& a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions& operator|=(ResourceOptions& a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) | static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions& operator^=(ResourceOptions& a, const ResourceOptions b) noexcept
+    inline constexpr ResourceOptions& operator^=(ResourceOptions& a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return a = static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) ^ static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
