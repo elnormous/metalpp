@@ -170,6 +170,7 @@ namespace mtl
         inline const auto setRenderPipelineState_ = sel_registerName("setRenderPipelineState:");
         inline const auto setVertexBuffer_offset_atIndex_ = sel_registerName("setVertexBuffer:offset:atIndex:");
         inline const auto drawPrimitives_vertexStart_vertexCount_ = sel_registerName("drawPrimitives:vertexStart:vertexCount:");
+        inline const auto drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_ = sel_registerName("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
     }
 }
 

@@ -3,9 +3,11 @@
 
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "Buffer.hpp"
 #include "CommandEncoder.hpp"
 #include "RenderPipeline.hpp"
 #include "Selectors.hpp"
+#include "StageInputOutputDescriptor.hpp"
 
 namespace mtl
 {
@@ -78,6 +80,11 @@ namespace mtl
         void drawPrimitives(const PrimitiveType primitiveType, const NSUInteger vertexStart, const NSUInteger vertexCount) noexcept
         {
             objc::sendMessage(*this, sel::drawPrimitives_vertexStart_vertexCount_, primitiveType, vertexStart, vertexCount);
+        }
+
+        void drawIndexedPrimitives(const PrimitiveType primitiveType, const NSUInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const NSUInteger indexBufferOffset) noexcept
+        {
+            objc::sendMessage(*this, sel::drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, primitiveType, indexCount, indexType, static_cast<id>(indexBuffer), indexBufferOffset);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

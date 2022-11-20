@@ -17,6 +17,7 @@
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
 #include "Sampler.hpp"
+#include "StageInputOutputDescriptor.hpp"
 #include "Texture.hpp"
 #include "VertexDescriptor.hpp"
 
