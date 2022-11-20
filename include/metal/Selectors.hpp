@@ -93,6 +93,8 @@ namespace mtl
         inline const auto endEncoding = sel_registerName("endEncoding");
         inline const auto blitCommandEncoder = sel_registerName("blitCommandEncoder");
         inline const auto renderCommandEncoderWithDescriptor_ = sel_registerName("renderCommandEncoderWithDescriptor:");
+        inline const auto presentDrawable_ = sel_registerName("presentDrawable:");
+        inline const auto presentDrawable_atTime_ = sel_registerName("presentDrawable:atTime:");
         inline const auto commit = sel_registerName("commit");
         inline const auto waitUntilCompleted = sel_registerName("waitUntilCompleted");
 
@@ -164,6 +166,10 @@ namespace mtl
         inline const auto setClearStencil_ = sel_registerName("setClearStencil:");
         inline const auto stencilResolveFilter = sel_registerName("stencilResolveFilter");
         inline const auto setStencilResolveFilter_ = sel_registerName("setStencilResolveFilter:");
+
+        inline const auto setRenderPipelineState_ = sel_registerName("setRenderPipelineState:");
+        inline const auto setVertexBuffer_offset_atIndex_ = sel_registerName("setVertexBuffer:offset:atIndex:");
+        inline const auto drawPrimitives_vertexStart_vertexCount_ = sel_registerName("drawPrimitives:vertexStart:vertexCount:");
     }
 }
 

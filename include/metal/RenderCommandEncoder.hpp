@@ -4,6 +4,8 @@
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "CommandEncoder.hpp"
+#include "RenderPipeline.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -62,6 +64,21 @@ namespace mtl
     {
     public:
         RenderCommandEncoder() = delete;
+
+        void setRenderPipelineState(const RenderPipelineState& pipelineState) noexcept
+        {
+            objc::sendMessage(*this, sel::setRenderPipelineState_, static_cast<id>(pipelineState));
+        }
+
+        void setVertexBuffer(const Buffer& buffer, const NSUInteger offset, const NSUInteger index) noexcept
+        {
+            objc::sendMessage(*this, sel::setVertexBuffer_offset_atIndex_, static_cast<id>(buffer), offset, index);
+        }
+
+        void drawPrimitives(const PrimitiveType primitiveType, const NSUInteger vertexStart, const NSUInteger vertexCount) noexcept
+        {
+            objc::sendMessage(*this, sel::drawPrimitives_vertexStart_vertexCount_, primitiveType, vertexStart, vertexCount);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

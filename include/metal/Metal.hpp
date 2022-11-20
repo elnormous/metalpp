@@ -8,6 +8,7 @@
 #include "CommandQueue.hpp"
 #include "DepthStencil.hpp"
 #include "Device.hpp"
+#include "Drawable.hpp"
 #include "DynamicLibrary.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"

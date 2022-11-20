@@ -1,8 +1,28 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
+#include <simd/simd.h>
 #include "AppDelegate.h"
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
+
+struct Uniforms
+{
+    matrix_float4x4 rotation_matrix;
+};
+
+static matrix_float4x4 rotationMatrix2d(const float radians)
+{
+    const float c = std::cosf(radians);
+    const float s = std::sinf(radians);
+
+    matrix_float4x4 m = {
+        .columns[0] = {  c, s, 0, 0 },
+        .columns[1] = { -s, c, 0, 0 },
+        .columns[2] = {  0, 0, 1, 0 },
+        .columns[3] = {  0, 0, 0, 1 }
+    };
+    return m;
+}
 
 @interface WindowDelegate: NSObject<NSWindowDelegate>
 {
@@ -206,7 +226,7 @@ static CVReturn renderCallback(CVDisplayLinkRef,
     return kCVReturnSuccess;
 }
 
-static const char* fragmentShader =
+static const char* shadersSource =
 "#include <metal_stdlib>\n" \
 "#include <simd/simd.h>\n" \
 
@@ -214,50 +234,33 @@ static const char* fragmentShader =
 
 "typedef struct\n" \
 "{\n" \
-"    float4 color;\n" \
-"} uniforms_t;\n" \
+"    float4x4 rotation_matrix;\n" \
+"} Uniforms;\n" \
 
 "typedef struct\n" \
 "{\n" \
+"    float4 position;\n" \
+"    float4 color;\n" \
+"} VertexIn;\n" \
+
+"typedef struct {\n" \
 "    float4 position [[position]];\n" \
-"    half4 color;\n" \
-"} VS2PS;\n" \
+"    half4  color;\n" \
+"} VertexOut;\n" \
 
-"fragment half4 mainPS(VS2PS input [[stage_in]],\n" \
-"                      constant uniforms_t& uniforms [[buffer(1)]])\n" \
+"vertex VertexOut vertex_function(const device VertexIn *vertices [[buffer(0)]],\n" \
+"                                 constant Uniforms &uniforms [[buffer(1)]],\n" \
+"                                 uint vid [[vertex_id]])\n" \
 "{\n" \
-"    return input.color * half4(uniforms.color);\n" \
-"}";
+"    VertexOut out;\n" \
+"    out.position = uniforms.rotation_matrix * vertices[vid].position;\n" \
+"    out.color = half4(vertices[vid].color);\n" \
+"    return out;\n" \
+"}\n" \
 
-static const char* vertexShader =
-"#include <simd/simd.h>\n"
-
-"using namespace metal;\n"
-
-"typedef struct\n"
-"{\n"
-"    float4x4 modelViewProj;\n"
-"} uniforms_t;\n"
-
-"typedef struct\n"
-"{\n"
-"    float3 position [[attribute(0)]];\n"
-"    half4 color [[attribute(1)]];\n"
-"} VSInput;\n"
-
-"typedef struct\n"
-"{\n"
-"    float4 position [[position]];\n"
-"    half4 color;\n"
-"} VS2PS;\n"
-
-"vertex VS2PS mainVS(VSInput input [[stage_in]],\n"
-"                    constant uniforms_t& uniforms [[buffer(1)]])\n"
-"{\n"
-"    VS2PS output;\n"
-"    output.position = uniforms.modelViewProj * float4(input.position, ONE);\n"
-"    output.color = input.color;\n"
-"    return output;\n"
+"fragment half4 fragment_function(VertexOut in [[stage_in]])\n" \
+"{\n" \
+"    return in.color;\n" \
 "}";
 
 int main(int argc, const char* argv[]) {
@@ -301,97 +304,101 @@ int main(int argc, const char* argv[]) {
     [window setContentView:view];
     [window makeKeyAndOrderFront:nil];
 
-    CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
-
     mtl::Device device;
-    NSLog(@"Device name: %s\n", device.name().cString());
 
-    mtl::Library library = device.newDefaultLibrary();
-
-    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.setLabel("renderPipeline");
-
-    try
-    {
-        mtl::CompileOptions options;
-        options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
-        options.setFastMathEnabled(true);
-
-        const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
-        options.setPreprocessorMacros(preprocessorMacros);
-
-        mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
-        vertexLibrary.setLabel("Vertex library");
-
-        mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"mainVS"});
-        renderPipelineDescriptor.setVertexFunction(vertexFunction);
-
-        mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
-        fragmentLibrary.setLabel("Fragment library");
-
-        mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"mainPS"});
-        renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
-
-        mtl::VertexDescriptor vertexDescriptor;
-
-        mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
-
-        mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-        vertexLayout0.setStride(44);
-        vertexLayout0.setStepRate(1);
-        vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
-
-        mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-
-        // position
-        mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-        vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
-        vertexAttribute0.setOffset(0);
-        vertexAttribute0.setBufferIndex(0);
-
-        // color
-        mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
-        vertexAttribute1.setFormat(mtl::VertexFormat::UChar4Normalized);
-        vertexAttribute1.setOffset(12);
-        vertexAttribute1.setBufferIndex(0);
-
-        // texture coordinates 0
-        mtl::VertexAttributeDescriptor vertexAttribute2 = vertexAttributes[2];
-        vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
-        vertexAttribute2.setOffset(16);
-        vertexAttribute2.setBufferIndex(0);
-
-        // texture coordinates 1
-        mtl::VertexAttributeDescriptor vertexAttribute3 = vertexAttributes[3];
-        vertexAttribute3.setFormat(mtl::VertexFormat::Float2);
-        vertexAttribute3.setOffset(24);
-        vertexAttribute3.setBufferIndex(0);
-
-        // normal
-        mtl::VertexAttributeDescriptor vertexAttribute4 = vertexAttributes[4];
-        vertexAttribute4.setFormat(mtl::VertexFormat::Float3);
-        vertexAttribute4.setOffset(32);
-        vertexAttribute4.setBufferIndex(0);
-
-        renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
-
-        renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-        renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-
-        mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
-        NSLog(@"Render pipeline state: %p, %lu\n", (id)renderPipelineState, renderPipelineState.retainCount());
-
-        mtl::CommandQueue commandQueue = device.newCommandQueue();
-        NSLog(@"Command Queue: %p, %lu\n", (id)commandQueue, commandQueue.retainCount());
-    }
-    catch (const ns::Error& error)
-    {
-        NSLog(@"Error: %ld, %s, %s, %lu", error.code(), error.domain().cString(), error.localizedDescription().cString(), error.retainCount());
-    }
-
+    CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
     metalLayer.device = device; // assign device
     const CGSize drawableSize = windowSize;
     metalLayer.drawableSize = drawableSize;
+
+    id<CAMetalDrawable> drawable = [metalLayer nextDrawable];
+    id<MTLTexture> texture = drawable.texture;
+
+    mtl::CompileOptions options;
+    options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
+    options.setFastMathEnabled(true);
+
+    auto library = device.newLibrary(ns::String{shadersSource}, options);
+    library.setLabel("Library");
+
+    const auto vertexFunction = library.newFunction("vertex_function");
+    const auto fragmentFunction = library.newFunction("fragment_function");
+
+//    mtl::VertexDescriptor vertexDescriptor;
+//
+//    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+//
+//    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+//    vertexLayout0.setStride(32);
+//    vertexLayout0.setStepRate(1);
+//    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+//
+//    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+//
+//    // position
+//    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+//    vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
+//    vertexAttribute0.setOffset(0);
+//    vertexAttribute0.setBufferIndex(0);
+//
+//    // color
+//    mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
+//    vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
+//    vertexAttribute1.setOffset(16);
+//    vertexAttribute1.setBufferIndex(0);
+
+    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+    renderPipelineDescriptor.setLabel("renderPipeline");
+    renderPipelineDescriptor.setVertexFunction(vertexFunction);
+    renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
+//    renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+//    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+//    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+
+    const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
+    colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+
+    auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
+
+    static float quadVertexData[] =
+    {
+         0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
+        -0.5, -0.5, 0.0, 1.0,     0.0, 1.0, 0.0, 1.0,
+        -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
+
+         0.5,  0.5, 0.0, 1.0,     1.0, 1.0, 0.0, 1.0,
+         0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
+        -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
+    };
+
+    const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+
+    auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+    Uniforms uniforms;
+    uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
+    void *bufferPointer = uniformBuffer.contents();
+    memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
+
+    mtl::RenderPassDescriptor renderPassDescriptor;
+    renderPassDescriptor.colorAttachments()[0].setTexture(mtl::Texture{[texture retain]});
+    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
+    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
+    renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
+
+    auto commandQueue = device.newCommandQueue();
+    auto commandBuffer = commandQueue.commandBuffer();
+
+    auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
+    renderCommand.setRenderPipelineState(pipelineState);
+    renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
+    renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
+    renderCommand.drawPrimitives(mtl::PrimitiveType::Triangle, 0, 6);
+    renderCommand.endEncoding();
+
+    commandBuffer.presentDrawable(mtl::Drawable{[drawable retain]});
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 
     CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
     CVDisplayLinkRef displayLink = NULL;

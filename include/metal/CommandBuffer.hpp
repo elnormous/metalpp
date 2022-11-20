@@ -5,6 +5,7 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "BlitCommandEncoder.hpp"
+#include "Drawable.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
 #include "Selectors.hpp"
@@ -82,6 +83,16 @@ namespace mtl
         {
             const id renderCommandEncoder = objc::sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
             return RenderCommandEncoder{objc::sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
+        }
+
+        [[nodiscard]] void presentDrawable(const Drawable& drawable) const noexcept
+        {
+            objc::sendMessage(*this, sel::presentDrawable_, static_cast<id>(drawable));
+        }
+
+        [[nodiscard]] void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
+        {
+            objc::sendMessage(*this, sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
         }
 
         void commit() noexcept
