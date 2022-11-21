@@ -89,22 +89,33 @@ namespace mtl
 
         void setRenderPipelineState(const RenderPipelineState& pipelineState) noexcept
         {
-            sendMessage(*this, sel::setRenderPipelineState_, static_cast<id>(pipelineState));
+            sendMessage(sel::setRenderPipelineState_, static_cast<id>(pipelineState));
         }
 
         void setVertexBuffer(const Buffer& buffer, const NSUInteger offset, const NSUInteger index) noexcept
         {
-            sendMessage(*this, sel::setVertexBuffer_offset_atIndex_, static_cast<id>(buffer), offset, index);
+            sendMessage(sel::setVertexBuffer_offset_atIndex_,
+                        static_cast<id>(buffer),
+                        offset,
+                        index);
         }
 
         void drawPrimitives(const PrimitiveType primitiveType, const NSUInteger vertexStart, const NSUInteger vertexCount) noexcept
         {
-            sendMessage(*this, sel::drawPrimitives_vertexStart_vertexCount_, primitiveType, vertexStart, vertexCount);
+            sendMessage(sel::drawPrimitives_vertexStart_vertexCount_,
+                        primitiveType,
+                        vertexStart,
+                        vertexCount);
         }
 
         void drawIndexedPrimitives(const PrimitiveType primitiveType, const NSUInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const NSUInteger indexBufferOffset) noexcept
         {
-            sendMessage(*this, sel::drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, primitiveType, indexCount, indexType, static_cast<id>(indexBuffer), indexBufferOffset);
+            sendMessage(sel::drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_,
+                        primitiveType,
+                        indexCount,
+                        indexType,
+                        static_cast<id>(indexBuffer),
+                        indexBufferOffset);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

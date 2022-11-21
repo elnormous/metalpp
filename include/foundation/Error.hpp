@@ -17,42 +17,42 @@ namespace ns
 
         Error(const ns::String& domain, const NSInteger& code) noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                         sel::initWithDomain_code_userInfo_,
-                                         static_cast<id>(domain),
-                                         code,
-                                         nil)}
+                                   sel::initWithDomain_code_userInfo_,
+                                   static_cast<id>(domain),
+                                   code,
+                                   nil)}
         {
         }
 
         Error(const ns::String& domain, const NSInteger& code, const ns::Dictionary<ns::String, ns::Object>& userInfo) noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                         sel::initWithDomain_code_userInfo_,
-                                         static_cast<id>(domain),
-                                         code,
-                                         static_cast<id>(userInfo))}
+                                   sel::initWithDomain_code_userInfo_,
+                                   static_cast<id>(domain),
+                                   code,
+                                   static_cast<id>(userInfo))}
         {
         }
 
         NSInteger code() const noexcept
         {
-            return sendMessage<NSInteger>(*this, sel::code);
+            return sendMessage<NSInteger>(sel::code);
         }
 
         ns::String domain() const noexcept
         {
-            const id domain = sendMessage<id>(*this, sel::domain);
+            const id domain = sendMessage<id>(sel::domain);
             return ns::String{sendMessage<id>(domain, ns::sel::retain)};
         }
 
         ns::Dictionary<ns::String, ns::Object> userInfo() const noexcept
         {
-            const id userInfo = sendMessage<id>(*this, sel::userInfo);
+            const id userInfo = sendMessage<id>(sel::userInfo);
             return ns::Dictionary<ns::String, ns::Object>{sendMessage<id>(userInfo, ns::sel::retain)};
         }
 
         ns::String localizedDescription() const noexcept
         {
-            const id localizedDescription = sendMessage<id>(*this, sel::localizedDescription);
+            const id localizedDescription = sendMessage<id>(sel::localizedDescription);
             return ns::String{sendMessage<id>(localizedDescription, ns::sel::retain)};
         }
     };

@@ -99,32 +99,32 @@ namespace mtl
 
         [[nodiscard]] NSUInteger stride() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::stride);
+            return sendMessage<NSUInteger>(sel::stride);
         }
 
         void setStride(NSUInteger stride) noexcept
         {
-            sendMessage(*this, sel::setStride_, stride);
+            sendMessage(sel::setStride_, stride);
         }
 
         [[nodiscard]] VertexStepFunction stepFunction() const noexcept
         {
-            return sendMessage<VertexStepFunction>(*this, sel::stepFunction);
+            return sendMessage<VertexStepFunction>(sel::stepFunction);
         }
 
         void setStepFunction(VertexStepFunction stepFunction) noexcept
         {
-            sendMessage(*this, sel::setStepFunction_, stepFunction);
+            sendMessage(sel::setStepFunction_, stepFunction);
         }
 
         [[nodiscard]] NSUInteger stepRate() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::stepRate);
+            return sendMessage<NSUInteger>(sel::stepRate);
         }
 
         void setStepRate(NSUInteger stepRate) noexcept
         {
-            sendMessage(*this, sel::setStepRate_, stepRate);
+            sendMessage(sel::setStepRate_, stepRate);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -140,9 +140,7 @@ namespace mtl
 
         [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(*this,
-                                                    ns::sel::objectAtIndexedSubscript_,
-                                                    index);
+            const id object = sendMessage<id>(ns::sel::objectAtIndexedSubscript_, index);
             return VertexBufferLayoutDescriptor{sendMessage<id>(object, ns::sel::retain)};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
@@ -154,32 +152,32 @@ namespace mtl
 
         [[nodiscard]] VertexFormat format() const noexcept
         {
-            return sendMessage<VertexFormat>(*this, sel::format);
+            return sendMessage<VertexFormat>(sel::format);
         }
 
         void setFormat(VertexFormat vertexFormat) noexcept
         {
-            sendMessage(*this, sel::setFormat_, vertexFormat);
+            sendMessage(sel::setFormat_, vertexFormat);
         }
 
         [[nodiscard]] NSUInteger offset() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::offset);
+            return sendMessage<NSUInteger>(sel::offset);
         }
 
         void setOffset(NSUInteger offset) noexcept
         {
-            sendMessage(*this, sel::setOffset_, offset);
+            sendMessage(sel::setOffset_, offset);
         }
 
         [[nodiscard]] NSUInteger bufferIndex() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::bufferIndex);
+            return sendMessage<NSUInteger>(sel::bufferIndex);
         }
 
         void setBufferIndex(NSUInteger bufferIndex) noexcept
         {
-            sendMessage(*this, sel::setBufferIndex_, bufferIndex);
+            sendMessage(sel::setBufferIndex_, bufferIndex);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -195,9 +193,7 @@ namespace mtl
 
         [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(*this,
-                                                    ns::sel::objectAtIndexedSubscript_,
-                                                    index);
+            const id object = sendMessage<id>(ns::sel::objectAtIndexedSubscript_, index);
             return VertexAttributeDescriptor{sendMessage<id>(object, ns::sel::retain)};
         }
     };
@@ -215,19 +211,19 @@ namespace mtl
 
         [[nodiscard]] VertexBufferLayoutDescriptorArray layouts() const noexcept
         {
-            const id layouts = sendMessage<id>(*this, sel::layouts);
+            const id layouts = sendMessage<id>(sel::layouts);
             return VertexBufferLayoutDescriptorArray{sendMessage<id>(layouts, ns::sel::retain)};
         }
 
         [[nodiscard]] VertexAttributeDescriptorArray attributes() const noexcept
         {
-            const id attributes = sendMessage<id>(*this, sel::attributes);
+            const id attributes = sendMessage<id>(sel::attributes);
             return VertexAttributeDescriptorArray{sendMessage<id>(attributes, ns::sel::retain)};
         }
 
         void reset() noexcept
         {
-            sendMessage(*this, sel::reset);
+            sendMessage(sel::reset);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

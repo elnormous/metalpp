@@ -36,14 +36,13 @@ namespace ca
 
         [[nodiscard]] cg::Rect frame() const noexcept
         {
-            return sendMessage<cg::Rect>(*this, sel::frame);
+            return sendMessage<cg::Rect>(sel::frame);
         }
 
         void setFrame(cg::Rect frame) noexcept
         {
-            sendMessage(*this, sel::setFrame_, frame);
+            sendMessage(sel::setFrame_, frame);
         }
-    };
 
 }
 

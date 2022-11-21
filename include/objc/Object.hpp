@@ -146,6 +146,12 @@ namespace ns
         return proc(self, selector, args...);
     }
 
+    template <typename Ret = void, typename... Args>
+    Ret sendMessage(SEL selector, Args... args) const noexcept
+    {
+        return sendMessage<Ret>(ptr, selector, args...);
+    }
+
     private:
         id ptr = nil;
     };

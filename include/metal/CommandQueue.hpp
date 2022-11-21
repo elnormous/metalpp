@@ -26,18 +26,18 @@ namespace mtl
         
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(*this, sel::label);
+            const id label = sendMessage<id>(sel::label);
             return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] CommandBuffer commandBuffer() const noexcept
         {
-            const id commandBuffer = sendMessage<id>(*this, sel::commandBuffer);
+            const id commandBuffer = sendMessage<id>(sel::commandBuffer);
             return CommandBuffer{sendMessage<id>(commandBuffer, ns::sel::retain)};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));

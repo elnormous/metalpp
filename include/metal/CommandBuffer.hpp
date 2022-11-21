@@ -65,45 +65,45 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(*this, sel::label);
+            const id label = sendMessage<id>(sel::label);
             return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] BlitCommandEncoder blitCommandEncoder() const noexcept
         {
-            const id blitCommandEncoder = sendMessage<id>(*this, sel::blitCommandEncoder);
+            const id blitCommandEncoder = sendMessage<id>(sel::blitCommandEncoder);
             return BlitCommandEncoder{sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
         }
 
         [[nodiscard]] RenderCommandEncoder renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            const id renderCommandEncoder = sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
+            const id renderCommandEncoder = sendMessage<id>(sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
             return RenderCommandEncoder{sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept
         {
-            sendMessage(*this, sel::presentDrawable_, static_cast<id>(drawable));
+            sendMessage(sel::presentDrawable_, static_cast<id>(drawable));
         }
 
         void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
-            sendMessage(*this, sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
+            sendMessage(sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
         }
 
         void commit() noexcept
         {
-            sendMessage(*this, sel::commit);
+            sendMessage(sel::commit);
         }
 
         void waitUntilCompleted() noexcept
         {
-            sendMessage(*this, sel::waitUntilCompleted);
+            sendMessage(sel::waitUntilCompleted);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

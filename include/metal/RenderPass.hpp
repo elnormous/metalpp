@@ -59,114 +59,114 @@ namespace mtl
 
         [[nodiscard]] Texture texture() const noexcept
         {
-            const id texture = sendMessage<id>(*this, sel::texture);
+            const id texture = sendMessage<id>(sel::texture);
             return Texture{sendMessage<id>(texture, ns::sel::retain)};
         }
 
         void setTexture(const Texture& texture) noexcept
         {
-            sendMessage(*this, sel::setTexture_, static_cast<id>(texture));
+            sendMessage(sel::setTexture_, static_cast<id>(texture));
         }
 
         [[nodiscard]] NSUInteger level() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::level);
+            return sendMessage<NSUInteger>(sel::level);
         }
 
         void setLevel(NSUInteger level) noexcept
         {
-            sendMessage(*this, sel::setLevel_, level);
+            sendMessage(sel::setLevel_, level);
         }
 
         [[nodiscard]] NSUInteger slice() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::slice);
+            return sendMessage<NSUInteger>(sel::slice);
         }
 
         void setSlice(NSUInteger slice) noexcept
         {
-            sendMessage(*this, sel::setSlice_, slice);
+            sendMessage(sel::setSlice_, slice);
         }
 
         [[nodiscard]] NSUInteger depthPlane() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::depthPlane);
+            return sendMessage<NSUInteger>(sel::depthPlane);
         }
 
         void setDepthPlane(NSUInteger depthPlane) noexcept
         {
-            sendMessage(*this, sel::setDepthPlane_, depthPlane);
+            sendMessage(sel::setDepthPlane_, depthPlane);
         }
 
         [[nodiscard]] Texture resolveTexture() const noexcept
         {
-            const id resolveTexture = sendMessage<id>(*this, sel::resolveTexture);
+            const id resolveTexture = sendMessage<id>(sel::resolveTexture);
             return Texture{sendMessage<id>(resolveTexture, ns::sel::retain)};
         }
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
         {
-            sendMessage(*this, sel::setResolveTexture_, static_cast<id>(resolveTexture));
+            sendMessage(sel::setResolveTexture_, static_cast<id>(resolveTexture));
         }
 
         [[nodiscard]] NSUInteger resolveLevel() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::resolveLevel);
+            return sendMessage<NSUInteger>(sel::resolveLevel);
         }
 
         void setResolveLevel(NSUInteger resolveLevel) noexcept
         {
-            sendMessage(*this, sel::setResolveLevel_, resolveLevel);
+            sendMessage(sel::setResolveLevel_, resolveLevel);
         }
 
         [[nodiscard]] NSUInteger resolveSlice() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::resolveSlice);
+            return sendMessage<NSUInteger>(sel::resolveSlice);
         }
 
         void setResolveSlice(NSUInteger resolveSlice) noexcept
         {
-            sendMessage(*this, sel::setResolveSlice_, resolveSlice);
+            sendMessage(sel::setResolveSlice_, resolveSlice);
         }
 
         [[nodiscard]] NSUInteger resolveDepthPlane() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::resolveDepthPlane);
+            return sendMessage<NSUInteger>(sel::resolveDepthPlane);
         }
 
         void setResolveDepthPlane(NSUInteger resolveDepthPlane) noexcept
         {
-            sendMessage(*this, sel::setResolveDepthPlane_, resolveDepthPlane);
+            sendMessage(sel::setResolveDepthPlane_, resolveDepthPlane);
         }
 
         [[nodiscard]] LoadAction loadAction() const noexcept
         {
-            return sendMessage<LoadAction>(*this, sel::loadAction);
+            return sendMessage<LoadAction>(sel::loadAction);
         }
 
         void setLoadAction(LoadAction loadAction) noexcept
         {
-            sendMessage(*this, sel::setLoadAction_, loadAction);
+            sendMessage(sel::setLoadAction_, loadAction);
         }
 
         [[nodiscard]] StoreAction storeAction() const noexcept
         {
-            return sendMessage<StoreAction>(*this, sel::storeAction);
+            return sendMessage<StoreAction>(sel::storeAction);
         }
 
         void setStoreAction(StoreAction storeAction) noexcept
         {
-            sendMessage(*this, sel::setStoreAction_, storeAction);
+            sendMessage(sel::setStoreAction_, storeAction);
         }
 
         [[nodiscard]] StoreActionOptions storeActionOptions() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<StoreActionOptions>(*this, sel::storeActionOptions);
+            return sendMessage<StoreActionOptions>(sel::storeActionOptions);
         }
 
         void setStoreActionOptions(StoreActionOptions storeActionOptions) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            sendMessage(*this, sel::setStoreActionOptions_, storeActionOptions);
+            sendMessage(sel::setStoreActionOptions_, storeActionOptions);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -175,12 +175,12 @@ namespace mtl
     public:
         [[nodiscard]] ClearColor clearColor() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<ClearColor>(*this, sel::clearColor);
+            return sendMessage<ClearColor>(sel::clearColor);
         }
 
         void setClearColor(ClearColor clearColor) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            sendMessage(*this, sel::setClearColor_, clearColor);
+            sendMessage(sel::setClearColor_, clearColor);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -196,22 +196,22 @@ namespace mtl
     public:
         [[nodiscard]] double clearDepth() const noexcept
         {
-            return sendMessage<double>(*this, sel::clearDepth);
+            return sendMessage<double>(sel::clearDepth);
         }
 
         void setClearDepth(double clearDepth) noexcept
         {
-            sendMessage(*this, sel::setClearDepth_, clearDepth);
+            sendMessage(sel::setClearDepth_, clearDepth);
         }
 
         [[nodiscard]] MultisampleDepthResolveFilter depthResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
-            return sendMessage<MultisampleDepthResolveFilter>(*this, sel::depthResolveFilter);
+            return sendMessage<MultisampleDepthResolveFilter>(sel::depthResolveFilter);
         }
 
         void setDepthResolveFilter(MultisampleDepthResolveFilter depthResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
-            sendMessage(*this, sel::setDepthResolveFilter_, depthResolveFilter);
+            sendMessage(sel::setDepthResolveFilter_, depthResolveFilter);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -226,22 +226,22 @@ namespace mtl
     public:
         [[nodiscard]] uint32_t clearStencil() const noexcept
         {
-            return sendMessage<uint32_t>(*this, sel::clearStencil);
+            return sendMessage<uint32_t>(sel::clearStencil);
         }
 
         void setClearStencil(uint32_t clearStencil) noexcept
         {
-            sendMessage(*this, sel::setClearStencil_, clearStencil);
+            sendMessage(sel::setClearStencil_, clearStencil);
         }
 
         [[nodiscard]] MultisampleStencilResolveFilter stencilResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
-            return sendMessage<MultisampleStencilResolveFilter>(*this, sel::stencilResolveFilter);
+            return sendMessage<MultisampleStencilResolveFilter>(sel::stencilResolveFilter);
         }
 
         void setStencilResolveFilter(MultisampleStencilResolveFilter stencilResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
-            sendMessage(*this, sel::setStencilResolveFilter_, stencilResolveFilter);
+            sendMessage(sel::setStencilResolveFilter_, stencilResolveFilter);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -255,9 +255,7 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(*this,
-                                                    ns::sel::objectAtIndexedSubscript_,
-                                                    index);
+            const id object = sendMessage<id>(ns::sel::objectAtIndexedSubscript_, index);
             return RenderPassColorAttachmentDescriptor{sendMessage<id>(object, ns::sel::retain)};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
@@ -273,22 +271,19 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            const id colorAttachments = sendMessage<id>(*this,
-                                                              sel::colorAttachments);
+            const id colorAttachments = sendMessage<id>(sel::colorAttachments);
             return RenderPassColorAttachmentDescriptorArray{sendMessage<id>(colorAttachments, ns::sel::retain)};
         }
 
         [[nodiscard]] RenderPassDepthAttachmentDescriptor depthAttachment() const noexcept
         {
-            const id depthAttachment = sendMessage<id>(*this,
-                                                             sel::depthAttachment);
+            const id depthAttachment = sendMessage<id>(sel::depthAttachment);
             return RenderPassDepthAttachmentDescriptor{sendMessage<id>(depthAttachment, ns::sel::retain)};
         }
 
         [[nodiscard]] RenderPassStencilAttachmentDescriptor stencilAttachment() const noexcept
         {
-            const id stencilAttachment = sendMessage<id>(*this,
-                                                               sel::stencilAttachment);
+            const id stencilAttachment = sendMessage<id>(sel::stencilAttachment);
             return RenderPassStencilAttachmentDescriptor{sendMessage<id>(stencilAttachment, ns::sel::retain)};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));

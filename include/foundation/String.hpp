@@ -55,18 +55,18 @@ namespace ns
 
         String(const char* str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                         sel::initWithCString_encoding_,
-                                         str,
-                                         encoding)}
+                                   sel::initWithCString_encoding_,
+                                   str,
+                                   encoding)}
         {
         }
 
         String(const std::string_view str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                         sel::initWithBytes_length_encoding_,
-                                         str.data(),
-                                         static_cast<NSUInteger>(str.length()),
-                                         encoding)}
+                                   sel::initWithBytes_length_encoding_,
+                                   str.data(),
+                                   static_cast<NSUInteger>(str.length()),
+                                   encoding)}
         {
         }
 
@@ -77,36 +77,30 @@ namespace ns
 
         [[nodiscard]] char charAtIndex(const NSUInteger index) const noexcept
         {
-            const auto c = sendMessage<unichar>(*this,
-                                                      sel::characterAtIndex_,
-                                                      index);
+            const auto c = sendMessage<unichar>(sel::characterAtIndex_, index);
             return static_cast<char>(c);
         }
 
         [[nodiscard]] NSUInteger length() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::length);
+            return sendMessage<NSUInteger>(sel::length);
         }
 
         [[nodiscard]] const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
-            const auto str = sendMessage<const char*>(*this,
-                                                            sel::cStringUsingEncoding_,
-                                                            encoding);
+            const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
             return str;
         }
 
         [[nodiscard]] std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
-            const auto str = sendMessage<const char*>(*this,
-                                                            sel::cStringUsingEncoding_,
-                                                            encoding);
+            const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
             return std::string{str};
         }
 
         [[nodiscard]] bool isEqualToString(const String& string) const noexcept
         {
-            return sendMessage<BOOL>(*this, sel::isEqualToString_, static_cast<id>(string)) == YES;
+            return sendMessage<BOOL>(sel::isEqualToString_, static_cast<id>(string)) == YES;
         }
     };
 }

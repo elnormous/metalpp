@@ -33,7 +33,7 @@ namespace mtl
 
         void endEncoding() noexcept
         {
-            sendMessage(*this, sel::endEncoding);
+            sendMessage(sel::endEncoding);
         }
     };
 }

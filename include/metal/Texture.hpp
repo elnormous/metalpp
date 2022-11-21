@@ -66,152 +66,152 @@ namespace mtl
 
         [[nodiscard]] TextureType textureType() const noexcept
         {
-            return sendMessage<TextureType>(*this, sel::textureType);
+            return sendMessage<TextureType>(sel::textureType);
         }
 
         void setTextureType(TextureType textureType) noexcept
         {
-            sendMessage(*this, sel::setTextureType_, textureType);
+            sendMessage(sel::setTextureType_, textureType);
         }
 
         [[nodiscard]] PixelFormat pixelFormat() const noexcept
         {
-            return sendMessage<PixelFormat>(*this, sel::pixelFormat);
+            return sendMessage<PixelFormat>(sel::pixelFormat);
         }
 
         void setPixelFormat(PixelFormat pixelFormat) noexcept
         {
-            sendMessage(*this, sel::setPixelFormat_, pixelFormat);
+            sendMessage(sel::setPixelFormat_, pixelFormat);
         }
 
         [[nodiscard]] NSUInteger width() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::width);
+            return sendMessage<NSUInteger>(sel::width);
         }
 
         void setWidth(NSUInteger width) noexcept
         {
-            sendMessage(*this, sel::setWidth_, width);
+            sendMessage(sel::setWidth_, width);
         }
 
         [[nodiscard]] NSUInteger height() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::height);
+            return sendMessage<NSUInteger>(sel::height);
         }
 
         void setHeight(NSUInteger height) noexcept
         {
-            sendMessage(*this, sel::setHeight_, height);
+            sendMessage(sel::setHeight_, height);
         }
 
         [[nodiscard]] NSUInteger depth() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::depth);
+            return sendMessage<NSUInteger>(sel::depth);
         }
 
         void setDepth(NSUInteger depth) noexcept
         {
-            sendMessage(*this, sel::setDepth_, depth);
+            sendMessage(sel::setDepth_, depth);
         }
 
         [[nodiscard]] NSUInteger mipmapLevelCount() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::mipmapLevelCount);
+            return sendMessage<NSUInteger>(sel::mipmapLevelCount);
         }
 
         void setMipmapLevelCount(NSUInteger mipmapLevelCount) noexcept
         {
-            sendMessage(*this, sel::setMipmapLevelCount_, mipmapLevelCount);
+            sendMessage(sel::setMipmapLevelCount_, mipmapLevelCount);
         }
 
         [[nodiscard]] NSUInteger sampleCount() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::sampleCount);
+            return sendMessage<NSUInteger>(sel::sampleCount);
         }
 
         void setSampleCount(NSUInteger sampleCount) noexcept
         {
-            sendMessage(*this, sel::setSampleCount_, sampleCount);
+            sendMessage(sel::setSampleCount_, sampleCount);
         }
 
         [[nodiscard]] NSUInteger arrayLength() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::arrayLength);
+            return sendMessage<NSUInteger>(sel::arrayLength);
         }
 
         void setArrayLength(NSUInteger arrayLength) noexcept
         {
-            sendMessage(*this, sel::setArrayLength_, arrayLength);
+            sendMessage(sel::setArrayLength_, arrayLength);
         }
 
         [[nodiscard]] CPUCacheMode cpuCacheMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<CPUCacheMode>(*this, sel::cpuCacheMode);
+            return sendMessage<CPUCacheMode>(sel::cpuCacheMode);
         }
 
         void setCpuCacheMode(CPUCacheMode cpuCacheMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            sendMessage(*this, sel::setCpuCacheMode_, cpuCacheMode);
+            sendMessage(sel::setCpuCacheMode_, cpuCacheMode);
         }
 
         [[nodiscard]] StorageMode storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<StorageMode>(*this, sel::storageMode);
+            return sendMessage<StorageMode>(sel::storageMode);
         }
 
         void setStorageMode(StorageMode storageMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            sendMessage(*this, sel::setStorageMode_, storageMode);
+            sendMessage(sel::setStorageMode_, storageMode);
         }
 
         [[nodiscard]] HazardTrackingMode hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<HazardTrackingMode>(*this, sel::hazardTrackingMode);
+            return sendMessage<HazardTrackingMode>(sel::hazardTrackingMode);
         }
 
         void setHazardTrackingMode(HazardTrackingMode hazardTrackingMode) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            sendMessage(*this, sel::setHazardTrackingMode_, hazardTrackingMode);
+            sendMessage(sel::setHazardTrackingMode_, hazardTrackingMode);
         }
 
         [[nodiscard]] TextureUsage usage() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<TextureUsage>(*this, sel::usage);
+            return sendMessage<TextureUsage>(sel::usage);
         }
 
         void setUsage(TextureUsage usage) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            sendMessage(*this, sel::setUsage_, usage);
+            sendMessage(sel::setUsage_, usage);
         }
 
         [[nodiscard]] bool allowGPUOptimizedContents() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
-            return sendMessage<BOOL>(*this, sel::allowGPUOptimizedContents) == YES;
+            return sendMessage<BOOL>(sel::allowGPUOptimizedContents) == YES;
         }
 
         void setAllowGPUOptimizedContents(bool allowGPUOptimizedContents) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
-            sendMessage(*this, sel::setAllowGPUOptimizedContents_, allowGPUOptimizedContents ? YES : NO);
+            sendMessage(sel::setAllowGPUOptimizedContents_, allowGPUOptimizedContents ? YES : NO);
         }
 
         [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
-            return sendMessage<TextureCompressionType>(*this, sel::compressionType);
+            return sendMessage<TextureCompressionType>(sel::compressionType);
         }
 
         void setCompressionType(TextureCompressionType compressionType) noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
-            sendMessage(*this, sel::setCompressionType_, compressionType);
+            sendMessage(sel::setCompressionType_, compressionType);
         }
 
         [[nodiscard]] TextureSwizzleChannels swizzle() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<TextureSwizzleChannels>(*this, sel::swizzle);
+            return sendMessage<TextureSwizzleChannels>(sel::swizzle);
         }
 
         void setSwizzle(const TextureSwizzleChannels& swizzle) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            sendMessage(*this, sel::setSwizzle_, swizzle);
+            sendMessage(sel::setSwizzle_, swizzle);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -222,52 +222,52 @@ namespace mtl
 
         [[nodiscard]] TextureType textureType() const noexcept
         {
-            return sendMessage<TextureType>(*this, sel::textureType);
+            return sendMessage<TextureType>(sel::textureType);
         }
 
         [[nodiscard]] PixelFormat pixelFormat() const noexcept
         {
-            return sendMessage<PixelFormat>(*this, sel::pixelFormat);
+            return sendMessage<PixelFormat>(sel::pixelFormat);
         }
 
         [[nodiscard]] NSUInteger width() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::width);
+            return sendMessage<NSUInteger>(sel::width);
         }
 
         [[nodiscard]] NSUInteger height() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::height);
+            return sendMessage<NSUInteger>(sel::height);
         }
 
         [[nodiscard]] NSUInteger depth() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::depth);
+            return sendMessage<NSUInteger>(sel::depth);
         }
 
         [[nodiscard]] NSUInteger mipmapLevelCount() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::mipmapLevelCount);
+            return sendMessage<NSUInteger>(sel::mipmapLevelCount);
         }
 
         [[nodiscard]] NSUInteger sampleCount() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::sampleCount);
+            return sendMessage<NSUInteger>(sel::sampleCount);
         }
 
         [[nodiscard]] NSUInteger arrayLength() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::arrayLength);
+            return sendMessage<NSUInteger>(sel::arrayLength);
         }
 
         [[nodiscard]] TextureUsage usage() const noexcept
         {
-            return sendMessage<TextureUsage>(*this, sel::usage);
+            return sendMessage<TextureUsage>(sel::usage);
         }
 
         [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
-            return sendMessage<TextureCompressionType>(*this, sel::compressionType);
+            return sendMessage<TextureCompressionType>(sel::compressionType);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

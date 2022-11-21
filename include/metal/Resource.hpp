@@ -93,33 +93,33 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(*this, sel::label);
+            const id label = sendMessage<id>(sel::label);
             return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] CPUCacheMode cpuCacheMode() const noexcept
         {
-            return sendMessage<CPUCacheMode>(*this, sel::cpuCacheMode);
+            return sendMessage<CPUCacheMode>(sel::cpuCacheMode);
         }
 
         [[nodiscard]] StorageMode storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<StorageMode>(*this, sel::storageMode);
+            return sendMessage<StorageMode>(sel::storageMode);
         }
 
         [[nodiscard]] HazardTrackingMode hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<HazardTrackingMode>(*this, sel::hazardTrackingMode);
+            return sendMessage<HazardTrackingMode>(sel::hazardTrackingMode);
         }
 
         [[nodiscard]] ResourceOptions resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<ResourceOptions>(*this, sel::resourceOptions);
+            return sendMessage<ResourceOptions>(sel::resourceOptions);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

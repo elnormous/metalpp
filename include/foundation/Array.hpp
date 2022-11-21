@@ -33,15 +33,13 @@ namespace ns
 
         [[nodiscard]] Type objectAtIndex(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(*this,
-                                                    ns::sel::objectAtIndex_,
-                                                    index);
+            const id object = sendMessage<id>(ns::sel::objectAtIndex_, index);
             return Type{sendMessage<id>(object, ns::sel::retain)};
         }
 
         [[nodiscard]] NSUInteger count() const noexcept
         {
-            return sendMessage<NSUInteger>(*this, sel::count);
+            return sendMessage<NSUInteger>(sel::count);
         }
     };
 }
