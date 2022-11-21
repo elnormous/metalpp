@@ -313,7 +313,7 @@ namespace mtl
     public:
         RenderPipelineState() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {

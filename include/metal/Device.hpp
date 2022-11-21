@@ -131,47 +131,47 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    inline Device CommandBuffer::device() const noexcept
+    [[nodiscard]] inline Device CommandBuffer::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device CommandEncoder::device() const noexcept
+    [[nodiscard]] inline Device CommandEncoder::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device CommandQueue::device() const noexcept
+    [[nodiscard]] inline Device CommandQueue::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device DepthStencilState::device() const noexcept
+    [[nodiscard]] inline Device DepthStencilState::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device DynamicLibrary::device() const noexcept
+    [[nodiscard]] inline Device DynamicLibrary::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device Function::device() const noexcept
+    [[nodiscard]] inline Device Function::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device Library::device() const noexcept
+    [[nodiscard]] inline Device Library::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device RenderPipelineState::device() const noexcept
+    [[nodiscard]] inline Device RenderPipelineState::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }
 
-    inline Device Resource::device() const noexcept
+    [[nodiscard]] inline Device Resource::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }

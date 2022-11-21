@@ -60,7 +60,7 @@ namespace mtl
     public:
         DepthStencilState() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {

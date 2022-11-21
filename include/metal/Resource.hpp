@@ -89,7 +89,7 @@ namespace mtl
     public:
         Resource() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {

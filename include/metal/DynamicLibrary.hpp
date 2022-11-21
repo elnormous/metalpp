@@ -10,7 +10,7 @@ namespace mtl
     public:
         DynamicLibrary() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
     } API_AVAILABLE(macos(11.0), ios(14.0));
 }
 

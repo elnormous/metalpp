@@ -61,7 +61,7 @@ namespace mtl
     public:
         CommandBuffer() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {

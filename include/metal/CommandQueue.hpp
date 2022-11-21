@@ -22,7 +22,7 @@ namespace mtl
 
         CommandQueue(const id p) noexcept: Object{p} {}
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
         
         [[nodiscard]] ns::String label() const noexcept
         {

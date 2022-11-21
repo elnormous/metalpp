@@ -29,7 +29,7 @@ namespace mtl
     public:
         CommandEncoder() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         void endEncoding() noexcept
         {
