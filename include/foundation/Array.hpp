@@ -14,7 +14,7 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSArray");
     public:
         Array() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -22,7 +22,7 @@ namespace ns
 
         template <class ...Args>
         Array(const Args&... objects) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::initWithObjects_, static_cast<id>(objects)..., nil)}
         {
         }
 
@@ -33,15 +33,15 @@ namespace ns
 
         [[nodiscard]] Type objectAtIndex(const NSUInteger index) const noexcept
         {
-            const id object = objc::sendMessage<id>(*this,
+            const id object = sendMessage<id>(*this,
                                                     ns::sel::objectAtIndex_,
                                                     index);
-            return Type{objc::sendMessage<id>(object, ns::sel::retain)};
+            return Type{sendMessage<id>(object, ns::sel::retain)};
         }
 
         [[nodiscard]] NSUInteger count() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, sel::count);
+            return sendMessage<NSUInteger>(*this, sel::count);
         }
     };
 }

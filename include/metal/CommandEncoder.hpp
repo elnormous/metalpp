@@ -33,7 +33,7 @@ namespace mtl
 
         void endEncoding() noexcept
         {
-            objc::sendMessage(*this, sel::endEncoding);
+            sendMessage(*this, sel::endEncoding);
         }
     };
 }

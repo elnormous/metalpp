@@ -8,12 +8,25 @@
 
 namespace ca
 {
+    class LayerContentsFilter: public ns::Object
+    {
+    public:
+        LayerContentsFilter() = delete;
+    };
+
+    namespace detail
+    {
+        inline const auto filterNearest = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterNearest"));
+        inline const auto filterLinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterLinear"));
+        inline const auto filterTrilinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear"));
+    }
+
     class Layer: public ns::Object
     {
         static inline const auto cls = objc_lookUpClass("CALayer");
     public:
         Layer() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -23,21 +36,15 @@ namespace ca
 
         [[nodiscard]] cg::Rect frame() const noexcept
         {
-            return objc::sendMessage<cg::Rect>(*this, sel::frame);
+            return sendMessage<cg::Rect>(*this, sel::frame);
         }
 
         void setFrame(cg::Rect frame) noexcept
         {
-            objc::sendMessage(*this, sel::setFrame_, frame);
+            sendMessage(*this, sel::setFrame_, frame);
         }
     };
 
-    namespace detail
-    {
-        inline const auto filterNearest = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterNearest"));
-        inline const auto filterLinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterLinear"));
-        inline const auto filterTrilinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear"));
-    }
 }
 
 #endif

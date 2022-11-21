@@ -1,8 +1,11 @@
 #ifndef METALPP_OBJC_OBJECT_HPP
 #define METALPP_OBJC_OBJECT_HPP
 
+#include <cstdint>
+#include <type_traits>
 #include <objc/NSObjCRuntime.h>
-#include "Runtime.hpp"
+#include <objc/message.h>
+#include <objc/runtime.h>
 #include "Selectors.hpp"
 
 namespace ns
@@ -12,19 +15,19 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSObject");
     public:
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            ptr{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
         ~Object()
         {
-            objc::sendMessage(ptr, ns::sel::release);
+            sendMessage(ptr, ns::sel::release);
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            objc::sendMessage(ptr, ns::sel::retain);
+            sendMessage(ptr, ns::sel::retain);
         }
 
         Object(Object&& other) noexcept:
@@ -36,8 +39,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            objc::sendMessage(other.ptr, ns::sel::retain);
-            objc::sendMessage(ptr, ns::sel::release);
+            sendMessage(other.ptr, ns::sel::retain);
+            sendMessage(ptr, ns::sel::release);
             ptr = other.ptr;
             return *this;
         }
@@ -71,12 +74,12 @@ namespace ns
 
         [[nodiscard]] Class getClass() const noexcept
         {
-            return objc::sendMessage<Class>(ptr, ns::sel::getClass);
+            return sendMessage<Class>(ptr, ns::sel::getClass);
         }
 
         [[nodiscard]] NSUInteger retainCount() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
+            return sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
         }
 
         // Releases the ownership of the pointer without sending a release message
@@ -86,6 +89,62 @@ namespace ns
             ptr = nil;
             return result;
         }
+
+    protected:
+#if defined(__i386__) || defined(__x86_64__)
+    template <typename Type>
+    struct reguiresStret: std::bool_constant<(sizeof(Type) > (sizeof(std::uintptr_t) << 1))> {};
+#elif defined(__arm__)
+    template <typename Type>
+    struct reguiresStret: std::bool_constant<(std::is_class_v<Type> && sizeof(Type) > sizeof(std::uintptr_t))> {};
+#elif defined(__arm64__)
+    template <typename Type>
+    struct reguiresStret: std::false_type {};
+#else
+#  error "Unsupported architecture"
+#endif
+
+    template <>
+    struct reguiresStret<void>: std::false_type {};
+
+#if defined(__i386__)
+    template <typename Type>
+    struct reguiresFpret: std::bool_constant<is_floating_point_v<Type>> {};
+#elif defined(__x86_64__)
+    template <typename Type>
+    struct reguiresFpret: std::bool_constant<std::is_same_v<Type, long double>> {};
+#elif defined(__arm__) || defined(__arm64__)
+    template <typename Type>
+    struct reguiresFpret: std::false_type {};
+#else
+#  error "Unsupported architecture"
+#endif
+
+    template <typename Ret = void, typename... Args>
+    static inline Ret sendMessage(const void* self, SEL selector, Args... args) noexcept
+    {
+#if defined(__i386__) || defined(__x86_64__) || defined(__arm__)
+        if constexpr (reguiresFpret<Ret>::value)
+        {
+            using SendMessageFpretProc = Ret(const void*, SEL, Args...);
+            SendMessageFpretProc* proc = reinterpret_cast<SendMessageFpretProc*>(&objc_msgSend_fpret);
+            return proc(self, selector, args...);
+        }
+#endif
+#if defined(__i386__) || defined(__x86_64__)
+        if constexpr (reguiresStret<Ret>::value)
+        {
+            using SendMessageStretProc = void(Ret*, const void*, SEL, Args...);
+            SendMessageStretProc* proc = reinterpret_cast<SendMessageStretProc*>(&objc_msgSend_stret);
+            Ret ret;
+            proc(&ret, self, selector, args...);
+            return ret;
+        }
+#endif
+        using SendMessageProc = Ret(const void*, SEL, Args...);
+        SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
+        return proc(self, selector, args...);
+    }
 
     private:
         id ptr = nil;

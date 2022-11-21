@@ -14,14 +14,14 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSDictionary");
     public:
         Dictionary() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
         Dictionary(const id p) noexcept: Object{p} {}
 
         Dictionary(const ns::Array<ObjectType>& objects, const ns::Array<KeyType>& keys) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
                                          ns::sel::initWithObjects_forKeys_,
                                          static_cast<id>(objects),
                                          static_cast<id>(keys))}
@@ -30,7 +30,7 @@ namespace ns
 
         template <class ...Args>
         Dictionary(const Args&... objectsAndKeys) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
                                          ns::sel::initWithObjectsAndKeys_,
                                          static_cast<id>(objectsAndKeys)...,
                                          nil)}
@@ -49,33 +49,33 @@ namespace ns
 
         [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
-            const id object = objc::sendMessage<id>(*this,
+            const id object = sendMessage<id>(*this,
                                                     ns::sel::objectForKey_,
                                                     static_cast<id>(key));
-            return ObjectType{objc::sendMessage<id>(object, ns::sel::retain)};
+            return ObjectType{sendMessage<id>(object, ns::sel::retain)};
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeys() const noexcept
         {
-            const id keys = objc::sendMessage<id>(*this, ns::sel::allKeys);
-            return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
+            const id keys = sendMessage<id>(*this, ns::sel::allKeys);
+            return ns::Array<KeyType>{sendMessage<id>(keys, ns::sel::retain)};
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
         {
-            const id keys = objc::sendMessage<id>(*this, ns::sel::allKeysForObject_, static_cast<id>(object));
-            return ns::Array<KeyType>{objc::sendMessage<id>(keys, ns::sel::retain)};
+            const id keys = sendMessage<id>(*this, ns::sel::allKeysForObject_, static_cast<id>(object));
+            return ns::Array<KeyType>{sendMessage<id>(keys, ns::sel::retain)};
         }
 
         [[nodiscard]] ns::Array<ObjectType> allValues() const noexcept
         {
-            const id values = objc::sendMessage<id>(*this, ns::sel::allValues);
-            return ns::Array<ObjectType>{objc::sendMessage<id>(values, ns::sel::retain)};
+            const id values = sendMessage<id>(*this, ns::sel::allValues);
+            return ns::Array<ObjectType>{sendMessage<id>(values, ns::sel::retain)};
         }
 
         [[nodiscard]] NSUInteger count() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, sel::count);
+            return sendMessage<NSUInteger>(*this, sel::count);
         }
     };
 }

@@ -59,7 +59,6 @@
 		309010F4292B7833002D121D /* Range.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Range.hpp; sourceTree = "<group>"; };
 		309010F6292B7833002D121D /* MetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalLayer.hpp; sourceTree = "<group>"; };
 		309010F7292B7833002D121D /* Layer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
-		309010F9292B7833002D121D /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
 		309010FA292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309010FB292B7833002D121D /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		309010FC292B7B72002D121D /* quartzcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = quartzcore.cpp; sourceTree = "<group>"; };
@@ -156,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				309010FB292B7833002D121D /* Object.hpp */,
-				309010F9292B7833002D121D /* Runtime.hpp */,
 				309010FA292B7833002D121D /* Selectors.hpp */,
 			);
 			path = objc;

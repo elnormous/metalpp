@@ -12,7 +12,7 @@ namespace ca
         static inline const auto cls = objc_lookUpClass("CAMetalLayer");
     public:
         MetalLayer() noexcept:
-            Layer{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Layer{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
     };

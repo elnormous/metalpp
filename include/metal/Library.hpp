@@ -45,91 +45,91 @@ namespace mtl
         static inline const auto cls = objc_lookUpClass("MTLCompileOptions");
     public:
         CompileOptions():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
         [[nodiscard]] ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
         {
-            const id preprocessorMacros = objc::sendMessage<id>(*this, sel::preprocessorMacros);
-            return ns::Dictionary<ns::String, ns::Object>{objc::sendMessage<id>(preprocessorMacros, ns::sel::retain)};
+            const id preprocessorMacros = sendMessage<id>(*this, sel::preprocessorMacros);
+            return ns::Dictionary<ns::String, ns::Object>{sendMessage<id>(preprocessorMacros, ns::sel::retain)};
         }
 
         void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
         {
-            objc::sendMessage(*this, sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
+            sendMessage(*this, sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
         }
 
         [[nodiscard]] bool fastMathEnabled() const noexcept
         {
-            return objc::sendMessage<BOOL>(*this, sel::fastMathEnabled) == YES;
+            return sendMessage<BOOL>(*this, sel::fastMathEnabled) == YES;
         }
 
         void setFastMathEnabled(bool fastMathEnabled) noexcept
         {
-            objc::sendMessage(*this, sel::setFastMathEnabled_, fastMathEnabled ? YES : NO);
+            sendMessage(*this, sel::setFastMathEnabled_, fastMathEnabled ? YES : NO);
         }
 
         [[nodiscard]] LanguageVersion languageVersion() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return objc::sendMessage<LanguageVersion>(*this, sel::languageVersion);
+            return sendMessage<LanguageVersion>(*this, sel::languageVersion);
         }
 
         void setLanguageVersion(LanguageVersion languageVersion) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            objc::sendMessage(*this, sel::setLanguageVersion_, languageVersion);
+            sendMessage(*this, sel::setLanguageVersion_, languageVersion);
         }
 
         [[nodiscard]] LibraryType libraryType() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return objc::sendMessage<LibraryType>(*this, sel::libraryType);
+            return sendMessage<LibraryType>(*this, sel::libraryType);
         }
 
         void setLibraryType(LibraryType libraryType) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setLibraryType_, libraryType);
+            sendMessage(*this, sel::setLibraryType_, libraryType);
         }
 
         [[nodiscard]] ns::String installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            const id installName = objc::sendMessage<id>(*this, sel::installName);
-            return ns::String{objc::sendMessage<id>(installName, ns::sel::retain)};
+            const id installName = sendMessage<id>(*this, sel::installName);
+            return ns::String{sendMessage<id>(installName, ns::sel::retain)};
         }
 
         void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
+            sendMessage(*this, sel::setInstallName_, static_cast<id>(installName));
         }
 
         [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            const id libraries = objc::sendMessage<id>(*this, sel::libraries);
-            return ns::Array<DynamicLibrary>{objc::sendMessage<id>(libraries, ns::sel::retain)};
+            const id libraries = sendMessage<id>(*this, sel::libraries);
+            return ns::Array<DynamicLibrary>{sendMessage<id>(libraries, ns::sel::retain)};
         }
 
         void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setLibraries_, static_cast<id>(libraries));
+            sendMessage(*this, sel::setLibraries_, static_cast<id>(libraries));
         }
 
         [[nodiscard]] bool preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
-            return objc::sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
+            return sendMessage<BOOL>(*this, sel::preserveInvariance) == YES;
         }
 
         void setPreserveInstance(bool preserveInvariance) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
-            objc::sendMessage(*this, sel::setPreserveInvariance_, preserveInvariance ? YES : NO);
+            sendMessage(*this, sel::setPreserveInvariance_, preserveInvariance ? YES : NO);
         }
 
         [[nodiscard]] LibraryOptimizationLevel optimizationLevel() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            return objc::sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
+            return sendMessage<LibraryOptimizationLevel>(*this, sel::optimizationLevel);
         }
 
         void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            objc::sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
+            sendMessage(*this, sel::setOptimizationLevel_, optimizationLevel);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -142,13 +142,13 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            const id label = objc::sendMessage<id>(*this, sel::label);
-            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+            const id label = sendMessage<id>(*this, sel::label);
+            return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
     };
     
@@ -161,20 +161,20 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, sel::label);
-            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+            const id label = sendMessage<id>(*this, sel::label);
+            return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] Function newFunction(const ns::String& name) const noexcept
         {
-            const id function = objc::sendMessage<id>(*this,
-                                                      sel::newFunctionWithName_,
-                                                      static_cast<id>(name));
+            const id function = sendMessage<id>(*this,
+                                                sel::newFunctionWithName_,
+                                                static_cast<id>(name));
             return Function{function};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));

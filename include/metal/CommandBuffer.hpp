@@ -65,45 +65,45 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, sel::label);
-            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+            const id label = sendMessage<id>(*this, sel::label);
+            return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] BlitCommandEncoder blitCommandEncoder() const noexcept
         {
-            const id blitCommandEncoder = objc::sendMessage<id>(*this, sel::blitCommandEncoder);
-            return BlitCommandEncoder{objc::sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
+            const id blitCommandEncoder = sendMessage<id>(*this, sel::blitCommandEncoder);
+            return BlitCommandEncoder{sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
         }
 
         [[nodiscard]] RenderCommandEncoder renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            const id renderCommandEncoder = objc::sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
-            return RenderCommandEncoder{objc::sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
+            const id renderCommandEncoder = sendMessage<id>(*this, sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
+            return RenderCommandEncoder{sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept
         {
-            objc::sendMessage(*this, sel::presentDrawable_, static_cast<id>(drawable));
+            sendMessage(*this, sel::presentDrawable_, static_cast<id>(drawable));
         }
 
         void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
-            objc::sendMessage(*this, sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
+            sendMessage(*this, sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
         }
 
         void commit() noexcept
         {
-            objc::sendMessage(*this, sel::commit);
+            sendMessage(*this, sel::commit);
         }
 
         void waitUntilCompleted() noexcept
         {
-            objc::sendMessage(*this, sel::waitUntilCompleted);
+            sendMessage(*this, sel::waitUntilCompleted);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

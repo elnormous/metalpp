@@ -128,92 +128,92 @@ namespace mtl
 
         [[nodiscard]] PixelFormat pixelFormat() const noexcept
         {
-            return objc::sendMessage<PixelFormat>(*this, sel::pixelFormat);
+            return sendMessage<PixelFormat>(*this, sel::pixelFormat);
         }
 
         void setPixelFormat(PixelFormat pixelFormat) noexcept
         {
-            objc::sendMessage(*this, sel::setPixelFormat_, pixelFormat);
+            sendMessage(*this, sel::setPixelFormat_, pixelFormat);
         }
 
         [[nodiscard]] bool isBlendingEnabled() const noexcept
         {
-            return objc::sendMessage<BOOL>(*this, sel::isBlendingEnabled) == YES;
+            return sendMessage<BOOL>(*this, sel::isBlendingEnabled) == YES;
         }
 
         void setBlendingEnabled(bool blendingEnabled) noexcept
         {
-            objc::sendMessage(*this, sel::setBlendingEnabled_, blendingEnabled ? YES : NO);
+            sendMessage(*this, sel::setBlendingEnabled_, blendingEnabled ? YES : NO);
         }
 
         [[nodiscard]] BlendFactor sourceRGBBlendFactor() const noexcept
         {
-            return objc::sendMessage<BlendFactor>(*this, sel::sourceRGBBlendFactor);
+            return sendMessage<BlendFactor>(*this, sel::sourceRGBBlendFactor);
         }
 
         void setSourceRGBBlendFactor(BlendFactor sourceRGBBlendFactor) noexcept
         {
-            objc::sendMessage(*this, sel::setSourceRGBBlendFactor_, sourceRGBBlendFactor);
+            sendMessage(*this, sel::setSourceRGBBlendFactor_, sourceRGBBlendFactor);
         }
 
         [[nodiscard]] BlendFactor destinationRGBBlendFactor() const noexcept
         {
-            return objc::sendMessage<BlendFactor>(*this, sel::destinationRGBBlendFactor);
+            return sendMessage<BlendFactor>(*this, sel::destinationRGBBlendFactor);
         }
 
         void setDestinationRGBBlendFactor(BlendFactor destinationRGBBlendFactor) noexcept
         {
-            objc::sendMessage(*this, sel::setDestinationRGBBlendFactor_, destinationRGBBlendFactor);
+            sendMessage(*this, sel::setDestinationRGBBlendFactor_, destinationRGBBlendFactor);
         }
 
         [[nodiscard]] BlendOperation rgbBlendOperation() const noexcept
         {
-            return objc::sendMessage<BlendOperation>(*this, sel::rgbBlendOperation);
+            return sendMessage<BlendOperation>(*this, sel::rgbBlendOperation);
         }
 
         void setRgbBlendOperation(BlendOperation rgbBlendOperation) noexcept
         {
-            objc::sendMessage(*this, sel::setRgbBlendOperation_, rgbBlendOperation);
+            sendMessage(*this, sel::setRgbBlendOperation_, rgbBlendOperation);
         }
 
         [[nodiscard]] BlendFactor sourceAlphaBlendFactor() const noexcept
         {
-            return objc::sendMessage<BlendFactor>(*this, sel::sourceAlphaBlendFactor);
+            return sendMessage<BlendFactor>(*this, sel::sourceAlphaBlendFactor);
         }
 
         void setSourceAlphaBlendFactor(BlendFactor sourceAlphaBlendFactor) noexcept
         {
-            objc::sendMessage(*this, sel::setSourceAlphaBlendFactor_, sourceAlphaBlendFactor);
+            sendMessage(*this, sel::setSourceAlphaBlendFactor_, sourceAlphaBlendFactor);
         }
 
         [[nodiscard]] BlendFactor destinationAlphaBlendFactor() const noexcept
         {
-            return objc::sendMessage<BlendFactor>(*this, sel::destinationAlphaBlendFactor);
+            return sendMessage<BlendFactor>(*this, sel::destinationAlphaBlendFactor);
         }
 
         void setDestinationAlphaBlendFactor(BlendFactor destinationAlphaBlendFactor) noexcept
         {
-            objc::sendMessage(*this, sel::setDestinationAlphaBlendFactor_, destinationAlphaBlendFactor);
+            sendMessage(*this, sel::setDestinationAlphaBlendFactor_, destinationAlphaBlendFactor);
         }
 
         [[nodiscard]] BlendOperation alphaBlendOperation() const noexcept
         {
-            return objc::sendMessage<BlendOperation>(*this, sel::alphaBlendOperation);
+            return sendMessage<BlendOperation>(*this, sel::alphaBlendOperation);
         }
 
         void setAlphaBlendOperation(BlendOperation alphaBlendOperation) noexcept
         {
-            objc::sendMessage(*this, sel::setAlphaBlendOperation_, alphaBlendOperation);
+            sendMessage(*this, sel::setAlphaBlendOperation_, alphaBlendOperation);
         }
 
         [[nodiscard]] ColorWriteMask writeMask() const noexcept
         {
-            return objc::sendMessage<ColorWriteMask>(*this, sel::writeMask);
+            return sendMessage<ColorWriteMask>(*this, sel::writeMask);
         }
 
         void setWriteMask(ColorWriteMask writeMask) noexcept
         {
-            objc::sendMessage(*this, sel::setWriteMask_, writeMask);
+            sendMessage(*this, sel::setWriteMask_, writeMask);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -229,10 +229,10 @@ namespace mtl
 
         [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = objc::sendMessage<id>(*this,
+            const id object = sendMessage<id>(*this,
                                                     ns::sel::objectAtIndexedSubscript_,
                                                     index);
-            return RenderPipelineColorAttachmentDescriptor{objc::sendMessage<id>(object, ns::sel::retain)};
+            return RenderPipelineColorAttachmentDescriptor{sendMessage<id>(object, ns::sel::retain)};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -241,78 +241,78 @@ namespace mtl
         static inline const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
     public:
         RenderPipelineDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, sel::label);
-            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+            const id label = sendMessage<id>(*this, sel::label);
+            return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
 
         [[nodiscard]] mtl::Function vertexFunction() const noexcept
         {
-            const id function = objc::sendMessage<id>(*this, sel::vertexFunction);
-            return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
+            const id function = sendMessage<id>(*this, sel::vertexFunction);
+            return mtl::Function{sendMessage<id>(function, ns::sel::retain)};
         }
 
         void setVertexFunction(const mtl::Function& function) noexcept
         {
-            objc::sendMessage(*this, sel::setVertexFunction_, static_cast<id>(function));
+            sendMessage(*this, sel::setVertexFunction_, static_cast<id>(function));
         }
 
         [[nodiscard]] mtl::Function fragmentFunction() const noexcept
         {
-            const id function = objc::sendMessage<id>(*this, sel::fragmentFunction);
-            return mtl::Function{objc::sendMessage<id>(function, ns::sel::retain)};
+            const id function = sendMessage<id>(*this, sel::fragmentFunction);
+            return mtl::Function{sendMessage<id>(function, ns::sel::retain)};
         }
 
         void setFragmentFunction(const mtl::Function& function) noexcept
         {
-            objc::sendMessage(*this, sel::setFragmentFunction_, static_cast<id>(function));
+            sendMessage(*this, sel::setFragmentFunction_, static_cast<id>(function));
         }
 
         [[nodiscard]] mtl::VertexDescriptor vertexDescriptor() const noexcept
         {
-            const id vertexDescriptor = objc::sendMessage<id>(*this, sel::vertexDescriptor);
-            return mtl::VertexDescriptor{objc::sendMessage<id>(vertexDescriptor, ns::sel::retain)};
+            const id vertexDescriptor = sendMessage<id>(*this, sel::vertexDescriptor);
+            return mtl::VertexDescriptor{sendMessage<id>(vertexDescriptor, ns::sel::retain)};
         }
 
         void setVertexDescriptor(const mtl::VertexDescriptor& vertexDescriptor) noexcept
         {
-            objc::sendMessage(*this, sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
+            sendMessage(*this, sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
         }
 
         [[nodiscard]] mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            const id colorAttachments = objc::sendMessage<id>(*this, sel::colorAttachments);
-            return mtl::RenderPipelineColorAttachmentDescriptorArray{objc::sendMessage<id>(colorAttachments, ns::sel::retain)};
+            const id colorAttachments = sendMessage<id>(*this, sel::colorAttachments);
+            return mtl::RenderPipelineColorAttachmentDescriptorArray{sendMessage<id>(colorAttachments, ns::sel::retain)};
         }
 
         [[nodiscard]] mtl::PixelFormat depthAttachmentPixelFormat() const noexcept
         {
-            return objc::sendMessage<mtl::PixelFormat>(*this, sel::depthAttachmentPixelFormat);
+            return sendMessage<mtl::PixelFormat>(*this, sel::depthAttachmentPixelFormat);
         }
 
         void setDepthAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
         {
-            objc::sendMessage(*this, sel::setDepthAttachmentPixelFormat_, pixelFormat);
+            sendMessage(*this, sel::setDepthAttachmentPixelFormat_, pixelFormat);
         }
 
         [[nodiscard]] mtl::PixelFormat stencilAttachmentPixelFormat() const noexcept
         {
-            return objc::sendMessage<mtl::PixelFormat>(*this, sel::stencilAttachmentPixelFormat);
+            return sendMessage<mtl::PixelFormat>(*this, sel::stencilAttachmentPixelFormat);
         }
 
         void setStencilAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
         {
-            objc::sendMessage(*this, sel::setStencilAttachmentPixelFormat_, pixelFormat);
+            sendMessage(*this, sel::setStencilAttachmentPixelFormat_, pixelFormat);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -325,13 +325,13 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = objc::sendMessage<id>(*this, sel::label);
-            return ns::String{objc::sendMessage<id>(label, ns::sel::retain)};
+            const id label = sendMessage<id>(*this, sel::label);
+            return ns::String{sendMessage<id>(label, ns::sel::retain)};
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            objc::sendMessage(*this, sel::setLabel_, static_cast<id>(label));
+            sendMessage(*this, sel::setLabel_, static_cast<id>(label));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

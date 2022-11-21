@@ -15,22 +15,22 @@ namespace mtl
 
         [[nodiscard]] NSUInteger length() const noexcept
         {
-            return objc::sendMessage<NSUInteger>(*this, ns::sel::length);
+            return sendMessage<NSUInteger>(*this, ns::sel::length);
         }
 
         [[nodiscard]] void* contents() const noexcept
         {
-            return objc::sendMessage<void*>(*this, sel::contents);
+            return sendMessage<void*>(*this, sel::contents);
         }
 
         void didModifyRange(const ns::Range& range) const noexcept API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios)
         {
-            objc::sendMessage(*this, sel::didModifyRange_, range);
+            sendMessage(*this, sel::didModifyRange_, range);
         }
 
         [[nodiscard]] uint64_t gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            return objc::sendMessage<uint64_t>(*this, sel::gpuAddress);
+            return sendMessage<uint64_t>(*this, sel::gpuAddress);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
