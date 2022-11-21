@@ -49,22 +49,22 @@ namespace ns
 
         [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
-            return getObject<ObjectType>(ns::sel::objectForKey_, static_cast<id>(key));
+            return getRetained<ObjectType>(ns::sel::objectForKey_, static_cast<id>(key));
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeys() const noexcept
         {
-            return getObject<ns::Array<KeyType>>(ns::sel::allKeys);
+            return getRetained<ns::Array<KeyType>>(ns::sel::allKeys);
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
         {
-            return getObject<ns::Array<KeyType>>(ns::sel::allKeysForObject_, static_cast<id>(object));
+            return getRetained<ns::Array<KeyType>>(ns::sel::allKeysForObject_, static_cast<id>(object));
         }
 
         [[nodiscard]] ns::Array<ObjectType> allValues() const noexcept
         {
-            return getObject<ns::Array<ObjectType>>(ns::sel::allValues);
+            return getRetained<ns::Array<ObjectType>>(ns::sel::allValues);
         }
 
         [[nodiscard]] NSUInteger count() const noexcept

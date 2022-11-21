@@ -140,7 +140,7 @@ namespace mtl
 
         [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            return getObject<VertexBufferLayoutDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<VertexBufferLayoutDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -192,7 +192,7 @@ namespace mtl
 
         [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            return getObject<VertexAttributeDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<VertexAttributeDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     };
 
@@ -209,12 +209,12 @@ namespace mtl
 
         [[nodiscard]] VertexBufferLayoutDescriptorArray layouts() const noexcept
         {
-            return getObject<VertexBufferLayoutDescriptorArray>(sel::layouts);
+            return getRetained<VertexBufferLayoutDescriptorArray>(sel::layouts);
         }
 
         [[nodiscard]] VertexAttributeDescriptorArray attributes() const noexcept
         {
-            return getObject<VertexAttributeDescriptorArray>(sel::attributes);
+            return getRetained<VertexAttributeDescriptorArray>(sel::attributes);
         }
 
         void reset() noexcept

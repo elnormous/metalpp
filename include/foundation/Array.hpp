@@ -33,7 +33,7 @@ namespace ns
 
         [[nodiscard]] Type objectAtIndex(const NSUInteger index) const noexcept
         {
-            return getObject<Type>(ns::sel::objectAtIndex_, index);
+            return getRetained<Type>(ns::sel::objectAtIndex_, index);
         }
 
         [[nodiscard]] NSUInteger count() const noexcept

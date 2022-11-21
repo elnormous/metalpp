@@ -40,17 +40,17 @@ namespace ns
 
         ns::String domain() const noexcept
         {
-            return getObject<ns::String>(sel::domain);
+            return getRetained<ns::String>(sel::domain);
         }
 
         ns::Dictionary<ns::String, ns::Object> userInfo() const noexcept
         {
-            return getObject<ns::Dictionary<ns::String, ns::Object>>(sel::userInfo);
+            return getRetained<ns::Dictionary<ns::String, ns::Object>>(sel::userInfo);
         }
 
         ns::String localizedDescription() const noexcept
         {
-            return getObject<ns::String>(sel::localizedDescription);
+            return getRetained<ns::String>(sel::localizedDescription);
         }
     };
 }

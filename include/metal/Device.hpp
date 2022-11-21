@@ -36,7 +36,7 @@ namespace mtl
 
         [[nodiscard]] ns::String name() const noexcept
         {
-            return getObject<ns::String>(sel::name);
+            return getRetained<ns::String>(sel::name);
         }
 
         [[nodiscard]] CommandQueue newCommandQueue() const noexcept
@@ -133,47 +133,47 @@ namespace mtl
 
     inline Device CommandBuffer::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device CommandEncoder::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device CommandQueue::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device DepthStencilState::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device DynamicLibrary::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device Function::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device Library::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device RenderPipelineState::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 
     inline Device Resource::device() const noexcept
     {
-        return getObject<Device>(sel::device);
+        return getRetained<Device>(sel::device);
     }
 }
 

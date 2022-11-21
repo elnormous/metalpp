@@ -229,7 +229,7 @@ namespace mtl
 
         [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            return getObject<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -244,7 +244,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            return getObject<ns::String>(sel::label);
+            return getRetained<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -254,7 +254,7 @@ namespace mtl
 
         [[nodiscard]] Function vertexFunction() const noexcept
         {
-            return getObject<Function>(sel::vertexFunction);
+            return getRetained<Function>(sel::vertexFunction);
         }
 
         void setVertexFunction(const Function& function) noexcept
@@ -264,7 +264,7 @@ namespace mtl
 
         [[nodiscard]] Function fragmentFunction() const noexcept
         {
-            return getObject<Function>(sel::fragmentFunction);
+            return getRetained<Function>(sel::fragmentFunction);
         }
 
         void setFragmentFunction(const Function& function) noexcept
@@ -274,7 +274,7 @@ namespace mtl
 
         [[nodiscard]] VertexDescriptor vertexDescriptor() const noexcept
         {
-            return getObject<VertexDescriptor>(sel::vertexDescriptor);
+            return getRetained<VertexDescriptor>(sel::vertexDescriptor);
         }
 
         void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
@@ -284,7 +284,7 @@ namespace mtl
 
         [[nodiscard]] RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            return getObject<RenderPipelineColorAttachmentDescriptorArray>(sel::colorAttachments);
+            return getRetained<RenderPipelineColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
         [[nodiscard]] PixelFormat depthAttachmentPixelFormat() const noexcept
@@ -317,7 +317,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            return getObject<ns::String>(sel::label);
+            return getRetained<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept

@@ -59,7 +59,7 @@ namespace mtl
 
         [[nodiscard]] Texture texture() const noexcept
         {
-            return getObject<Texture>(sel::texture);
+            return getRetained<Texture>(sel::texture);
         }
 
         void setTexture(const Texture& texture) noexcept
@@ -99,7 +99,7 @@ namespace mtl
 
         [[nodiscard]] Texture resolveTexture() const noexcept
         {
-            return getObject<Texture>(sel::resolveTexture);
+            return getRetained<Texture>(sel::resolveTexture);
         }
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
@@ -253,7 +253,7 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            return getObject<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -268,17 +268,17 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            return getObject<RenderPassColorAttachmentDescriptorArray>(sel::colorAttachments);
+            return getRetained<RenderPassColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
         [[nodiscard]] RenderPassDepthAttachmentDescriptor depthAttachment() const noexcept
         {
-            return getObject<RenderPassDepthAttachmentDescriptor>(sel::depthAttachment);
+            return getRetained<RenderPassDepthAttachmentDescriptor>(sel::depthAttachment);
         }
 
         [[nodiscard]] RenderPassStencilAttachmentDescriptor stencilAttachment() const noexcept
         {
-            return getObject<RenderPassStencilAttachmentDescriptor>(sel::stencilAttachment);
+            return getRetained<RenderPassStencilAttachmentDescriptor>(sel::stencilAttachment);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
