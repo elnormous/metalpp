@@ -3,6 +3,7 @@
 
 #include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include <CoreFoundation/CFDate.h>
 #include "../objc/Object.hpp"
 #include "BlitCommandEncoder.hpp"
 #include "Drawable.hpp"
