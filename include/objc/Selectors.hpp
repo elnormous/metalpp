@@ -7,6 +7,7 @@ namespace ns
 {
     namespace sel
     {
+        inline const auto getClass = sel_registerName("class");
         inline const auto alloc = sel_registerName("alloc");
         inline const auto init = sel_registerName("init");
         inline const auto retain = sel_registerName("retain");

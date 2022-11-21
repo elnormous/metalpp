@@ -10,7 +10,6 @@ namespace ns
     class Object
     {
         static inline const auto cls = objc_lookUpClass("NSObject");
-
     public:
         Object() noexcept:
             ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
@@ -51,6 +50,10 @@ namespace ns
             return *this;
         }
 
+        Object(const id p) noexcept: ptr{p}
+        {
+        }
+
         bool operator==(const Object& other) const noexcept
         {
             return ptr == other.ptr;
@@ -61,13 +64,14 @@ namespace ns
             return ptr != other.ptr;
         }
 
-        Object(const id p) noexcept: ptr{p}
-        {
-        }
-
         operator id() const noexcept
         {
             return ptr;
+        }
+
+        [[nodiscard]] Class getClass() const noexcept
+        {
+            return objc::sendMessage<Class>(ptr, ns::sel::getClass);
         }
 
         [[nodiscard]] NSUInteger retainCount() const noexcept

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		309010FD292B7B72002D121D /* quartzcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 309010FC292B7B72002D121D /* quartzcore.cpp */; };
 		30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
 		30B19E55292738A3002BA9A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953042920C60E007C8914 /* main.cpp */; };
 		30B19E56292738A6002BA9A2 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
@@ -28,11 +29,43 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
+		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
+		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
+		309010DB292B7833002D121D /* Metal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Metal.hpp; sourceTree = "<group>"; };
+		309010DC292B7833002D121D /* CommandBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandBuffer.hpp; sourceTree = "<group>"; };
+		309010DD292B7833002D121D /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
+		309010DE292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		309010DF292B7833002D121D /* StageInputOutputDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StageInputOutputDescriptor.hpp; sourceTree = "<group>"; };
+		309010E0292B7833002D121D /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
+		309010E1292B7833002D121D /* RenderPass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPass.hpp; sourceTree = "<group>"; };
+		309010E2292B7833002D121D /* Texture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
+		309010E3292B7833002D121D /* Drawable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Drawable.hpp; sourceTree = "<group>"; };
+		309010E4292B7833002D121D /* Device.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
+		309010E5292B7833002D121D /* Sampler.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
+		309010E6292B7833002D121D /* Buffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buffer.hpp; sourceTree = "<group>"; };
+		309010E7292B7833002D121D /* VertexDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VertexDescriptor.hpp; sourceTree = "<group>"; };
+		309010E8292B7833002D121D /* RenderPipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPipeline.hpp; sourceTree = "<group>"; };
+		309010E9292B7833002D121D /* RenderCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderCommandEncoder.hpp; sourceTree = "<group>"; };
+		309010EA292B7833002D121D /* PixelFormat.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PixelFormat.hpp; sourceTree = "<group>"; };
+		309010EB292B7833002D121D /* CommandQueue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandQueue.hpp; sourceTree = "<group>"; };
+		309010EC292B7833002D121D /* Resource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Resource.hpp; sourceTree = "<group>"; };
+		309010EE292B7833002D121D /* Dictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dictionary.hpp; sourceTree = "<group>"; };
+		309010EF292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		309010F0292B7833002D121D /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
+		309010F1292B7833002D121D /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
+		309010F2292B7833002D121D /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
+		309010F3292B7833002D121D /* AutoreleasePool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AutoreleasePool.hpp; sourceTree = "<group>"; };
+		309010F4292B7833002D121D /* Range.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Range.hpp; sourceTree = "<group>"; };
+		309010F6292B7833002D121D /* MetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalLayer.hpp; sourceTree = "<group>"; };
+		309010F7292B7833002D121D /* Layer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
+		309010F9292B7833002D121D /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
+		309010FA292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		309010FB292B7833002D121D /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
+		309010FC292B7B72002D121D /* quartzcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = quartzcore.cpp; sourceTree = "<group>"; };
 		30B19E4D29273892002BA9A2 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B19E59292738E1002BA9A2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		30B953042920C60E007C8914 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		30B9530C2920C7CB007C8914 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
-		30B9530E2920C8EB007C8914 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		30B953102920C8F1007C8914 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
@@ -52,16 +85,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		309010D6292B7833002D121D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				309010D7292B7833002D121D /* metal */,
+				309010ED292B7833002D121D /* foundation */,
+				309010F5292B7833002D121D /* quartzcore */,
+				309010F8292B7833002D121D /* objc */,
+			);
+			name = include;
+			path = ../include;
+			sourceTree = "<group>";
+		};
+		309010D7292B7833002D121D /* metal */ = {
+			isa = PBXGroup;
+			children = (
+				309010D8292B7833002D121D /* BlitCommandEncoder.hpp */,
+				309010E6292B7833002D121D /* Buffer.hpp */,
+				309010DC292B7833002D121D /* CommandBuffer.hpp */,
+				309010D9292B7833002D121D /* CommandEncoder.hpp */,
+				309010EB292B7833002D121D /* CommandQueue.hpp */,
+				309010E0292B7833002D121D /* DepthStencil.hpp */,
+				309010E4292B7833002D121D /* Device.hpp */,
+				309010E3292B7833002D121D /* Drawable.hpp */,
+				309010DA292B7833002D121D /* DynamicLibrary.hpp */,
+				309010DD292B7833002D121D /* Library.hpp */,
+				309010DB292B7833002D121D /* Metal.hpp */,
+				309010EA292B7833002D121D /* PixelFormat.hpp */,
+				309010E9292B7833002D121D /* RenderCommandEncoder.hpp */,
+				309010E1292B7833002D121D /* RenderPass.hpp */,
+				309010E8292B7833002D121D /* RenderPipeline.hpp */,
+				309010EC292B7833002D121D /* Resource.hpp */,
+				309010E5292B7833002D121D /* Sampler.hpp */,
+				309010DE292B7833002D121D /* Selectors.hpp */,
+				309010DF292B7833002D121D /* StageInputOutputDescriptor.hpp */,
+				309010E2292B7833002D121D /* Texture.hpp */,
+				309010E7292B7833002D121D /* VertexDescriptor.hpp */,
+			);
+			path = metal;
+			sourceTree = "<group>";
+		};
+		309010ED292B7833002D121D /* foundation */ = {
+			isa = PBXGroup;
+			children = (
+				309010F0292B7833002D121D /* Array.hpp */,
+				309010F3292B7833002D121D /* AutoreleasePool.hpp */,
+				309010EE292B7833002D121D /* Dictionary.hpp */,
+				309010F1292B7833002D121D /* Error.hpp */,
+				309010F4292B7833002D121D /* Range.hpp */,
+				309010EF292B7833002D121D /* Selectors.hpp */,
+				309010F2292B7833002D121D /* String.hpp */,
+			);
+			path = foundation;
+			sourceTree = "<group>";
+		};
+		309010F5292B7833002D121D /* quartzcore */ = {
+			isa = PBXGroup;
+			children = (
+				309010F7292B7833002D121D /* Layer.hpp */,
+				309010F6292B7833002D121D /* MetalLayer.hpp */,
+			);
+			path = quartzcore;
+			sourceTree = "<group>";
+		};
+		309010F8292B7833002D121D /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				309010FB292B7833002D121D /* Object.hpp */,
+				309010F9292B7833002D121D /* Runtime.hpp */,
+				309010FA292B7833002D121D /* Selectors.hpp */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
 		30B952F82920C60E007C8914 = {
 			isa = PBXGroup;
 			children = (
 				30B953122921B911007C8914 /* foundation.cpp */,
 				30B9530D2920C8EB007C8914 /* Frameworks */,
-				30B9530C2920C7CB007C8914 /* include */,
+				309010D6292B7833002D121D /* include */,
 				30B953042920C60E007C8914 /* main.cpp */,
 				30B953142921B9FB007C8914 /* metal.cpp */,
 				30B953402921ED99007C8914 /* objc.cpp */,
 				30B953022920C60E007C8914 /* Products */,
+				309010FC292B7B72002D121D /* quartzcore.cpp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,7 +185,6 @@
 			children = (
 				30B19E59292738E1002BA9A2 /* Cocoa.framework */,
 				30B953102920C8F1007C8914 /* Metal.framework */,
-				30B9530E2920C8EB007C8914 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,6 +248,7 @@
 			files = (
 				30B19E56292738A6002BA9A2 /* metal.cpp in Sources */,
 				30B19E55292738A3002BA9A2 /* main.cpp in Sources */,
+				309010FD292B7B72002D121D /* quartzcore.cpp in Sources */,
 				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
 				30B19E57292738A8002BA9A2 /* objc.cpp in Sources */,
 			);
