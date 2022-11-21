@@ -10,7 +10,6 @@
 		3008F03E28FC42F100A74CB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3008F03D28FC42F100A74CB8 /* AppDelegate.m */; };
 		3008F04328FC42F300A74CB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3008F04228FC42F300A74CB8 /* Assets.xcassets */; };
 		3008F04828FC42F300A74CB8 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3008F04728FC42F300A74CB8 /* main.mm */; };
-		30B9534529220419007C8914 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 30B9534429220419007C8914 /* include */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,7 +18,6 @@
 		3008F03D28FC42F100A74CB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3008F04228FC42F300A74CB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3008F04728FC42F300A74CB8 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		30B9534429220419007C8914 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../include; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +34,6 @@
 		3008F02328FC42AA00A74CB8 = {
 			isa = PBXGroup;
 			children = (
-				30B9534429220419007C8914 /* include */,
 				3008F03B28FC42F100A74CB8 /* macos */,
 				3008F02D28FC42AA00A74CB8 /* Products */,
 			);
@@ -119,7 +116,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3008F04328FC42F300A74CB8 /* Assets.xcassets in Resources */,
-				30B9534529220419007C8914 /* include in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
