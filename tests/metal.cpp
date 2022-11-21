@@ -226,6 +226,7 @@ TEST_CASE("Render pipeline state")
 
     mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"vsh_flat"});
     CHECK(vertexFunction.device() == device);
+    CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
 
     vertexFunction.setLabel("Vertex function");
     CHECK(vertexFunction.label().isEqualToString("Vertex function"));
@@ -241,6 +242,7 @@ TEST_CASE("Render pipeline state")
 
     mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"fsh_flat"});
     CHECK(fragmentFunction.device() == device);
+    CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
 
     // vertex descriptor
     mtl::VertexDescriptor vertexDescriptor;

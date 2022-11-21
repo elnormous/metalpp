@@ -15,6 +15,40 @@ namespace mtl
 {
     class Device;
 
+    enum class FunctionType: NSUInteger
+    {
+        Vertex = 1,
+        Fragment = 2,
+        Kernel = 3,
+        Visible API_AVAILABLE(macos(11.0), ios(14.0)) = 5,
+        Intersection API_AVAILABLE(macos(11.0), ios(14.0)) = 6,
+        Mesh API_AVAILABLE(macos(13.0), ios(16.0)) = 7,
+        Object API_AVAILABLE(macos(13.0), ios(16.0)) = 8,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    class Function final: public ns::Object
+    {
+    public:
+        Function() = delete;
+
+        [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            return getRetained<ns::String>(sel::label);
+        }
+
+        void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            sendMessage(sel::setLabel_, static_cast<id>(label));
+        }
+
+        [[nodiscard]] FunctionType functionType() const noexcept
+        {
+            return sendMessage<FunctionType>(sel::functionType);
+        }
+    };
+
     enum class LanguageVersion: NSUInteger
     {
         Version1_0 API_DEPRECATED("Use a newer language standard", ios(9.0, 16.0)) API_UNAVAILABLE(macos, macCatalyst) = (1 << 16),
@@ -129,31 +163,13 @@ namespace mtl
             sendMessage(sel::setOptimizationLevel_, optimizationLevel);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
-
-    class Function final: public ns::Object
-    {
-    public:
-        Function() = delete;
-
-        Device device() const noexcept;
-
-        [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
-        {
-            return getRetained<ns::String>(sel::label);
-        }
-
-        void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
-        {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
-        }
-    };
     
     class Library final: public ns::Object
     {
     public:
         Library() = delete;
 
-        Device device() const noexcept;
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] ns::String label() const noexcept
         {

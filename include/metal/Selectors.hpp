@@ -72,6 +72,7 @@ namespace mtl
         inline const auto setStepFunction_ = sel_registerName("setStepFunction:");
         inline const auto stepRate = sel_registerName("stepRate");
         inline const auto setStepRate_ = sel_registerName("setStepRate:");
+        inline const auto functionType = sel_registerName("functionType");
         inline const auto preprocessorMacros = sel_registerName("preprocessorMacros");
         inline const auto setPreprocessorMacros_ = sel_registerName("setPreprocessorMacros:");
         inline const auto fastMathEnabled = sel_registerName("fastMathEnabled");
