@@ -1,6 +1,7 @@
 #ifndef METALPP_QUARTZCORE_LAYER_HPP
 #define METALPP_QUARTZCORE_LAYER_HPP
 
+#include <dlfcn.h>
 #include "../objc/Object.hpp"
 #include "../corefoundation/Types.h"
 #include "Selectors.hpp"
@@ -30,6 +31,13 @@ namespace ca
             objc::sendMessage(*this, sel::setFrame_, frame);
         }
     };
+
+    namespace detail
+    {
+        inline const auto filterNearest = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterNearest"));
+        inline const auto filterLinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterLinear"));
+        inline const auto filterTrilinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear"));
+    }
 }
 
 #endif

@@ -22,12 +22,15 @@
 
 namespace mtl
 {
-    inline const auto createSystemDefaultDevice = reinterpret_cast<id (*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
+    namespace detail
+    {
+        inline const auto createSystemDefaultDevice = reinterpret_cast<id (*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
+    }
 
     class Device final: public ns::Object
     {
     public:
-        Device(): Object{createSystemDefaultDevice()} {}
+        Device(): Object{detail::createSystemDefaultDevice()} {}
 
         Device(const id p) noexcept: Object{p} {}
 
