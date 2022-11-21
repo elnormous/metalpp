@@ -229,8 +229,7 @@ namespace mtl
 
         [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(ns::sel::objectAtIndexedSubscript_, index);
-            return RenderPipelineColorAttachmentDescriptor{sendMessage<id>(object, ns::sel::retain)};
+            return getObject<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -245,8 +244,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -254,61 +252,57 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] mtl::Function vertexFunction() const noexcept
+        [[nodiscard]] Function vertexFunction() const noexcept
         {
-            const id function = sendMessage<id>(sel::vertexFunction);
-            return mtl::Function{sendMessage<id>(function, ns::sel::retain)};
+            return getObject<Function>(sel::vertexFunction);
         }
 
-        void setVertexFunction(const mtl::Function& function) noexcept
+        void setVertexFunction(const Function& function) noexcept
         {
             sendMessage(sel::setVertexFunction_, static_cast<id>(function));
         }
 
-        [[nodiscard]] mtl::Function fragmentFunction() const noexcept
+        [[nodiscard]] Function fragmentFunction() const noexcept
         {
-            const id function = sendMessage<id>(sel::fragmentFunction);
-            return mtl::Function{sendMessage<id>(function, ns::sel::retain)};
+            return getObject<Function>(sel::fragmentFunction);
         }
 
-        void setFragmentFunction(const mtl::Function& function) noexcept
+        void setFragmentFunction(const Function& function) noexcept
         {
             sendMessage(sel::setFragmentFunction_, static_cast<id>(function));
         }
 
-        [[nodiscard]] mtl::VertexDescriptor vertexDescriptor() const noexcept
+        [[nodiscard]] VertexDescriptor vertexDescriptor() const noexcept
         {
-            const id vertexDescriptor = sendMessage<id>(sel::vertexDescriptor);
-            return mtl::VertexDescriptor{sendMessage<id>(vertexDescriptor, ns::sel::retain)};
+            return getObject<VertexDescriptor>(sel::vertexDescriptor);
         }
 
-        void setVertexDescriptor(const mtl::VertexDescriptor& vertexDescriptor) noexcept
+        void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
         {
             sendMessage(sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
         }
 
-        [[nodiscard]] mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            const id colorAttachments = sendMessage<id>(sel::colorAttachments);
-            return mtl::RenderPipelineColorAttachmentDescriptorArray{sendMessage<id>(colorAttachments, ns::sel::retain)};
+            return getObject<RenderPipelineColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
-        [[nodiscard]] mtl::PixelFormat depthAttachmentPixelFormat() const noexcept
+        [[nodiscard]] PixelFormat depthAttachmentPixelFormat() const noexcept
         {
-            return sendMessage<mtl::PixelFormat>(sel::depthAttachmentPixelFormat);
+            return sendMessage<PixelFormat>(sel::depthAttachmentPixelFormat);
         }
 
-        void setDepthAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
+        void setDepthAttachmentPixelFormat(const PixelFormat pixelFormat) noexcept
         {
             sendMessage(sel::setDepthAttachmentPixelFormat_, pixelFormat);
         }
 
-        [[nodiscard]] mtl::PixelFormat stencilAttachmentPixelFormat() const noexcept
+        [[nodiscard]] PixelFormat stencilAttachmentPixelFormat() const noexcept
         {
-            return sendMessage<mtl::PixelFormat>(sel::stencilAttachmentPixelFormat);
+            return sendMessage<PixelFormat>(sel::stencilAttachmentPixelFormat);
         }
 
-        void setStencilAttachmentPixelFormat(const mtl::PixelFormat pixelFormat) noexcept
+        void setStencilAttachmentPixelFormat(const PixelFormat pixelFormat) noexcept
         {
             sendMessage(sel::setStencilAttachmentPixelFormat_, pixelFormat);
         }
@@ -323,8 +317,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept

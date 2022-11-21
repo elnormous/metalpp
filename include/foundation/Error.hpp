@@ -40,20 +40,17 @@ namespace ns
 
         ns::String domain() const noexcept
         {
-            const id domain = sendMessage<id>(sel::domain);
-            return ns::String{sendMessage<id>(domain, ns::sel::retain)};
+            return getObject<ns::String>(sel::domain);
         }
 
         ns::Dictionary<ns::String, ns::Object> userInfo() const noexcept
         {
-            const id userInfo = sendMessage<id>(sel::userInfo);
-            return ns::Dictionary<ns::String, ns::Object>{sendMessage<id>(userInfo, ns::sel::retain)};
+            return getObject<ns::Dictionary<ns::String, ns::Object>>(sel::userInfo);
         }
 
         ns::String localizedDescription() const noexcept
         {
-            const id localizedDescription = sendMessage<id>(sel::localizedDescription);
-            return ns::String{sendMessage<id>(localizedDescription, ns::sel::retain)};
+            return getObject<ns::String>(sel::localizedDescription);
         }
     };
 }

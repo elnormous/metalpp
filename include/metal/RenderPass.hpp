@@ -59,8 +59,7 @@ namespace mtl
 
         [[nodiscard]] Texture texture() const noexcept
         {
-            const id texture = sendMessage<id>(sel::texture);
-            return Texture{sendMessage<id>(texture, ns::sel::retain)};
+            return getObject<Texture>(sel::texture);
         }
 
         void setTexture(const Texture& texture) noexcept
@@ -100,8 +99,7 @@ namespace mtl
 
         [[nodiscard]] Texture resolveTexture() const noexcept
         {
-            const id resolveTexture = sendMessage<id>(sel::resolveTexture);
-            return Texture{sendMessage<id>(resolveTexture, ns::sel::retain)};
+            return getObject<Texture>(sel::resolveTexture);
         }
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
@@ -255,8 +253,7 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
         {
-            const id object = sendMessage<id>(ns::sel::objectAtIndexedSubscript_, index);
-            return RenderPassColorAttachmentDescriptor{sendMessage<id>(object, ns::sel::retain)};
+            return getObject<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -271,20 +268,17 @@ namespace mtl
 
         [[nodiscard]] RenderPassColorAttachmentDescriptorArray colorAttachments() const noexcept
         {
-            const id colorAttachments = sendMessage<id>(sel::colorAttachments);
-            return RenderPassColorAttachmentDescriptorArray{sendMessage<id>(colorAttachments, ns::sel::retain)};
+            return getObject<RenderPassColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
         [[nodiscard]] RenderPassDepthAttachmentDescriptor depthAttachment() const noexcept
         {
-            const id depthAttachment = sendMessage<id>(sel::depthAttachment);
-            return RenderPassDepthAttachmentDescriptor{sendMessage<id>(depthAttachment, ns::sel::retain)};
+            return getObject<RenderPassDepthAttachmentDescriptor>(sel::depthAttachment);
         }
 
         [[nodiscard]] RenderPassStencilAttachmentDescriptor stencilAttachment() const noexcept
         {
-            const id stencilAttachment = sendMessage<id>(sel::stencilAttachment);
-            return RenderPassStencilAttachmentDescriptor{sendMessage<id>(stencilAttachment, ns::sel::retain)};
+            return getObject<RenderPassStencilAttachmentDescriptor>(sel::stencilAttachment);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

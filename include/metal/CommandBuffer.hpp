@@ -65,8 +65,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -76,14 +75,12 @@ namespace mtl
 
         [[nodiscard]] BlitCommandEncoder blitCommandEncoder() const noexcept
         {
-            const id blitCommandEncoder = sendMessage<id>(sel::blitCommandEncoder);
-            return BlitCommandEncoder{sendMessage<id>(blitCommandEncoder, ns::sel::retain)};
+            return getObject<BlitCommandEncoder>(sel::blitCommandEncoder);
         }
 
         [[nodiscard]] RenderCommandEncoder renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            const id renderCommandEncoder = sendMessage<id>(sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
-            return RenderCommandEncoder{sendMessage<id>(renderCommandEncoder, ns::sel::retain)};
+            return getObject<RenderCommandEncoder>(sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept

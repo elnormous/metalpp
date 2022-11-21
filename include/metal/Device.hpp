@@ -36,8 +36,7 @@ namespace mtl
 
         [[nodiscard]] ns::String name() const noexcept
         {
-            const id name = sendMessage<id>(sel::name);
-            return ns::String{sendMessage<id>(name, ns::sel::retain)};
+            return getObject<ns::String>(sel::name);
         }
 
         [[nodiscard]] CommandQueue newCommandQueue() const noexcept
@@ -134,56 +133,47 @@ namespace mtl
 
     inline Device CommandBuffer::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device CommandEncoder::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device CommandQueue::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device DepthStencilState::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device DynamicLibrary::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device Function::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device Library::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device RenderPipelineState::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 
     inline Device Resource::device() const noexcept
     {
-        const id device = sendMessage<id>(sel::device);
-        return Device{sendMessage<id>(device, ns::sel::retain)};
+        return getObject<Device>(sel::device);
     }
 }
 

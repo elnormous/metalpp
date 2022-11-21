@@ -49,27 +49,22 @@ namespace ns
 
         [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
-            const id object = sendMessage<id>(ns::sel::objectForKey_,
-                                              static_cast<id>(key));
-            return ObjectType{sendMessage<id>(object, ns::sel::retain)};
+            return getObject<ObjectType>(ns::sel::objectForKey_, static_cast<id>(key));
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeys() const noexcept
         {
-            const id keys = sendMessage<id>(ns::sel::allKeys);
-            return ns::Array<KeyType>{sendMessage<id>(keys, ns::sel::retain)};
+            return getObject<ns::Array<KeyType>>(ns::sel::allKeys);
         }
 
         [[nodiscard]] ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
         {
-            const id keys = sendMessage<id>(ns::sel::allKeysForObject_, static_cast<id>(object));
-            return ns::Array<KeyType>{sendMessage<id>(keys, ns::sel::retain)};
+            return getObject<ns::Array<KeyType>>(ns::sel::allKeysForObject_, static_cast<id>(object));
         }
 
         [[nodiscard]] ns::Array<ObjectType> allValues() const noexcept
         {
-            const id values = sendMessage<id>(ns::sel::allValues);
-            return ns::Array<ObjectType>{sendMessage<id>(values, ns::sel::retain)};
+            return getObject<ns::Array<ObjectType>>(ns::sel::allValues);
         }
 
         [[nodiscard]] NSUInteger count() const noexcept

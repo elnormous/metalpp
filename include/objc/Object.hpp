@@ -152,6 +152,13 @@ namespace ns
         return sendMessage<Ret>(ptr, selector, args...);
     }
 
+    template <typename Ret, typename... Args>
+    std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getObject(SEL selector, Args... args) const noexcept
+    {
+        const id object = sendMessage<id>(ptr, selector, args...);
+        return Ret{sendMessage<id>(object, ns::sel::retain)};
+    }
+
     private:
         id ptr = nil;
     };

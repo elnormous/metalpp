@@ -93,8 +93,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept

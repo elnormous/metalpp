@@ -51,8 +51,7 @@ namespace mtl
 
         [[nodiscard]] ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
         {
-            const id preprocessorMacros = sendMessage<id>(sel::preprocessorMacros);
-            return ns::Dictionary<ns::String, ns::Object>{sendMessage<id>(preprocessorMacros, ns::sel::retain)};
+            return getObject<ns::Dictionary<ns::String, ns::Object>>(sel::preprocessorMacros);
         }
 
         void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
@@ -92,8 +91,7 @@ namespace mtl
 
         [[nodiscard]] ns::String installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            const id installName = sendMessage<id>(sel::installName);
-            return ns::String{sendMessage<id>(installName, ns::sel::retain)};
+            return getObject<ns::String>(sel::installName);
         }
 
         void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
@@ -103,8 +101,7 @@ namespace mtl
 
         [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            const id libraries = sendMessage<id>(sel::libraries);
-            return ns::Array<DynamicLibrary>{sendMessage<id>(libraries, ns::sel::retain)};
+            return getObject<ns::Array<DynamicLibrary>>(sel::libraries);
         }
 
         void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
@@ -142,8 +139,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
@@ -161,8 +157,7 @@ namespace mtl
 
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept

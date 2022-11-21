@@ -26,8 +26,7 @@ namespace mtl
         
         [[nodiscard]] ns::String label() const noexcept
         {
-            const id label = sendMessage<id>(sel::label);
-            return ns::String{sendMessage<id>(label, ns::sel::retain)};
+            return getObject<ns::String>(sel::label);
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -37,8 +36,7 @@ namespace mtl
 
         [[nodiscard]] CommandBuffer commandBuffer() const noexcept
         {
-            const id commandBuffer = sendMessage<id>(sel::commandBuffer);
-            return CommandBuffer{sendMessage<id>(commandBuffer, ns::sel::retain)};
+            return getObject<CommandBuffer>(sel::commandBuffer);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
