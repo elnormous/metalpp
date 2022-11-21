@@ -1,3 +1,4 @@
+#include <iostream>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
 #include <simd/simd.h>
@@ -34,7 +35,7 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
 -(void)windowDidResize:(__unused NSNotification*)notification
 {
-    NSLog(@"Window did resize");
+    std::cout << "Window did resize\n";
 }
 
 @end
@@ -100,36 +101,36 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
 - (void)keyDown:(NSEvent*)event
 {
-    //NSLog(@"Key down %d", event.keyCode);
+    //std::cout << "Key down " << event.keyCode << '\n';
 }
 
 - (void)keyUp:(NSEvent*)event
 {
-    //NSLog(@"Key up %d", event.keyCode);
+    //std::cout << "Key up " << event.keyCode << '\n';
 }
 
 - (void)mouseDown:(NSEvent*)event
 {
-    //const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-    //NSLog(@"Mouse down %f, %f", location.x, location.y);
+//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+//    std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
 }
 
 - (void)mouseUp:(NSEvent*)event
 {
-    //const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-    //NSLog(@"Mouse up %f, %f", location.x, location.y);
+//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+//    std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
 }
 
 - (void)mouseMoved:(NSEvent*)event
 {
-    //const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-    //NSLog(@"Mouse moved %f, %f", location.x, location.y);
+//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+//    std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
 }
 
 - (void)mouseDragged:(NSEvent*)event
 {
-    //const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-    //NSLog(@"Mouse dragged %f, %f", location.x, location.y);
+//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+//    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
 }
 
 @end
