@@ -27,13 +27,33 @@ namespace mtl
         Counting API_AVAILABLE(macos(10.11), ios(9.0)) = 2,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    struct ScissorRect
+    struct ScissorRect final
     {
+        bool operator==(const ScissorRect& other) const noexcept
+        {
+            return other.x == x && other.y == y && other.width == width && other.height == height;
+        }
+
+        bool operator!=(const ScissorRect& other) const noexcept
+        {
+            return other.x != x || other.y != y || other.width != width || other.height != height;
+        }
+
         NSUInteger x, y, width, height;
     };
 
-    struct Viewport
+    struct Viewport final
     {
+        bool operator==(const Viewport& other) const noexcept
+        {
+            return other.originX == originX && other.originY == originY && other.width == width && other.height == height && other.znear == znear && other.zfar == zfar;
+        }
+
+        bool operator!=(const Viewport& other) const noexcept
+        {
+            return other.originX != originX || other.originY != originY || other.width != width || other.height != height || other.znear != znear || other.zfar != zfar;
+        }
+
         double originX, originY, width, height, znear, zfar;
     };
 

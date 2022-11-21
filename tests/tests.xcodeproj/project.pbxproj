@@ -63,6 +63,8 @@
 		309010FA292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309010FB292B7833002D121D /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		309010FC292B7B72002D121D /* quartzcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = quartzcore.cpp; sourceTree = "<group>"; };
+		30901100292B877E002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
+		30901104292B8B38002D121D /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		30B19E4D29273892002BA9A2 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B19E59292738E1002BA9A2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		30B953042920C60E007C8914 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -88,10 +90,11 @@
 		309010D6292B7833002D121D /* include */ = {
 			isa = PBXGroup;
 			children = (
-				309010D7292B7833002D121D /* metal */,
+				30901102292B8B0B002D121D /* corefoundation */,
 				309010ED292B7833002D121D /* foundation */,
-				309010F5292B7833002D121D /* quartzcore */,
+				309010D7292B7833002D121D /* metal */,
 				309010F8292B7833002D121D /* objc */,
+				309010F5292B7833002D121D /* quartzcore */,
 			);
 			name = include;
 			path = ../include;
@@ -144,6 +147,7 @@
 			children = (
 				309010F7292B7833002D121D /* Layer.hpp */,
 				309010F6292B7833002D121D /* MetalLayer.hpp */,
+				30901100292B877E002D121D /* Selectors.hpp */,
 			);
 			path = quartzcore;
 			sourceTree = "<group>";
@@ -156,6 +160,14 @@
 				309010FA292B7833002D121D /* Selectors.hpp */,
 			);
 			path = objc;
+			sourceTree = "<group>";
+		};
+		30901102292B8B0B002D121D /* corefoundation */ = {
+			isa = PBXGroup;
+			children = (
+				30901104292B8B38002D121D /* Types.h */,
+			);
+			path = corefoundation;
 			sourceTree = "<group>";
 		};
 		30B952F82920C60E007C8914 = {

@@ -32,7 +32,7 @@ namespace mtl
         Alpha = 5,
     } API_AVAILABLE(macos(10.15), ios(13.0));
 
-    struct TextureSwizzleChannels
+    struct TextureSwizzleChannels final
     {
         TextureSwizzle red;
         TextureSwizzle green;

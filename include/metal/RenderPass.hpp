@@ -8,7 +8,7 @@
 
 namespace mtl
 {
-    struct ClearColor
+    struct ClearColor final
     {
         ClearColor() noexcept = default;
         ClearColor(double r, double g, double b, double a) noexcept: red{r}, green{g}, blue{b}, alpha{a} {}

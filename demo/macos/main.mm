@@ -61,7 +61,7 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
         metalLayer.edgeAntialiasingMask = 0;
         metalLayer.masksToBounds = YES;
-        metalLayer.backgroundColor = backgroundColor;
+        //metalLayer.backgroundColor = backgroundColor;
         metalLayer.presentsWithTransaction = NO;
         metalLayer.anchorPoint = CGPointMake(0.5, 0.5);
         metalLayer.frame = frameRect;

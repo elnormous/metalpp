@@ -8,6 +8,8 @@ TEST_CASE("Layer")
     REQUIRE(layer);
     REQUIRE(layer.retainCount() == 1);
     REQUIRE(layer.getClass() == objc_getClass("CALayer"));
+    layer.setFrame(cg::Rect{0, 0, 100, 100});
+    CHECK(layer.frame() == cg::Rect{0, 0, 100, 100});
 }
 
 TEST_CASE("MetalLayer")

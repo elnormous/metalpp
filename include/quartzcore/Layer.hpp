@@ -2,6 +2,8 @@
 #define METALPP_QUARTZCORE_LAYER_HPP
 
 #include "../objc/Object.hpp"
+#include "../corefoundation/Types.h"
+#include "Selectors.hpp"
 
 namespace ca
 {
@@ -16,6 +18,16 @@ namespace ca
 
         Layer(const id p) noexcept: Object{p}
         {
+        }
+
+        [[nodiscard]] cg::Rect frame() const noexcept
+        {
+            return objc::sendMessage<cg::Rect>(*this, sel::frame);
+        }
+
+        void setFrame(cg::Rect frame) noexcept
+        {
+            objc::sendMessage(*this, sel::setFrame_, frame);
         }
     };
 }
