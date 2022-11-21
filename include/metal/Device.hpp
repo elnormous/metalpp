@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_DEVICE_HPP
 #define METALPP_METAL_DEVICE_HPP
 
+#include <dlfcn.h>
 #include <type_traits>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
@@ -19,14 +20,14 @@
 #include "Selectors.hpp"
 #include "Texture.hpp"
 
-extern "C" id MTLCreateSystemDefaultDevice();
-
 namespace mtl
 {
+    inline const auto createSystemDefaultDevice = reinterpret_cast<id (*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
+
     class Device final: public ns::Object
     {
     public:
-        Device(): Object{MTLCreateSystemDefaultDevice()} {}
+        Device(): Object{createSystemDefaultDevice()} {}
 
         Device(const id p) noexcept: Object{p} {}
 
