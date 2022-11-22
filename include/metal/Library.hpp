@@ -15,6 +15,13 @@ namespace mtl
 {
     class Device;
 
+    enum class PatchType: NSUInteger
+    {
+        None = 0,
+        Triangle = 1,
+        Quad = 2,
+    } API_AVAILABLE(macos(10.12), ios(10.0));
+
     enum class FunctionType: NSUInteger
     {
         Vertex = 1,
@@ -46,6 +53,11 @@ namespace mtl
         [[nodiscard]] FunctionType functionType() const noexcept
         {
             return sendMessage<FunctionType>(sel::functionType);
+        }
+
+        [[nodiscard]] PatchType patchType() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            return sendMessage<PatchType>(sel::patchType);
         }
     };
 
