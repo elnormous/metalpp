@@ -210,7 +210,7 @@ TEST_CASE("Library")
     ns::AutoreleasePool pool;
 
     const char* vertexShader =
-    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "vertex float4 vsh(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
     "    return float4(vertexArray[vid], ONE);" \
     "}";
 
@@ -221,34 +221,33 @@ TEST_CASE("Library")
     const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
     options.setPreprocessorMacros(preprocessorMacros);
 
-    mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
-    REQUIRE(vertexLibrary);
-    REQUIRE(vertexLibrary.retainCount() == 1);
-    CHECK(vertexLibrary.device() == device);
+    mtl::Library library = device.newLibrary(vertexShader, options);
+    REQUIRE(library);
+    REQUIRE(library.retainCount() == 1);
+    CHECK(library.device() == device);
 
-    vertexLibrary.setLabel("Vertex library");
-    CHECK(vertexLibrary.label().isEqualToString("Vertex library"));
+    library.setLabel("Library");
+    CHECK(library.label().isEqualToString("Library"));
 }
 
-TEST_CASE("Render pipeline state")
+TEST_CASE("Function")
 {
     ns::AutoreleasePool pool;
 
     const char* vertexShader =
-    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "vertex float4 vsh(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
     "    return float4(vertexArray[vid], 1.0);" \
     "}";
 
     const char* fragmentShader =
-    "fragment half4 fsh_flat() {" \
+    "fragment half4 fsh() {" \
     "    return half4(1.0);" \
     "}";
 
     mtl::Device device;
 
-    // vertex shader
-    mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader});
-    mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"vsh_flat"});
+    mtl::Library vertexLibrary = device.newLibrary(vertexShader);
+    mtl::Function vertexFunction = vertexLibrary.newFunction("vsh");
     CHECK(vertexFunction.device() == device);
     CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
     CHECK(vertexFunction.patchType() == mtl::PatchType::None);
@@ -256,12 +255,31 @@ TEST_CASE("Render pipeline state")
     vertexFunction.setLabel("Vertex function");
     CHECK(vertexFunction.label().isEqualToString("Vertex function"));
 
-    // fragment shader
-    mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
-    mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"fsh_flat"});
+    mtl::Library fragmentLibrary = device.newLibrary(fragmentShader);
+    mtl::Function fragmentFunction = fragmentLibrary.newFunction("fsh");
     CHECK(fragmentFunction.device() == device);
     CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
     CHECK(fragmentFunction.patchType() == mtl::PatchType::None);
+}
+
+TEST_CASE("Render pipeline state")
+{
+    ns::AutoreleasePool pool;
+
+    const char* shader =
+    "vertex float4 vsh(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "    return float4(vertexArray[vid], 1.0);" \
+    "}\n" \
+    "fragment half4 fsh() {" \
+    "    return half4(1.0);" \
+    "}";
+
+    mtl::Device device;
+
+    // vertex shader
+    mtl::Library library = device.newLibrary(shader);
+    mtl::Function vertexFunction = library.newFunction("vsh");
+    mtl::Function fragmentFunction = library.newFunction("fsh");
 
     // vertex descriptor
     mtl::VertexDescriptor vertexDescriptor;
