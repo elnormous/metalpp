@@ -1,9 +1,9 @@
 #ifndef METALPP_METAL_LIBRARY_HPP
 #define METALPP_METAL_LIBRARY_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Array.hpp"
 #include "../foundation/Dictionary.hpp"
@@ -15,7 +15,7 @@ namespace mtl
 {
     class Device;
 
-    enum class PatchType: NSUInteger
+    enum class PatchType: ns::UInteger
     {
         None = 0,
         Triangle = 1,
@@ -38,7 +38,7 @@ namespace mtl
         // not implemented
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-    enum class FunctionType: NSUInteger
+    enum class FunctionType: ns::UInteger
     {
         Vertex = 1,
         Fragment = 2,
@@ -84,9 +84,9 @@ namespace mtl
             return sendMessage<PatchType>(sel::patchType);
         }
 
-        [[nodiscard]] NSInteger patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] ns::Integer patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return sendMessage<NSInteger>(sel::patchControlPointCount);
+            return sendMessage<ns::Integer>(sel::patchControlPointCount);
         }
 
         [[nodiscard]] ns::Array<VertexAttribute> vertexAttributes() const noexcept
@@ -110,7 +110,7 @@ namespace mtl
         }
     };
 
-    enum class LanguageVersion: NSUInteger
+    enum class LanguageVersion: ns::UInteger
     {
         Version1_0 API_DEPRECATED("Use a newer language standard", ios(9.0, 16.0)) API_UNAVAILABLE(macos, macCatalyst) = (1 << 16),
         Version1_1 API_AVAILABLE(macos(10.11), ios(9.0)) = (1 << 16) + 1,
@@ -123,13 +123,13 @@ namespace mtl
         Version3_0 API_AVAILABLE(macos(13.0), ios(16.0)) = (3 << 16) + 0,
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
-    enum class LibraryType: NSInteger
+    enum class LibraryType: ns::Integer
     {
         Executable = 0,
         Dynamic = 1,
     } API_AVAILABLE(macos(11.0), ios(14.0));
 
-    enum class LibraryOptimizationLevel: NSInteger
+    enum class LibraryOptimizationLevel: ns::Integer
     {
         Default = 0,
         Size = 1,

@@ -1,16 +1,16 @@
 #ifndef METALPP_METAL_VERTEXDESCRIPTOR_HPP
 #define METALPP_METAL_VERTEXDESCRIPTOR_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Selectors.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
 {
-    enum class VertexFormat: NSUInteger
+    enum class VertexFormat: ns::UInteger
     {
         Invalid = 0,
 
@@ -83,7 +83,7 @@ namespace mtl
         Half API_AVAILABLE(macos(10.13), ios(11.0)) = 53,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class VertexStepFunction: NSUInteger
+    enum class VertexStepFunction: ns::UInteger
     {
         Constant = 0,
         PerVertex = 1,
@@ -97,12 +97,12 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptor() = delete;
 
-        [[nodiscard]] NSUInteger stride() const noexcept
+        [[nodiscard]] ns::UInteger stride() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::stride);
+            return sendMessage<ns::UInteger>(sel::stride);
         }
 
-        void setStride(NSUInteger stride) noexcept
+        void setStride(ns::UInteger stride) noexcept
         {
             sendMessage(sel::setStride_, stride);
         }
@@ -117,12 +117,12 @@ namespace mtl
             sendMessage(sel::setStepFunction_, stepFunction);
         }
 
-        [[nodiscard]] NSUInteger stepRate() const noexcept
+        [[nodiscard]] ns::UInteger stepRate() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::stepRate);
+            return sendMessage<ns::UInteger>(sel::stepRate);
         }
 
-        void setStepRate(NSUInteger stepRate) noexcept
+        void setStepRate(ns::UInteger stepRate) noexcept
         {
             sendMessage(sel::setStepRate_, stepRate);
         }
@@ -133,12 +133,12 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptorArray() = delete;
 
-        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const NSUInteger index) const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const ns::UInteger index) const noexcept
         {
             return objectAtIndexedSubscript(index);
         }
 
-        [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexBufferLayoutDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }
@@ -159,22 +159,22 @@ namespace mtl
             sendMessage(sel::setFormat_, vertexFormat);
         }
 
-        [[nodiscard]] NSUInteger offset() const noexcept
+        [[nodiscard]] ns::UInteger offset() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::offset);
+            return sendMessage<ns::UInteger>(sel::offset);
         }
 
-        void setOffset(NSUInteger offset) noexcept
+        void setOffset(ns::UInteger offset) noexcept
         {
             sendMessage(sel::setOffset_, offset);
         }
 
-        [[nodiscard]] NSUInteger bufferIndex() const noexcept
+        [[nodiscard]] ns::UInteger bufferIndex() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::bufferIndex);
+            return sendMessage<ns::UInteger>(sel::bufferIndex);
         }
 
-        void setBufferIndex(NSUInteger bufferIndex) noexcept
+        void setBufferIndex(ns::UInteger bufferIndex) noexcept
         {
             sendMessage(sel::setBufferIndex_, bufferIndex);
         }
@@ -185,12 +185,12 @@ namespace mtl
     public:
         VertexAttributeDescriptorArray() = delete;
 
-        [[nodiscard]] VertexAttributeDescriptor operator[](const NSUInteger index) const noexcept
+        [[nodiscard]] VertexAttributeDescriptor operator[](const ns::UInteger index) const noexcept
         {
             return objectAtIndexedSubscript(index);
         }
 
-        [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexAttributeDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }

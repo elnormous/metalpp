@@ -1,23 +1,23 @@
 #ifndef METALPP_METAL_COMMANDENCODER_HPP
 #define METALPP_METAL_COMMANDENCODER_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
 {
     class Device;
 
-    enum class ResourceUsage: NSUInteger
+    enum class ResourceUsage: ns::UInteger
     {
         Read   = 1 << 0,
         Write  = 1 << 1,
         Sample API_DEPRECATED_WITH_REPLACEMENT("Read", macos(10.13, 13.0), ios(11.0, 16.0)) = 1 << 2
     } API_AVAILABLE(macos(10.13), ios(11.0));
 
-    enum class BarrierScope: NSUInteger
+    enum class BarrierScope: ns::UInteger
     {
         Buffers = 1 << 0,
         Textures = 1 << 1,

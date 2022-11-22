@@ -29,14 +29,14 @@ namespace mtl
         double alpha = 0.0;
     };
 
-    enum class LoadAction: NSUInteger
+    enum class LoadAction: ns::UInteger
     {
         DontCare = 0,
         Load = 1,
         Clear = 2,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class StoreAction: NSUInteger
+    enum class StoreAction: ns::UInteger
     {
         DontCare = 0,
         Store = 1,
@@ -46,7 +46,7 @@ namespace mtl
         CustomSampleDepthStore API_AVAILABLE(macos(10.13), ios(11.0)) = 5,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class StoreActionOptions: NSUInteger
+    enum class StoreActionOptions: ns::UInteger
     {
         None                  = 0,
         CustomSamplePositions = 1 << 0,
@@ -67,32 +67,32 @@ namespace mtl
             sendMessage(sel::setTexture_, static_cast<id>(texture));
         }
 
-        [[nodiscard]] NSUInteger level() const noexcept
+        [[nodiscard]] ns::UInteger level() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::level);
+            return sendMessage<ns::UInteger>(sel::level);
         }
 
-        void setLevel(NSUInteger level) noexcept
+        void setLevel(ns::UInteger level) noexcept
         {
             sendMessage(sel::setLevel_, level);
         }
 
-        [[nodiscard]] NSUInteger slice() const noexcept
+        [[nodiscard]] ns::UInteger slice() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::slice);
+            return sendMessage<ns::UInteger>(sel::slice);
         }
 
-        void setSlice(NSUInteger slice) noexcept
+        void setSlice(ns::UInteger slice) noexcept
         {
             sendMessage(sel::setSlice_, slice);
         }
 
-        [[nodiscard]] NSUInteger depthPlane() const noexcept
+        [[nodiscard]] ns::UInteger depthPlane() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::depthPlane);
+            return sendMessage<ns::UInteger>(sel::depthPlane);
         }
 
-        void setDepthPlane(NSUInteger depthPlane) noexcept
+        void setDepthPlane(ns::UInteger depthPlane) noexcept
         {
             sendMessage(sel::setDepthPlane_, depthPlane);
         }
@@ -107,32 +107,32 @@ namespace mtl
             sendMessage(sel::setResolveTexture_, static_cast<id>(resolveTexture));
         }
 
-        [[nodiscard]] NSUInteger resolveLevel() const noexcept
+        [[nodiscard]] ns::UInteger resolveLevel() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::resolveLevel);
+            return sendMessage<ns::UInteger>(sel::resolveLevel);
         }
 
-        void setResolveLevel(NSUInteger resolveLevel) noexcept
+        void setResolveLevel(ns::UInteger resolveLevel) noexcept
         {
             sendMessage(sel::setResolveLevel_, resolveLevel);
         }
 
-        [[nodiscard]] NSUInteger resolveSlice() const noexcept
+        [[nodiscard]] ns::UInteger resolveSlice() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::resolveSlice);
+            return sendMessage<ns::UInteger>(sel::resolveSlice);
         }
 
-        void setResolveSlice(NSUInteger resolveSlice) noexcept
+        void setResolveSlice(ns::UInteger resolveSlice) noexcept
         {
             sendMessage(sel::setResolveSlice_, resolveSlice);
         }
 
-        [[nodiscard]] NSUInteger resolveDepthPlane() const noexcept
+        [[nodiscard]] ns::UInteger resolveDepthPlane() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::resolveDepthPlane);
+            return sendMessage<ns::UInteger>(sel::resolveDepthPlane);
         }
 
-        void setResolveDepthPlane(NSUInteger resolveDepthPlane) noexcept
+        void setResolveDepthPlane(ns::UInteger resolveDepthPlane) noexcept
         {
             sendMessage(sel::setResolveDepthPlane_, resolveDepthPlane);
         }
@@ -182,7 +182,7 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class MultisampleDepthResolveFilter: NSUInteger
+    enum class MultisampleDepthResolveFilter: ns::UInteger
     {
         Sample0 = 0,
         Min = 1,
@@ -213,7 +213,7 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class MultisampleStencilResolveFilter: NSUInteger
+    enum class MultisampleStencilResolveFilter: ns::UInteger
     {
         Sample0               = 0,
         DepthResolvedSample   = 1,
@@ -246,12 +246,12 @@ namespace mtl
     class RenderPassColorAttachmentDescriptorArray final: public ns::Object
     {
     public:
-        [[nodiscard]] RenderPassColorAttachmentDescriptor operator[](const NSUInteger index) const noexcept
+        [[nodiscard]] RenderPassColorAttachmentDescriptor operator[](const ns::UInteger index) const noexcept
         {
             return objectAtIndexedSubscript(index);
         }
 
-        [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }

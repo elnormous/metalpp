@@ -45,7 +45,7 @@ namespace mtl
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] CommandQueue newCommandQueue(const NSUInteger maxCommandBufferCount) const noexcept
+        [[nodiscard]] CommandQueue newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
         {
             const id commandQueue = sendMessage<id>(sel::newCommandQueueWithMaxCommandBufferCount_,
                                                     maxCommandBufferCount);
@@ -59,7 +59,7 @@ namespace mtl
             return DepthStencilState{depthStencilState};
         }
 
-        [[nodiscard]] Buffer newBuffer(const NSUInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] Buffer newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(sel::newBufferWithLength_options_,
                                               length,
@@ -67,7 +67,7 @@ namespace mtl
             return Buffer{buffer};
         }
 
-        [[nodiscard]] Buffer newBuffer(const void* pointer, const NSUInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] Buffer newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(sel::newBufferWithBytes_length_options_,
                                               pointer,

@@ -3,8 +3,8 @@
 
 #include <string>
 #include <string_view>
-#include <objc/NSObjCRuntime.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "Selectors.hpp"
 
@@ -12,7 +12,7 @@ namespace ns
 {
     using unichar = unsigned short;
 
-    enum class StringEncoding: NSUInteger
+    enum class StringEncoding: UInteger
     {
         ASCII = 1,        // 0..127 only
         NEXTSTEP = 2,
@@ -42,19 +42,19 @@ namespace ns
         UTF32LittleEndian = 0x9c000100        // UTF32 encoding with explicit endianness specified
     };
 
-    class String final: public ns::Object
+    class String final: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSString");
     public:
         String():
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
 
         String(const id p) noexcept: Object{p} {}
 
         String(const char* str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
                                    sel::initWithCString_encoding_,
                                    str,
                                    encoding)}
@@ -62,28 +62,28 @@ namespace ns
         }
 
         String(const std::string_view str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
                                    sel::initWithBytes_length_encoding_,
                                    str.data(),
-                                   static_cast<NSUInteger>(str.length()),
+                                   static_cast<UInteger>(str.length()),
                                    encoding)}
         {
         }
 
-        [[nodiscard]] char operator[](NSUInteger index) const noexcept
+        [[nodiscard]] char operator[](UInteger index) const noexcept
         {
             return charAtIndex(index);
         }
 
-        [[nodiscard]] char charAtIndex(const NSUInteger index) const noexcept
+        [[nodiscard]] char charAtIndex(const UInteger index) const noexcept
         {
             const auto c = sendMessage<unichar>(sel::characterAtIndex_, index);
             return static_cast<char>(c);
         }
 
-        [[nodiscard]] NSUInteger length() const noexcept
+        [[nodiscard]] UInteger length() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::length);
+            return sendMessage<UInteger>(sel::length);
         }
 
         [[nodiscard]] const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept

@@ -1,10 +1,10 @@
 #ifndef METALPP_METAL_COMMANDBUFFER_HPP
 #define METALPP_METAL_COMMANDBUFFER_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include <CoreFoundation/CFDate.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "BlitCommandEncoder.hpp"
 #include "Drawable.hpp"
 #include "RenderCommandEncoder.hpp"
@@ -15,7 +15,7 @@ namespace mtl
 {
     class Device;
 
-    enum class CommandBufferStatus: NSUInteger
+    enum class CommandBufferStatus: ns::UInteger
     {
         NotEnqueued = 0,
         Enqueued = 1,
@@ -25,7 +25,7 @@ namespace mtl
         Error = 5,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class CommandBufferError: NSUInteger
+    enum class CommandBufferError: ns::UInteger
     {
         None = 0,
         Internal = 1,
@@ -41,13 +41,13 @@ namespace mtl
         StackOverflow API_AVAILABLE(macos(12.0), ios(15.0)) = 12,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class CommandBufferErrorOption: NSUInteger
+    enum class CommandBufferErrorOption: ns::UInteger
     {
         None = 0,
         EncoderExecutionStatus = 1 << 0,
     } API_AVAILABLE(macos(11.0), ios(14.0));
 
-    enum class CommandEncoderErrorState: NSInteger
+    enum class CommandEncoderErrorState: ns::Integer
     {
         Unknown = 0,
         Completed = 1,

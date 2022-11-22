@@ -1,9 +1,9 @@
 #ifndef METALPP_METAL_RENDERPIPELINE_HPP
 #define METALPP_METAL_RENDERPIPELINE_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
@@ -14,7 +14,7 @@ namespace mtl
 {
     class Device;
 
-    enum class BlendFactor: NSUInteger
+    enum class BlendFactor: ns::UInteger
     {
         Zero = 0,
         One = 1,
@@ -37,7 +37,7 @@ namespace mtl
         OneMinusSource1Alpha      API_AVAILABLE(macos(10.12), ios(10.11)) = 18,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class BlendOperation: NSUInteger
+    enum class BlendOperation: ns::UInteger
     {
         Add = 0,
         Subtract = 1,
@@ -46,7 +46,7 @@ namespace mtl
         Max = 4,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class ColorWriteMask: NSUInteger
+    enum class ColorWriteMask: ns::UInteger
     {
         None  = 0,
         Red   = 0x1 << 3,
@@ -85,7 +85,7 @@ namespace mtl
         return a = static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) ^ static_cast<std::underlying_type_t<ColorWriteMask>>(b));
     }
 
-    enum class PrimitiveTopologyClass: NSUInteger
+    enum class PrimitiveTopologyClass: ns::UInteger
     {
         Unspecified = 0,
         Point = 1,
@@ -93,7 +93,7 @@ namespace mtl
         Triangle = 3,
     } API_AVAILABLE(macos(10.11), ios(12.0));
 
-    enum class TessellationPartitionMode: NSUInteger
+    enum class TessellationPartitionMode: ns::UInteger
     {
         Pow2 = 0,
         Integer = 1,
@@ -101,7 +101,7 @@ namespace mtl
         FractionalEven = 3,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-    enum class TessellationFactorStepFunction: NSUInteger
+    enum class TessellationFactorStepFunction: ns::UInteger
     {
         Constant = 0,
         PerPatch = 1,
@@ -109,12 +109,12 @@ namespace mtl
         PerPatchAndPerInstance = 3,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-    enum class TessellationFactorFormat: NSUInteger
+    enum class TessellationFactorFormat: ns::UInteger
     {
         Half = 0,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-    enum class TessellationControlPointIndexType: NSUInteger
+    enum class TessellationControlPointIndexType: ns::UInteger
     {
         None = 0,
         UInt16 = 1,
@@ -222,12 +222,12 @@ namespace mtl
     public:
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const NSUInteger index) const noexcept
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const ns::UInteger index) const noexcept
         {
             return objectAtIndexedSubscript(index);
         }
 
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const NSUInteger index) const noexcept
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
         }

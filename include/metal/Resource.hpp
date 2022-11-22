@@ -10,13 +10,13 @@ namespace mtl
 {
     class Device;
 
-    enum class CPUCacheMode: NSUInteger
+    enum class CPUCacheMode: ns::UInteger
     {
         DefaultCache = 0,
         WriteCombined = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class StorageMode: NSUInteger
+    enum class StorageMode: ns::UInteger
     {
         Shared  = 0,
         Managed API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = 1,
@@ -24,7 +24,7 @@ namespace mtl
         Memoryless API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = 3,
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
-    enum class HazardTrackingMode: NSUInteger
+    enum class HazardTrackingMode: ns::UInteger
     {
         Default = 0,
         Untracked = 1,
@@ -40,19 +40,19 @@ namespace mtl
     constexpr auto HazardTrackingModeShift = 8;
     constexpr auto HazardTrackingModeMask =  0x3UL << HazardTrackingModeShift;
 
-    enum class ResourceOptions: NSUInteger
+    enum class ResourceOptions: ns::UInteger
     {
-        CPUCacheModeDefaultCache  = static_cast<NSUInteger>(CPUCacheMode::DefaultCache)  << CPUCacheModeShift,
-        CPUCacheModeWriteCombined = static_cast<NSUInteger>(CPUCacheMode::WriteCombined) << CPUCacheModeShift,
+        CPUCacheModeDefaultCache  = static_cast<ns::UInteger>(CPUCacheMode::DefaultCache)  << CPUCacheModeShift,
+        CPUCacheModeWriteCombined = static_cast<ns::UInteger>(CPUCacheMode::WriteCombined) << CPUCacheModeShift,
 
-        StorageModeShared API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<NSUInteger>(StorageMode::Shared) << StorageModeShift,
-        StorageModeManaged API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = static_cast<NSUInteger>(StorageMode::Managed) << StorageModeShift,
-        StorageModePrivate API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<NSUInteger>(StorageMode::Private) << StorageModeShift,
-        StorageModeMemoryless API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = static_cast<NSUInteger>(StorageMode::Memoryless) << StorageModeShift,
+        StorageModeShared API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<ns::UInteger>(StorageMode::Shared) << StorageModeShift,
+        StorageModeManaged API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios) = static_cast<ns::UInteger>(StorageMode::Managed) << StorageModeShift,
+        StorageModePrivate API_AVAILABLE(macos(10.11), ios(9.0)) = static_cast<ns::UInteger>(StorageMode::Private) << StorageModeShift,
+        StorageModeMemoryless API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(10.0)) = static_cast<ns::UInteger>(StorageMode::Memoryless) << StorageModeShift,
 
-        HazardTrackingModeDefault API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<NSUInteger>(HazardTrackingMode::Default) << HazardTrackingModeShift,
-        HazardTrackingModeUntracked API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<NSUInteger>(HazardTrackingMode::Untracked) << HazardTrackingModeShift,
-        HazardTrackingModeTracked API_AVAILABLE(macos(10.15), ios(13.0)) = static_cast<NSUInteger>(HazardTrackingMode::Tracked) << HazardTrackingModeShift,
+        HazardTrackingModeDefault API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<ns::UInteger>(HazardTrackingMode::Default) << HazardTrackingModeShift,
+        HazardTrackingModeUntracked API_AVAILABLE(macos(10.13), ios(10.0)) = static_cast<ns::UInteger>(HazardTrackingMode::Untracked) << HazardTrackingModeShift,
+        HazardTrackingModeTracked API_AVAILABLE(macos(10.15), ios(13.0)) = static_cast<ns::UInteger>(HazardTrackingMode::Tracked) << HazardTrackingModeShift,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))

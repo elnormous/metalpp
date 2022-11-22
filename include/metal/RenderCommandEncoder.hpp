@@ -1,8 +1,8 @@
 #ifndef METALPP_METAL_RENDERCOMMANDENCODER_HPP
 #define METALPP_METAL_RENDERCOMMANDENCODER_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "../objc/Runtime.hpp"
 #include "Buffer.hpp"
 #include "CommandEncoder.hpp"
 #include "RenderPipeline.hpp"
@@ -11,7 +11,7 @@
 
 namespace mtl
 {
-    enum class PrimitiveType: NSUInteger
+    enum class PrimitiveType: ns::UInteger
     {
         Point = 0,
         Line = 1,
@@ -20,7 +20,7 @@ namespace mtl
         TriangleStrip = 4,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class VisibilityResultMode: NSUInteger
+    enum class VisibilityResultMode: ns::UInteger
     {
         Disabled = 0,
         Boolean = 1,
@@ -39,7 +39,7 @@ namespace mtl
             return other.x != x || other.y != y || other.width != width || other.height != height;
         }
 
-        NSUInteger x, y, width, height;
+        ns::UInteger x, y, width, height;
     };
 
     struct Viewport final
@@ -57,26 +57,26 @@ namespace mtl
         double originX, originY, width, height, znear, zfar;
     };
 
-    enum class CullMode: NSUInteger
+    enum class CullMode: ns::UInteger
     {
         None = 0,
         Front = 1,
         Back = 2,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class Winding: NSUInteger
+    enum class Winding: ns::UInteger
     {
         Clockwise = 0,
         CounterClockwise = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class DepthClipMode: NSUInteger
+    enum class DepthClipMode: ns::UInteger
     {
         Clip = 0,
         Clamp = 1,
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
-    enum class TriangleFillMode: NSUInteger
+    enum class TriangleFillMode: ns::UInteger
     {
         Fill = 0,
         Lines = 1,
@@ -92,7 +92,7 @@ namespace mtl
             sendMessage(sel::setRenderPipelineState_, static_cast<id>(pipelineState));
         }
 
-        void setVertexBuffer(const Buffer& buffer, const NSUInteger offset, const NSUInteger index) noexcept
+        void setVertexBuffer(const Buffer& buffer, const ns::UInteger offset, const ns::UInteger index) noexcept
         {
             sendMessage(sel::setVertexBuffer_offset_atIndex_,
                         static_cast<id>(buffer),
@@ -100,7 +100,7 @@ namespace mtl
                         index);
         }
 
-        void drawPrimitives(const PrimitiveType primitiveType, const NSUInteger vertexStart, const NSUInteger vertexCount) noexcept
+        void drawPrimitives(const PrimitiveType primitiveType, const ns::UInteger vertexStart, const ns::UInteger vertexCount) noexcept
         {
             sendMessage(sel::drawPrimitives_vertexStart_vertexCount_,
                         primitiveType,
@@ -108,7 +108,7 @@ namespace mtl
                         vertexCount);
         }
 
-        void drawIndexedPrimitives(const PrimitiveType primitiveType, const NSUInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const NSUInteger indexBufferOffset) noexcept
+        void drawIndexedPrimitives(const PrimitiveType primitiveType, const ns::UInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const ns::UInteger indexBufferOffset) noexcept
         {
             sendMessage(sel::drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_,
                         primitiveType,

@@ -1,12 +1,12 @@
 #ifndef METALPP_METAL_PIXELFORMAT_HPP
 #define METALPP_METAL_PIXELFORMAT_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "../objc/Runtime.hpp"
 
 namespace mtl
 {
-    enum class PixelFormat: NSUInteger
+    enum class PixelFormat: ns::UInteger
     {
         Invalid = 0,
 

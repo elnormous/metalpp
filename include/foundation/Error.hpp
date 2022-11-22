@@ -2,6 +2,7 @@
 #define METALPP_FOUNDATION_ERROR_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "Dictionary.hpp"
 #include "Selectors.hpp"
@@ -9,14 +10,14 @@
 
 namespace ns
 {
-    class Error final: public ns::Object
+    class Error final: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSError");
     public:
         Error(const id p) noexcept: Object{p} {}
 
-        Error(const ns::String& domain, const NSInteger& code) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
+        Error(const String& domain, const Integer& code) noexcept:
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
                                    sel::initWithDomain_code_userInfo_,
                                    static_cast<id>(domain),
                                    code,
@@ -24,8 +25,8 @@ namespace ns
         {
         }
 
-        Error(const ns::String& domain, const NSInteger& code, const ns::Dictionary<ns::String, ns::Object>& userInfo) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
+        Error(const String& domain, const Integer& code, const Dictionary<String, Object>& userInfo) noexcept:
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
                                    sel::initWithDomain_code_userInfo_,
                                    static_cast<id>(domain),
                                    code,
@@ -33,24 +34,24 @@ namespace ns
         {
         }
 
-        NSInteger code() const noexcept
+        Integer code() const noexcept
         {
-            return sendMessage<NSInteger>(sel::code);
+            return sendMessage<Integer>(sel::code);
         }
 
-        ns::String domain() const noexcept
+        String domain() const noexcept
         {
-            return getRetained<ns::String>(sel::domain);
+            return getRetained<String>(sel::domain);
         }
 
-        ns::Dictionary<ns::String, ns::Object> userInfo() const noexcept
+        Dictionary<String, Object> userInfo() const noexcept
         {
-            return getRetained<ns::Dictionary<ns::String, ns::Object>>(sel::userInfo);
+            return getRetained<Dictionary<String, Object>>(sel::userInfo);
         }
 
-        ns::String localizedDescription() const noexcept
+        String localizedDescription() const noexcept
         {
-            return getRetained<ns::String>(sel::localizedDescription);
+            return getRetained<String>(sel::localizedDescription);
         }
     };
 }

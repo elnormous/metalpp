@@ -1,17 +1,17 @@
 #ifndef METALPP_FOUNDATION_RANGE_HPP
 #define METALPP_FOUNDATION_RANGE_HPP
 
-#include <objc/NSObjCRuntime.h>
+#include "../objc/Runtime.hpp"
 
 namespace ns
 {
     struct Range
     {
         Range() noexcept = default;
-        Range(NSUInteger loc, NSUInteger len) noexcept: location{loc}, length{len} {}
+        Range(UInteger loc, UInteger len) noexcept: location{loc}, length{len} {}
 
-        NSUInteger location = 0;
-        NSUInteger length = 0;
+        UInteger location = 0;
+        UInteger length = 0;
     };
 }
 

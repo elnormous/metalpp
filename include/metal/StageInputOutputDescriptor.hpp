@@ -1,12 +1,12 @@
 #ifndef METALPP_METAL_STAGEINPUTOUTPUTDESCRIPTOR_HPP
 #define METALPP_METAL_STAGEINPUTOUTPUTDESCRIPTOR_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "../objc/Runtime.hpp"
 
 namespace mtl
 {
-    enum class AttributeFormat: NSUInteger
+    enum class AttributeFormat: ns::UInteger
     {
         Invalid = 0,
 
@@ -80,14 +80,14 @@ namespace mtl
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
 
-    enum class IndexType: NSUInteger
+    enum class IndexType: ns::UInteger
     {
         UInt16 = 0,
         UInt32 = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
 
-    enum class StepFunction: NSUInteger
+    enum class StepFunction: ns::UInteger
     {
         Constant = 0,
 

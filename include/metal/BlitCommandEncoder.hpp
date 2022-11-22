@@ -1,13 +1,13 @@
 #ifndef METALPP_METAL_BLITCOMMANDENCODER_HPP
 #define METALPP_METAL_BLITCOMMANDENCODER_HPP
 
-#include <objc/NSObjCRuntime.h>
 #include <os/availability.h>
+#include "../objc/Runtime.hpp"
 #include "CommandEncoder.hpp"
 
 namespace mtl
 {
-    enum class BlitOption: NSUInteger
+    enum class BlitOption: ns::UInteger
     {
         None                       = 0,
         DepthFromDepthStencil      = 1 << 0,

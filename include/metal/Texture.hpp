@@ -8,7 +8,7 @@
 
 namespace mtl
 {
-    enum class TextureType: NSUInteger
+    enum class TextureType: ns::UInteger
     {
         Type1D = 0,
         Type1DArray = 1,
@@ -40,7 +40,7 @@ namespace mtl
         TextureSwizzle alpha;
     } API_AVAILABLE(macos(10.15), ios(13.0));
 
-    enum class TextureUsage: NSUInteger
+    enum class TextureUsage: ns::UInteger
     {
         Unknown         = 0x0000,
         ShaderRead      = 0x0001,
@@ -49,7 +49,7 @@ namespace mtl
         PixelFormatView = 0x0010,
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
-    enum class TextureCompressionType: NSInteger
+    enum class TextureCompressionType: ns::Integer
     {
         Lossless = 0,
         Lossy = 1,
@@ -84,62 +84,62 @@ namespace mtl
             sendMessage(sel::setPixelFormat_, pixelFormat);
         }
 
-        [[nodiscard]] NSUInteger width() const noexcept
+        [[nodiscard]] ns::UInteger width() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::width);
+            return sendMessage<ns::UInteger>(sel::width);
         }
 
-        void setWidth(NSUInteger width) noexcept
+        void setWidth(ns::UInteger width) noexcept
         {
             sendMessage(sel::setWidth_, width);
         }
 
-        [[nodiscard]] NSUInteger height() const noexcept
+        [[nodiscard]] ns::UInteger height() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::height);
+            return sendMessage<ns::UInteger>(sel::height);
         }
 
-        void setHeight(NSUInteger height) noexcept
+        void setHeight(ns::UInteger height) noexcept
         {
             sendMessage(sel::setHeight_, height);
         }
 
-        [[nodiscard]] NSUInteger depth() const noexcept
+        [[nodiscard]] ns::UInteger depth() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::depth);
+            return sendMessage<ns::UInteger>(sel::depth);
         }
 
-        void setDepth(NSUInteger depth) noexcept
+        void setDepth(ns::UInteger depth) noexcept
         {
             sendMessage(sel::setDepth_, depth);
         }
 
-        [[nodiscard]] NSUInteger mipmapLevelCount() const noexcept
+        [[nodiscard]] ns::UInteger mipmapLevelCount() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::mipmapLevelCount);
+            return sendMessage<ns::UInteger>(sel::mipmapLevelCount);
         }
 
-        void setMipmapLevelCount(NSUInteger mipmapLevelCount) noexcept
+        void setMipmapLevelCount(ns::UInteger mipmapLevelCount) noexcept
         {
             sendMessage(sel::setMipmapLevelCount_, mipmapLevelCount);
         }
 
-        [[nodiscard]] NSUInteger sampleCount() const noexcept
+        [[nodiscard]] ns::UInteger sampleCount() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::sampleCount);
+            return sendMessage<ns::UInteger>(sel::sampleCount);
         }
 
-        void setSampleCount(NSUInteger sampleCount) noexcept
+        void setSampleCount(ns::UInteger sampleCount) noexcept
         {
             sendMessage(sel::setSampleCount_, sampleCount);
         }
 
-        [[nodiscard]] NSUInteger arrayLength() const noexcept
+        [[nodiscard]] ns::UInteger arrayLength() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::arrayLength);
+            return sendMessage<ns::UInteger>(sel::arrayLength);
         }
 
-        void setArrayLength(NSUInteger arrayLength) noexcept
+        void setArrayLength(ns::UInteger arrayLength) noexcept
         {
             sendMessage(sel::setArrayLength_, arrayLength);
         }
@@ -230,34 +230,34 @@ namespace mtl
             return sendMessage<PixelFormat>(sel::pixelFormat);
         }
 
-        [[nodiscard]] NSUInteger width() const noexcept
+        [[nodiscard]] ns::UInteger width() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::width);
+            return sendMessage<ns::UInteger>(sel::width);
         }
 
-        [[nodiscard]] NSUInteger height() const noexcept
+        [[nodiscard]] ns::UInteger height() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::height);
+            return sendMessage<ns::UInteger>(sel::height);
         }
 
-        [[nodiscard]] NSUInteger depth() const noexcept
+        [[nodiscard]] ns::UInteger depth() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::depth);
+            return sendMessage<ns::UInteger>(sel::depth);
         }
 
-        [[nodiscard]] NSUInteger mipmapLevelCount() const noexcept
+        [[nodiscard]] ns::UInteger mipmapLevelCount() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::mipmapLevelCount);
+            return sendMessage<ns::UInteger>(sel::mipmapLevelCount);
         }
 
-        [[nodiscard]] NSUInteger sampleCount() const noexcept
+        [[nodiscard]] ns::UInteger sampleCount() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::sampleCount);
+            return sendMessage<ns::UInteger>(sel::sampleCount);
         }
 
-        [[nodiscard]] NSUInteger arrayLength() const noexcept
+        [[nodiscard]] ns::UInteger arrayLength() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::arrayLength);
+            return sendMessage<ns::UInteger>(sel::arrayLength);
         }
 
         [[nodiscard]] TextureUsage usage() const noexcept

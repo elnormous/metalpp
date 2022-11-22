@@ -9,20 +9,20 @@
 namespace ns
 {
     template <class KeyType, class ObjectType>
-    class Dictionary final: public ns::Object
+    class Dictionary final: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSDictionary");
     public:
         Dictionary() noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
 
         Dictionary(const id p) noexcept: Object{p} {}
 
-        Dictionary(const ns::Array<ObjectType>& objects, const ns::Array<KeyType>& keys) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                   ns::sel::initWithObjects_forKeys_,
+        Dictionary(const Array<ObjectType>& objects, const Array<KeyType>& keys) noexcept:
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
+                                   sel::initWithObjects_forKeys_,
                                    static_cast<id>(objects),
                                    static_cast<id>(keys))}
         {
@@ -30,8 +30,8 @@ namespace ns
 
         template <class ...Args>
         Dictionary(const Args&... objectsAndKeys) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc),
-                                   ns::sel::initWithObjectsAndKeys_,
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
+                                   sel::initWithObjectsAndKeys_,
                                    static_cast<id>(objectsAndKeys)...,
                                    nil)}
         {
@@ -49,27 +49,27 @@ namespace ns
 
         [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
         {
-            return getRetained<ObjectType>(ns::sel::objectForKey_, static_cast<id>(key));
+            return getRetained<ObjectType>(sel::objectForKey_, static_cast<id>(key));
         }
 
-        [[nodiscard]] ns::Array<KeyType> allKeys() const noexcept
+        [[nodiscard]] Array<KeyType> allKeys() const noexcept
         {
-            return getRetained<ns::Array<KeyType>>(ns::sel::allKeys);
+            return getRetained<Array<KeyType>>(sel::allKeys);
         }
 
-        [[nodiscard]] ns::Array<KeyType> allKeysForObject(const ns::Object& object) const noexcept
+        [[nodiscard]] Array<KeyType> allKeysForObject(const Object& object) const noexcept
         {
-            return getRetained<ns::Array<KeyType>>(ns::sel::allKeysForObject_, static_cast<id>(object));
+            return getRetained<Array<KeyType>>(sel::allKeysForObject_, static_cast<id>(object));
         }
 
-        [[nodiscard]] ns::Array<ObjectType> allValues() const noexcept
+        [[nodiscard]] Array<ObjectType> allValues() const noexcept
         {
-            return getRetained<ns::Array<ObjectType>>(ns::sel::allValues);
+            return getRetained<Array<ObjectType>>(sel::allValues);
         }
 
-        [[nodiscard]] NSUInteger count() const noexcept
+        [[nodiscard]] UInteger count() const noexcept
         {
-            return sendMessage<NSUInteger>(sel::count);
+            return sendMessage<UInteger>(sel::count);
         }
     };
 }

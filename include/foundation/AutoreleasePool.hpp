@@ -7,12 +7,12 @@
 
 namespace ns
 {
-    class AutoreleasePool final: public ns::Object
+    class AutoreleasePool final: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
     public:
         AutoreleasePool() noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {            
         }
 

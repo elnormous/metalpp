@@ -11,7 +11,7 @@ namespace mtl
 {
     class Device;
 
-    enum class CompareFunction: NSUInteger
+    enum class CompareFunction: ns::UInteger
     {
         Never = 0,
         Less = 1,
@@ -23,7 +23,7 @@ namespace mtl
         Always = 7,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class StencilOperation: NSUInteger
+    enum class StencilOperation: ns::UInteger
     {
         Keep = 0,
         Zero = 1,

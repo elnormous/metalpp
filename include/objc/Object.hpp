@@ -3,9 +3,9 @@
 
 #include <cstdint>
 #include <type_traits>
-#include <objc/NSObjCRuntime.h>
 #include <objc/message.h>
 #include <objc/runtime.h>
+#include "Runtime.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -15,19 +15,19 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSObject");
     public:
         Object() noexcept:
-            ptr{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            ptr{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
 
         ~Object()
         {
-            sendMessage(ptr, ns::sel::release);
+            sendMessage(ptr, sel::release);
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            sendMessage(ptr, ns::sel::retain);
+            sendMessage(ptr, sel::retain);
         }
 
         Object(Object&& other) noexcept:
@@ -39,8 +39,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            sendMessage(other.ptr, ns::sel::retain);
-            sendMessage(ptr, ns::sel::release);
+            sendMessage(other.ptr, sel::retain);
+            sendMessage(ptr, sel::release);
             ptr = other.ptr;
             return *this;
         }
@@ -74,12 +74,12 @@ namespace ns
 
         [[nodiscard]] Class getClass() const noexcept
         {
-            return sendMessage<Class>(ptr, ns::sel::getClass);
+            return sendMessage<Class>(ptr, sel::getClass);
         }
 
-        [[nodiscard]] NSUInteger retainCount() const noexcept
+        [[nodiscard]] UInteger retainCount() const noexcept
         {
-            return sendMessage<NSUInteger>(ptr, ns::sel::retainCount);
+            return sendMessage<UInteger>(ptr, sel::retainCount);
         }
 
         // Releases the ownership of the pointer without sending a release message
@@ -156,7 +156,7 @@ namespace ns
     std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
     {
         const id object = sendMessage<id>(ptr, selector, args...);
-        return Ret{sendMessage<id>(object, ns::sel::retain)};
+        return Ret{sendMessage<id>(object, sel::retain)};
     }
 
     private:

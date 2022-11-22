@@ -13,9 +13,9 @@ namespace mtl
     public:
         Buffer() = delete;
 
-        [[nodiscard]] NSUInteger length() const noexcept
+        [[nodiscard]] ns::UInteger length() const noexcept
         {
-            return sendMessage<NSUInteger>(ns::sel::length);
+            return sendMessage<ns::UInteger>(ns::sel::length);
         }
 
         [[nodiscard]] void* contents() const noexcept
