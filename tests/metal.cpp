@@ -165,29 +165,17 @@ TEST_CASE("Depth stencil state")
     CHECK(device.retainCount() == retainCount);
 }
 
-TEST_CASE("Render pipeline state")
+TEST_CASE("Compile options")
 {
     ns::AutoreleasePool pool;
 
-    const char* vertexShader =
-    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
-    "    return float4(vertexArray[vid], ONE);" \
-    "}";
-
-    const char* fragmentShader =
-    "fragment half4 fsh_flat() {" \
-    "    return half4(1.0);" \
-    "}";
-
-    mtl::Device device;
-
-    // compile options
     mtl::CompileOptions options;
     REQUIRE(options);
     REQUIRE(options.retainCount() == 1);
 
     options.setFastMathEnabled(true);
     CHECK(options.fastMathEnabled());
+
     options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
     CHECK(options.languageVersion() == mtl::LanguageVersion::Version1_1);
 
@@ -208,14 +196,31 @@ TEST_CASE("Render pipeline state")
     {
         const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
         options.setPreprocessorMacros(preprocessorMacros);
+        CHECK(options.preprocessorMacros());
         CHECK(options.preprocessorMacros().retainCount() == 3);
     }
 
     CHECK(options.preprocessorMacros());
     CHECK(options.preprocessorMacros().retainCount() == 2);
     CHECK(options.preprocessorMacros().retainCount() == 2);
+}
 
-    // vertex shader
+TEST_CASE("Library")
+{
+    ns::AutoreleasePool pool;
+
+    const char* vertexShader =
+    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "    return float4(vertexArray[vid], ONE);" \
+    "}";
+
+    mtl::Device device;
+
+    mtl::CompileOptions options;
+    options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
+    const ns::Dictionary<ns::String, ns::Object> preprocessorMacros{ns::String{"1.0"}, ns::String{"ONE"}};
+    options.setPreprocessorMacros(preprocessorMacros);
+
     mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader}, options);
     REQUIRE(vertexLibrary);
     REQUIRE(vertexLibrary.retainCount() == 1);
@@ -223,7 +228,26 @@ TEST_CASE("Render pipeline state")
 
     vertexLibrary.setLabel("Vertex library");
     CHECK(vertexLibrary.label().isEqualToString("Vertex library"));
+}
 
+TEST_CASE("Render pipeline state")
+{
+    ns::AutoreleasePool pool;
+
+    const char* vertexShader =
+    "vertex float4 vsh_flat(const device packed_float3 *vertexArray [[ buffer(0) ]], unsigned int vid [[ vertex_id ]]) {" \
+    "    return float4(vertexArray[vid], 1.0);" \
+    "}";
+
+    const char* fragmentShader =
+    "fragment half4 fsh_flat() {" \
+    "    return half4(1.0);" \
+    "}";
+
+    mtl::Device device;
+
+    // vertex shader
+    mtl::Library vertexLibrary = device.newLibrary(ns::String{vertexShader});
     mtl::Function vertexFunction = vertexLibrary.newFunction(ns::String{"vsh_flat"});
     CHECK(vertexFunction.device() == device);
     CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
@@ -234,13 +258,6 @@ TEST_CASE("Render pipeline state")
 
     // fragment shader
     mtl::Library fragmentLibrary = device.newLibrary(ns::String{fragmentShader});
-    REQUIRE(fragmentLibrary);
-    REQUIRE(fragmentLibrary.retainCount() == 1);
-    CHECK(fragmentLibrary.device() == device);
-
-    fragmentLibrary.setLabel("Fragment library");
-    CHECK(fragmentLibrary.label().isEqualToString("Fragment library"));
-
     mtl::Function fragmentFunction = fragmentLibrary.newFunction(ns::String{"fsh_flat"});
     CHECK(fragmentFunction.device() == device);
     CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
