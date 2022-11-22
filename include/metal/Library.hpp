@@ -59,6 +59,11 @@ namespace mtl
         {
             return sendMessage<PatchType>(sel::patchType);
         }
+
+        [[nodiscard]] NSInteger patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            return sendMessage<NSInteger>(sel::patchControlPointCount);
+        }
     };
 
     enum class LanguageVersion: NSUInteger
