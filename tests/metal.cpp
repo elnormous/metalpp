@@ -245,6 +245,8 @@ TEST_CASE("Function")
     CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
     CHECK(vertexFunction.patchType() == mtl::PatchType::None);
     CHECK(vertexFunction.patchControlPointCount() == -1);
+    //CHECK(vertexFunction.vertexAttributes());
+    CHECK(vertexFunction.name().isEqualToString("vsh"));
 
     vertexFunction.setLabel("Vertex function");
     CHECK(vertexFunction.label().isEqualToString("Vertex function"));
@@ -259,6 +261,7 @@ TEST_CASE("Function")
     CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
     CHECK(fragmentFunction.patchType() == mtl::PatchType::None);
     CHECK(fragmentFunction.patchControlPointCount() == -1);
+    CHECK(fragmentFunction.name().isEqualToString("fsh"));
 
     const char* postTesselationShader =
     "[[patch(quad, 16)]]"
@@ -269,6 +272,7 @@ TEST_CASE("Function")
     CHECK(postTesselationFunction.functionType() == mtl::FunctionType::Vertex);
     CHECK(postTesselationFunction.patchType() == mtl::PatchType::Quad);
     CHECK(postTesselationFunction.patchControlPointCount() == 16);
+    CHECK(postTesselationFunction.name().isEqualToString("ptsh"));
 
     const char* computeKernel =
     "kernel void ck() {}";
@@ -278,6 +282,7 @@ TEST_CASE("Function")
     CHECK(computeFunction.functionType() == mtl::FunctionType::Kernel);
     CHECK(computeFunction.patchType() == mtl::PatchType::None);
     CHECK(computeFunction.patchControlPointCount() == -1);
+    CHECK(computeFunction.name().isEqualToString("ck"));
 }
 
 TEST_CASE("Vertex descriptor")

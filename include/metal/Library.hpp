@@ -22,6 +22,22 @@ namespace mtl
         Quad = 2,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
+    class VertexAttribute final: public ns::Object
+    {
+    public:
+        VertexAttribute() = delete;
+
+        // not implemented
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    class Attribute final: public ns::Object
+    {
+    public:
+        Attribute() = delete;
+
+        // not implemented
+    } API_AVAILABLE(macos(10.12), ios(10.0));
+
     enum class FunctionType: NSUInteger
     {
         Vertex = 1,
@@ -32,6 +48,14 @@ namespace mtl
         Mesh API_AVAILABLE(macos(13.0), ios(16.0)) = 7,
         Object API_AVAILABLE(macos(13.0), ios(16.0)) = 8,
     } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    class FunctionConstant final: public ns::Object
+    {
+    public:
+        FunctionConstant() = delete;
+
+        // not implemented
+    };
 
     class Function final: public ns::Object
     {
@@ -63,6 +87,26 @@ namespace mtl
         [[nodiscard]] NSInteger patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return sendMessage<NSInteger>(sel::patchControlPointCount);
+        }
+
+        [[nodiscard]] ns::Array<VertexAttribute> vertexAttributes() const noexcept
+        {
+            return getRetained<ns::Array<VertexAttribute>>(sel::vertexAttributes);
+        }
+
+        [[nodiscard]] ns::Array<Attribute> stageInputAttributes() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            return getRetained<ns::Array<Attribute>>(sel::stageInputAttributes);
+        }
+
+        [[nodiscard]] ns::String name() const noexcept
+        {
+            return getRetained<ns::String>(sel::name);
+        }
+
+        [[nodiscard]] ns::Dictionary<ns::String, FunctionConstant> functionConstantsDictionary() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            return getRetained<ns::Dictionary<ns::String, FunctionConstant>>(sel::functionConstantsDictionary);
         }
     };
 

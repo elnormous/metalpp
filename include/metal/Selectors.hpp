@@ -74,6 +74,11 @@ namespace mtl
         inline const auto setStepRate_ = sel_registerName("setStepRate:");
         inline const auto functionType = sel_registerName("functionType");
         inline const auto patchType = sel_registerName("patchType");
+        inline const auto patchControlPointCount = sel_registerName("patchControlPointCount");
+        inline const auto vertexAttributes = sel_registerName("vertexAttributes");
+        inline const auto stageInputAttributes = sel_registerName("stageInputAttributes");
+        inline const auto functionConstantsDictionary = sel_registerName("functionConstantsDictionary");
+
         inline const auto preprocessorMacros = sel_registerName("preprocessorMacros");
         inline const auto setPreprocessorMacros_ = sel_registerName("setPreprocessorMacros:");
         inline const auto fastMathEnabled = sel_registerName("fastMathEnabled");
