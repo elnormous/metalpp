@@ -276,6 +276,40 @@ TEST_CASE("Function")
     CHECK(computeFunction.patchType() == mtl::PatchType::None);
 }
 
+TEST_CASE("Vertex descriptor")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::VertexDescriptor vertexDescriptor;
+    REQUIRE(vertexDescriptor);
+    REQUIRE(vertexDescriptor.retainCount() == 1);
+
+    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+
+    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+    vertexLayout0.setStride(16);
+    CHECK(vertexLayout0.stride() == 16);
+    vertexLayout0.setStepRate(1);
+    CHECK(vertexLayout0.stepRate() == 1);
+    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+    CHECK(vertexLayout0.stepFunction() == mtl::VertexStepFunction::PerVertex);
+
+    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+    REQUIRE(vertexAttributes);
+    REQUIRE(vertexAttributes.retainCount() == 2);
+
+    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+    REQUIRE(vertexAttribute0);
+    REQUIRE(vertexAttribute0.retainCount() == 2);
+
+    vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
+    CHECK(vertexAttribute0.format() == mtl::VertexFormat::Float3);
+    vertexAttribute0.setOffset(0);
+    CHECK(vertexAttribute0.offset() == 0);
+    vertexAttribute0.setBufferIndex(0);
+    CHECK(vertexAttribute0.bufferIndex() == 0);
+}
+
 TEST_CASE("Render pipeline state")
 {
     ns::AutoreleasePool pool;
@@ -295,44 +329,26 @@ TEST_CASE("Render pipeline state")
 
     // vertex descriptor
     mtl::VertexDescriptor vertexDescriptor;
-    REQUIRE(vertexDescriptor);
-    REQUIRE(vertexDescriptor.retainCount() == 1);
 
     mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
     mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
     vertexLayout0.setStride(16);
-    CHECK(vertexLayout0.stride() == 16);
     vertexLayout0.setStepRate(1);
-    CHECK(vertexLayout0.stepRate() == 1);
     vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
-    CHECK(vertexLayout0.stepFunction() == mtl::VertexStepFunction::PerVertex);
 
     mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-    REQUIRE(vertexAttributes);
-    REQUIRE(vertexAttributes.retainCount() == 2);
 
     // position
     mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-    REQUIRE(vertexAttribute0);
-    REQUIRE(vertexAttribute0.retainCount() == 2);
-
     vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
-    CHECK(vertexAttribute0.format() == mtl::VertexFormat::Float3);
     vertexAttribute0.setOffset(0);
-    CHECK(vertexAttribute0.offset() == 0);
     vertexAttribute0.setBufferIndex(0);
-    CHECK(vertexAttribute0.bufferIndex() == 0);
 
     // color
     mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
-    REQUIRE(vertexAttribute1);
-    REQUIRE(vertexAttribute1.retainCount() == 2);
-
     vertexAttribute1.setFormat(mtl::VertexFormat::UChar4Normalized);
-    CHECK(vertexAttribute1.format() == mtl::VertexFormat::UChar4Normalized);
     vertexAttribute1.setOffset(12);
-    CHECK(vertexAttribute1.offset() == 12);
     vertexAttribute1.setBufferIndex(0);
 
     // render pipeline descriptor
