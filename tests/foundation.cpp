@@ -11,10 +11,8 @@ TEST_CASE("AutoreleasePool")
     REQUIRE(autoreleasePool);
 
     ns::Object obj{};
-
-    using SendMessageProc = id(const void*, SEL);
-    SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
-    proc(proc(static_cast<id>(obj), ns::sel::retain), ns::sel::autorelease);
+    objc::sendMessage<id>(objc::sendMessage<id>(obj, ns::sel::retain),
+                          ns::sel::autorelease);
     
     REQUIRE(obj.retainCount() == 2);
     autoreleasePool.drain();
