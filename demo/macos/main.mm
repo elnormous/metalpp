@@ -3,6 +3,7 @@
 #import <QuartzCore/CAMetalLayer.h>
 #include <simd/simd.h>
 #include "AppDelegate.h"
+#include "appkit/Application.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 #include "quartzcore/MetalLayer.hpp"
@@ -261,10 +262,9 @@ class App
 public:
     App()
     {
-        NSApplication* sharedApplication = [NSApplication sharedApplication];
-        [sharedApplication activateIgnoringOtherApps:YES];
-        [sharedApplication setDelegate:[[[AppDelegate alloc] init] autorelease]];
-        createMainMenu(sharedApplication);
+        application.activateIgnoringOtherApps(true);
+        [application setDelegate:[[[AppDelegate alloc] init] autorelease]];
+        createMainMenu(application);
 
         const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
 
@@ -303,9 +303,6 @@ public:
         metalLayer.setDevice(device); // assign device
         const cg::Size drawableSize{windowSize.width, windowSize.height};
         metalLayer.setDrawableSize(drawableSize);
-
-        auto drawable = metalLayer.nextDrawable();
-        auto texture = drawable.texture();
 
         mtl::CompileOptions options;
         options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
@@ -371,8 +368,10 @@ public:
         void *bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
+        auto drawable = metalLayer.nextDrawable();
+
         mtl::RenderPassDescriptor renderPassDescriptor;
-        renderPassDescriptor.colorAttachments()[0].setTexture(texture);
+        renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
         renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
         renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
         renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
@@ -408,8 +407,7 @@ public:
 
     void run()
     {
-        NSApplication* sharedApplication = [NSApplication sharedApplication];
-        [sharedApplication run];
+        application.run();
 
 //        CVDisplayLinkRelease(displayLink);
 //        [window release];
@@ -421,6 +419,7 @@ public:
 
     }
 private:
+    ns::Application application;
     mtl::Device device;
 };
 
@@ -434,7 +433,8 @@ static CVReturn renderCallback(CVDisplayLinkRef,
     return kCVReturnSuccess;
 }
 
-int main(int argc, const char* argv[]) {
+int main(int argc, const char* argv[])
+{
     ns::AutoreleasePool autoreleasePool;
 
     try

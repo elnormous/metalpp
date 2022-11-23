@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		309010FD292B7B72002D121D /* quartzcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 309010FC292B7B72002D121D /* quartzcore.cpp */; };
+		3090110C292EA3F9002D121D /* appkit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3090110A292E9FB6002D121D /* appkit.cpp */; };
 		30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
 		30B19E55292738A3002BA9A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953042920C60E007C8914 /* main.cpp */; };
 		30B19E56292738A6002BA9A2 /* metal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953142921B9FB007C8914 /* metal.cpp */; };
@@ -65,6 +66,9 @@
 		30901100292B877E002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		30901104292B8B38002D121D /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		30901105292CCCCE002D121D /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
+		30901109292E9F48002D121D /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
+		3090110A292E9FB6002D121D /* appkit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = appkit.cpp; sourceTree = "<group>"; };
+		3090110B292EA269002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		30B19E4D29273892002BA9A2 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B19E59292738E1002BA9A2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		30B953042920C60E007C8914 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 		309010D6292B7833002D121D /* include */ = {
 			isa = PBXGroup;
 			children = (
+				30901108292E9C6B002D121D /* appkit */,
 				30901102292B8B0B002D121D /* corefoundation */,
 				309010ED292B7833002D121D /* foundation */,
 				309010D7292B7833002D121D /* metal */,
@@ -170,9 +175,19 @@
 			path = corefoundation;
 			sourceTree = "<group>";
 		};
+		30901108292E9C6B002D121D /* appkit */ = {
+			isa = PBXGroup;
+			children = (
+				30901109292E9F48002D121D /* Application.hpp */,
+				3090110B292EA269002D121D /* Selectors.hpp */,
+			);
+			path = appkit;
+			sourceTree = "<group>";
+		};
 		30B952F82920C60E007C8914 = {
 			isa = PBXGroup;
 			children = (
+				3090110A292E9FB6002D121D /* appkit.cpp */,
 				30B953122921B911007C8914 /* foundation.cpp */,
 				30B9530D2920C8EB007C8914 /* Frameworks */,
 				309010D6292B7833002D121D /* include */,
@@ -262,6 +277,7 @@
 				30B19E55292738A3002BA9A2 /* main.cpp in Sources */,
 				309010FD292B7B72002D121D /* quartzcore.cpp in Sources */,
 				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
+				3090110C292EA3F9002D121D /* appkit.cpp in Sources */,
 				30B19E57292738A8002BA9A2 /* objc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
