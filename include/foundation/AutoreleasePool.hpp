@@ -12,13 +12,13 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
     public:
         AutoreleasePool() noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {            
         }
 
         void drain() noexcept
         {
-            sendMessage(release(), sel::drain);
+            objc::sendMessage(release(), sel::drain);
         }
     };
 }

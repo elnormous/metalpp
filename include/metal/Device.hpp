@@ -98,7 +98,7 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
 
             return Library{library};
         }
@@ -112,7 +112,7 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
 
             return Library{library};
         }
@@ -125,7 +125,7 @@ namespace mtl
                                                            &error);
 
             if (error != nil)
-                throw ns::Error{sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
 
             return RenderPipelineState{renderPipelineState};
         }

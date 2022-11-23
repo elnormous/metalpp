@@ -10,27 +10,27 @@
 
 namespace ns
 {
-    class Error final: public Object
+    class Error: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSError");
     public:
         Error(const id p) noexcept: Object{p} {}
 
         Error(const String& domain, const Integer& code) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithDomain_code_userInfo_,
-                                   static_cast<id>(domain),
-                                   code,
-                                   nil)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithDomain_code_userInfo_,
+                                         static_cast<id>(domain),
+                                         code,
+                                         nil)}
         {
         }
 
         Error(const String& domain, const Integer& code, const Dictionary<String, Object>& userInfo) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithDomain_code_userInfo_,
-                                   static_cast<id>(domain),
-                                   code,
-                                   static_cast<id>(userInfo))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithDomain_code_userInfo_,
+                                         static_cast<id>(domain),
+                                         code,
+                                         static_cast<id>(userInfo))}
         {
         }
 

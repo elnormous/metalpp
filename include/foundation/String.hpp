@@ -47,26 +47,26 @@ namespace ns
         static inline const auto cls = objc_lookUpClass("NSString");
     public:
         String():
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
 
         String(const id p) noexcept: Object{p} {}
 
         String(const char* str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithCString_encoding_,
-                                   str,
-                                   encoding)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithCString_encoding_,
+                                         str,
+                                         encoding)}
         {
         }
 
         String(const std::string_view str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithBytes_length_encoding_,
-                                   str.data(),
-                                   static_cast<UInteger>(str.length()),
-                                   encoding)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithBytes_length_encoding_,
+                                         str.data(),
+                                         static_cast<UInteger>(str.length()),
+                                         encoding)}
         {
         }
 

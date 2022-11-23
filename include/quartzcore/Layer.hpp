@@ -4,29 +4,28 @@
 #include <dlfcn.h>
 #include "../objc/Object.hpp"
 #include "../corefoundation/Types.h"
+#include "../foundation/String.hpp"
 #include "Selectors.hpp"
 
 namespace ca
 {
-    class LayerContentsFilter: public ns::Object
+    class LayerContentsFilter: public ns::String
     {
     public:
         LayerContentsFilter() = delete;
+        LayerContentsFilter(const id p) noexcept: ns::String{p} {}
     };
 
-    namespace detail
-    {
-        inline const auto filterNearest = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterNearest"));
-        inline const auto filterLinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterLinear"));
-        inline const auto filterTrilinear = static_cast<id>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear"));
-    }
+    inline const LayerContentsFilter filterNearest{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterNearest")), ns::sel::retain)};
+    inline const LayerContentsFilter filterLinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterLinear")), ns::sel::retain)};
+    inline const LayerContentsFilter filterTrilinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear")), ns::sel::retain)};
 
     class Layer: public ns::Object
     {
         static inline const auto cls = objc_lookUpClass("CALayer");
     public:
         Layer() noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
 
@@ -44,6 +43,26 @@ namespace ca
             sendMessage(sel::setFrame_, frame);
         }
 
+        [[nodiscard]] LayerContentsFilter minificationFilter() const noexcept
+        {
+            return getRetained<LayerContentsFilter>(sel::minificationFilter);
+        }
+
+        void setMinificationFilter(const LayerContentsFilter& minificationFilter) noexcept
+        {
+            sendMessage(sel::setMinificationFilter_, static_cast<id>(minificationFilter));
+        }
+
+        [[nodiscard]] LayerContentsFilter magnificationFilter() const noexcept
+        {
+            return getRetained<LayerContentsFilter>(sel::magnificationFilter);
+        }
+
+        void setMagnificationFilter(const LayerContentsFilter& magnificationFilter) noexcept
+        {
+            sendMessage(sel::setMagnificationFilter_, static_cast<id>(magnificationFilter));
+        }
+    };
 }
 
 #endif

@@ -21,19 +21,19 @@ namespace ns
         Dictionary(const id p) noexcept: Object{p} {}
 
         Dictionary(const Array<ObjectType>& objects, const Array<KeyType>& keys) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithObjects_forKeys_,
-                                   static_cast<id>(objects),
-                                   static_cast<id>(keys))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithObjects_forKeys_,
+                                         static_cast<id>(objects),
+                                         static_cast<id>(keys))}
         {
         }
 
         template <class ...Args>
         Dictionary(const Args&... objectsAndKeys) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc),
-                                   sel::initWithObjectsAndKeys_,
-                                   static_cast<id>(objectsAndKeys)...,
-                                   nil)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithObjectsAndKeys_,
+                                         static_cast<id>(objectsAndKeys)...,
+                                         nil)}
         {
         }
 
