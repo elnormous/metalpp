@@ -5,6 +5,7 @@
 #include "AppDelegate.h"
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
+#include "quartzcore/MetalLayer.hpp"
 
 struct Uniforms
 {
@@ -53,22 +54,22 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
         [self setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [self setWantsLayer:YES];
 
-        CAMetalLayer* metalLayer = [[[CAMetalLayer alloc] init] autorelease];
+        ca::MetalLayer metalLayer;
 
         const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
 
-        metalLayer.edgeAntialiasingMask = 0;
-        metalLayer.masksToBounds = YES;
+        //metalLayer.setEdgeAntialiasingMask(0);
+        //metalLayer.setMasksToBounds(true);
         //metalLayer.backgroundColor = backgroundColor;
-        metalLayer.presentsWithTransaction = NO;
-        metalLayer.anchorPoint = CGPointMake(0.5, 0.5);
-        metalLayer.frame = frameRect;
-        metalLayer.magnificationFilter = kCAFilterNearest;
-        metalLayer.minificationFilter = kCAFilterNearest;
-        metalLayer.framebufferOnly = NO;
-        metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
+        metalLayer.setPresentsWithTransaction(false);
+        //metalLayer.setAnchorPoint = CGPointMake(0.5, 0.5);
+        metalLayer.setFrame(cg::Rect{cg::Point{frameRect.origin.x, frameRect.origin.y}, cg::Size{frameRect.size.width, frameRect.size.height}});
+        metalLayer.setMagnificationFilter(ca::filterNearest);
+        metalLayer.setMinificationFilter(ca::filterNearest);
+        metalLayer.setFramebufferOnly(false);
+        metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
 
         [self setLayer:metalLayer];
 
