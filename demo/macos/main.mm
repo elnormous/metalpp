@@ -60,11 +60,11 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
 
-        //metalLayer.setEdgeAntialiasingMask(0);
-        //metalLayer.setMasksToBounds(true);
-        //metalLayer.backgroundColor = backgroundColor;
+        metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
+        metalLayer.setMasksToBounds(true);
+        //metalLayer.setBackgroundColor(backgroundColor);
         metalLayer.setPresentsWithTransaction(false);
-        //metalLayer.setAnchorPoint = CGPointMake(0.5, 0.5);
+        metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
         metalLayer.setFrame(cg::Rect{cg::Point{frameRect.origin.x, frameRect.origin.y}, cg::Size{frameRect.size.width, frameRect.size.height}});
         metalLayer.setMagnificationFilter(ca::filterNearest);
         metalLayer.setMinificationFilter(ca::filterNearest);
