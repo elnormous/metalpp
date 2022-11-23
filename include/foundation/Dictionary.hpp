@@ -9,7 +9,7 @@
 namespace ns
 {
     template <class KeyType, class ObjectType>
-    class Dictionary final: public Object
+    class Dictionary: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSDictionary");
     public:

@@ -42,7 +42,7 @@ namespace ns
         UTF32LittleEndian = 0x9c000100        // UTF32 encoding with explicit endianness specified
     };
 
-    class String final: public Object
+    class String: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSString");
     public:

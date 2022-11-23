@@ -9,7 +9,7 @@
 namespace ns
 {
     template <class Type>
-    class Array final: public Object
+    class Array: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSArray");
     public:
@@ -22,7 +22,10 @@ namespace ns
 
         template <class ...Args>
         Array(const Args&... objects) noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::initWithObjects_, static_cast<id>(objects)..., nil)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithObjects_,
+                                         static_cast<id>(objects)...,
+                                         nil)}
         {
         }
 
