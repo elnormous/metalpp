@@ -6,7 +6,7 @@
 
 namespace mtl
 {
-    class Drawable final: public ns::Object
+    class Drawable: public ns::Object
     {
     public:
         Drawable() = delete;
