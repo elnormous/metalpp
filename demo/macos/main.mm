@@ -218,15 +218,6 @@ static void createMainMenu(NSApplication* sharedApplication)
     sharedApplication.mainMenu = mainMenu;
 }
 
-static CVReturn renderCallback(CVDisplayLinkRef,
-                               const CVTimeStamp*,
-                               const CVTimeStamp*,
-                               CVOptionFlags,
-                               CVOptionFlags*,
-                               void* userInfo)
-{
-    return kCVReturnSuccess;
-}
 
 static const char* shadersSource =
 "#include <metal_stdlib>\n" \
@@ -265,158 +256,197 @@ static const char* shadersSource =
 "    return in.color;\n" \
 "}";
 
+class App
+{
+public:
+    App()
+    {
+        NSApplication* sharedApplication = [NSApplication sharedApplication];
+        [sharedApplication activateIgnoringOtherApps:YES];
+        [sharedApplication setDelegate:[[[AppDelegate alloc] init] autorelease]];
+        createMainMenu(sharedApplication);
+
+        const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
+
+        NSScreen* screen = [NSScreen mainScreen];
+
+        const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
+                                             round(screen.frame.size.height * 0.6));
+
+        const NSRect frame = NSMakeRect(round(screen.frame.size.width / 2.0F - windowSize.width / 2.0F),
+                                        round(screen.frame.size.height / 2.0F - windowSize.height / 2.0F),
+                                        windowSize.width, windowSize.height);
+
+        NSWindow* window  = [[NSWindow alloc] initWithContentRect:frame
+                                                        styleMask:windowStyleMask
+                                                          backing:NSBackingStoreBuffered
+                                                            defer:NO
+                                                           screen:screen];
+
+        [window setReleasedWhenClosed:NO];
+        [window setTabbingMode:NSWindowTabbingModeDisallowed];
+
+        [window setAcceptsMouseMovedEvents:YES];
+
+        WindowDelegate* windowDelegate = [[WindowDelegate alloc] init];
+        [window setDelegate:windowDelegate];
+
+        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+        [window setTitle:@"demo"];
+
+        NSView* view = [[[View alloc] init] autorelease];
+
+        [window setContentView:view];
+        [window makeKeyAndOrderFront:nil];
+
+        ca::MetalLayer metalLayer{[view.layer retain]};
+        metalLayer.setDevice(device); // assign device
+        const cg::Size drawableSize{windowSize.width, windowSize.height};
+        metalLayer.setDrawableSize(drawableSize);
+
+        auto drawable = metalLayer.nextDrawable();
+        auto texture = drawable.texture();
+
+        mtl::CompileOptions options;
+        options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
+        options.setFastMathEnabled(true);
+
+        auto library = device.newLibrary(shadersSource, options);
+        library.setLabel("Library");
+
+        const auto vertexFunction = library.newFunction("vertex_function");
+        const auto fragmentFunction = library.newFunction("fragment_function");
+
+        mtl::VertexDescriptor vertexDescriptor;
+
+        mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
+
+        mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+        vertexLayout0.setStride(32);
+        vertexLayout0.setStepRate(1);
+        vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+
+        mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+
+        // position
+        mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+        vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
+        vertexAttribute0.setOffset(0);
+        vertexAttribute0.setBufferIndex(0);
+
+        // color
+        mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
+        vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
+        vertexAttribute1.setOffset(16);
+        vertexAttribute1.setBufferIndex(0);
+
+        mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+        renderPipelineDescriptor.setLabel("renderPipeline");
+        renderPipelineDescriptor.setVertexFunction(vertexFunction);
+        renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
+        renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+    //    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    //    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+
+        const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
+        colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+
+        auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
+
+        static std::uint16_t indexData[] = { 0, 1, 2, 3, 0, 2 };
+        const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+
+        static float quadVertexData[] = {
+             0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
+            -0.5, -0.5, 0.0, 1.0,     0.0, 1.0, 0.0, 1.0,
+            -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
+             0.5,  0.5, 0.0, 1.0,     1.0, 1.0, 0.0, 1.0,
+        };
+
+        const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+
+        auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+        Uniforms uniforms;
+        uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
+        void *bufferPointer = uniformBuffer.contents();
+        memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
+
+        mtl::RenderPassDescriptor renderPassDescriptor;
+        renderPassDescriptor.colorAttachments()[0].setTexture(texture);
+        renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
+        renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
+        renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
+
+        auto commandQueue = device.newCommandQueue();
+        auto commandBuffer = commandQueue.commandBuffer();
+
+        auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
+        renderCommand.setRenderPipelineState(pipelineState);
+        renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
+        renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
+        renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
+        renderCommand.endEncoding();
+
+        commandBuffer.presentDrawable(drawable);
+
+        commandBuffer.commit();
+        commandBuffer.waitUntilCompleted();
+
+//        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
+//        CVDisplayLinkRef displayLink = NULL;
+//        const CVReturn createResult = CVDisplayLinkCreateWithCGDisplay(displayId, &displayLink);
+//        if (createResult != kCVReturnSuccess) return 1;
+//
+//        CVReturn setOutputCallbackResult = CVDisplayLinkSetOutputCallback(displayLink, renderCallback, NULL);
+//        if (setOutputCallbackResult != kCVReturnSuccess)
+//            return 1;
+//
+//        CVReturn startResult = CVDisplayLinkStart(displayLink);
+//        if (startResult != kCVReturnSuccess)
+//            return 1;
+    }
+
+    void run()
+    {
+        NSApplication* sharedApplication = [NSApplication sharedApplication];
+        [sharedApplication run];
+
+//        CVDisplayLinkRelease(displayLink);
+//        [window release];
+//        [windowDelegate release];
+    }
+
+    void render()
+    {
+
+    }
+private:
+    mtl::Device device;
+};
+
+static CVReturn renderCallback(CVDisplayLinkRef,
+                               const CVTimeStamp*,
+                               const CVTimeStamp*,
+                               CVOptionFlags,
+                               CVOptionFlags*,
+                               void* userInfo)
+{
+    return kCVReturnSuccess;
+}
+
 int main(int argc, const char* argv[]) {
     ns::AutoreleasePool autoreleasePool;
 
-    NSApplication* sharedApplication = [NSApplication sharedApplication];
-    [sharedApplication activateIgnoringOtherApps:YES];
-    [sharedApplication setDelegate:[[[AppDelegate alloc] init] autorelease]];
-    createMainMenu(sharedApplication);
+    try
+    {
+        App app;
+        app.run();
+    }
+    catch(const std::exception& exception)
+    {
+        std::cerr << exception.what() << '\n';
+        return EXIT_FAILURE;
+    }
 
-    const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
-
-    NSScreen* screen = [NSScreen mainScreen];
-
-    const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
-                                         round(screen.frame.size.height * 0.6));
-
-    const NSRect frame = NSMakeRect(round(screen.frame.size.width / 2.0F - windowSize.width / 2.0F),
-                                    round(screen.frame.size.height / 2.0F - windowSize.height / 2.0F),
-                                    windowSize.width, windowSize.height);
-
-    NSWindow* window  = [[NSWindow alloc] initWithContentRect:frame
-                                                    styleMask:windowStyleMask
-                                                      backing:NSBackingStoreBuffered
-                                                        defer:NO
-                                                       screen:screen];
-
-    [window setReleasedWhenClosed:NO];
-    [window setTabbingMode:NSWindowTabbingModeDisallowed];
-
-    [window setAcceptsMouseMovedEvents:YES];
-
-    WindowDelegate* windowDelegate = [[WindowDelegate alloc] init];
-    [window setDelegate:windowDelegate];
-
-    [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-    [window setTitle:@"demo"];
-
-    NSView* view = [[[View alloc] init] autorelease];
-
-    [window setContentView:view];
-    [window makeKeyAndOrderFront:nil];
-
-    mtl::Device device;
-
-    ca::MetalLayer metalLayer{[view.layer retain]};
-    metalLayer.setDevice(device); // assign device
-    const cg::Size drawableSize{windowSize.width, windowSize.height};
-    metalLayer.setDrawableSize(drawableSize);
-
-    auto drawable = metalLayer.nextDrawable();
-    auto texture = drawable.texture();
-
-    mtl::CompileOptions options;
-    options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
-    options.setFastMathEnabled(true);
-
-    auto library = device.newLibrary(ns::String{shadersSource}, options);
-    library.setLabel("Library");
-
-    const auto vertexFunction = library.newFunction("vertex_function");
-    const auto fragmentFunction = library.newFunction("fragment_function");
-
-    mtl::VertexDescriptor vertexDescriptor;
-
-    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
-
-    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-    vertexLayout0.setStride(32);
-    vertexLayout0.setStepRate(1);
-    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
-
-    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-
-    // position
-    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-    vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
-    vertexAttribute0.setOffset(0);
-    vertexAttribute0.setBufferIndex(0);
-
-    // color
-    mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
-    vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
-    vertexAttribute1.setOffset(16);
-    vertexAttribute1.setBufferIndex(0);
-
-    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.setLabel("renderPipeline");
-    renderPipelineDescriptor.setVertexFunction(vertexFunction);
-    renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
-    renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
-//    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-//    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-
-    const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
-    colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-
-    auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
-
-    static std::uint16_t indexData[] = { 0, 1, 2, 3, 0, 2 };
-    const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
-
-    static float quadVertexData[] = {
-         0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
-        -0.5, -0.5, 0.0, 1.0,     0.0, 1.0, 0.0, 1.0,
-        -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
-         0.5,  0.5, 0.0, 1.0,     1.0, 1.0, 0.0, 1.0,
-    };
-
-    const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
-
-    auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
-    Uniforms uniforms;
-    uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
-    void *bufferPointer = uniformBuffer.contents();
-    memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
-
-    mtl::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.colorAttachments()[0].setTexture(mtl::Texture{[texture retain]});
-    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
-    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
-    renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
-
-    auto commandQueue = device.newCommandQueue();
-    auto commandBuffer = commandQueue.commandBuffer();
-
-    auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
-    renderCommand.setRenderPipelineState(pipelineState);
-    renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
-    renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
-    renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
-    renderCommand.endEncoding();
-
-    commandBuffer.presentDrawable(mtl::Drawable{[drawable retain]});
-
-    commandBuffer.commit();
-    commandBuffer.waitUntilCompleted();
-
-    CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
-    CVDisplayLinkRef displayLink = NULL;
-    const CVReturn createResult = CVDisplayLinkCreateWithCGDisplay(displayId, &displayLink);
-    if (createResult != kCVReturnSuccess) return 1;
-
-    CVReturn setOutputCallbackResult = CVDisplayLinkSetOutputCallback(displayLink, renderCallback, NULL);
-    if (setOutputCallbackResult != kCVReturnSuccess)
-        return 1;
-
-    CVReturn startResult = CVDisplayLinkStart(displayLink);
-    if (startResult != kCVReturnSuccess)
-        return 1;
-
-    [sharedApplication run];
-
-    CVDisplayLinkRelease(displayLink);
-    [window release];
-    [windowDelegate release];
+    return EXIT_SUCCESS;
 }
