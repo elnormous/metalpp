@@ -13,12 +13,12 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSDictionary");
     public:
+        using Object::Object;
+
         Dictionary() noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
-
-        Dictionary(const id p) noexcept: Object{p} {}
 
         Dictionary(const Array<ObjectType>& objects, const Array<KeyType>& keys) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),

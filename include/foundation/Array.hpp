@@ -13,12 +13,12 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSArray");
     public:
+        using Object::Object;
+
         Array() noexcept:
             Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
-
-        Array(const id p) noexcept: Object{p} {}
 
         template <class ...Args>
         Array(const Args&... objects) noexcept:

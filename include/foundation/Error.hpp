@@ -14,7 +14,8 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSError");
     public:
-        Error(const id p) noexcept: Object{p} {}
+        using Object::Object;
+        Error() = delete;
 
         Error(const String& domain, const Integer& code) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),

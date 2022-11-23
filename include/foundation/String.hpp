@@ -46,12 +46,12 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSString");
     public:
+        using Object::Object;
+
         String():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
-
-        String(const id p) noexcept: Object{p} {}
 
         String(const char* str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),

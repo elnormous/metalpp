@@ -13,7 +13,6 @@ namespace ca
     {
     public:
         LayerContentsFilter() = delete;
-        LayerContentsFilter(const id p) noexcept: ns::String{p} {}
     };
 
     inline const LayerContentsFilter filterNearest{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterNearest")), ns::sel::retain)};
@@ -24,12 +23,10 @@ namespace ca
     {
         static inline const auto cls = objc_lookUpClass("CALayer");
     public:
+        using Object::Object;
+
         Layer() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
-        {
-        }
-
-        Layer(const id p) noexcept: Object{p}
         {
         }
 

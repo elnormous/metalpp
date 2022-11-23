@@ -200,12 +200,12 @@ namespace mtl
     {
         static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
     public:
+        using Object::Object;
+        
         VertexDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
-
-        VertexDescriptor(const id p) noexcept: Object{p} {}
 
         [[nodiscard]] auto layouts() const noexcept
         {
