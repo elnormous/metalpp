@@ -1,9 +1,9 @@
 #ifndef METALPP_QUARTZCORE_METALLAYER_HPP
 #define METALPP_QUARTZCORE_METALLAYER_HPP
 
+#include "../metal/Device.hpp"
 #include "../metal/Drawable.hpp"
 #include "../metal/Texture.hpp"
-#include "Device.hpp"
 #include "Layer.hpp"
 #include "Selectors.hpp"
 
@@ -77,6 +77,16 @@ namespace ca
         {
             sendMessage(sel::setPresentsWithTransaction_, presentsWithTransaction ? YES : NO);
         }
+
+//        [[nodiscard]] auto edgeAntialiasingMask() const noexcept
+//        {
+//            return sendMessage<CAEdgeAntialiasingMask>(sel::edgeAntialiasingMask);
+//        }
+//
+//        void setEdgeantialiasingmask(const CAEdgeAntialiasingMask edgeAntialiasingMask) noexcept
+//        {
+//            sendMessage(sel::setEdgeantialiasingmask_, edgeAntialiasingMask);
+//        }
     };
 }
 

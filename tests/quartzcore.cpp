@@ -1,9 +1,12 @@
 #include "doctest.h"
+#include "foundation/AutoreleasePool.hpp"
 #include "quartzcore/Layer.hpp"
 #include "quartzcore/MetalLayer.hpp"
 
 TEST_CASE("Layer")
 {
+    ns::AutoreleasePool pool;
+
     ca::Layer layer;
     REQUIRE(layer);
     REQUIRE(layer.retainCount() == 1);
@@ -23,6 +26,8 @@ TEST_CASE("Layer")
 
 TEST_CASE("MetalLayer")
 {
+    ns::AutoreleasePool pool;
+
     ca::MetalLayer metalLayer;
     REQUIRE(metalLayer);
     REQUIRE(metalLayer.retainCount());
