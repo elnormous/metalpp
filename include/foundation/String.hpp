@@ -70,35 +70,35 @@ namespace ns
         {
         }
 
-        [[nodiscard]] char operator[](UInteger index) const noexcept
-        {
-            return charAtIndex(index);
-        }
-
-        [[nodiscard]] char charAtIndex(const UInteger index) const noexcept
+        [[nodiscard]] auto charAtIndex(const UInteger index) const noexcept
         {
             const auto c = sendMessage<unichar>(sel::characterAtIndex_, index);
             return static_cast<char>(c);
         }
 
-        [[nodiscard]] UInteger length() const noexcept
+        [[nodiscard]] auto operator[](UInteger index) const noexcept
+        {
+            return charAtIndex(index);
+        }
+
+        [[nodiscard]] auto length() const noexcept
         {
             return sendMessage<UInteger>(sel::length);
         }
 
-        [[nodiscard]] const char* cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
+        [[nodiscard]] auto cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
             return str;
         }
 
-        [[nodiscard]] std::string string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
+        [[nodiscard]] auto string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
             const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
             return std::string{str};
         }
 
-        [[nodiscard]] bool isEqualToString(const String& string) const noexcept
+        [[nodiscard]] auto isEqualToString(const String& string) const noexcept
         {
             return sendMessage<BOOL>(sel::isEqualToString_, static_cast<id>(string)) == YES;
         }

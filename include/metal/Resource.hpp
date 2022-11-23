@@ -91,7 +91,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -101,22 +101,22 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] CPUCacheMode cpuCacheMode() const noexcept
+        [[nodiscard]] auto cpuCacheMode() const noexcept
         {
             return sendMessage<CPUCacheMode>(sel::cpuCacheMode);
         }
 
-        [[nodiscard]] StorageMode storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        [[nodiscard]] auto storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<StorageMode>(sel::storageMode);
         }
 
-        [[nodiscard]] HazardTrackingMode hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<HazardTrackingMode>(sel::hazardTrackingMode);
         }
 
-        [[nodiscard]] ResourceOptions resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<ResourceOptions>(sel::resourceOptions);
         }

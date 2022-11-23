@@ -97,7 +97,7 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptor() = delete;
 
-        [[nodiscard]] ns::UInteger stride() const noexcept
+        [[nodiscard]] auto stride() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::stride);
         }
@@ -107,7 +107,7 @@ namespace mtl
             sendMessage(sel::setStride_, stride);
         }
 
-        [[nodiscard]] VertexStepFunction stepFunction() const noexcept
+        [[nodiscard]] auto stepFunction() const noexcept
         {
             return sendMessage<VertexStepFunction>(sel::stepFunction);
         }
@@ -117,7 +117,7 @@ namespace mtl
             sendMessage(sel::setStepFunction_, stepFunction);
         }
 
-        [[nodiscard]] ns::UInteger stepRate() const noexcept
+        [[nodiscard]] auto stepRate() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::stepRate);
         }
@@ -133,14 +133,14 @@ namespace mtl
     public:
         VertexBufferLayoutDescriptorArray() = delete;
 
-        [[nodiscard]] VertexBufferLayoutDescriptor operator[](const ns::UInteger index) const noexcept
-        {
-            return objectAtIndexedSubscript(index);
-        }
-
-        [[nodiscard]] VertexBufferLayoutDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
+        [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexBufferLayoutDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+        }
+
+        [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
+        {
+            return objectAtIndexedSubscript(index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -149,7 +149,7 @@ namespace mtl
     public:
         VertexAttributeDescriptor() = delete;
 
-        [[nodiscard]] VertexFormat format() const noexcept
+        [[nodiscard]] auto format() const noexcept
         {
             return sendMessage<VertexFormat>(sel::format);
         }
@@ -159,7 +159,7 @@ namespace mtl
             sendMessage(sel::setFormat_, vertexFormat);
         }
 
-        [[nodiscard]] ns::UInteger offset() const noexcept
+        [[nodiscard]] auto offset() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::offset);
         }
@@ -169,7 +169,7 @@ namespace mtl
             sendMessage(sel::setOffset_, offset);
         }
 
-        [[nodiscard]] ns::UInteger bufferIndex() const noexcept
+        [[nodiscard]] auto bufferIndex() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::bufferIndex);
         }
@@ -185,14 +185,14 @@ namespace mtl
     public:
         VertexAttributeDescriptorArray() = delete;
 
-        [[nodiscard]] VertexAttributeDescriptor operator[](const ns::UInteger index) const noexcept
-        {
-            return objectAtIndexedSubscript(index);
-        }
-
-        [[nodiscard]] VertexAttributeDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
+        [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexAttributeDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+        }
+
+        [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
+        {
+            return objectAtIndexedSubscript(index);
         }
     };
 
@@ -207,12 +207,12 @@ namespace mtl
 
         VertexDescriptor(const id p) noexcept: Object{p} {}
 
-        [[nodiscard]] VertexBufferLayoutDescriptorArray layouts() const noexcept
+        [[nodiscard]] auto layouts() const noexcept
         {
             return getRetained<VertexBufferLayoutDescriptorArray>(sel::layouts);
         }
 
-        [[nodiscard]] VertexAttributeDescriptorArray attributes() const noexcept
+        [[nodiscard]] auto attributes() const noexcept
         {
             return getRetained<VertexAttributeDescriptorArray>(sel::attributes);
         }

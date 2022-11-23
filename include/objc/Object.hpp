@@ -68,18 +68,18 @@ namespace ns
             return ptr;
         }
 
-        [[nodiscard]] Class getClass() const noexcept
+        [[nodiscard]] auto getClass() const noexcept
         {
             return sendMessage<Class>(sel::getClass);
         }
 
-        [[nodiscard]] UInteger retainCount() const noexcept
+        [[nodiscard]] auto retainCount() const noexcept
         {
             return sendMessage<UInteger>(sel::retainCount);
         }
 
         // Releases the ownership of the pointer without sending a release message
-        [[nodiscard]] id release() noexcept
+        [[nodiscard]] auto release() noexcept
         {
             const id result = ptr;
             ptr = nil;

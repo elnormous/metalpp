@@ -29,17 +29,17 @@ namespace ns
         {
         }
 
-        [[nodiscard]] Type operator[](const UInteger index) const noexcept
+        [[nodiscard]] auto operator[](const UInteger index) const noexcept
         {
             return objectAtIndex(index);
         }
 
-        [[nodiscard]] Type objectAtIndex(const UInteger index) const noexcept
+        [[nodiscard]] auto objectAtIndex(const UInteger index) const noexcept
         {
             return getRetained<Type>(sel::objectAtIndex_, index);
         }
 
-        [[nodiscard]] UInteger count() const noexcept
+        [[nodiscard]] auto count() const noexcept
         {
             return sendMessage<UInteger>(sel::count);
         }

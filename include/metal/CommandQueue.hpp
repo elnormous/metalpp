@@ -24,7 +24,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
         
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -34,7 +34,7 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] CommandBuffer commandBuffer() const noexcept
+        [[nodiscard]] auto commandBuffer() const noexcept
         {
             return getRetained<CommandBuffer>(sel::commandBuffer);
         }

@@ -37,37 +37,37 @@ namespace ns
         {
         }
 
-        [[nodiscard]] ObjectType operator[](const KeyType& key) const noexcept
+        [[nodiscard]] auto operator[](const KeyType& key) const noexcept
         {
             return objectForKey(key);
         }
 
-        [[nodiscard]] ObjectType operator[](KeyType&& key) const noexcept
+        [[nodiscard]] auto operator[](KeyType&& key) const noexcept
         {
             return objectForKey(std::move(key));
         }
 
-        [[nodiscard]] ObjectType objectForKey(const KeyType& key) const noexcept
+        [[nodiscard]] auto objectForKey(const KeyType& key) const noexcept
         {
             return getRetained<ObjectType>(sel::objectForKey_, static_cast<id>(key));
         }
 
-        [[nodiscard]] Array<KeyType> allKeys() const noexcept
+        [[nodiscard]] auto allKeys() const noexcept
         {
             return getRetained<Array<KeyType>>(sel::allKeys);
         }
 
-        [[nodiscard]] Array<KeyType> allKeysForObject(const Object& object) const noexcept
+        [[nodiscard]] auto allKeysForObject(const Object& object) const noexcept
         {
             return getRetained<Array<KeyType>>(sel::allKeysForObject_, static_cast<id>(object));
         }
 
-        [[nodiscard]] Array<ObjectType> allValues() const noexcept
+        [[nodiscard]] auto allValues() const noexcept
         {
             return getRetained<Array<ObjectType>>(sel::allValues);
         }
 
-        [[nodiscard]] UInteger count() const noexcept
+        [[nodiscard]] auto count() const noexcept
         {
             return sendMessage<UInteger>(sel::count);
         }

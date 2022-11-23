@@ -64,7 +64,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -74,37 +74,37 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] FunctionType functionType() const noexcept
+        [[nodiscard]] auto functionType() const noexcept
         {
             return sendMessage<FunctionType>(sel::functionType);
         }
 
-        [[nodiscard]] PatchType patchType() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto patchType() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return sendMessage<PatchType>(sel::patchType);
         }
 
-        [[nodiscard]] ns::Integer patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return sendMessage<ns::Integer>(sel::patchControlPointCount);
         }
 
-        [[nodiscard]] ns::Array<VertexAttribute> vertexAttributes() const noexcept
+        [[nodiscard]] auto vertexAttributes() const noexcept
         {
             return getRetained<ns::Array<VertexAttribute>>(sel::vertexAttributes);
         }
 
-        [[nodiscard]] ns::Array<Attribute> stageInputAttributes() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto stageInputAttributes() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return getRetained<ns::Array<Attribute>>(sel::stageInputAttributes);
         }
 
-        [[nodiscard]] ns::String name() const noexcept
+        [[nodiscard]] auto name() const noexcept
         {
             return getRetained<ns::String>(sel::name);
         }
 
-        [[nodiscard]] ns::Dictionary<ns::String, FunctionConstant> functionConstantsDictionary() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto functionConstantsDictionary() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return getRetained<ns::Dictionary<ns::String, FunctionConstant>>(sel::functionConstantsDictionary);
         }
@@ -144,7 +144,7 @@ namespace mtl
         {
         }
 
-        [[nodiscard]] ns::Dictionary<ns::String, ns::Object> preprocessorMacros() const noexcept
+        [[nodiscard]] auto preprocessorMacros() const noexcept
         {
             return getRetained<ns::Dictionary<ns::String, ns::Object>>(sel::preprocessorMacros);
         }
@@ -154,7 +154,7 @@ namespace mtl
             sendMessage(sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
         }
 
-        [[nodiscard]] bool fastMathEnabled() const noexcept
+        [[nodiscard]] auto fastMathEnabled() const noexcept
         {
             return sendMessage<BOOL>(sel::fastMathEnabled) == YES;
         }
@@ -164,7 +164,7 @@ namespace mtl
             sendMessage(sel::setFastMathEnabled_, fastMathEnabled ? YES : NO);
         }
 
-        [[nodiscard]] LanguageVersion languageVersion() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        [[nodiscard]] auto languageVersion() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<LanguageVersion>(sel::languageVersion);
         }
@@ -174,7 +174,7 @@ namespace mtl
             sendMessage(sel::setLanguageVersion_, languageVersion);
         }
 
-        [[nodiscard]] LibraryType libraryType() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        [[nodiscard]] auto libraryType() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             return sendMessage<LibraryType>(sel::libraryType);
         }
@@ -184,7 +184,7 @@ namespace mtl
             sendMessage(sel::setLibraryType_, libraryType);
         }
 
-        [[nodiscard]] ns::String installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        [[nodiscard]] auto installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             return getRetained<ns::String>(sel::installName);
         }
@@ -194,7 +194,7 @@ namespace mtl
             sendMessage(sel::setInstallName_, static_cast<id>(installName));
         }
 
-        [[nodiscard]] ns::Array<DynamicLibrary> libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        [[nodiscard]] auto libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             return getRetained<ns::Array<DynamicLibrary>>(sel::libraries);
         }
@@ -204,7 +204,7 @@ namespace mtl
             sendMessage(sel::setLibraries_, static_cast<id>(libraries));
         }
 
-        [[nodiscard]] bool preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
+        [[nodiscard]] auto preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
             return sendMessage<BOOL>(sel::preserveInvariance) == YES;
         }
@@ -214,7 +214,7 @@ namespace mtl
             sendMessage(sel::setPreserveInvariance_, preserveInvariance ? YES : NO);
         }
 
-        [[nodiscard]] LibraryOptimizationLevel optimizationLevel() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        [[nodiscard]] auto optimizationLevel() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             return sendMessage<LibraryOptimizationLevel>(sel::optimizationLevel);
         }
@@ -232,7 +232,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -242,7 +242,7 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] Function newFunction(const ns::String& name) const noexcept
+        [[nodiscard]] auto newFunction(const ns::String& name) const noexcept
         {
             const id function = sendMessage<id>(sel::newFunctionWithName_,
                                                 static_cast<id>(name));

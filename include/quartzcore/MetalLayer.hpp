@@ -77,16 +77,6 @@ namespace ca
         {
             sendMessage(sel::setPresentsWithTransaction_, presentsWithTransaction ? YES : NO);
         }
-
-//        [[nodiscard]] auto edgeAntialiasingMask() const noexcept
-//        {
-//            return sendMessage<CAEdgeAntialiasingMask>(sel::edgeAntialiasingMask);
-//        }
-//
-//        void setEdgeantialiasingmask(const CAEdgeAntialiasingMask edgeAntialiasingMask) noexcept
-//        {
-//            sendMessage(sel::setEdgeantialiasingmask_, edgeAntialiasingMask);
-//        }
     };
 }
 

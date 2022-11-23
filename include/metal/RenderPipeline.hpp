@@ -126,7 +126,7 @@ namespace mtl
     public:
         RenderPipelineColorAttachmentDescriptor() = delete;
 
-        [[nodiscard]] PixelFormat pixelFormat() const noexcept
+        [[nodiscard]] auto pixelFormat() const noexcept
         {
             return sendMessage<PixelFormat>(sel::pixelFormat);
         }
@@ -136,7 +136,7 @@ namespace mtl
             sendMessage(sel::setPixelFormat_, pixelFormat);
         }
 
-        [[nodiscard]] bool isBlendingEnabled() const noexcept
+        [[nodiscard]] auto isBlendingEnabled() const noexcept
         {
             return sendMessage<BOOL>(sel::isBlendingEnabled) == YES;
         }
@@ -146,7 +146,7 @@ namespace mtl
             sendMessage(sel::setBlendingEnabled_, blendingEnabled ? YES : NO);
         }
 
-        [[nodiscard]] BlendFactor sourceRGBBlendFactor() const noexcept
+        [[nodiscard]] auto sourceRGBBlendFactor() const noexcept
         {
             return sendMessage<BlendFactor>(sel::sourceRGBBlendFactor);
         }
@@ -156,7 +156,7 @@ namespace mtl
             sendMessage(sel::setSourceRGBBlendFactor_, sourceRGBBlendFactor);
         }
 
-        [[nodiscard]] BlendFactor destinationRGBBlendFactor() const noexcept
+        [[nodiscard]] auto destinationRGBBlendFactor() const noexcept
         {
             return sendMessage<BlendFactor>(sel::destinationRGBBlendFactor);
         }
@@ -166,7 +166,7 @@ namespace mtl
             sendMessage(sel::setDestinationRGBBlendFactor_, destinationRGBBlendFactor);
         }
 
-        [[nodiscard]] BlendOperation rgbBlendOperation() const noexcept
+        [[nodiscard]] auto rgbBlendOperation() const noexcept
         {
             return sendMessage<BlendOperation>(sel::rgbBlendOperation);
         }
@@ -176,7 +176,7 @@ namespace mtl
             sendMessage(sel::setRgbBlendOperation_, rgbBlendOperation);
         }
 
-        [[nodiscard]] BlendFactor sourceAlphaBlendFactor() const noexcept
+        [[nodiscard]] auto sourceAlphaBlendFactor() const noexcept
         {
             return sendMessage<BlendFactor>(sel::sourceAlphaBlendFactor);
         }
@@ -186,7 +186,7 @@ namespace mtl
             sendMessage(sel::setSourceAlphaBlendFactor_, sourceAlphaBlendFactor);
         }
 
-        [[nodiscard]] BlendFactor destinationAlphaBlendFactor() const noexcept
+        [[nodiscard]] auto destinationAlphaBlendFactor() const noexcept
         {
             return sendMessage<BlendFactor>(sel::destinationAlphaBlendFactor);
         }
@@ -196,7 +196,7 @@ namespace mtl
             sendMessage(sel::setDestinationAlphaBlendFactor_, destinationAlphaBlendFactor);
         }
 
-        [[nodiscard]] BlendOperation alphaBlendOperation() const noexcept
+        [[nodiscard]] auto alphaBlendOperation() const noexcept
         {
             return sendMessage<BlendOperation>(sel::alphaBlendOperation);
         }
@@ -206,7 +206,7 @@ namespace mtl
             sendMessage(sel::setAlphaBlendOperation_, alphaBlendOperation);
         }
 
-        [[nodiscard]] ColorWriteMask writeMask() const noexcept
+        [[nodiscard]] auto writeMask() const noexcept
         {
             return sendMessage<ColorWriteMask>(sel::writeMask);
         }
@@ -222,14 +222,14 @@ namespace mtl
     public:
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptor operator[](const ns::UInteger index) const noexcept
-        {
-            return objectAtIndexedSubscript(index);
-        }
-
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
+        [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+        }
+
+        [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
+        {
+            return objectAtIndexedSubscript(index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -242,7 +242,7 @@ namespace mtl
         {
         }
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -252,7 +252,7 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] Function vertexFunction() const noexcept
+        [[nodiscard]] auto vertexFunction() const noexcept
         {
             return getRetained<Function>(sel::vertexFunction);
         }
@@ -262,7 +262,7 @@ namespace mtl
             sendMessage(sel::setVertexFunction_, static_cast<id>(function));
         }
 
-        [[nodiscard]] Function fragmentFunction() const noexcept
+        [[nodiscard]] auto fragmentFunction() const noexcept
         {
             return getRetained<Function>(sel::fragmentFunction);
         }
@@ -272,7 +272,7 @@ namespace mtl
             sendMessage(sel::setFragmentFunction_, static_cast<id>(function));
         }
 
-        [[nodiscard]] VertexDescriptor vertexDescriptor() const noexcept
+        [[nodiscard]] auto vertexDescriptor() const noexcept
         {
             return getRetained<VertexDescriptor>(sel::vertexDescriptor);
         }
@@ -282,12 +282,12 @@ namespace mtl
             sendMessage(sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
         }
 
-        [[nodiscard]] RenderPipelineColorAttachmentDescriptorArray colorAttachments() const noexcept
+        [[nodiscard]] auto colorAttachments() const noexcept
         {
             return getRetained<RenderPipelineColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
-        [[nodiscard]] PixelFormat depthAttachmentPixelFormat() const noexcept
+        [[nodiscard]] auto depthAttachmentPixelFormat() const noexcept
         {
             return sendMessage<PixelFormat>(sel::depthAttachmentPixelFormat);
         }
@@ -297,7 +297,7 @@ namespace mtl
             sendMessage(sel::setDepthAttachmentPixelFormat_, pixelFormat);
         }
 
-        [[nodiscard]] PixelFormat stencilAttachmentPixelFormat() const noexcept
+        [[nodiscard]] auto stencilAttachmentPixelFormat() const noexcept
         {
             return sendMessage<PixelFormat>(sel::stencilAttachmentPixelFormat);
         }
@@ -315,7 +315,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }

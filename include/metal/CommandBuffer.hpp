@@ -63,7 +63,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -73,12 +73,12 @@ namespace mtl
             sendMessage(sel::setLabel_, static_cast<id>(label));
         }
 
-        [[nodiscard]] BlitCommandEncoder blitCommandEncoder() const noexcept
+        [[nodiscard]] auto blitCommandEncoder() const noexcept
         {
             return getRetained<BlitCommandEncoder>(sel::blitCommandEncoder);
         }
 
-        [[nodiscard]] RenderCommandEncoder renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
             return getRetained<RenderCommandEncoder>(sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
         }

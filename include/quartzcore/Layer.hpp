@@ -33,7 +33,7 @@ namespace ca
         {
         }
 
-        [[nodiscard]] cg::Rect frame() const noexcept
+        [[nodiscard]] auto frame() const noexcept
         {
             return sendMessage<cg::Rect>(sel::frame);
         }
@@ -43,7 +43,7 @@ namespace ca
             sendMessage(sel::setFrame_, frame);
         }
 
-        [[nodiscard]] LayerContentsFilter minificationFilter() const noexcept
+        [[nodiscard]] auto minificationFilter() const noexcept
         {
             return getRetained<LayerContentsFilter>(sel::minificationFilter);
         }
@@ -53,7 +53,7 @@ namespace ca
             sendMessage(sel::setMinificationFilter_, static_cast<id>(minificationFilter));
         }
 
-        [[nodiscard]] LayerContentsFilter magnificationFilter() const noexcept
+        [[nodiscard]] auto magnificationFilter() const noexcept
         {
             return getRetained<LayerContentsFilter>(sel::magnificationFilter);
         }

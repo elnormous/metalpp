@@ -44,7 +44,7 @@ namespace mtl
         {
         }
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }
@@ -62,7 +62,7 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
-        [[nodiscard]] ns::String label() const noexcept
+        [[nodiscard]] auto label() const noexcept
         {
             return getRetained<ns::String>(sel::label);
         }

@@ -64,7 +64,7 @@ namespace mtl
         {
         }
 
-        [[nodiscard]] TextureType textureType() const noexcept
+        [[nodiscard]] auto textureType() const noexcept
         {
             return sendMessage<TextureType>(sel::textureType);
         }
@@ -74,7 +74,7 @@ namespace mtl
             sendMessage(sel::setTextureType_, textureType);
         }
 
-        [[nodiscard]] PixelFormat pixelFormat() const noexcept
+        [[nodiscard]] auto pixelFormat() const noexcept
         {
             return sendMessage<PixelFormat>(sel::pixelFormat);
         }
@@ -84,7 +84,7 @@ namespace mtl
             sendMessage(sel::setPixelFormat_, pixelFormat);
         }
 
-        [[nodiscard]] ns::UInteger width() const noexcept
+        [[nodiscard]] auto width() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::width);
         }
@@ -94,7 +94,7 @@ namespace mtl
             sendMessage(sel::setWidth_, width);
         }
 
-        [[nodiscard]] ns::UInteger height() const noexcept
+        [[nodiscard]] auto height() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::height);
         }
@@ -104,7 +104,7 @@ namespace mtl
             sendMessage(sel::setHeight_, height);
         }
 
-        [[nodiscard]] ns::UInteger depth() const noexcept
+        [[nodiscard]] auto depth() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::depth);
         }
@@ -114,7 +114,7 @@ namespace mtl
             sendMessage(sel::setDepth_, depth);
         }
 
-        [[nodiscard]] ns::UInteger mipmapLevelCount() const noexcept
+        [[nodiscard]] auto mipmapLevelCount() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::mipmapLevelCount);
         }
@@ -124,7 +124,7 @@ namespace mtl
             sendMessage(sel::setMipmapLevelCount_, mipmapLevelCount);
         }
 
-        [[nodiscard]] ns::UInteger sampleCount() const noexcept
+        [[nodiscard]] auto sampleCount() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::sampleCount);
         }
@@ -134,7 +134,7 @@ namespace mtl
             sendMessage(sel::setSampleCount_, sampleCount);
         }
 
-        [[nodiscard]] ns::UInteger arrayLength() const noexcept
+        [[nodiscard]] auto arrayLength() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::arrayLength);
         }
@@ -144,7 +144,7 @@ namespace mtl
             sendMessage(sel::setArrayLength_, arrayLength);
         }
 
-        [[nodiscard]] CPUCacheMode cpuCacheMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        [[nodiscard]] auto cpuCacheMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<CPUCacheMode>(sel::cpuCacheMode);
         }
@@ -154,7 +154,7 @@ namespace mtl
             sendMessage(sel::setCpuCacheMode_, cpuCacheMode);
         }
 
-        [[nodiscard]] StorageMode storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        [[nodiscard]] auto storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<StorageMode>(sel::storageMode);
         }
@@ -164,7 +164,7 @@ namespace mtl
             sendMessage(sel::setStorageMode_, storageMode);
         }
 
-        [[nodiscard]] HazardTrackingMode hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<HazardTrackingMode>(sel::hazardTrackingMode);
         }
@@ -174,7 +174,7 @@ namespace mtl
             sendMessage(sel::setHazardTrackingMode_, hazardTrackingMode);
         }
 
-        [[nodiscard]] TextureUsage usage() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        [[nodiscard]] auto usage() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<TextureUsage>(sel::usage);
         }
@@ -184,7 +184,7 @@ namespace mtl
             sendMessage(sel::setUsage_, usage);
         }
 
-        [[nodiscard]] bool allowGPUOptimizedContents() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        [[nodiscard]] auto allowGPUOptimizedContents() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
             return sendMessage<BOOL>(sel::allowGPUOptimizedContents) == YES;
         }
@@ -194,7 +194,7 @@ namespace mtl
             sendMessage(sel::setAllowGPUOptimizedContents_, allowGPUOptimizedContents ? YES : NO);
         }
 
-        [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        [[nodiscard]] auto compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
             return sendMessage<TextureCompressionType>(sel::compressionType);
         }
@@ -204,7 +204,7 @@ namespace mtl
             sendMessage(sel::setCompressionType_, compressionType);
         }
 
-        [[nodiscard]] TextureSwizzleChannels swizzle() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto swizzle() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<TextureSwizzleChannels>(sel::swizzle);
         }
@@ -220,52 +220,52 @@ namespace mtl
     public:
         Texture() = delete;
 
-        [[nodiscard]] TextureType textureType() const noexcept
+        [[nodiscard]] auto textureType() const noexcept
         {
             return sendMessage<TextureType>(sel::textureType);
         }
 
-        [[nodiscard]] PixelFormat pixelFormat() const noexcept
+        [[nodiscard]] auto pixelFormat() const noexcept
         {
             return sendMessage<PixelFormat>(sel::pixelFormat);
         }
 
-        [[nodiscard]] ns::UInteger width() const noexcept
+        [[nodiscard]] auto width() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::width);
         }
 
-        [[nodiscard]] ns::UInteger height() const noexcept
+        [[nodiscard]] auto height() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::height);
         }
 
-        [[nodiscard]] ns::UInteger depth() const noexcept
+        [[nodiscard]] auto depth() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::depth);
         }
 
-        [[nodiscard]] ns::UInteger mipmapLevelCount() const noexcept
+        [[nodiscard]] auto mipmapLevelCount() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::mipmapLevelCount);
         }
 
-        [[nodiscard]] ns::UInteger sampleCount() const noexcept
+        [[nodiscard]] auto sampleCount() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::sampleCount);
         }
 
-        [[nodiscard]] ns::UInteger arrayLength() const noexcept
+        [[nodiscard]] auto arrayLength() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::arrayLength);
         }
 
-        [[nodiscard]] TextureUsage usage() const noexcept
+        [[nodiscard]] auto usage() const noexcept
         {
             return sendMessage<TextureUsage>(sel::usage);
         }
 
-        [[nodiscard]] TextureCompressionType compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        [[nodiscard]] auto compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
             return sendMessage<TextureCompressionType>(sel::compressionType);
         }

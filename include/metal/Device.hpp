@@ -34,32 +34,32 @@ namespace mtl
 
         Device(const id p) noexcept: Object{p} {}
 
-        [[nodiscard]] ns::String name() const noexcept
+        [[nodiscard]] auto name() const noexcept
         {
             return getRetained<ns::String>(sel::name);
         }
 
-        [[nodiscard]] CommandQueue newCommandQueue() const noexcept
+        [[nodiscard]] auto newCommandQueue() const noexcept
         {
             const id commandQueue = sendMessage<id>(sel::newCommandQueue);
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] CommandQueue newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
+        [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
         {
             const id commandQueue = sendMessage<id>(sel::newCommandQueueWithMaxCommandBufferCount_,
                                                     maxCommandBufferCount);
             return CommandQueue{commandQueue};
         }
 
-        [[nodiscard]] DepthStencilState newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
+        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = sendMessage<id>(sel::newDepthStencilStateWithDescriptor_,
                                                          static_cast<id>(descriptor));
             return DepthStencilState{depthStencilState};
         }
 
-        [[nodiscard]] Buffer newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(sel::newBufferWithLength_options_,
                                               length,
@@ -67,7 +67,7 @@ namespace mtl
             return Buffer{buffer};
         }
 
-        [[nodiscard]] Buffer newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(sel::newBufferWithBytes_length_options_,
                                               pointer,
@@ -76,20 +76,20 @@ namespace mtl
             return Buffer{buffer};
         }
 
-        [[nodiscard]] Texture newTexture(const TextureDescriptor& descriptor) const noexcept
+        [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
         {
             const id texture = sendMessage<id>(sel::newTextureWithDescriptor_,
                                                static_cast<id>(descriptor));
             return Texture{texture};
         }
 
-        [[nodiscard]] Library newDefaultLibrary() const noexcept
+        [[nodiscard]] auto newDefaultLibrary() const noexcept
         {
             const id library = sendMessage<id>(sel::newDefaultLibrary);
             return Library{library};
         }
 
-        [[nodiscard]] Library newLibrary(const ns::String& source) const
+        [[nodiscard]] auto newLibrary(const ns::String& source) const
         {
             id error;
             const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
@@ -103,7 +103,7 @@ namespace mtl
             return Library{library};
         }
 
-        [[nodiscard]] Library newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
+        [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
         {
             id error;
             const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
@@ -117,7 +117,7 @@ namespace mtl
             return Library{library};
         }
 
-        [[nodiscard]] RenderPipelineState newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
+        [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error;
             const id renderPipelineState = sendMessage<id>(sel::newRenderPipelineStateWithDescriptor_error_,

@@ -57,7 +57,7 @@ namespace mtl
     public:
         RenderPassAttachmentDescriptor() = delete;
 
-        [[nodiscard]] Texture texture() const noexcept
+        [[nodiscard]] auto texture() const noexcept
         {
             return getRetained<Texture>(sel::texture);
         }
@@ -67,7 +67,7 @@ namespace mtl
             sendMessage(sel::setTexture_, static_cast<id>(texture));
         }
 
-        [[nodiscard]] ns::UInteger level() const noexcept
+        [[nodiscard]] auto level() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::level);
         }
@@ -77,7 +77,7 @@ namespace mtl
             sendMessage(sel::setLevel_, level);
         }
 
-        [[nodiscard]] ns::UInteger slice() const noexcept
+        [[nodiscard]] auto slice() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::slice);
         }
@@ -87,7 +87,7 @@ namespace mtl
             sendMessage(sel::setSlice_, slice);
         }
 
-        [[nodiscard]] ns::UInteger depthPlane() const noexcept
+        [[nodiscard]] auto depthPlane() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::depthPlane);
         }
@@ -97,7 +97,7 @@ namespace mtl
             sendMessage(sel::setDepthPlane_, depthPlane);
         }
 
-        [[nodiscard]] Texture resolveTexture() const noexcept
+        [[nodiscard]] auto resolveTexture() const noexcept
         {
             return getRetained<Texture>(sel::resolveTexture);
         }
@@ -107,7 +107,7 @@ namespace mtl
             sendMessage(sel::setResolveTexture_, static_cast<id>(resolveTexture));
         }
 
-        [[nodiscard]] ns::UInteger resolveLevel() const noexcept
+        [[nodiscard]] auto resolveLevel() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::resolveLevel);
         }
@@ -117,7 +117,7 @@ namespace mtl
             sendMessage(sel::setResolveLevel_, resolveLevel);
         }
 
-        [[nodiscard]] ns::UInteger resolveSlice() const noexcept
+        [[nodiscard]] auto resolveSlice() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::resolveSlice);
         }
@@ -127,7 +127,7 @@ namespace mtl
             sendMessage(sel::setResolveSlice_, resolveSlice);
         }
 
-        [[nodiscard]] ns::UInteger resolveDepthPlane() const noexcept
+        [[nodiscard]] auto resolveDepthPlane() const noexcept
         {
             return sendMessage<ns::UInteger>(sel::resolveDepthPlane);
         }
@@ -137,7 +137,7 @@ namespace mtl
             sendMessage(sel::setResolveDepthPlane_, resolveDepthPlane);
         }
 
-        [[nodiscard]] LoadAction loadAction() const noexcept
+        [[nodiscard]] auto loadAction() const noexcept
         {
             return sendMessage<LoadAction>(sel::loadAction);
         }
@@ -147,7 +147,7 @@ namespace mtl
             sendMessage(sel::setLoadAction_, loadAction);
         }
 
-        [[nodiscard]] StoreAction storeAction() const noexcept
+        [[nodiscard]] auto storeAction() const noexcept
         {
             return sendMessage<StoreAction>(sel::storeAction);
         }
@@ -157,7 +157,7 @@ namespace mtl
             sendMessage(sel::setStoreAction_, storeAction);
         }
 
-        [[nodiscard]] StoreActionOptions storeActionOptions() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        [[nodiscard]] auto storeActionOptions() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
             return sendMessage<StoreActionOptions>(sel::storeActionOptions);
         }
@@ -171,7 +171,7 @@ namespace mtl
     class RenderPassColorAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
-        [[nodiscard]] ClearColor clearColor() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        [[nodiscard]] auto clearColor() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
             return sendMessage<ClearColor>(sel::clearColor);
         }
@@ -192,7 +192,7 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public ns::Object
     {
     public:
-        [[nodiscard]] double clearDepth() const noexcept
+        [[nodiscard]] auto clearDepth() const noexcept
         {
             return sendMessage<double>(sel::clearDepth);
         }
@@ -202,7 +202,7 @@ namespace mtl
             sendMessage(sel::setClearDepth_, clearDepth);
         }
 
-        [[nodiscard]] MultisampleDepthResolveFilter depthResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(9.0))
+        [[nodiscard]] auto depthResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
             return sendMessage<MultisampleDepthResolveFilter>(sel::depthResolveFilter);
         }
@@ -222,7 +222,7 @@ namespace mtl
     class RenderPassStencilAttachmentDescriptor final: public ns::Object
     {
     public:
-        [[nodiscard]] uint32_t clearStencil() const noexcept
+        [[nodiscard]] auto clearStencil() const noexcept
         {
             return sendMessage<uint32_t>(sel::clearStencil);
         }
@@ -232,7 +232,7 @@ namespace mtl
             sendMessage(sel::setClearStencil_, clearStencil);
         }
 
-        [[nodiscard]] MultisampleStencilResolveFilter stencilResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
+        [[nodiscard]] auto stencilResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
             return sendMessage<MultisampleStencilResolveFilter>(sel::stencilResolveFilter);
         }
@@ -246,14 +246,14 @@ namespace mtl
     class RenderPassColorAttachmentDescriptorArray final: public ns::Object
     {
     public:
-        [[nodiscard]] RenderPassColorAttachmentDescriptor operator[](const ns::UInteger index) const noexcept
-        {
-            return objectAtIndexedSubscript(index);
-        }
-
-        [[nodiscard]] RenderPassColorAttachmentDescriptor objectAtIndexedSubscript(const ns::UInteger index) const noexcept
+        [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+        }
+
+        [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
+        {
+            return objectAtIndexedSubscript(index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -266,17 +266,17 @@ namespace mtl
         {
         }
 
-        [[nodiscard]] RenderPassColorAttachmentDescriptorArray colorAttachments() const noexcept
+        [[nodiscard]] auto colorAttachments() const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptorArray>(sel::colorAttachments);
         }
 
-        [[nodiscard]] RenderPassDepthAttachmentDescriptor depthAttachment() const noexcept
+        [[nodiscard]] auto depthAttachment() const noexcept
         {
             return getRetained<RenderPassDepthAttachmentDescriptor>(sel::depthAttachment);
         }
 
-        [[nodiscard]] RenderPassStencilAttachmentDescriptor stencilAttachment() const noexcept
+        [[nodiscard]] auto stencilAttachment() const noexcept
         {
             return getRetained<RenderPassStencilAttachmentDescriptor>(sel::stencilAttachment);
         }

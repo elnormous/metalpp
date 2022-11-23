@@ -13,12 +13,12 @@ namespace mtl
     public:
         Buffer() = delete;
 
-        [[nodiscard]] ns::UInteger length() const noexcept
+        [[nodiscard]] auto length() const noexcept
         {
             return sendMessage<ns::UInteger>(ns::sel::length);
         }
 
-        [[nodiscard]] void* contents() const noexcept
+        [[nodiscard]] auto contents() const noexcept
         {
             return sendMessage<void*>(sel::contents);
         }
@@ -28,7 +28,7 @@ namespace mtl
             sendMessage(sel::didModifyRange_, range);
         }
 
-        [[nodiscard]] uint64_t gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        [[nodiscard]] auto gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             return sendMessage<uint64_t>(sel::gpuAddress);
         }
