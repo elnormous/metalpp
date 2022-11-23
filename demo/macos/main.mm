@@ -308,13 +308,13 @@ int main(int argc, const char* argv[]) {
 
     mtl::Device device;
 
-    CAMetalLayer* metalLayer = (CAMetalLayer*)view.layer;
-    metalLayer.device = device; // assign device
-    const CGSize drawableSize = windowSize;
-    metalLayer.drawableSize = drawableSize;
+    ca::MetalLayer metalLayer{[view.layer retain]};
+    metalLayer.setDevice(device); // assign device
+    const cg::Size drawableSize{windowSize.width, windowSize.height};
+    metalLayer.setDrawableSize(drawableSize);
 
-    id<CAMetalDrawable> drawable = [metalLayer nextDrawable];
-    id<MTLTexture> texture = drawable.texture;
+    auto drawable = metalLayer.nextDrawable();
+    auto texture = drawable.texture();
 
     mtl::CompileOptions options;
     options.setLanguageVersion(mtl::LanguageVersion::Version1_1);

@@ -9,15 +9,27 @@
 
 namespace ca
 {
+    class MetalLayer;
+
     class MetalDrawable: public mtl::Drawable
     {
+    public:
         MetalDrawable() = delete;
+
+        [[nodiscard]] auto texture() const noexcept
+        {
+            return getRetained<mtl::Texture>(mtl::sel::texture);
+        }
+
+        [[nodiscard]] MetalLayer layer() const noexcept;
     };
 
     class MetalLayer final: public Layer
     {
         static inline const auto cls = objc_lookUpClass("CAMetalLayer");
     public:
+        using Layer::Layer;
+        
         MetalLayer() noexcept:
             Layer{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
@@ -78,6 +90,11 @@ namespace ca
             sendMessage(sel::setPresentsWithTransaction_, presentsWithTransaction ? YES : NO);
         }
     };
+
+    [[nodiscard]] inline MetalLayer MetalDrawable::layer() const noexcept
+    {
+        return getRetained<MetalLayer>(sel::layer);
+    }
 }
 
 #endif

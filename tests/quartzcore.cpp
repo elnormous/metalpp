@@ -28,8 +28,27 @@ TEST_CASE("MetalLayer")
 {
     ns::AutoreleasePool pool;
 
+    mtl::Device device;
+
     ca::MetalLayer metalLayer;
     REQUIRE(metalLayer);
     REQUIRE(metalLayer.retainCount());
     REQUIRE(metalLayer.getClass() == objc_getClass("CAMetalLayer"));
+
+    metalLayer.setDevice(device);
+    CHECK(metalLayer.device() == device);
 }
+
+TEST_CASE("MetalDrawable")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device;
+
+    ca::MetalLayer metalLayer;
+    metalLayer.setDevice(device);
+
+//    ca::MetalDrawable metalDrawable = metalLayer.nextDrawable();
+//    REQUIRE(metalDrawable);
+//    REQUIRE(metalDrawable.retainCount());
+};

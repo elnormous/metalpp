@@ -29,6 +29,8 @@ namespace ca
         inline const auto nextDrawable = sel_registerName("nextDrawable");
         inline const auto presentsWithTransaction = sel_registerName("presentsWithTransaction");
         inline const auto setPresentsWithTransaction_ = sel_registerName("setPresentsWithTransaction:");
+
+        inline const auto layer = sel_registerName("layer");
     }
 }
 
