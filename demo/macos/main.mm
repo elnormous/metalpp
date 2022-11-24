@@ -263,7 +263,8 @@ public:
     App()
     {
         application.activateIgnoringOtherApps(true);
-        [application setDelegate:[[[AppDelegate alloc] init] autorelease]];
+        //[application setDelegate:[[[AppDelegate alloc] init] autorelease]];
+        application.setDelegate(appDelegate);
         createMainMenu(application);
 
         const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
@@ -419,6 +420,7 @@ public:
 
     }
 private:
+    ns::ApplicationDelegate appDelegate;
     ns::Application application;
     mtl::Device device;
 };

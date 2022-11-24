@@ -9,3 +9,18 @@ TEST_CASE("Application")
     application.activateIgnoringOtherApps(true);
     //application.run();
 }
+
+TEST_CASE("ApplicationDelegate")
+{
+    ns::ApplicationDelegate delegate;
+}
+
+class ApplicationDelegate: public ns::ApplicationDelegate
+{
+
+};
+
+TEST_CASE("ApplicationDelegate")
+{
+    ApplicationDelegate delegate;
+}

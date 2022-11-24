@@ -16,6 +16,11 @@ namespace ns
         {
         }
 
+        void setDelegate(const ApplicationDelegate& delegate) noexcept
+        {
+            sendMessage(sel::setDelegate_, static_cast<id>(delegate));
+        }
+
         void activateIgnoringOtherApps(bool flag) noexcept
         {
             sendMessage(sel::activateIgnoringOtherApps_, flag ? YES: NO);
