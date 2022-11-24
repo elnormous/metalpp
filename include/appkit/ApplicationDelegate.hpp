@@ -6,11 +6,6 @@
 
 namespace ns
 {
-    static void applicationDidFinishLaunching(id self, SEL cmd, id notification)
-    {
-        printf("applicationDidFinishLaunching: %p %p, %p\n", self, cmd, notification);
-    }
-
     class ApplicationDelegate: public Object
     {
         static Class createClass()
@@ -18,7 +13,7 @@ namespace ns
             const auto result = objc_allocateClassPair(Object::cls, "ApplicationDelegate", 0);
             class_addMethod(result,
                             sel::applicationDidFinishLaunching,
-                            reinterpret_cast<IMP>(applicationDidFinishLaunching),
+                            reinterpret_cast<IMP>(applicationDidFinishLaunchingPriv),
                             "v@:@");
             return result;
         }
@@ -37,6 +32,17 @@ namespace ns
         ApplicationDelegate(ApplicationDelegate&&) = delete;
         ApplicationDelegate& operator=(const ApplicationDelegate&) = delete;
         ApplicationDelegate& operator=(ApplicationDelegate&&) = delete;
+
+        virtual void applicationDidFinishLaunching([[maybe_unused]] id notification) {}
+
+    private:
+        static void applicationDidFinishLaunchingPriv(id self, [[maybe_unused]] SEL cmd, id notification)
+        {
+            const void* dest = object_getIndexedIvars(self);
+            ApplicationDelegate* ptr;
+            memcpy(&ptr, dest, sizeof(ApplicationDelegate*));
+            ptr->applicationDidFinishLaunching(notification);
+        }
     };
 }
 
