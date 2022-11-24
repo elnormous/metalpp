@@ -10,6 +10,7 @@ namespace ns
 {
     class Object
     {
+    protected:
         static inline const auto cls = objc_lookUpClass("NSObject");
     public:
         Object() noexcept:
