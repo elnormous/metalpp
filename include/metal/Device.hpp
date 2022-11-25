@@ -30,9 +30,12 @@ namespace mtl
     class Device final: public ns::Object
     {
     public:
-        using Object::Object;
+        static Device createSystemDefaultDevice() noexcept
+        {
+            return Device{detail::createSystemDefaultDevice()};
+        }
 
-        Device(): Object{detail::createSystemDefaultDevice()} {}
+        Device() = delete;
 
         [[nodiscard]] auto name() const noexcept
         {

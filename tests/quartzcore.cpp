@@ -28,7 +28,7 @@ TEST_CASE("MetalLayer")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     ca::MetalLayer metalLayer;
     REQUIRE(metalLayer);
@@ -43,7 +43,7 @@ TEST_CASE("MetalDrawable")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     ca::MetalLayer metalLayer;
     metalLayer.setDevice(device);

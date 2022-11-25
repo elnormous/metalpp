@@ -429,7 +429,7 @@ public:
 private:
     AppDelegate appDelegate;
     ns::Application application = ns::Application::sharedApplication();
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 };
 
 static CVReturn renderCallback(CVDisplayLinkRef,

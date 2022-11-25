@@ -6,7 +6,7 @@ TEST_CASE("Device")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     REQUIRE(device);
 }
 
@@ -14,7 +14,7 @@ TEST_CASE("Device name")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     const ns::String name = device.name();
     REQUIRE(name);
     REQUIRE(name.retainCount());
@@ -25,7 +25,7 @@ TEST_CASE("Buffer")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::CPUCacheModeDefaultCache);
     REQUIRE(buffer);
@@ -48,7 +48,7 @@ TEST_CASE("Command queue")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     REQUIRE(commandQueue);
     REQUIRE(commandQueue.retainCount() == 1);
@@ -77,7 +77,7 @@ TEST_CASE("Command buffer")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
@@ -130,7 +130,7 @@ TEST_CASE("Depth stencil state")
 {
     ns::AutoreleasePool pool;
 
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::DepthStencilDescriptor descriptor;
     REQUIRE(descriptor);
     REQUIRE(descriptor.retainCount());
@@ -208,7 +208,7 @@ TEST_CASE("Compile options")
 TEST_CASE("Library")
 {
     ns::AutoreleasePool pool;
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     mtl::CompileOptions options;
     options.setLanguageVersion(mtl::LanguageVersion::Version1_1);
@@ -232,7 +232,7 @@ TEST_CASE("Library")
 TEST_CASE("Function")
 {
     ns::AutoreleasePool pool;
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     const char* vertexShader =
     "vertex float4 vsh(const device packed_float3 *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {" \
@@ -322,7 +322,7 @@ TEST_CASE("Vertex descriptor")
 TEST_CASE("Render pipeline state")
 {
     ns::AutoreleasePool pool;
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     const char* shader =
     "vertex float4 vsh(const device packed_float3 *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {" \
@@ -423,7 +423,7 @@ TEST_CASE("Render pipeline state")
 
 TEST_CASE("Texture")
 {
-    mtl::Device device;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     mtl::TextureDescriptor textureDescriptor;
     REQUIRE(textureDescriptor);
