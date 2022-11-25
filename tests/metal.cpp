@@ -319,6 +319,46 @@ TEST_CASE("Vertex descriptor")
     CHECK(vertexAttribute0.bufferIndex() == 0);
 }
 
+TEST_CASE("Render pipeline descriptor")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    const char* shader =
+    "vertex float4 vsh(const device packed_float3 *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {" \
+    "    return float4(vertexArray[vid], 1.0);" \
+    "}\n" \
+    "fragment half4 fsh() {" \
+    "    return half4(1.0);" \
+    "}";
+
+    mtl::Library library = device.newLibrary(shader);
+    mtl::Function vertexFunction = library.newFunction("vsh");
+    mtl::Function fragmentFunction = library.newFunction("fsh");
+
+    mtl::RenderPipelineDescriptor renderPipelineDescriptor;
+    REQUIRE(renderPipelineDescriptor);
+    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
+    renderPipelineDescriptor.setLabel("Render pipeline");
+    CHECK(renderPipelineDescriptor.label().isEqualToString("Render pipeline"));
+
+    renderPipelineDescriptor.setVertexFunction(vertexFunction);
+    CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
+    renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
+    CHECK(renderPipelineDescriptor.fragmentFunction() == fragmentFunction);
+
+    // depth and stencil attachments
+    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth32Float);
+    CHECK(renderPipelineDescriptor.depthAttachmentPixelFormat() == mtl::PixelFormat::Depth32Float);
+    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    CHECK(renderPipelineDescriptor.depthAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
+    // test stencil format setter with a different color format
+    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Stencil8);
+    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Stencil8);
+    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
+}
+
 TEST_CASE("Render pipeline state")
 {
     ns::AutoreleasePool pool;
@@ -362,24 +402,11 @@ TEST_CASE("Render pipeline state")
 
     // render pipeline descriptor
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
-    REQUIRE(renderPipelineDescriptor);
-    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
     renderPipelineDescriptor.setLabel("Render pipeline");
-    CHECK(renderPipelineDescriptor.label().isEqualToString("Render pipeline"));
-
     renderPipelineDescriptor.setVertexFunction(vertexFunction);
-    CHECK(renderPipelineDescriptor.vertexFunction() == vertexFunction);
     renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
-    CHECK(renderPipelineDescriptor.fragmentFunction() == fragmentFunction);
-
-    // depth and stencil attachments
     renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-    CHECK(renderPipelineDescriptor.depthAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
-    // test stencil format setter with a different color format
-    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Stencil8);
-    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Stencil8);
     renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-    CHECK(renderPipelineDescriptor.stencilAttachmentPixelFormat() == mtl::PixelFormat::Depth24Unorm_Stencil8);
 
     // color attachments
     mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments = renderPipelineDescriptor.colorAttachments();
@@ -419,6 +446,7 @@ TEST_CASE("Render pipeline state")
     REQUIRE(renderPipelineState);
     REQUIRE(renderPipelineState.retainCount() == 1);
     CHECK(renderPipelineState.device() == device);
+    CHECK(renderPipelineState.label().isEqualToString("Render pipeline"));
 }
 
 TEST_CASE("Texture")
@@ -489,4 +517,8 @@ TEST_CASE("Texture")
     CHECK(texture.arrayLength() == 1);
     CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
     CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
+}
+
+TEST_CASE("Samples")
+{
 }

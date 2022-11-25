@@ -319,11 +319,6 @@ namespace mtl
         {
             return getRetained<ns::String>(sel::label);
         }
-
-        void setLabel(const ns::String& label) noexcept
-        {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
-        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
