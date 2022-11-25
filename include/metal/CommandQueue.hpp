@@ -14,12 +14,7 @@ namespace mtl
     {
         static inline const auto cls = objc_lookUpClass("MTLCommandQueue");
     public:
-        using Object::Object;
-
-        CommandQueue() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
-        {
-        }
+        CommandQueue() = delete;
 
         [[nodiscard]] Device device() const noexcept;
         
