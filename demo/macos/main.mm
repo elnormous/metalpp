@@ -2,7 +2,6 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
 #include <simd/simd.h>
-#include "AppDelegate.h"
 #include "appkit/Application.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
@@ -257,13 +256,21 @@ static const char* shadersSource =
 "    return in.color;\n" \
 "}";
 
+class AppDelegate: public ns::ApplicationDelegate
+{
+public:
+    virtual void applicationDidFinishLaunching([[maybe_unused]] id notification) override
+    {
+        NSLog(@"applicationDidFinishLaunching");
+    }
+};
+
 class App
 {
 public:
     App()
     {
         application.activateIgnoringOtherApps(true);
-        //[application setDelegate:[[[AppDelegate alloc] init] autorelease]];
         application.setDelegate(appDelegate);
         createMainMenu(application);
 
@@ -420,7 +427,7 @@ public:
 
     }
 private:
-    ns::ApplicationDelegate appDelegate;
+    AppDelegate appDelegate;
     ns::Application application;
     mtl::Device device;
 };
