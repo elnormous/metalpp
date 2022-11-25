@@ -12,7 +12,6 @@ namespace mtl
 
     class CommandQueue: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("MTLCommandQueue");
     public:
         CommandQueue() = delete;
 

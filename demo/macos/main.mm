@@ -279,11 +279,11 @@ public:
 
         const auto screenFrame = screen.frame();
 
-        const CGSize windowSize = CGSizeMake(round(screenFrame.size.width * 0.6),
-                                             round(screenFrame.size.height * 0.6));
+        const CGSize windowSize = CGSizeMake(std::round(screenFrame.size.width * 0.6),
+                                             std::round(screenFrame.size.height * 0.6));
 
-        const NSRect frame = NSMakeRect(round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
-                                        round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
+        const NSRect frame = NSMakeRect(std::round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
+                                        std::round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
                                         windowSize.width, windowSize.height);
 
         NSWindow* window  = [[NSWindow alloc] initWithContentRect:frame
