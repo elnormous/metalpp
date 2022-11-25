@@ -72,6 +72,7 @@
 		3090110D292F67B6002D121D /* ApplicationDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ApplicationDelegate.hpp; sourceTree = "<group>"; };
 		309011102930C2A1002D121D /* CoreVideoErrorCategory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreVideoErrorCategory.hpp; sourceTree = "<group>"; };
 		309011112930C2A1002D121D /* DisplayLink.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisplayLink.hpp; sourceTree = "<group>"; };
+		309011122930D42A002D121D /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
 		30B19E4D29273892002BA9A2 /* tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tests; sourceTree = BUILT_PRODUCTS_DIR; };
 		30B19E59292738E1002BA9A2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		30B953042920C60E007C8914 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -184,6 +185,7 @@
 			children = (
 				30901109292E9F48002D121D /* Application.hpp */,
 				3090110D292F67B6002D121D /* ApplicationDelegate.hpp */,
+				309011122930D42A002D121D /* Screen.hpp */,
 				3090110B292EA269002D121D /* Selectors.hpp */,
 			);
 			path = appkit;

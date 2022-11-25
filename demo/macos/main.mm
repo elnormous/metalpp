@@ -3,6 +3,7 @@
 #import <QuartzCore/CAMetalLayer.h>
 #include <simd/simd.h>
 #include "appkit/Application.hpp"
+#include "appkit/Screen.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "metal/Metal.hpp"
 #include "quartzcore/MetalLayer.hpp"
@@ -276,13 +277,13 @@ public:
 
         const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
 
-        NSScreen* screen = [NSScreen mainScreen];
+        const auto screenFrame = screen.frame();
 
-        const CGSize windowSize = CGSizeMake(round(screen.frame.size.width * 0.6),
-                                             round(screen.frame.size.height * 0.6));
+        const CGSize windowSize = CGSizeMake(round(screenFrame.size.width * 0.6),
+                                             round(screenFrame.size.height * 0.6));
 
-        const NSRect frame = NSMakeRect(round(screen.frame.size.width / 2.0F - windowSize.width / 2.0F),
-                                        round(screen.frame.size.height / 2.0F - windowSize.height / 2.0F),
+        const NSRect frame = NSMakeRect(round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
+                                        round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
                                         windowSize.width, windowSize.height);
 
         NSWindow* window  = [[NSWindow alloc] initWithContentRect:frame
@@ -429,6 +430,7 @@ public:
 private:
     AppDelegate appDelegate;
     ns::Application application = ns::Application::sharedApplication();
+    ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
 };
 

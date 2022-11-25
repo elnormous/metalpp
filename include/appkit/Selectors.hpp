@@ -12,6 +12,10 @@ namespace ns
         inline const auto run = sel_registerName("run");
 
         inline const auto applicationDidFinishLaunching = sel_registerName("applicationDidFinishLaunching:");
+
+        inline const auto mainScreen = sel_registerName("mainScreen");
+        inline const auto deepestScreen = sel_registerName("deepestScreen");
+        inline const auto frame = sel_registerName("frame");
     }
 }
 
