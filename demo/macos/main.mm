@@ -428,7 +428,7 @@ public:
     }
 private:
     AppDelegate appDelegate;
-    ns::Application application;
+    ns::Application application = ns::Application::sharedApplication();
     mtl::Device device;
 };
 

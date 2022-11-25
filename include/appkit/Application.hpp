@@ -11,10 +11,17 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSApplication");
     public:
-        Application() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::sharedApplication), sel::retain)}
+        static Application sharedApplication()
         {
+            return Application{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::sharedApplication), sel::retain)};
         }
+
+        Application() = delete;
+
+//        [[nodiscard]] auto delegate() const noexcept
+//        {
+//            return getRetained<ApplicationDelegate>(sel::delegate);
+//        }
 
         void setDelegate(const ApplicationDelegate& delegate) noexcept
         {

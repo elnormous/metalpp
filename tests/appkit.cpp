@@ -3,7 +3,7 @@
 
 TEST_CASE("Application")
 {
-    ns::Application application;
+    ns::Application application = ns::Application::sharedApplication();
     REQUIRE(application);
     REQUIRE(application.retainCount());
     application.activateIgnoringOtherApps(true);
