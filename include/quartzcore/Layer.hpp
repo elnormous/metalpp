@@ -3,7 +3,7 @@
 
 #include <dlfcn.h>
 #include "../objc/Object.hpp"
-#include "../corefoundation/Types.h"
+#include "../corefoundation/Types.hpp"
 #include "../foundation/String.hpp"
 #include "Selectors.hpp"
 

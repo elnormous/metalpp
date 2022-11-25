@@ -2,7 +2,8 @@
 #define METALPP_APPKIT_SCREEN_HPP
 
 #include "../objc/Object.hpp"
-#include "../corefoundation/Types.h"
+#include "../corefoundation/Types.hpp"
+#include "../foundation/Array.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -11,12 +12,17 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSScreen");
     public:
-        static Screen mainScreen()
+        static Array<Screen> screens() noexcept
+        {
+            return Array<Screen>{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::screens), sel::retain)};
+        }
+
+        static Screen mainScreen() noexcept
         {
             return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::mainScreen), sel::retain)};
         }
 
-        static Screen deepestScreen()
+        static Screen deepestScreen() noexcept
         {
             return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::deepestScreen), sel::retain)};
         }

@@ -29,6 +29,11 @@ TEST_CASE("ApplicationDelegate")
 
 TEST_CASE("Screen")
 {
+    ns::Array<ns::Screen> screens = ns::Screen::screens();
+    REQUIRE(screens);
+    REQUIRE(screens.retainCount());
+    CHECK(screens.count());
+
     ns::Screen mainScreen = ns::Screen::mainScreen();
     REQUIRE(mainScreen);
     REQUIRE(mainScreen.retainCount());

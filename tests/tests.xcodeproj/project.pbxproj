@@ -64,7 +64,7 @@
 		309010FB292B7833002D121D /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		309010FC292B7B72002D121D /* quartzcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = quartzcore.cpp; sourceTree = "<group>"; };
 		30901100292B877E002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
-		30901104292B8B38002D121D /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		30901104292B8B38002D121D /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 		30901105292CCCCE002D121D /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
 		30901109292E9F48002D121D /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		3090110A292E9FB6002D121D /* appkit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = appkit.cpp; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		30901102292B8B0B002D121D /* corefoundation */ = {
 			isa = PBXGroup;
 			children = (
-				30901104292B8B38002D121D /* Types.h */,
+				30901104292B8B38002D121D /* Types.hpp */,
 			);
 			path = corefoundation;
 			sourceTree = "<group>";
