@@ -8,6 +8,7 @@ namespace mtl
         inline const auto device = sel_registerName("device");
         inline const auto setDevice_ = sel_registerName("setDevice:");
 
+        inline const auto currentAllocatedSize = sel_registerName("currentAllocatedSize");
         inline const auto newCommandQueue = sel_registerName("newCommandQueue");
         inline const auto newCommandQueueWithMaxCommandBufferCount_ = sel_registerName("newCommandQueueWithMaxCommandBufferCount:");
         inline const auto newDepthStencilStateWithDescriptor_ = sel_registerName("newDepthStencilStateWithDescriptor:");

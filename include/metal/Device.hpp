@@ -43,6 +43,11 @@ namespace mtl
             return getRetained<ns::String>(sel::name);
         }
 
+        [[nodiscard]] auto currentAllocatedSize() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            return sendMessage<ns::UInteger>(sel::currentAllocatedSize);
+        }
+
         [[nodiscard]] auto newCommandQueue() const noexcept
         {
             const id commandQueue = sendMessage<id>(sel::newCommandQueue);

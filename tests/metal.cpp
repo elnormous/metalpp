@@ -19,6 +19,11 @@ TEST_CASE("Device name")
     REQUIRE(name);
     REQUIRE(name.retainCount());
     CHECK(name.length());
+
+    CHECK(device.currentAllocatedSize() == 0);
+
+    mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
+    CHECK(device.currentAllocatedSize() > 0);
 }
 
 TEST_CASE("Buffer")
