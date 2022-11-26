@@ -3,9 +3,12 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
+    class Device;
+
     enum class SamplerMinMagFilter: NSUInteger
     {
         Nearest = 0,
@@ -114,12 +117,29 @@ namespace mtl
         {
             sendMessage(sel::setRAddressMode_, rAddressMode);
         }
+
+        [[nodiscard]] auto borderColor() const noexcept
+        {
+            return sendMessage<SamplerBorderColor>(sel::borderColor);
+        }
+
+        void setBorderColor(const SamplerBorderColor borderColor) noexcept
+        {
+            sendMessage(sel::setBorderColor_, borderColor);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class SamplerState final: public ns::Object
     {
     public:
         SamplerState() = delete;
+
+        [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] auto label() const noexcept
+        {
+            return getRetained<ns::String>(sel::label);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

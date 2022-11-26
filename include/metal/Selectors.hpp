@@ -14,6 +14,7 @@ namespace mtl
         inline const auto newBufferWithLength_options_ = sel_registerName("newBufferWithLength:options:");
         inline const auto newBufferWithBytes_length_options_ = sel_registerName("newBufferWithBytes:length:options:");
         inline const auto newTextureWithDescriptor_ = sel_registerName("newTextureWithDescriptor:");
+        inline const auto newSamplerStateWithDescriptor_ = sel_registerName("newSamplerStateWithDescriptor:");
         inline const auto newDefaultLibrary = sel_registerName("newDefaultLibrary");
         inline const auto newLibraryWithSource_options_error_ = sel_registerName("newLibraryWithSource:options:error:");
         inline const auto name = sel_registerName("name");
@@ -195,6 +196,8 @@ namespace mtl
         inline const auto setTAddressMode_ = sel_registerName("setTAddressMode:");
         inline const auto rAddressMode = sel_registerName("rAddressMode");
         inline const auto setRAddressMode_ = sel_registerName("setRAddressMode:");
+        inline const auto borderColor = sel_registerName("borderColor");
+        inline const auto setBorderColor_ = sel_registerName("setBorderColor:");
     }
 }
 

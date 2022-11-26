@@ -17,6 +17,7 @@
 #include "Library.hpp"
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
+#include "Sampler.hpp"
 #include "Selectors.hpp"
 #include "Texture.hpp"
 
@@ -84,6 +85,13 @@ namespace mtl
             const id texture = sendMessage<id>(sel::newTextureWithDescriptor_,
                                                static_cast<id>(descriptor));
             return Texture{texture};
+        }
+
+        [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
+        {
+            const id samplerState = sendMessage<id>(sel::newSamplerStateWithDescriptor_,
+                                                    static_cast<id>(descriptor));
+            return SamplerState{samplerState};
         }
 
         [[nodiscard]] auto newDefaultLibrary() const noexcept
@@ -165,6 +173,11 @@ namespace mtl
     }
 
     [[nodiscard]] inline Device Library::device() const noexcept
+    {
+        return getRetained<Device>(sel::device);
+    }
+
+    [[nodiscard]] inline Device SamplerState::device() const noexcept
     {
         return getRetained<Device>(sel::device);
     }

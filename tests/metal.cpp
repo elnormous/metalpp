@@ -527,20 +527,47 @@ TEST_CASE("Sampler descriptor")
     REQUIRE(samplerDescriptor);
     REQUIRE(samplerDescriptor.retainCount() == 1);
 
+    CHECK(samplerDescriptor.minFilter() != mtl::SamplerMinMagFilter::Linear);
     samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
     CHECK(samplerDescriptor.minFilter() == mtl::SamplerMinMagFilter::Linear);
+
+    CHECK(samplerDescriptor.magFilter() != mtl::SamplerMinMagFilter::Linear);
     samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
     CHECK(samplerDescriptor.magFilter() == mtl::SamplerMinMagFilter::Linear);
+
+    CHECK(samplerDescriptor.mipFilter() != mtl::SamplerMipFilter::Linear);
     samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
     CHECK(samplerDescriptor.mipFilter() == mtl::SamplerMipFilter::Linear);
 
+    CHECK(samplerDescriptor.maxAnisotropy() != 11);
     samplerDescriptor.setMaxAnisotropy(11);
     CHECK(samplerDescriptor.maxAnisotropy() == 11);
 
+    CHECK(samplerDescriptor.sAddressMode() != mtl::SamplerAddressMode::MirrorRepeat);
     samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::MirrorRepeat);
     CHECK(samplerDescriptor.sAddressMode() == mtl::SamplerAddressMode::MirrorRepeat);
+
+    CHECK(samplerDescriptor.tAddressMode() != mtl::SamplerAddressMode::ClampToZero);
     samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToZero);
     CHECK(samplerDescriptor.tAddressMode() == mtl::SamplerAddressMode::ClampToZero);
+
+    CHECK(samplerDescriptor.rAddressMode() != mtl::SamplerAddressMode::ClampToBorderColor);
     samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToBorderColor);
     CHECK(samplerDescriptor.rAddressMode() == mtl::SamplerAddressMode::ClampToBorderColor);
+
+    CHECK(samplerDescriptor.borderColor() != mtl::SamplerBorderColor::OpaqueWhite);
+    samplerDescriptor.setBorderColor(mtl::SamplerBorderColor::OpaqueWhite);
+    CHECK(samplerDescriptor.borderColor() == mtl::SamplerBorderColor::OpaqueWhite);
+}
+
+TEST_CASE("Sampler state")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::SamplerDescriptor samplerDescriptor;
+
+    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
+    REQUIRE(samplerState);
+    REQUIRE(samplerState.retainCount());
+    CHECK(samplerState.device() == device);
 }
