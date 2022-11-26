@@ -127,6 +127,76 @@ namespace mtl
         {
             sendMessage(sel::setBorderColor_, borderColor);
         }
+
+        [[nodiscard]] auto normalizedCoordinates() const noexcept
+        {
+            return sendMessage<BOOL>(sel::normalizedCoordinates) == YES;
+        }
+
+        void setNormalizedCoordinates(const bool normalizedCoordinates) noexcept
+        {
+            sendMessage(sel::setNormalizedCoordinates_, normalizedCoordinates ? YES : NO);
+        }
+
+        [[nodiscard]] auto lodMinClamp() const noexcept
+        {
+            return sendMessage<float>(sel::lodMinClamp);
+        }
+
+        void setLodMinClamp(const float lodMinClamp) noexcept
+        {
+            sendMessage(sel::setLodMinClamp_, lodMinClamp);
+        }
+
+        [[nodiscard]] auto lodMaxClamp() const noexcept
+        {
+            return sendMessage<float>(sel::lodMaxClamp);
+        }
+
+        void setLodMaxClamp(const float lodMaxClamp) noexcept
+        {
+            sendMessage(sel::setLodMaxClamp_, lodMaxClamp);
+        }
+
+        [[nodiscard]] auto lodAverage() const noexcept API_AVAILABLE(ios(9.0), macos(11.0), macCatalyst(14.0))
+        {
+            return sendMessage<BOOL>(sel::lodAverage) == YES;
+        }
+
+        void setLodAverage(const bool lodAverage) noexcept API_AVAILABLE(ios(9.0), macos(11.0), macCatalyst(14.0))
+        {
+            sendMessage(sel::setLodAverage_, lodAverage ? YES : NO);
+        }
+
+        [[nodiscard]] auto compareFunction() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            return sendMessage<CompareFunction>(sel::compareFunction);
+        }
+
+        void setCompareFunction(const CompareFunction compareFunction) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            sendMessage(sel::setCompareFunction_, compareFunction);
+        }
+
+        [[nodiscard]] auto supportArgumentBuffers() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            return sendMessage<BOOL>(sel::supportArgumentBuffers) == YES;
+        }
+
+        void setSupportArgumentBuffers(const bool supportArgumentBuffers) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            sendMessage(sel::setSupportArgumentBuffers_, supportArgumentBuffers ? YES : NO);
+        }
+
+        [[nodiscard]] auto label() const noexcept
+        {
+            return getRetained<ns::String>(sel::label);
+        }
+
+        void setLabel(const ns::String& label) noexcept
+        {
+            sendMessage(sel::setLabel_, static_cast<id>(label));
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class SamplerState final: public ns::Object

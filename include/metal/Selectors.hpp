@@ -198,6 +198,18 @@ namespace mtl
         inline const auto setRAddressMode_ = sel_registerName("setRAddressMode:");
         inline const auto borderColor = sel_registerName("borderColor");
         inline const auto setBorderColor_ = sel_registerName("setBorderColor:");
+        inline const auto normalizedCoordinates = sel_registerName("normalizedCoordinates");
+        inline const auto setNormalizedCoordinates_ = sel_registerName("setNormalizedCoordinates:");
+        inline const auto lodMinClamp = sel_registerName("lodMinClamp");
+        inline const auto setLodMinClamp_ = sel_registerName("setLodMinClamp:");
+        inline const auto lodMaxClamp = sel_registerName("lodMaxClamp");
+        inline const auto setLodMaxClamp_ = sel_registerName("setLodMaxClamp:");
+        inline const auto lodAverage = sel_registerName("lodAverage");
+        inline const auto setLodAverage_ = sel_registerName("setLodAverage:");
+        inline const auto compareFunction = sel_registerName("compareFunction");
+        inline const auto setCompareFunction_ = sel_registerName("setCompareFunction:");
+        inline const auto supportArgumentBuffers = sel_registerName("supportArgumentBuffers");
+        inline const auto setSupportArgumentBuffers_ = sel_registerName("setSupportArgumentBuffers:");
     }
 }
 

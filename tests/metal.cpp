@@ -558,6 +558,33 @@ TEST_CASE("Sampler descriptor")
     CHECK(samplerDescriptor.borderColor() != mtl::SamplerBorderColor::OpaqueWhite);
     samplerDescriptor.setBorderColor(mtl::SamplerBorderColor::OpaqueWhite);
     CHECK(samplerDescriptor.borderColor() == mtl::SamplerBorderColor::OpaqueWhite);
+
+    CHECK(samplerDescriptor.normalizedCoordinates() != false);
+    samplerDescriptor.setNormalizedCoordinates(false);
+    CHECK(samplerDescriptor.normalizedCoordinates() == false);
+
+    CHECK(samplerDescriptor.lodMinClamp() != 2.0F);
+    samplerDescriptor.setLodMinClamp(2.0F);
+    CHECK(samplerDescriptor.lodMinClamp() == 2.0F);
+
+    CHECK(samplerDescriptor.lodMaxClamp() != 2.0F);
+    samplerDescriptor.setLodMaxClamp(2.0F);
+    CHECK(samplerDescriptor.lodMaxClamp() == 2.0F);
+
+    CHECK(samplerDescriptor.lodAverage() != true);
+    samplerDescriptor.setLodAverage(true);
+    CHECK(samplerDescriptor.lodAverage() == true);
+
+    CHECK(samplerDescriptor.compareFunction() != mtl::CompareFunction::GreaterEqual);
+    samplerDescriptor.setCompareFunction(mtl::CompareFunction::GreaterEqual);
+    CHECK(samplerDescriptor.compareFunction() == mtl::CompareFunction::GreaterEqual);
+
+    CHECK(samplerDescriptor.supportArgumentBuffers() != true);
+    samplerDescriptor.setSupportArgumentBuffers(true);
+    CHECK(samplerDescriptor.supportArgumentBuffers() == true);
+
+    samplerDescriptor.setLabel("Sampler");
+    CHECK(samplerDescriptor.label().isEqualToString("Sampler"));
 }
 
 TEST_CASE("Sampler state")
@@ -565,9 +592,12 @@ TEST_CASE("Sampler state")
     ns::AutoreleasePool pool;
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::SamplerDescriptor samplerDescriptor;
+    samplerDescriptor.setLabel("Sampler");
 
     mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
     REQUIRE(samplerState);
     REQUIRE(samplerState.retainCount());
+
     CHECK(samplerState.device() == device);
+    CHECK(samplerState.label().isEqualToString("Sampler"));
 }
