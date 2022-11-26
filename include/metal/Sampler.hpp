@@ -44,6 +44,76 @@ namespace mtl
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
         }
+
+        [[nodiscard]] auto minFilter() const noexcept
+        {
+            return sendMessage<SamplerMinMagFilter>(sel::minFilter);
+        }
+
+        void setMinFilter(const SamplerMinMagFilter minFilter) noexcept
+        {
+            sendMessage(sel::setMinFilter_, minFilter);
+        }
+
+        [[nodiscard]] auto magFilter() const noexcept
+        {
+            return sendMessage<SamplerMinMagFilter>(sel::magFilter);
+        }
+
+        void setMagFilter(const SamplerMinMagFilter magFilter) noexcept
+        {
+            sendMessage(sel::setMagFilter_, magFilter);
+        }
+
+        [[nodiscard]] auto mipFilter() const noexcept
+        {
+            return sendMessage<SamplerMipFilter>(sel::mipFilter);
+        }
+
+        void setMipFilter(const SamplerMipFilter mipFilter) noexcept
+        {
+            sendMessage(sel::setMipFilter_, mipFilter);
+        }
+
+        [[nodiscard]] auto maxAnisotropy() const noexcept
+        {
+            return sendMessage<ns::UInteger>(sel::maxAnisotropy);
+        }
+
+        void setMaxAnisotropy(const ns::UInteger maxAnisotropy) noexcept
+        {
+            sendMessage(sel::setMaxAnisotropy_, maxAnisotropy);
+        }
+
+        [[nodiscard]] auto sAddressMode() const noexcept
+        {
+            return sendMessage<SamplerAddressMode>(sel::sAddressMode);
+        }
+
+        void setSAddressMode(const SamplerAddressMode sAddressMode) noexcept
+        {
+            sendMessage(sel::setSAddressMode_, sAddressMode);
+        }
+
+        [[nodiscard]] auto tAddressMode() const noexcept
+        {
+            return sendMessage<SamplerAddressMode>(sel::tAddressMode);
+        }
+
+        void setTAddressMode(const SamplerAddressMode tAddressMode) noexcept
+        {
+            sendMessage(sel::setTAddressMode_, tAddressMode);
+        }
+
+        [[nodiscard]] auto rAddressMode() const noexcept
+        {
+            return sendMessage<SamplerAddressMode>(sel::rAddressMode);
+        }
+
+        void setRAddressMode(const SamplerAddressMode rAddressMode) noexcept
+        {
+            sendMessage(sel::setRAddressMode_, rAddressMode);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class SamplerState final: public ns::Object

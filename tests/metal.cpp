@@ -451,6 +451,7 @@ TEST_CASE("Render pipeline state")
 
 TEST_CASE("Texture")
 {
+    ns::AutoreleasePool pool;
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
     mtl::TextureDescriptor textureDescriptor;
@@ -519,6 +520,27 @@ TEST_CASE("Texture")
     CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
 }
 
-TEST_CASE("Samples")
+TEST_CASE("Sampler descriptor")
 {
+    ns::AutoreleasePool pool;
+    mtl::SamplerDescriptor samplerDescriptor;
+    REQUIRE(samplerDescriptor);
+    REQUIRE(samplerDescriptor.retainCount() == 1);
+
+    samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
+    CHECK(samplerDescriptor.minFilter() == mtl::SamplerMinMagFilter::Linear);
+    samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
+    CHECK(samplerDescriptor.magFilter() == mtl::SamplerMinMagFilter::Linear);
+    samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
+    CHECK(samplerDescriptor.mipFilter() == mtl::SamplerMipFilter::Linear);
+
+    samplerDescriptor.setMaxAnisotropy(11);
+    CHECK(samplerDescriptor.maxAnisotropy() == 11);
+
+    samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::MirrorRepeat);
+    CHECK(samplerDescriptor.sAddressMode() == mtl::SamplerAddressMode::MirrorRepeat);
+    samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToZero);
+    CHECK(samplerDescriptor.tAddressMode() == mtl::SamplerAddressMode::ClampToZero);
+    samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToBorderColor);
+    CHECK(samplerDescriptor.rAddressMode() == mtl::SamplerAddressMode::ClampToBorderColor);
 }

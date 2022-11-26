@@ -180,6 +180,21 @@ namespace mtl
         inline const auto setVertexBuffer_offset_atIndex_ = sel_registerName("setVertexBuffer:offset:atIndex:");
         inline const auto drawPrimitives_vertexStart_vertexCount_ = sel_registerName("drawPrimitives:vertexStart:vertexCount:");
         inline const auto drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_ = sel_registerName("drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
+
+        inline const auto minFilter = sel_registerName("minFilter");
+        inline const auto setMinFilter_ = sel_registerName("setMinFilter:");
+        inline const auto magFilter = sel_registerName("magFilter");
+        inline const auto setMagFilter_ = sel_registerName("setMagFilter:");
+        inline const auto mipFilter = sel_registerName("mipFilter");
+        inline const auto setMipFilter_ = sel_registerName("setMipFilter:");
+        inline const auto maxAnisotropy = sel_registerName("maxAnisotropy");
+        inline const auto setMaxAnisotropy_ = sel_registerName("setMaxAnisotropy:");
+        inline const auto sAddressMode = sel_registerName("sAddressMode");
+        inline const auto setSAddressMode_ = sel_registerName("setSAddressMode:");
+        inline const auto tAddressMode = sel_registerName("tAddressMode");
+        inline const auto setTAddressMode_ = sel_registerName("setTAddressMode:");
+        inline const auto rAddressMode = sel_registerName("rAddressMode");
+        inline const auto setRAddressMode_ = sel_registerName("setRAddressMode:");
     }
 }
 
