@@ -102,6 +102,14 @@ namespace mtl
                         index);
         }
 
+        void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index)  noexcept
+        {
+            sendMessage(sel::setFragmentBuffer_offset_atIndex_,
+                        static_cast<id>(buffer),
+                        offset,
+                        index);
+        }
+
         void setFragmentTexture(const Texture& texture, ns::UInteger index)  noexcept
         {
             sendMessage(sel::setFragmentTexture_atIndex_,

@@ -137,10 +137,14 @@ TEST_CASE("Command buffer")
     renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
     CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
 
+    mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
+
     mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
     REQUIRE(renderCommandEncoder);
     REQUIRE(renderCommandEncoder.retainCount() == 2);
 
+    renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
+    renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
     renderCommandEncoder.setFragmentTexture(texture, 0);
     renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
 

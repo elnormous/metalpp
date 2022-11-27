@@ -181,6 +181,7 @@ namespace mtl
 
         inline const auto setRenderPipelineState_ = sel_registerName("setRenderPipelineState:");
         inline const auto setVertexBuffer_offset_atIndex_ = sel_registerName("setVertexBuffer:offset:atIndex:");
+        inline const auto setFragmentBuffer_offset_atIndex_ = sel_registerName("setFragmentBuffer:offset:atIndex:");
         inline const auto setFragmentTexture_atIndex_ = sel_registerName("setFragmentTexture:atIndex:");
         inline const auto setFragmentSamplerState_atIndex_ = sel_registerName("setFragmentSamplerState:atIndex:");
         inline const auto drawPrimitives_vertexStart_vertexCount_ = sel_registerName("drawPrimitives:vertexStart:vertexCount:");
