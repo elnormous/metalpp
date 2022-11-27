@@ -22,6 +22,9 @@ TEST_CASE("Device name")
 
     CHECK(device.currentAllocatedSize() == 0);
 
+    CHECK(device.location() != DeviceLocation::Unspecified);
+    CHECK(device.locationNumber());
+
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
     CHECK(device.currentAllocatedSize() > 0);
 }

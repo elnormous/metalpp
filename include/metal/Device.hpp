@@ -21,6 +21,14 @@
 #include "Selectors.hpp"
 #include "Texture.hpp"
 
+enum class DeviceLocation: ns::UInteger
+{
+    BuiltIn = 0,
+    Slot = 1,
+    External = 2,
+    Unspecified = ns::UIntegerMax,
+} API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios);
+
 namespace mtl
 {
     namespace detail
@@ -41,6 +49,16 @@ namespace mtl
         [[nodiscard]] auto name() const noexcept
         {
             return getRetained<ns::String>(sel::name);
+        }
+
+        [[nodiscard]] auto location() const noexcept API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios)
+        {
+            return sendMessage<DeviceLocation>(sel::location);
+        }
+
+        [[nodiscard]] auto locationNumber() const noexcept API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios)
+        {
+            return sendMessage<ns::UInteger>(sel::locationNumber);
         }
 
         [[nodiscard]] auto currentAllocatedSize() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))

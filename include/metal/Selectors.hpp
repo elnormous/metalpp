@@ -8,6 +8,9 @@ namespace mtl
         inline const auto device = sel_registerName("device");
         inline const auto setDevice_ = sel_registerName("setDevice:");
 
+        inline const auto name = sel_registerName("name");
+        inline const auto location = sel_registerName("location");
+        inline const auto locationNumber = sel_registerName("locationNumber");
         inline const auto currentAllocatedSize = sel_registerName("currentAllocatedSize");
         inline const auto newCommandQueue = sel_registerName("newCommandQueue");
         inline const auto newCommandQueueWithMaxCommandBufferCount_ = sel_registerName("newCommandQueueWithMaxCommandBufferCount:");
@@ -18,9 +21,7 @@ namespace mtl
         inline const auto newSamplerStateWithDescriptor_ = sel_registerName("newSamplerStateWithDescriptor:");
         inline const auto newDefaultLibrary = sel_registerName("newDefaultLibrary");
         inline const auto newLibraryWithSource_options_error_ = sel_registerName("newLibraryWithSource:options:error:");
-        inline const auto name = sel_registerName("name");
         inline const auto newRenderPipelineStateWithDescriptor_error_ = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
-
         inline const auto newFunctionWithName_ = sel_registerName("newFunctionWithName:");
 
         inline const auto label = sel_registerName("label");
