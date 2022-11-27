@@ -8,6 +8,8 @@ TEST_CASE("Device")
 
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     REQUIRE(device);
+    CHECK(device.supportsFeatureSet(FeatureSet::macOS_GPUFamily1_v1));
+    CHECK(device.supportsFamily(GPUFamily::Common1));
 }
 
 TEST_CASE("Device name")

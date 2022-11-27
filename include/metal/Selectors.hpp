@@ -21,6 +21,8 @@ namespace mtl
         inline const auto newSamplerStateWithDescriptor_ = sel_registerName("newSamplerStateWithDescriptor:");
         inline const auto newDefaultLibrary = sel_registerName("newDefaultLibrary");
         inline const auto newLibraryWithSource_options_error_ = sel_registerName("newLibraryWithSource:options:error:");
+        inline const auto supportsFeatureSet_ = sel_registerName("supportsFeatureSet:");
+        inline const auto supportsFamily_ = sel_registerName("supportsFamily:");
         inline const auto newRenderPipelineStateWithDescriptor_error_ = sel_registerName("newRenderPipelineStateWithDescriptor:error:");
         inline const auto newFunctionWithName_ = sel_registerName("newFunctionWithName:");
 
