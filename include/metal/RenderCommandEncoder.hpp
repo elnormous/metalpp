@@ -6,8 +6,10 @@
 #include "Buffer.hpp"
 #include "CommandEncoder.hpp"
 #include "RenderPipeline.hpp"
+#include "Sampler.hpp"
 #include "Selectors.hpp"
 #include "StageInputOutputDescriptor.hpp"
+#include "Texture.hpp"
 
 namespace mtl
 {
@@ -97,6 +99,20 @@ namespace mtl
             sendMessage(sel::setVertexBuffer_offset_atIndex_,
                         static_cast<id>(buffer),
                         offset,
+                        index);
+        }
+
+        void setFragmentTexture(const Texture& texture, ns::UInteger index)  noexcept
+        {
+            sendMessage(sel::setFragmentTexture_atIndex_,
+                        static_cast<id>(texture),
+                        index);
+        }
+
+        void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index)  noexcept
+        {
+            sendMessage(sel::setFragmentSamplerState_atIndex_,
+                        static_cast<id>(sampler),
                         index);
         }
 

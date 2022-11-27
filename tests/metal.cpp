@@ -109,6 +109,19 @@ TEST_CASE("Command buffer")
 
     blitCommandEncoder.endEncoding();
 
+    mtl::TextureDescriptor textureDescriptor;
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    textureDescriptor.setWidth(1024);
+    textureDescriptor.setHeight(1024);
+    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+
+    mtl::Texture texture = device.newTexture(textureDescriptor);
+
+    mtl::SamplerDescriptor samplerDescriptor;
+    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
+
     mtl::TextureDescriptor renderTargetDescriptor;
     renderTargetDescriptor.setTextureType(mtl::TextureType::Type2D);
     renderTargetDescriptor.setWidth(1024);
@@ -127,6 +140,9 @@ TEST_CASE("Command buffer")
     mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
     REQUIRE(renderCommandEncoder);
     REQUIRE(renderCommandEncoder.retainCount() == 2);
+
+    renderCommandEncoder.setFragmentTexture(texture, 0);
+    renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
 
     renderCommandEncoder.endEncoding();
 

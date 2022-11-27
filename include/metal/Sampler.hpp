@@ -3,6 +3,7 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "DepthStencil.hpp"
 #include "Selectors.hpp"
 
 namespace mtl
