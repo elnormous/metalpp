@@ -3,6 +3,7 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -10,6 +11,16 @@ namespace mtl
     {
     public:
         Drawable() = delete;
+
+        void present() noexcept
+        {
+            sendMessage(sel::present);
+        }
+
+        void present(const CFTimeInterval presentationTime) noexcept
+        {
+            sendMessage(sel::presentAtTime_, presentationTime);
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

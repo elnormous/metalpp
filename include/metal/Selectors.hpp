@@ -217,6 +217,9 @@ namespace mtl
         inline const auto setCompareFunction_ = sel_registerName("setCompareFunction:");
         inline const auto supportArgumentBuffers = sel_registerName("supportArgumentBuffers");
         inline const auto setSupportArgumentBuffers_ = sel_registerName("setSupportArgumentBuffers:");
+
+        inline const auto present = sel_registerName("present");
+        inline const auto presentAtTime_ = sel_registerName("presentAtTime:");
     }
 }
 

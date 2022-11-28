@@ -395,10 +395,12 @@ public:
         renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
         renderCommand.endEncoding();
 
-        commandBuffer.presentDrawable(drawable);
+        //commandBuffer.presentDrawable(drawable);
 
         commandBuffer.commit();
         commandBuffer.waitUntilCompleted();
+
+        drawable.present();
 
 //        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
 //        CVDisplayLinkRef displayLink = NULL;
