@@ -113,7 +113,7 @@ namespace mtl
     class Device final: public ns::Object
     {
     public:
-        static Device createSystemDefaultDevice() noexcept
+        static auto createSystemDefaultDevice() noexcept
         {
             return Device{detail::createSystemDefaultDevice()};
         }

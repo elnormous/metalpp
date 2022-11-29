@@ -17,6 +17,12 @@ namespace ns
         inline const auto mainScreen = sel_registerName("mainScreen");
         inline const auto deepestScreen = sel_registerName("deepestScreen");
         inline const auto frame = sel_registerName("frame");
+
+        inline const auto insertItem_atIndex_ = sel_registerName("insertItem:atIndex:");
+        inline const auto addItem_ = sel_registerName("addItem:");
+        inline const auto insertItemWithTitle_action_keyEquivalent_atIndex_ = sel_registerName("insertItemWithTitle:action:keyEquivalent:atIndex:");
+        inline const auto addItemWithTitle_action_keyEquivalent_ = sel_registerName("addItemWithTitle:action:keyEquivalent:");
+        inline const auto separatorItem = sel_registerName("separatorItem");
     }
 }
 

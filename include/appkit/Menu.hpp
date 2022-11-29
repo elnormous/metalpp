@@ -3,6 +3,8 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/String.hpp"
+#include "MenuItem.hpp"
 
 namespace ns
 {
@@ -15,6 +17,33 @@ namespace ns
         Menu():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
+        }
+
+        void insertItem(const MenuItem& item, ns::Integer index) noexcept
+        {
+            sendMessage(sel::insertItem_atIndex_, static_cast<id>(item), index);
+        }
+
+        void addItem(const MenuItem& item) noexcept
+        {
+            sendMessage(sel::addItem_, static_cast<id>(item));
+        }
+
+        auto insertItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent, ns::Integer index) noexcept
+        {
+            return getRetained<MenuItem>(sel::insertItemWithTitle_action_keyEquivalent_atIndex_,
+                                         static_cast<id>(title),
+                                         action,
+                                         static_cast<id>(keyEquivalent),
+                                         index);
+        }
+
+        auto addItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent) noexcept
+        {
+            return getRetained<MenuItem>(sel::addItemWithTitle_action_keyEquivalent_,
+                                         static_cast<id>(title),
+                                         action,
+                                         static_cast<id>(keyEquivalent));
         }
     };
 }

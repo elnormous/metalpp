@@ -188,9 +188,9 @@
 				30901109292E9F48002D121D /* Application.hpp */,
 				3090110D292F67B6002D121D /* ApplicationDelegate.hpp */,
 				3090111529350B42002D121D /* Menu.hpp */,
+				3023334E293621AC003114B4 /* MenuItem.hpp */,
 				309011122930D42A002D121D /* Screen.hpp */,
 				3090110B292EA269002D121D /* Selectors.hpp */,
-				3023334E293621AC003114B4 /* MenuItem.hpp */,
 			);
 			path = appkit;
 			sourceTree = "<group>";

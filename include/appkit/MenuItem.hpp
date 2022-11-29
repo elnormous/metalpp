@@ -12,6 +12,11 @@ namespace ns
     public:
         using Object::Object;
 
+        static auto separatorItem() noexcept
+        {
+            return MenuItem{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::separatorItem), sel::retain)};
+        }
+
         MenuItem():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
