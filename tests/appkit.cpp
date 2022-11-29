@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "appkit/Application.hpp"
 #include "appkit/ApplicationDelegate.hpp"
+#include "appkit/Menu.hpp"
 #include "appkit/Screen.hpp"
 
 TEST_CASE("Application")
@@ -25,6 +26,11 @@ class ApplicationDelegate: public ns::ApplicationDelegate
 TEST_CASE("ApplicationDelegate")
 {
     ApplicationDelegate delegate;
+}
+
+TEST_CASE("Array")
+{
+    ns::Array<ns::Object> array;
 }
 
 TEST_CASE("Screen")
