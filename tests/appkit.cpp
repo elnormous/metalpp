@@ -30,7 +30,14 @@ TEST_CASE("ApplicationDelegate")
 
 TEST_CASE("Array")
 {
-    ns::Array<ns::Object> array;
+    ns::Array<ns::Object> emptyArray;
+    REQUIRE(emptyArray);
+    REQUIRE(emptyArray.retainCount());
+
+    ns::Array<ns::Object> filledArray = {ns::Object{}};
+    REQUIRE(filledArray);
+    REQUIRE(filledArray.retainCount());
+    CHECK(filledArray.count() == 1);
 }
 
 TEST_CASE("Screen")
