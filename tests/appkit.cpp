@@ -53,17 +53,25 @@ TEST_CASE("Menu")
     ns::MenuItem menuItem = menu.addItem("test", nil, "w");
     REQUIRE(menuItem);
     REQUIRE(menuItem.retainCount());
+
+    ns::Menu menuWithTitle{"test"};
+    REQUIRE(menuWithTitle);
+    REQUIRE(menuWithTitle.retainCount());
 }
 
 TEST_CASE("MenuItem")
 {
+    ns::MenuItem separatorItem = ns::MenuItem::separatorItem();
+    REQUIRE(separatorItem);
+    REQUIRE(separatorItem.retainCount());
+
     ns::MenuItem menuItem;
     REQUIRE(menuItem);
     REQUIRE(menuItem.retainCount());
 
-    ns::MenuItem separatorItem = ns::MenuItem::separatorItem();
-    REQUIRE(separatorItem);
-    REQUIRE(separatorItem.retainCount());
+    ns::MenuItem menuItemWithTitle("test", nil, "w");
+    REQUIRE(menuItemWithTitle);
+    REQUIRE(menuItemWithTitle.retainCount());
 }
 
 TEST_CASE("Screen")

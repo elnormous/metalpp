@@ -19,6 +19,13 @@ namespace ns
         {
         }
 
+        Menu(const ns::String& title):
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithTitle_,
+                                         static_cast<id>(title))}
+        {
+        }
+
         void insertItem(const MenuItem& item, ns::Integer index) noexcept
         {
             sendMessage(sel::insertItem_atIndex_, static_cast<id>(item), index);

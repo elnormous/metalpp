@@ -21,6 +21,15 @@ namespace ns
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
+
+        MenuItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent):
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithTitle_action_keyEquivalent_,
+                                         static_cast<id>(title),
+                                         action,
+                                         static_cast<id>(keyEquivalent))}
+        {
+        }
     };
 }
 
