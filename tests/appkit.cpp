@@ -2,6 +2,7 @@
 #include "appkit/Application.hpp"
 #include "appkit/ApplicationDelegate.hpp"
 #include "appkit/Menu.hpp"
+#include "appkit/MenuItem.hpp"
 #include "appkit/Screen.hpp"
 
 TEST_CASE("Application")
@@ -41,6 +42,20 @@ TEST_CASE("Array")
     CHECK(filledArray.count() == 1);
     CHECK(filledArray.objectAtIndex(0) == object);
     CHECK(filledArray[0] == object);
+}
+
+TEST_CASE("Menu")
+{
+    ns::Menu menu;
+    REQUIRE(menu);
+    REQUIRE(menu.retainCount());
+}
+
+TEST_CASE("MenuItem")
+{
+    ns::MenuItem menuItem;
+    REQUIRE(menuItem);
+    REQUIRE(menuItem.retainCount());
 }
 
 TEST_CASE("Screen")
