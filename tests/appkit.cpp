@@ -34,10 +34,13 @@ TEST_CASE("Array")
     REQUIRE(emptyArray);
     REQUIRE(emptyArray.retainCount());
 
-    ns::Array<ns::Object> filledArray = {ns::Object{}};
+    ns::Object object;
+    ns::Array<ns::Object> filledArray = {object};
     REQUIRE(filledArray);
     REQUIRE(filledArray.retainCount());
     CHECK(filledArray.count() == 1);
+    CHECK(filledArray.objectAtIndex(0) == object);
+    CHECK(filledArray[0] == object);
 }
 
 TEST_CASE("Screen")
