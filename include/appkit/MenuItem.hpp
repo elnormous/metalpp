@@ -6,6 +6,8 @@
 
 namespace ns
 {
+    class Menu;
+
     class MenuItem final: public Object
     {
         static inline const auto cls = objc_lookUpClass("NSMenuItem");
@@ -30,6 +32,9 @@ namespace ns
                                          static_cast<id>(keyEquivalent))}
         {
         }
+
+        inline Menu submenu() const noexcept;
+        inline void setSubmenu(const Menu& submenu) noexcept;
     };
 }
 

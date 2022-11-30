@@ -53,6 +53,16 @@ namespace ns
                                          static_cast<id>(keyEquivalent));
         }
     };
+
+    inline Menu MenuItem::submenu() const noexcept
+    {
+        return getRetained<Menu>(sel::submenu);
+    }
+
+    inline void MenuItem::setSubmenu(const Menu& submenu) noexcept
+    {
+        sendMessage(sel::setSubmenu_, static_cast<id>(submenu));
+    }
 }
 
 #endif

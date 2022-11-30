@@ -65,13 +65,17 @@ TEST_CASE("MenuItem")
     REQUIRE(separatorItem);
     REQUIRE(separatorItem.retainCount());
 
+    ns::MenuItem menuItemWithTitle("test", nil, "w");
+    REQUIRE(menuItemWithTitle);
+    REQUIRE(menuItemWithTitle.retainCount());
+
     ns::MenuItem menuItem;
     REQUIRE(menuItem);
     REQUIRE(menuItem.retainCount());
 
-    ns::MenuItem menuItemWithTitle("test", nil, "w");
-    REQUIRE(menuItemWithTitle);
-    REQUIRE(menuItemWithTitle.retainCount());
+    ns::Menu submenu;
+    menuItem.setSubmenu(submenu);
+    CHECK(menuItem.submenu() == submenu);
 }
 
 TEST_CASE("Screen")

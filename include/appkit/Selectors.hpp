@@ -25,6 +25,8 @@ namespace ns
         inline const auto addItemWithTitle_action_keyEquivalent_ = sel_registerName("addItemWithTitle:action:keyEquivalent:");
         inline const auto separatorItem = sel_registerName("separatorItem");
         inline const auto initWithTitle_action_keyEquivalent_ = sel_registerName("initWithTitle:action:keyEquivalent:");
+        inline const auto submenu = sel_registerName("submenu");
+        inline const auto setSubmenu_ = sel_registerName("setSubmenu:");
     }
 }
 
