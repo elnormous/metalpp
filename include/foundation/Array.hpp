@@ -31,12 +31,13 @@ namespace ns
 
         [[nodiscard]] auto operator[](const UInteger index) const noexcept
         {
-            return objectAtIndex(index);
+            return objectAtIndex<Type>(index);
         }
 
+        template<class T = Type>
         [[nodiscard]] auto objectAtIndex(const UInteger index) const noexcept
         {
-            return getRetained<Type>(sel::objectAtIndex_, index);
+            return getRetained<T>(sel::objectAtIndex_, index);
         }
 
         [[nodiscard]] auto count() const noexcept

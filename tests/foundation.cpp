@@ -49,6 +49,7 @@ TEST_CASE("Bundle")
     ns::Bundle mainBundle = ns::Bundle::mainBundle();
     REQUIRE(mainBundle);
     CHECK(mainBundle.retainCount());
+    CHECK(mainBundle.infoDictionary());
 }
 
 TEST_CASE("Dictionary")

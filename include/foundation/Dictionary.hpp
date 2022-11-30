@@ -39,17 +39,24 @@ namespace ns
 
         [[nodiscard]] auto operator[](const KeyType& key) const noexcept
         {
-            return objectForKey(key);
+            return objectForKey<ObjectType>(key);
         }
 
-        [[nodiscard]] auto operator[](KeyType&& key) const noexcept
+        [[nodiscard]] auto operator[](const KeyType&& key) const noexcept
         {
-            return objectForKey(std::move(key));
+            return objectForKey<ObjectType>(std::move(key));
         }
 
+        template<class T = ObjectType>
         [[nodiscard]] auto objectForKey(const KeyType& key) const noexcept
         {
-            return getRetained<ObjectType>(sel::objectForKey_, static_cast<id>(key));
+            return getRetained<T>(sel::objectForKey_, static_cast<id>(key));
+        }
+
+        template<class T = ObjectType>
+        [[nodiscard]] auto objectForKey(const KeyType&& key) const noexcept
+        {
+            return getRetained<T>(sel::objectForKey_, static_cast<id>(key));
         }
 
         [[nodiscard]] auto allKeys() const noexcept

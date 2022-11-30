@@ -6,6 +6,7 @@
 #include "appkit/Menu.hpp"
 #include "appkit/Screen.hpp"
 #include "foundation/AutoreleasePool.hpp"
+#include "foundation/Bundle.hpp"
 #include "metal/Metal.hpp"
 #include "quartzcore/MetalLayer.hpp"
 
@@ -148,9 +149,12 @@ static void createMainMenu(NSApplication* sharedApplication)
     ns::Menu applicationMenu;
     mainMenuItem.setSubmenu(applicationMenu);
 
-    NSString* bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleDisplayName"];
+    const auto mainBundle = ns::Bundle::mainBundle();
+    const auto infoDictionary = mainBundle.infoDictionary();
+
+    NSString* bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
     if (!bundleName)
-        bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+        bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
 
     [applicationMenu addItemWithTitle:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"About", nil), bundleName]
                                action:@selector(orderFrontStandardAboutPanel:)

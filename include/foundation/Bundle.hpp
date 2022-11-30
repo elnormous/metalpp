@@ -4,6 +4,8 @@
 #include "../objc/Object.hpp"
 #include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
+#include "Dictionary.hpp"
+#include "String.hpp"
 
 namespace ns
 {
@@ -21,6 +23,18 @@ namespace ns
         Bundle() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
+        }
+
+        Bundle(const String& title) noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
+                                         sel::initWithPath_,
+                                         static_cast<id>(title))}
+        {
+        }
+
+        Dictionary<String, Object> infoDictionary() const noexcept
+        {
+            return getRetained<Dictionary<String, Object>>(sel::infoDictionary);
         }
     };
 }
