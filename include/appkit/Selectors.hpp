@@ -43,6 +43,8 @@ namespace ns
         inline const auto setKeyEquivalent_ = sel_registerName("setKeyEquivalent:");
         inline const auto keyEquivalentModifierMask = sel_registerName("keyEquivalentModifierMask");
         inline const auto setKeyEquivalentModifierMask_ = sel_registerName("setKeyEquivalentModifierMask:");
+
+        inline const auto initWithContentRect_styleMask_backing_defer_ = sel_registerName("initWithContentRect:styleMask:backing:defer:");
     }
 }
 

@@ -4,6 +4,7 @@
 #include "appkit/Menu.hpp"
 #include "appkit/MenuItem.hpp"
 #include "appkit/Screen.hpp"
+#include "appkit/Window.hpp"
 
 TEST_CASE("Application")
 {
@@ -112,11 +113,18 @@ TEST_CASE("Screen")
     REQUIRE(mainScreen);
     CHECK(mainScreen.retainCount());
 
-    const cg::Rect frame = mainScreen.frame();
+    const ns::Rect frame = mainScreen.frame();
     CHECK(frame.size.width > 0);
     CHECK(frame.size.height > 0);
 
     ns::Screen deepestScreen = ns::Screen::deepestScreen();
     REQUIRE(deepestScreen);
     CHECK(deepestScreen.retainCount());
+}
+
+TEST_CASE("Window")
+{
+    ns::Window window{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false};
+    REQUIRE(window);
+    CHECK(window.retainCount());
 }

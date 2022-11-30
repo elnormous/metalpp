@@ -3,8 +3,8 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
-#include "../corefoundation/Types.hpp"
 #include "../foundation/Array.hpp"
+#include "Geometry.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -32,7 +32,7 @@ namespace ns
 
         [[nodiscard]] auto frame() const noexcept
         {
-            return sendMessage<cg::Rect>(sel::frame);
+            return sendMessage<ns::Rect>(sel::frame);
         }
     };
 }
