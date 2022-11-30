@@ -9,8 +9,8 @@ TEST_CASE("Layer")
 
     ca::Layer layer;
     REQUIRE(layer);
-    REQUIRE(layer.retainCount() == 1);
-    REQUIRE(layer.getClass() == objc_getClass("CALayer"));
+    CHECK(layer.retainCount() == 1);
+    CHECK(layer.getClass() == objc_getClass("CALayer"));
     layer.setFrame(cg::Rect{0, 0, 100, 100});
     CHECK(layer.frame() == cg::Rect{0, 0, 100, 100});
     layer.setMinificationFilter(ca::filterLinear);
@@ -32,8 +32,8 @@ TEST_CASE("MetalLayer")
 
     ca::MetalLayer metalLayer;
     REQUIRE(metalLayer);
-    REQUIRE(metalLayer.retainCount());
-    REQUIRE(metalLayer.getClass() == objc_getClass("CAMetalLayer"));
+    CHECK(metalLayer.retainCount());
+    CHECK(metalLayer.getClass() == objc_getClass("CAMetalLayer"));
 
     metalLayer.setDevice(device);
     CHECK(metalLayer.device() == device);
@@ -50,5 +50,5 @@ TEST_CASE("MetalDrawable")
 
 //    ca::MetalDrawable metalDrawable = metalLayer.nextDrawable();
 //    REQUIRE(metalDrawable);
-//    REQUIRE(metalDrawable.retainCount());
+//    CHECK(metalDrawable.retainCount());
 };

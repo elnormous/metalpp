@@ -2,6 +2,7 @@
 #define METALPP_APPKIT_SCREEN_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
 #include "../corefoundation/Types.hpp"
 #include "../foundation/Array.hpp"
 #include "Selectors.hpp"

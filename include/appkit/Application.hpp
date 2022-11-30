@@ -2,6 +2,7 @@
 #define METALPP_APPKIT_APPLICATION_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Selectors.hpp"
 #include "ApplicationDelegate.hpp"
 #include "Selectors.hpp"
 

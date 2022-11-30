@@ -9,7 +9,7 @@ TEST_CASE("Application")
 {
     ns::Application application = ns::Application::sharedApplication();
     REQUIRE(application);
-    REQUIRE(application.retainCount());
+    CHECK(application.retainCount());
     application.activateIgnoringOtherApps(true);
     //application.run();
 }
@@ -33,12 +33,12 @@ TEST_CASE("Array")
 {
     ns::Array<ns::Object> emptyArray;
     REQUIRE(emptyArray);
-    REQUIRE(emptyArray.retainCount());
+    CHECK(emptyArray.retainCount());
 
     ns::Object object;
     ns::Array<ns::Object> filledArray = {object};
     REQUIRE(filledArray);
-    REQUIRE(filledArray.retainCount());
+    CHECK(filledArray.retainCount());
     CHECK(filledArray.count() == 1);
     CHECK(filledArray.objectAtIndex(0) == object);
     CHECK(filledArray[0] == object);
@@ -48,27 +48,27 @@ TEST_CASE("Menu")
 {
     ns::Menu menu;
     REQUIRE(menu);
-    REQUIRE(menu.retainCount());
+    CHECK(menu.retainCount());
 
     ns::MenuItem menuItem = menu.addItem("test", nil, "w");
     REQUIRE(menuItem);
-    REQUIRE(menuItem.retainCount());
+    CHECK(menuItem.retainCount());
 
     ns::Menu menuWithTitle{"test"};
     REQUIRE(menuWithTitle);
-    REQUIRE(menuWithTitle.retainCount());
+    CHECK(menuWithTitle.retainCount());
 }
 
 TEST_CASE("MenuItem")
 {
     ns::MenuItem separatorItem = ns::MenuItem::separatorItem();
     REQUIRE(separatorItem);
-    REQUIRE(separatorItem.retainCount());
+    CHECK(separatorItem.retainCount());
     CHECK(separatorItem.isSeparatorItem());
 
     ns::MenuItem menuItemWithTitle("test", nil, "w");
     REQUIRE(menuItemWithTitle);
-    REQUIRE(menuItemWithTitle.retainCount());
+    CHECK(menuItemWithTitle.retainCount());
     CHECK(menuItemWithTitle.title().isEqualToString("test"));
     menuItemWithTitle.setTitle("title");
     CHECK(menuItemWithTitle.title().isEqualToString("title"));
@@ -79,7 +79,7 @@ TEST_CASE("MenuItem")
 
     ns::MenuItem menuItem;
     REQUIRE(menuItem);
-    REQUIRE(menuItem.retainCount());
+    CHECK(menuItem.retainCount());
     menuItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Command | ns::EventModifierFlags::Option);
     CHECK(menuItem.keyEquivalentModifierMask() == (ns::EventModifierFlags::Command | ns::EventModifierFlags::Option));
 
@@ -92,12 +92,12 @@ TEST_CASE("Screen")
 {
     ns::Array<ns::Screen> screens = ns::Screen::screens();
     REQUIRE(screens);
-    REQUIRE(screens.retainCount());
+    CHECK(screens.retainCount());
     CHECK(screens.count());
 
     ns::Screen mainScreen = ns::Screen::mainScreen();
     REQUIRE(mainScreen);
-    REQUIRE(mainScreen.retainCount());
+    CHECK(mainScreen.retainCount());
 
     const cg::Rect frame = mainScreen.frame();
     CHECK(frame.size.width > 0);
@@ -105,5 +105,5 @@ TEST_CASE("Screen")
 
     ns::Screen deepestScreen = ns::Screen::deepestScreen();
     REQUIRE(deepestScreen);
-    REQUIRE(deepestScreen.retainCount());
+    CHECK(deepestScreen.retainCount());
 }

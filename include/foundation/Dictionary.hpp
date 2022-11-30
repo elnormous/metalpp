@@ -16,7 +16,7 @@ namespace ns
         using Object::Object;
 
         Dictionary() noexcept:
-            Object{sendMessage<id>(sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
         }
 

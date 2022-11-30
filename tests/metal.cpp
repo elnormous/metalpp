@@ -19,7 +19,7 @@ TEST_CASE("Device name")
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     const ns::String name = device.name();
     REQUIRE(name);
-    REQUIRE(name.retainCount());
+    CHECK(name.retainCount());
     CHECK(name.length());
 
     CHECK(device.currentAllocatedSize() == 0);
@@ -39,13 +39,13 @@ TEST_CASE("Buffer")
 
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::CPUCacheModeDefaultCache);
     REQUIRE(buffer);
-    REQUIRE(buffer.retainCount() == 1);
+    CHECK(buffer.retainCount() == 1);
     CHECK(buffer.length() == 1024);
 
     const char data[] = {'a', 'b', 'c', 'd'};
     mtl::Buffer bufferWithBytes = device.newBuffer(data, sizeof(data), mtl::ResourceOptions::StorageModeShared);
     REQUIRE(bufferWithBytes);
-    REQUIRE(bufferWithBytes.retainCount() == 1);
+    CHECK(bufferWithBytes.retainCount() == 1);
 
     CHECK(bufferWithBytes.length() == sizeof(data));
     CHECK(buffer.gpuAddress());
@@ -61,7 +61,7 @@ TEST_CASE("Command queue")
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     REQUIRE(commandQueue);
-    REQUIRE(commandQueue.retainCount() == 1);
+    CHECK(commandQueue.retainCount() == 1);
     CHECK(commandQueue.device() == device);
 
     CHECK(commandQueue.label().retainCount() == 0);
@@ -76,11 +76,11 @@ TEST_CASE("Command queue")
 
     mtl::CommandQueue commandQueueWithMax = device.newCommandQueue(10);
     REQUIRE(commandQueueWithMax);
-    REQUIRE(commandQueueWithMax.retainCount() == 1);
+    CHECK(commandQueueWithMax.retainCount() == 1);
 
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
-    REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
+    CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
 }
 
 TEST_CASE("Command buffer")
@@ -91,7 +91,7 @@ TEST_CASE("Command buffer")
     mtl::CommandQueue commandQueue = device.newCommandQueue();
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
-    REQUIRE(commandBuffer.retainCount() == 2); // one retain is autoreleased
+    CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
     CHECK(commandBuffer.device() == device);
 
     char labelStr[] = "Command buffer";
@@ -103,11 +103,11 @@ TEST_CASE("Command buffer")
 
     mtl::RenderPassDescriptor renderPassDescriptor;
     REQUIRE(renderPassDescriptor);
-    REQUIRE(renderPassDescriptor.retainCount() == 1);
+    CHECK(renderPassDescriptor.retainCount() == 1);
 
     mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
     REQUIRE(blitCommandEncoder);
-    REQUIRE(blitCommandEncoder.retainCount() == 2);
+    CHECK(blitCommandEncoder.retainCount() == 2);
 
     blitCommandEncoder.endEncoding();
 
@@ -143,7 +143,7 @@ TEST_CASE("Command buffer")
 
     mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
     REQUIRE(renderCommandEncoder);
-    REQUIRE(renderCommandEncoder.retainCount() == 2);
+    CHECK(renderCommandEncoder.retainCount() == 2);
 
     renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
     renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
@@ -163,7 +163,7 @@ TEST_CASE("Depth stencil state")
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     mtl::DepthStencilDescriptor descriptor;
     REQUIRE(descriptor);
-    REQUIRE(descriptor.retainCount());
+    CHECK(descriptor.retainCount());
     char labelStr[] = "Depth stencil state";
     ns::String label{labelStr};
     CHECK(label.retainCount() == 1);
@@ -176,7 +176,7 @@ TEST_CASE("Depth stencil state")
 
     mtl::DepthStencilState depthStencilState = device.newDepthStencilState(descriptor);
     REQUIRE(depthStencilState);
-    REQUIRE(depthStencilState.retainCount());
+    CHECK(depthStencilState.retainCount());
     CHECK(depthStencilState.device() == device);
 
     CHECK(depthStencilState.label().isEqualToString(labelStr));
@@ -201,7 +201,7 @@ TEST_CASE("Compile options")
 
     mtl::CompileOptions options;
     REQUIRE(options);
-    REQUIRE(options.retainCount() == 1);
+    CHECK(options.retainCount() == 1);
 
     options.setFastMathEnabled(true);
     CHECK(options.fastMathEnabled());
@@ -252,7 +252,7 @@ TEST_CASE("Library")
 
     mtl::Library library = device.newLibrary(vertexShader, options);
     REQUIRE(library);
-    REQUIRE(library.retainCount() == 1);
+    CHECK(library.retainCount() == 1);
     CHECK(library.device() == device);
 
     library.setLabel("Library");
@@ -321,7 +321,7 @@ TEST_CASE("Vertex descriptor")
 
     mtl::VertexDescriptor vertexDescriptor;
     REQUIRE(vertexDescriptor);
-    REQUIRE(vertexDescriptor.retainCount() == 1);
+    CHECK(vertexDescriptor.retainCount() == 1);
 
     mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
@@ -335,11 +335,11 @@ TEST_CASE("Vertex descriptor")
 
     mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
     REQUIRE(vertexAttributes);
-    REQUIRE(vertexAttributes.retainCount() == 2);
+    CHECK(vertexAttributes.retainCount() == 2);
 
     mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
     REQUIRE(vertexAttribute0);
-    REQUIRE(vertexAttribute0.retainCount() == 2);
+    CHECK(vertexAttribute0.retainCount() == 2);
 
     vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
     CHECK(vertexAttribute0.format() == mtl::VertexFormat::Float3);
@@ -368,7 +368,7 @@ TEST_CASE("Render pipeline descriptor")
 
     mtl::RenderPipelineDescriptor renderPipelineDescriptor;
     REQUIRE(renderPipelineDescriptor);
-    REQUIRE(renderPipelineDescriptor.retainCount() == 1);
+    CHECK(renderPipelineDescriptor.retainCount() == 1);
     renderPipelineDescriptor.setLabel("Render pipeline");
     CHECK(renderPipelineDescriptor.label().isEqualToString("Render pipeline"));
 
@@ -441,7 +441,7 @@ TEST_CASE("Render pipeline state")
     // color attachments
     mtl::RenderPipelineColorAttachmentDescriptorArray colorAttachments = renderPipelineDescriptor.colorAttachments();
     REQUIRE(colorAttachments);
-    REQUIRE(colorAttachments.retainCount() == 2);
+    CHECK(colorAttachments.retainCount() == 2);
     
     colorAttachments[0].setBlendingEnabled(false);
     CHECK(colorAttachments[0].isBlendingEnabled() == false);
@@ -474,7 +474,7 @@ TEST_CASE("Render pipeline state")
     // render pipeline state
     mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
     REQUIRE(renderPipelineState);
-    REQUIRE(renderPipelineState.retainCount() == 1);
+    CHECK(renderPipelineState.retainCount() == 1);
     CHECK(renderPipelineState.device() == device);
     CHECK(renderPipelineState.label().isEqualToString("Render pipeline"));
 }
@@ -486,7 +486,7 @@ TEST_CASE("Texture")
 
     mtl::TextureDescriptor textureDescriptor;
     REQUIRE(textureDescriptor);
-    REQUIRE(textureDescriptor.retainCount() == 1);
+    CHECK(textureDescriptor.retainCount() == 1);
     textureDescriptor.setTextureType(mtl::TextureType::Type2D);
     CHECK(textureDescriptor.textureType() == mtl::TextureType::Type2D);
     textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
@@ -536,7 +536,7 @@ TEST_CASE("Texture")
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
     REQUIRE(texture);
-    REQUIRE(texture.retainCount() == 1);
+    CHECK(texture.retainCount() == 1);
 
     CHECK(texture.textureType() == mtl::TextureType::Type2D);
     CHECK(texture.pixelFormat() == mtl::PixelFormat::BGRA8Unorm);
@@ -555,7 +555,7 @@ TEST_CASE("Sampler descriptor")
     ns::AutoreleasePool pool;
     mtl::SamplerDescriptor samplerDescriptor;
     REQUIRE(samplerDescriptor);
-    REQUIRE(samplerDescriptor.retainCount() == 1);
+    CHECK(samplerDescriptor.retainCount() == 1);
 
     CHECK(samplerDescriptor.minFilter() != mtl::SamplerMinMagFilter::Linear);
     samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
@@ -626,7 +626,7 @@ TEST_CASE("Sampler state")
 
     mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
     REQUIRE(samplerState);
-    REQUIRE(samplerState.retainCount());
+    CHECK(samplerState.retainCount());
 
     CHECK(samplerState.device() == device);
     CHECK(samplerState.label().isEqualToString("Sampler"));

@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Runtime.hpp"
+#include "../objc/Selectors.hpp"
 #include "Event.hpp"
 
 namespace ns

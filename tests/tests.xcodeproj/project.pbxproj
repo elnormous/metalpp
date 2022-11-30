@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		3023334E293621AC003114B4 /* MenuItem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MenuItem.hpp; sourceTree = "<group>"; };
 		3023334F2937BA30003114B4 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
+		302333502937BDD4003114B4 /* Bundle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bundle.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 			children = (
 				309010F0292B7833002D121D /* Array.hpp */,
 				309010F3292B7833002D121D /* AutoreleasePool.hpp */,
+				302333502937BDD4003114B4 /* Bundle.hpp */,
 				309010EE292B7833002D121D /* Dictionary.hpp */,
 				309010F1292B7833002D121D /* Error.hpp */,
 				309010F4292B7833002D121D /* Range.hpp */,
