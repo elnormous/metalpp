@@ -139,7 +139,7 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
 @end
 
-static void createMainMenu(NSApplication* sharedApplication)
+static void createMainMenu(ns::Application& application)
 {
     ns::Menu mainMenu;
 
@@ -163,7 +163,7 @@ static void createMainMenu(NSApplication* sharedApplication)
 
     ns::Menu servicesMenu;
     servicesItem.setSubmenu(servicesMenu);
-    sharedApplication.servicesMenu = servicesMenu;
+    application.setServicesMenu(servicesMenu);
 
     applicationMenu.addItem(ns::MenuItem::separatorItem());
     applicationMenu.addItem(ns::String{"Hide "} + bundleName, @selector(hide:), "h");
@@ -189,16 +189,16 @@ static void createMainMenu(NSApplication* sharedApplication)
     windowsMenu.addItem("Zoom", @selector(performZoom:), "");
 
     windowsItem.setSubmenu(windowsMenu);
-    sharedApplication.windowsMenu = windowsMenu;
+    application.setWindowsMenu(windowsMenu);
 
     // Help menu
     auto helpItem = mainMenu.addItem("Help", nullptr, "");
 
     ns::Menu helpMenu{"Help"};
     helpItem.setSubmenu(helpMenu);
-    sharedApplication.helpMenu = helpMenu;
+    application.setHelpMenu(helpMenu);
 
-    sharedApplication.mainMenu = mainMenu;
+    application.setMainMenu(mainMenu);
 }
 
 

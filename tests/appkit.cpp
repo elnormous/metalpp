@@ -12,6 +12,19 @@ TEST_CASE("Application")
     CHECK(application.retainCount());
     application.activateIgnoringOtherApps(true);
     //application.run();
+
+    ns::Menu mainMenu;
+    application.setMainMenu(mainMenu);
+    CHECK(application.mainMenu() == mainMenu);
+    ns::Menu helpMenu;
+    application.setHelpMenu(helpMenu);
+    CHECK(application.helpMenu() == helpMenu);
+    ns::Menu windowsMenu;
+    application.setWindowsMenu(windowsMenu);
+    CHECK(application.windowsMenu() == windowsMenu);
+    ns::Menu servicesMenu;
+    application.setServicesMenu(servicesMenu);
+    CHECK(application.servicesMenu() == servicesMenu);
 }
 
 TEST_CASE("ApplicationDelegate")

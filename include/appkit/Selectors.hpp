@@ -10,6 +10,14 @@ namespace ns
         inline const auto setDelegate_ = sel_registerName("setDelegate:");
         inline const auto activateIgnoringOtherApps_ = sel_registerName("activateIgnoringOtherApps:");
         inline const auto run = sel_registerName("run");
+        inline const auto mainMenu = sel_registerName("mainMenu");
+        inline const auto setMainMenu_ = sel_registerName("setMainMenu:");
+        inline const auto helpMenu = sel_registerName("helpMenu");
+        inline const auto setHelpMenu_ = sel_registerName("setHelpMenu:");
+        inline const auto windowsMenu = sel_registerName("windowsMenu");
+        inline const auto setWindowsMenu_ = sel_registerName("setWindowsMenu:");
+        inline const auto servicesMenu = sel_registerName("servicesMenu");
+        inline const auto setServicesMenu_ = sel_registerName("setServicesMenu:");
 
         inline const auto applicationDidFinishLaunching = sel_registerName("applicationDidFinishLaunching:");
 
