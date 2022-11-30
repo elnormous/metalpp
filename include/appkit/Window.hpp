@@ -7,6 +7,7 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/Geometry.hpp"
 #include "Graphics.hpp"
+#include "Screen.hpp"
 #include "Selectors.hpp"
 
 namespace ns
@@ -72,7 +73,17 @@ namespace ns
                                          backingStoreType,
                                          defer ? YES : NO)}
         {
+        }
 
+        Window(const Rect contentRect, const WindowStyleMask style, const BackingStoreType backingStoreType, bool defer, const Screen& screen) noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
+                                         ns::sel::initWithContentRect_styleMask_backing_defer_screen_,
+                                         contentRect,
+                                         style,
+                                         backingStoreType,
+                                         defer ? YES : NO,
+                                         static_cast<id>(screen))}
+        {
         }
     };
 }

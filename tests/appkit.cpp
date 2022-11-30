@@ -127,4 +127,8 @@ TEST_CASE("Window")
     ns::Window window{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false};
     REQUIRE(window);
     CHECK(window.retainCount());
+
+    ns::Window windowOnScreen{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false, ns::Screen::mainScreen()};
+    REQUIRE(windowOnScreen);
+    CHECK(windowOnScreen.retainCount());
 }
