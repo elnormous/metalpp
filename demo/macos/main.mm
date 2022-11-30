@@ -170,10 +170,8 @@ static void createMainMenu(NSApplication* sharedApplication)
                                action:@selector(hide:)
                         keyEquivalent:@"h"];
 
-    NSMenuItem* hideOthersItem = [applicationMenu addItemWithTitle:NSLocalizedString(@"Hide Others", nil)
-                                                            action:@selector(hideOtherApplications:)
-                                                     keyEquivalent:@"h"];
-    hideOthersItem.keyEquivalentModifierMask = NSEventModifierFlagOption | NSEventModifierFlagCommand;
+    auto hideOthersItem = applicationMenu.addItem("Hide Others", @selector(hideOtherApplications:), "h");
+    hideOthersItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Option | ns::EventModifierFlags::Command);
 
     applicationMenu.addItem("Show All", @selector(unhideAllApplications:), "");
     applicationMenu.addItem(ns::MenuItem::separatorItem());

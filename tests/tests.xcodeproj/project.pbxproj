@@ -31,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		3023334E293621AC003114B4 /* MenuItem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MenuItem.hpp; sourceTree = "<group>"; };
+		3023334F2937BA30003114B4 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -187,6 +188,7 @@
 			children = (
 				30901109292E9F48002D121D /* Application.hpp */,
 				3090110D292F67B6002D121D /* ApplicationDelegate.hpp */,
+				3023334F2937BA30003114B4 /* Event.hpp */,
 				3090111529350B42002D121D /* Menu.hpp */,
 				3023334E293621AC003114B4 /* MenuItem.hpp */,
 				309011122930D42A002D121D /* Screen.hpp */,

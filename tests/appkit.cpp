@@ -64,14 +64,24 @@ TEST_CASE("MenuItem")
     ns::MenuItem separatorItem = ns::MenuItem::separatorItem();
     REQUIRE(separatorItem);
     REQUIRE(separatorItem.retainCount());
+    CHECK(separatorItem.isSeparatorItem());
 
     ns::MenuItem menuItemWithTitle("test", nil, "w");
     REQUIRE(menuItemWithTitle);
     REQUIRE(menuItemWithTitle.retainCount());
+    CHECK(menuItemWithTitle.title().isEqualToString("test"));
+    menuItemWithTitle.setTitle("title");
+    CHECK(menuItemWithTitle.title().isEqualToString("title"));
+    CHECK(!menuItemWithTitle.isSeparatorItem());
+    CHECK(menuItemWithTitle.keyEquivalent().isEqualToString("w"));
+    menuItemWithTitle.setKeyEquivalent("a");
+    CHECK(menuItemWithTitle.keyEquivalent().isEqualToString("a"));
 
     ns::MenuItem menuItem;
     REQUIRE(menuItem);
     REQUIRE(menuItem.retainCount());
+    menuItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Command | ns::EventModifierFlags::Option);
+    CHECK(menuItem.keyEquivalentModifierMask() == (ns::EventModifierFlags::Command | ns::EventModifierFlags::Option));
 
     ns::Menu submenu;
     menuItem.setSubmenu(submenu);
