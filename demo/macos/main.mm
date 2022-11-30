@@ -152,7 +152,7 @@ static void createMainMenu(NSApplication* sharedApplication)
     const auto mainBundle = ns::Bundle::mainBundle();
     const auto infoDictionary = mainBundle.infoDictionary();
 
-    NSString* bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
+    ns::String bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
     if (!bundleName)
         bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
 
