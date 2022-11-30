@@ -55,7 +55,7 @@ namespace ns
         }
     };
 
-    inline Menu MenuItem::submenu() const noexcept
+    [[nodiscard]] inline Menu MenuItem::submenu() const noexcept
     {
         return getRetained<Menu>(sel::submenu);
     }

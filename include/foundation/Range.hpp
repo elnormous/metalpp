@@ -10,12 +10,12 @@ namespace ns
         Range() noexcept = default;
         Range(UInteger loc, UInteger len) noexcept: location{loc}, length{len} {}
 
-        bool operator==(const Range& other) const noexcept
+        [[nodiscard]] bool operator==(const Range& other) const noexcept
         {
             return other.location == location && other.length == length;
         }
 
-        bool operator!=(const Range& other) const noexcept
+        [[nodiscard]] bool operator!=(const Range& other) const noexcept
         {
             return other.location != location || other.length != length;
         }

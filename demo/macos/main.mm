@@ -156,10 +156,7 @@ static void createMainMenu(NSApplication* sharedApplication)
     if (!bundleName)
         bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
 
-    [applicationMenu addItemWithTitle:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"About", nil), bundleName]
-                               action:@selector(orderFrontStandardAboutPanel:)
-                        keyEquivalent:@""];
-
+    applicationMenu.addItem(ns::String{"About "} + bundleName, @selector(orderFrontStandardAboutPanel:), "");
     applicationMenu.addItem(ns::MenuItem::separatorItem());
 
     auto servicesItem = applicationMenu.addItem("Services", nil, "");
@@ -169,20 +166,14 @@ static void createMainMenu(NSApplication* sharedApplication)
     sharedApplication.servicesMenu = servicesMenu;
 
     applicationMenu.addItem(ns::MenuItem::separatorItem());
-
-    [applicationMenu addItemWithTitle:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Hide", nil), bundleName]
-                               action:@selector(hide:)
-                        keyEquivalent:@"h"];
+    applicationMenu.addItem(ns::String{"Hide "} + bundleName, @selector(hide:), "h");
 
     auto hideOthersItem = applicationMenu.addItem("Hide Others", @selector(hideOtherApplications:), "h");
     hideOthersItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Option | ns::EventModifierFlags::Command);
 
     applicationMenu.addItem("Show All", @selector(unhideAllApplications:), "");
     applicationMenu.addItem(ns::MenuItem::separatorItem());
-
-    [applicationMenu addItemWithTitle:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Quit", nil), bundleName]
-                               action:@selector(terminate:)
-                        keyEquivalent:@"q"];
+    applicationMenu.addItem(ns::String{"Quit "} + bundleName, @selector(terminate:), "q");
 
     // View menu
     auto viewItem = mainMenu.addItem("View", nullptr, "");

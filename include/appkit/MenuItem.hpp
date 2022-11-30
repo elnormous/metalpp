@@ -16,7 +16,7 @@ namespace ns
     public:
         using Object::Object;
 
-        static auto separatorItem() noexcept
+        [[nodiscard]] static auto separatorItem() noexcept
         {
             return MenuItem{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::separatorItem), sel::retain)};
         }
@@ -35,7 +35,7 @@ namespace ns
         {
         }
 
-        inline Menu submenu() const noexcept;
+        [[nodiscard]] inline Menu submenu() const noexcept;
         inline void setSubmenu(const Menu& submenu) noexcept;
 
         [[nodiscard]] auto title() const noexcept

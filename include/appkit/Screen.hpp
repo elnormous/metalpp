@@ -13,24 +13,24 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSScreen");
     public:
-        static auto screens() noexcept
+        [[nodiscard]] static auto screens() noexcept
         {
             return Array<Screen>{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::screens), sel::retain)};
         }
 
-        static auto mainScreen() noexcept
+        [[nodiscard]] static auto mainScreen() noexcept
         {
             return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::mainScreen), sel::retain)};
         }
 
-        static auto deepestScreen() noexcept
+        [[nodiscard]] static auto deepestScreen() noexcept
         {
             return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::deepestScreen), sel::retain)};
         }
 
         Screen() = delete;
 
-        auto frame() const noexcept
+        [[nodiscard]] auto frame() const noexcept
         {
             return sendMessage<cg::Rect>(sel::frame);
         }

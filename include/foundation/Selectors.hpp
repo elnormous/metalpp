@@ -38,6 +38,7 @@ namespace ns
         inline const auto characterAtIndex_ = sel_registerName("characterAtIndex:");
         inline const auto cStringUsingEncoding_ = sel_registerName("cStringUsingEncoding:");
         inline const auto isEqualToString_ = sel_registerName("isEqualToString:");
+        inline const auto stringByAppendingString_ = sel_registerName("stringByAppendingString:");
     }
 }
 

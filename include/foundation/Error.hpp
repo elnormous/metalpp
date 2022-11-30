@@ -35,22 +35,22 @@ namespace ns
         {
         }
 
-        Integer code() const noexcept
+        [[nodiscard]] Integer code() const noexcept
         {
             return sendMessage<Integer>(sel::code);
         }
 
-        String domain() const noexcept
+        [[nodiscard]] String domain() const noexcept
         {
             return getRetained<String>(sel::domain);
         }
 
-        Dictionary<String, Object> userInfo() const noexcept
+        [[nodiscard]] Dictionary<String, Object> userInfo() const noexcept
         {
             return getRetained<Dictionary<String, Object>>(sel::userInfo);
         }
 
-        String localizedDescription() const noexcept
+        [[nodiscard]] String localizedDescription() const noexcept
         {
             return getRetained<String>(sel::localizedDescription);
         }

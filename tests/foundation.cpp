@@ -137,4 +137,13 @@ TEST_CASE("String")
     CHECK(strcmp(str.cString(), "ab") == 0);
     CHECK(str.isEqualToString("ab"));
     CHECK(!str.isEqualToString("abc"));
+
+    const ns::String appendedString = str.stringByAppendingString("cd");
+    CHECK(appendedString.isEqualToString("abcd"));
+    CHECK(appendedString.retainCount() == 2);
+    pool.drain();
+    CHECK(appendedString.retainCount() == 1);
+
+    const ns::String addedString = ns::String{"abc"} + ns::String{"def"};
+    CHECK(addedString.isEqualToString("abcdef"));
 }

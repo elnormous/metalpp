@@ -15,7 +15,7 @@ namespace ns
     public:
         using Object::Object;
 
-        static auto mainBundle() noexcept
+        [[nodiscard]] static auto mainBundle() noexcept
         {
             return Bundle{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::mainBundle), sel::retain)};
         }
@@ -32,7 +32,7 @@ namespace ns
         {
         }
 
-        Dictionary<String, Object> infoDictionary() const noexcept
+        [[nodiscard]] Dictionary<String, Object> infoDictionary() const noexcept
         {
             return getRetained<Dictionary<String, Object>>(sel::infoDictionary);
         }

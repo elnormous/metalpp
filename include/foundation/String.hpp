@@ -102,6 +102,16 @@ namespace ns
         {
             return sendMessage<BOOL>(sel::isEqualToString_, static_cast<id>(string)) == YES;
         }
+
+        [[nodiscard]] auto stringByAppendingString(const String& string) const noexcept
+        {
+            return getRetained<String>(sel::stringByAppendingString_, static_cast<id>(string));
+        }
+
+        [[nodiscard]] auto operator+(const String& string) const noexcept
+        {
+            return stringByAppendingString(string);
+        }
     };
 }
 

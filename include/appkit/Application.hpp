@@ -12,7 +12,7 @@ namespace ns
     {
         static inline const auto cls = objc_lookUpClass("NSApplication");
     public:
-        static auto sharedApplication() noexcept
+        [[nodiscard]] static auto sharedApplication() noexcept
         {
             return Application{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::sharedApplication), sel::retain)};
         }
