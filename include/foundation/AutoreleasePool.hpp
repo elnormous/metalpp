@@ -9,8 +9,9 @@ namespace ns
 {
     class AutoreleasePool final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
     public:
+        static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
+
         AutoreleasePool() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {            

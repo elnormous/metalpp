@@ -19,8 +19,9 @@ namespace ns
             return result;
         }
 
-        static inline const auto cls = createClass();
     public:
+        static inline const auto cls = createClass();
+
         ApplicationDelegate() noexcept:
             Object{objc::sendMessage<id>(class_createInstance(cls, sizeof(ApplicationDelegate*)), sel::init)}
         {

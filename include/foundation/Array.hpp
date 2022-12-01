@@ -11,8 +11,9 @@ namespace ns
     template <class Type>
     class Array: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSArray");
     public:
+        static inline const auto cls = objc_lookUpClass("NSArray");
+
         using Object::Object;
 
         Array() noexcept:

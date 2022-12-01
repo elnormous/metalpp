@@ -11,8 +11,9 @@ namespace ns
 {
     class Bundle final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSBundle");
     public:
+        static inline const auto cls = objc_lookUpClass("NSBundle");
+
         using Object::Object;
 
         [[nodiscard]] static auto mainBundle() noexcept

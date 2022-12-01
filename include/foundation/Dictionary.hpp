@@ -11,8 +11,9 @@ namespace ns
     template <class KeyType, class ObjectType>
     class Dictionary: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSDictionary");
     public:
+        static inline const auto cls = objc_lookUpClass("NSDictionary");
+
         using Object::Object;
 
         Dictionary() noexcept:

@@ -137,8 +137,9 @@ namespace mtl
 
     class CompileOptions final: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("MTLCompileOptions");
     public:
+        static inline const auto cls = objc_lookUpClass("MTLCompileOptions");
+
         CompileOptions():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {

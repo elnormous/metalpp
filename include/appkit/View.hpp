@@ -8,8 +8,9 @@ namespace ns
 {
     class View: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSView");
     public:
+        static inline const auto cls = objc_lookUpClass("NSView");
+
         using Object::Object;
 
         View() noexcept:

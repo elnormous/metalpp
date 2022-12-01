@@ -98,8 +98,9 @@ namespace ca
 
     class Layer: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("CALayer");
     public:
+        static inline const auto cls = objc_lookUpClass("CALayer");
+
         using Object::Object;
 
         Layer() noexcept:

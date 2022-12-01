@@ -26,8 +26,9 @@ namespace ca
 
     class MetalLayer final: public Layer
     {
-        static inline const auto cls = objc_lookUpClass("CAMetalLayer");
     public:
+        static inline const auto cls = objc_lookUpClass("CAMetalLayer");
+
         using Layer::Layer;
         
         MetalLayer() noexcept:

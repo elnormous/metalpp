@@ -10,9 +10,9 @@ namespace ns
 {
     class Object
     {
-    protected:
-        static inline const auto cls = objc_lookUpClass("NSObject");
     public:
+        static inline const auto cls = objc_lookUpClass("NSObject");
+
         Object() noexcept:
             ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
         {
@@ -64,7 +64,22 @@ namespace ns
             return ptr != other.ptr;
         }
 
+        bool operator==(const id other) const noexcept
+        {
+            return ptr == other;
+        }
+
+        bool operator!=(const id other) const noexcept
+        {
+            return ptr != other;
+        }
+
         operator id() const noexcept
+        {
+            return ptr;
+        }
+
+        auto get() const noexcept
         {
             return ptr;
         }

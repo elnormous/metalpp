@@ -60,8 +60,9 @@ namespace ns
     
     class Window final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSWindow");
     public:
+        static inline const auto cls = objc_lookUpClass("NSWindow");
+
         using Object::Object;
         Window() = delete;
 

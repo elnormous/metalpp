@@ -1,5 +1,16 @@
 #include "doctest.h"
+#include "objc/Class.hpp"
 #include "objc/Object.hpp"
+
+TEST_CASE("Class")
+{
+    objc::Class<ns::Object> cls{"test"};
+    CHECK(strcmp("test", cls.getName()) == 0);
+    CHECK(!cls.isMetaClass());
+    CHECK(cls.getVersion() == 0);
+    cls.setVersion(1);
+    CHECK(cls.getVersion() == 1);
+}
 
 TEST_CASE("Object")
 {

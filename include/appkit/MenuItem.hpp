@@ -12,8 +12,9 @@ namespace ns
 
     class MenuItem final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSMenuItem");
     public:
+        static inline const auto cls = objc_lookUpClass("NSMenuItem");
+
         using Object::Object;
 
         [[nodiscard]] static auto separatorItem() noexcept

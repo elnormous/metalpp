@@ -198,8 +198,9 @@ namespace mtl
 
     class VertexDescriptor final: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
     public:
+        static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
+
         using Object::Object;
 
         VertexDescriptor() noexcept:

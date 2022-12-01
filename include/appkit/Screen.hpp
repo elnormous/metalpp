@@ -11,8 +11,9 @@ namespace ns
 {
     class Screen final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSScreen");
     public:
+        static inline const auto cls = objc_lookUpClass("NSScreen");
+
         [[nodiscard]] static auto screens() noexcept
         {
             return Array<Screen>{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::screens), sel::retain)};

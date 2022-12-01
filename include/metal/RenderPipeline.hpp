@@ -235,8 +235,9 @@ namespace mtl
 
     class RenderPipelineDescriptor final: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
     public:
+        static inline const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
+
         RenderPipelineDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {

@@ -11,8 +11,9 @@ namespace ns
 {
     class Menu final: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSMenu");
     public:
+        static inline const auto cls = objc_lookUpClass("NSMenu");
+
         using Object::Object;
 
         Menu():

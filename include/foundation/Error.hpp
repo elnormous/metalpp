@@ -12,8 +12,9 @@ namespace ns
 {
     class Error: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSError");
     public:
+        static inline const auto cls = objc_lookUpClass("NSError");
+
         using Object::Object;
         Error() = delete;
 

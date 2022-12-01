@@ -44,8 +44,9 @@ namespace ns
 
     class String: public Object
     {
-        static inline const auto cls = objc_lookUpClass("NSString");
     public:
+        static inline const auto cls = objc_lookUpClass("NSString");
+
         using Object::Object;
 
         String():

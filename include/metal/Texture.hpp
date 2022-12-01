@@ -57,8 +57,9 @@ namespace mtl
 
     class TextureDescriptor final: public ns::Object
     {
-        static inline const auto cls = objc_lookUpClass("MTLTextureDescriptor");
     public:
+        static inline const auto cls = objc_lookUpClass("MTLTextureDescriptor");
+
         TextureDescriptor():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
         {
