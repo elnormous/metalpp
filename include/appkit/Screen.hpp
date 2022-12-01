@@ -4,7 +4,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Array.hpp"
-#include "Geometry.hpp"
+#include "../foundation/Geometry.hpp"
 #include "Selectors.hpp"
 
 namespace ns

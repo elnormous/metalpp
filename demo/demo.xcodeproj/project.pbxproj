@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3008F03E28FC42F100A74CB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3008F03D28FC42F100A74CB8 /* AppDelegate.m */; };
 		3008F04328FC42F300A74CB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3008F04228FC42F300A74CB8 /* Assets.xcassets */; };
 		3008F04828FC42F300A74CB8 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3008F04728FC42F300A74CB8 /* main.mm */; };
+		30233358293825E6003114B4 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30233357293825E6003114B4 /* Metal.framework */; };
+		3023335E29382657003114B4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3023335D29382657003114B4 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3008F03A28FC42F100A74CB8 /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3008F03C28FC42F100A74CB8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		3008F03D28FC42F100A74CB8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3008F04228FC42F300A74CB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3008F04728FC42F300A74CB8 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		30233357293825E6003114B4 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		3023335D29382657003114B4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -25,6 +26,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3023335E29382657003114B4 /* Cocoa.framework in Frameworks */,
+				30233358293825E6003114B4 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +37,7 @@
 		3008F02328FC42AA00A74CB8 = {
 			isa = PBXGroup;
 			children = (
+				30233354293825E0003114B4 /* Frameworks */,
 				3008F03B28FC42F100A74CB8 /* macos */,
 				3008F02D28FC42AA00A74CB8 /* Products */,
 			);
@@ -50,12 +54,19 @@
 		3008F03B28FC42F100A74CB8 /* macos */ = {
 			isa = PBXGroup;
 			children = (
-				3008F03C28FC42F100A74CB8 /* AppDelegate.h */,
-				3008F03D28FC42F100A74CB8 /* AppDelegate.m */,
 				3008F04228FC42F300A74CB8 /* Assets.xcassets */,
 				3008F04728FC42F300A74CB8 /* main.mm */,
 			);
 			path = macos;
+			sourceTree = "<group>";
+		};
+		30233354293825E0003114B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3023335D29382657003114B4 /* Cocoa.framework */,
+				30233357293825E6003114B4 /* Metal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3008F04828FC42F300A74CB8 /* main.mm in Sources */,
-				3008F03E28FC42F100A74CB8 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

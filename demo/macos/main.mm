@@ -5,6 +5,7 @@
 #include "appkit/Application.hpp"
 #include "appkit/Menu.hpp"
 #include "appkit/Screen.hpp"
+#include "appkit/Window.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Bundle.hpp"
 #include "metal/Metal.hpp"
@@ -28,6 +29,47 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
     };
     return m;
 }
+
+//@interface AppDelegate : NSObject<NSApplicationDelegate>
+//
+//@end
+//
+//@implementation AppDelegate
+//
+//- (void)applicationDidFinishLaunching:(NSNotification*)notification {
+//    [[NSAppleEventManager sharedAppleEventManager]
+//        setEventHandler:self
+//            andSelector:@selector(handleURLEvent:withReplyEvent:)
+//          forEventClass:kInternetEventClass
+//             andEventID:kAEGetURL];
+//
+//    NSDictionary* defaults = [NSDictionary dictionaryWithObjectsAndKeys:
+//                              [NSNumber numberWithBool:NO], @"AppleMomentumScrollSupported",
+//                              [NSNumber numberWithBool:NO], @"ApplePressAndHoldEnabled",
+//                              [NSNumber numberWithBool:YES], @"ApplePersistenceIgnoreState",
+//                              nil];
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+//}
+//
+//- (void)applicationWillTerminate:(NSNotification*)notification {
+//
+//}
+//
+//- (BOOL)applicationSupportsSecureRestorableState:(NSApplication*)app {
+//    return YES;
+//}
+//
+//- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)app {
+//    return YES;
+//}
+//
+//- (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
+//{
+//    NSString* path = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+//    NSLog(@"URL event %@", path);
+//}
+//
+//@end
 
 @interface WindowDelegate: NSObject<NSWindowDelegate>
 {
@@ -59,13 +101,13 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
         ca::MetalLayer metalLayer;
 
-        const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
+//        const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
+//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//        CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
 
         metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
         metalLayer.setMasksToBounds(true);
-        //metalLayer.setBackgroundColor(backgroundColor);
+//        metalLayer.setBackgroundColor(backgroundColor);
         metalLayer.setPresentsWithTransaction(false);
         metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
         metalLayer.setFrame(cg::Rect{cg::Point{frameRect.origin.x, frameRect.origin.y}, cg::Size{frameRect.size.width, frameRect.size.height}});
@@ -76,8 +118,8 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
         [self setLayer:metalLayer];
 
-        CGColorRelease(backgroundColor);
-        CGColorSpaceRelease(colorSpace);
+//        CGColorRelease(backgroundColor);
+//        CGColorSpaceRelease(colorSpace);
     }
 
     return self;
@@ -257,22 +299,21 @@ public:
         application.setDelegate(appDelegate);
         createMainMenu(application);
 
-        const NSWindowStyleMask windowStyleMask = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable;
+        const ns::WindowStyleMask windowStyleMask = ns::WindowStyleMask::Titled | ns::WindowStyleMask::Closable | ns::WindowStyleMask::Miniaturizable | ns::WindowStyleMask::Resizable;
 
         const auto screenFrame = screen.frame();
+        const ns::Size windowSize{
+            std::round(screenFrame.size.width * 0.6),
+            std::round(screenFrame.size.height * 0.6)
+        };
 
-        const CGSize windowSize = CGSizeMake(std::round(screenFrame.size.width * 0.6),
-                                             std::round(screenFrame.size.height * 0.6));
+        const ns::Rect frame{
+            std::round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
+            std::round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
+            windowSize.width, windowSize.height
+        };
 
-        const NSRect frame = NSMakeRect(std::round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
-                                        std::round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
-                                        windowSize.width, windowSize.height);
-
-        NSWindow* window  = [[NSWindow alloc] initWithContentRect:frame
-                                                        styleMask:windowStyleMask
-                                                          backing:NSBackingStoreBuffered
-                                                            defer:NO
-                                                           screen:screen];
+        ns::Window window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
 
         [window setReleasedWhenClosed:NO];
         [window setTabbingMode:NSWindowTabbingModeDisallowed];
