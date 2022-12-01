@@ -4,6 +4,7 @@
 #include "appkit/Menu.hpp"
 #include "appkit/MenuItem.hpp"
 #include "appkit/Screen.hpp"
+#include "appkit/View.hpp"
 #include "appkit/Window.hpp"
 
 TEST_CASE("Application")
@@ -120,6 +121,13 @@ TEST_CASE("Screen")
     ns::Screen deepestScreen = ns::Screen::deepestScreen();
     REQUIRE(deepestScreen);
     CHECK(deepestScreen.retainCount());
+}
+
+TEST_CASE("View")
+{
+    ns::View view;
+    REQUIRE(view);
+    CHECK(view.retainCount());
 }
 
 TEST_CASE("Window")
