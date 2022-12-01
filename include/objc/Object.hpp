@@ -54,22 +54,22 @@ namespace ns
 
         Object(const id p) noexcept: ptr{p} {}
 
-        bool operator==(const Object& other) const noexcept
+        [[nodiscard]] bool operator==(const Object& other) const noexcept
         {
             return ptr == other.ptr;
         }
 
-        bool operator!=(const Object& other) const noexcept
+        [[nodiscard]] bool operator!=(const Object& other) const noexcept
         {
             return ptr != other.ptr;
         }
 
-        bool operator==(const id other) const noexcept
+        [[nodiscard]] bool operator==(const id other) const noexcept
         {
             return ptr == other;
         }
 
-        bool operator!=(const id other) const noexcept
+        [[nodiscard]] bool operator!=(const id other) const noexcept
         {
             return ptr != other;
         }
@@ -79,7 +79,7 @@ namespace ns
             return ptr;
         }
 
-        auto get() const noexcept
+        [[nodiscard]] auto get() const noexcept
         {
             return ptr;
         }

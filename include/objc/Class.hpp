@@ -40,22 +40,32 @@ namespace objc
             return *this;
         }
 
+        [[nodiscard]] bool operator==(const ::Class other) const noexcept
+        {
+            return cls == other;
+        }
+
+        [[nodiscard]] bool operator!=(const ::Class other) const noexcept
+        {
+            return cls != other;
+        }
+
         void reg() noexcept
         {
             if (cls) objc_registerClassPair(cls);
         }
 
-        const char* getName() const noexcept
+        [[nodiscard]] const char* getName() const noexcept
         {
             return cls ? class_getName(cls) : nullptr;
         }
 
-        auto isMetaClass() const noexcept
+        [[nodiscard]] auto isMetaClass() const noexcept
         {
             return cls ? class_isMetaClass(cls) == YES : false;
         }
 
-        auto getVersion() const noexcept
+        [[nodiscard]] auto getVersion() const noexcept
         {
             return cls ? class_getVersion(cls) : 0;
         }

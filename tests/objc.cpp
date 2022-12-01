@@ -5,6 +5,7 @@
 TEST_CASE("Class")
 {
     objc::Class<ns::Object> cls{"test"};
+    CHECK(cls != ns::Object::cls);
     CHECK(strcmp("test", cls.getName()) == 0);
     CHECK(!cls.isMetaClass());
     CHECK(cls.getVersion() == 0);
@@ -25,4 +26,7 @@ TEST_CASE("Object")
     }
 
     CHECK(obj.retainCount() == 1);
+
+    const ns::Object obj3;
+    CHECK(obj != obj3);
 }
