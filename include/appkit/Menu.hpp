@@ -24,35 +24,35 @@ namespace ns
         Menu(const ns::String& title):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithTitle_,
-                                         static_cast<id>(title))}
+                                         title.get())}
         {
         }
 
         void insertItem(const MenuItem& item, ns::Integer index) noexcept
         {
-            sendMessage(sel::insertItem_atIndex_, static_cast<id>(item), index);
+            sendMessage(sel::insertItem_atIndex_, item.get(), index);
         }
 
         void addItem(const MenuItem& item) noexcept
         {
-            sendMessage(sel::addItem_, static_cast<id>(item));
+            sendMessage(sel::addItem_, item.get());
         }
 
         auto insertItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent, ns::Integer index) noexcept
         {
             return getRetained<MenuItem>(sel::insertItemWithTitle_action_keyEquivalent_atIndex_,
-                                         static_cast<id>(title),
+                                         title.get(),
                                          action,
-                                         static_cast<id>(keyEquivalent),
+                                         keyEquivalent.get(),
                                          index);
         }
 
         auto addItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent) noexcept
         {
             return getRetained<MenuItem>(sel::addItemWithTitle_action_keyEquivalent_,
-                                         static_cast<id>(title),
+                                         title.get(),
                                          action,
-                                         static_cast<id>(keyEquivalent));
+                                         keyEquivalent.get());
         }
     };
 
@@ -63,7 +63,7 @@ namespace ns
 
     inline void MenuItem::setSubmenu(const Menu& submenu) noexcept
     {
-        sendMessage(sel::setSubmenu_, static_cast<id>(submenu));
+        sendMessage(sel::setSubmenu_, submenu.get());
     }
 }
 

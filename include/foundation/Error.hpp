@@ -21,7 +21,7 @@ namespace ns
         Error(const String& domain, const Integer& code) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithDomain_code_userInfo_,
-                                         static_cast<id>(domain),
+                                         domain.get(),
                                          code,
                                          nil)}
         {
@@ -30,9 +30,9 @@ namespace ns
         Error(const String& domain, const Integer& code, const Dictionary<String, Object>& userInfo) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithDomain_code_userInfo_,
-                                         static_cast<id>(domain),
+                                         domain.get(),
                                          code,
-                                         static_cast<id>(userInfo))}
+                                         userInfo.get())}
         {
         }
 

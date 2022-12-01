@@ -29,7 +29,7 @@ namespace ns
         Bundle(const String& title) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithPath_,
-                                         static_cast<id>(title))}
+                                         title.get())}
         {
         }
 

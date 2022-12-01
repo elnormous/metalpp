@@ -101,12 +101,12 @@ namespace ns
 
         [[nodiscard]] auto isEqualToString(const String& string) const noexcept
         {
-            return sendMessage<BOOL>(sel::isEqualToString_, static_cast<id>(string)) == YES;
+            return sendMessage<BOOL>(sel::isEqualToString_, string.get()) == YES;
         }
 
         [[nodiscard]] auto stringByAppendingString(const String& string) const noexcept
         {
-            return getRetained<String>(sel::stringByAppendingString_, static_cast<id>(string));
+            return getRetained<String>(sel::stringByAppendingString_, string.get());
         }
 
         [[nodiscard]] auto operator+(const String& string) const noexcept

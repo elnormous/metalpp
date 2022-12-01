@@ -71,7 +71,7 @@ namespace mtl
 
         void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, label.get());
         }
 
         [[nodiscard]] auto functionType() const noexcept
@@ -152,7 +152,7 @@ namespace mtl
 
         void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
         {
-            sendMessage(sel::setPreprocessorMacros_, static_cast<id>(preprocessorMacros));
+            sendMessage(sel::setPreprocessorMacros_, preprocessorMacros.get());
         }
 
         [[nodiscard]] auto fastMathEnabled() const noexcept
@@ -192,7 +192,7 @@ namespace mtl
 
         void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            sendMessage(sel::setInstallName_, static_cast<id>(installName));
+            sendMessage(sel::setInstallName_, installName.get());
         }
 
         [[nodiscard]] auto libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
@@ -202,7 +202,7 @@ namespace mtl
 
         void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            sendMessage(sel::setLibraries_, static_cast<id>(libraries));
+            sendMessage(sel::setLibraries_, libraries.get());
         }
 
         [[nodiscard]] auto preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
@@ -240,13 +240,13 @@ namespace mtl
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, label.get());
         }
 
         [[nodiscard]] auto newFunction(const ns::String& name) const noexcept
         {
             const id function = sendMessage<id>(sel::newFunctionWithName_,
-                                                static_cast<id>(name));
+                                                name.get());
             return Function{function};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));

@@ -91,13 +91,13 @@ namespace mtl
 
         void setRenderPipelineState(const RenderPipelineState& pipelineState) noexcept
         {
-            sendMessage(sel::setRenderPipelineState_, static_cast<id>(pipelineState));
+            sendMessage(sel::setRenderPipelineState_, pipelineState.get());
         }
 
         void setVertexBuffer(const Buffer& buffer, const ns::UInteger offset, const ns::UInteger index) noexcept
         {
             sendMessage(sel::setVertexBuffer_offset_atIndex_,
-                        static_cast<id>(buffer),
+                        buffer.get(),
                         offset,
                         index);
         }
@@ -105,7 +105,7 @@ namespace mtl
         void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index)  noexcept
         {
             sendMessage(sel::setFragmentBuffer_offset_atIndex_,
-                        static_cast<id>(buffer),
+                        buffer.get(),
                         offset,
                         index);
         }
@@ -113,14 +113,14 @@ namespace mtl
         void setFragmentTexture(const Texture& texture, ns::UInteger index)  noexcept
         {
             sendMessage(sel::setFragmentTexture_atIndex_,
-                        static_cast<id>(texture),
+                        texture.get(),
                         index);
         }
 
         void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index)  noexcept
         {
             sendMessage(sel::setFragmentSamplerState_atIndex_,
-                        static_cast<id>(sampler),
+                        sampler.get(),
                         index);
         }
 
@@ -138,7 +138,7 @@ namespace mtl
                         primitiveType,
                         indexCount,
                         indexType,
-                        static_cast<id>(indexBuffer),
+                        indexBuffer.get(),
                         indexBufferOffset);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));

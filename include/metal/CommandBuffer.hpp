@@ -70,7 +70,7 @@ namespace mtl
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, label.get());
         }
 
         [[nodiscard]] auto blitCommandEncoder() const noexcept
@@ -80,17 +80,17 @@ namespace mtl
 
         [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            return getRetained<RenderCommandEncoder>(sel::renderCommandEncoderWithDescriptor_, static_cast<id>(renderPassDescriptor));
+            return getRetained<RenderCommandEncoder>(sel::renderCommandEncoderWithDescriptor_, renderPassDescriptor.get());
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept
         {
-            sendMessage(sel::presentDrawable_, static_cast<id>(drawable));
+            sendMessage(sel::presentDrawable_, drawable.get());
         }
 
         void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
-            sendMessage(sel::presentDrawable_atTime_, static_cast<id>(drawable), presentationTime);
+            sendMessage(sel::presentDrawable_atTime_, drawable.get(), presentationTime);
         }
 
         void commit() noexcept

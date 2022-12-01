@@ -64,7 +64,7 @@ namespace mtl
 
         void setTexture(const Texture& texture) noexcept
         {
-            sendMessage(sel::setTexture_, static_cast<id>(texture));
+            sendMessage(sel::setTexture_, texture.get());
         }
 
         [[nodiscard]] auto level() const noexcept
@@ -104,7 +104,7 @@ namespace mtl
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
         {
-            sendMessage(sel::setResolveTexture_, static_cast<id>(resolveTexture));
+            sendMessage(sel::setResolveTexture_, resolveTexture.get());
         }
 
         [[nodiscard]] auto resolveLevel() const noexcept

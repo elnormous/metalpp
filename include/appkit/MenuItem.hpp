@@ -30,9 +30,9 @@ namespace ns
         MenuItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithTitle_action_keyEquivalent_,
-                                         static_cast<id>(title),
+                                         title.get(),
                                          action,
-                                         static_cast<id>(keyEquivalent))}
+                                         keyEquivalent.get())}
         {
         }
 
@@ -46,7 +46,7 @@ namespace ns
 
         void setTitle(const String& title) noexcept
         {
-            sendMessage(sel::setTitle_, static_cast<id>(title));
+            sendMessage(sel::setTitle_, title.get());
         }
 
         [[nodiscard]] auto isSeparatorItem() const noexcept
@@ -61,7 +61,7 @@ namespace ns
 
         void setKeyEquivalent(const String& keyEquivalent) noexcept
         {
-            sendMessage(sel::setKeyEquivalent_, static_cast<id>(keyEquivalent));
+            sendMessage(sel::setKeyEquivalent_, keyEquivalent.get());
         }
 
         [[nodiscard]] auto keyEquivalentModifierMask() const noexcept

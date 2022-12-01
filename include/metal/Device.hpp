@@ -156,7 +156,7 @@ namespace mtl
         [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = sendMessage<id>(sel::newDepthStencilStateWithDescriptor_,
-                                                         static_cast<id>(descriptor));
+                                                         descriptor.get());
             return DepthStencilState{depthStencilState};
         }
 
@@ -180,14 +180,14 @@ namespace mtl
         [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
         {
             const id texture = sendMessage<id>(sel::newTextureWithDescriptor_,
-                                               static_cast<id>(descriptor));
+                                               descriptor.get());
             return Texture{texture};
         }
 
         [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
         {
             const id samplerState = sendMessage<id>(sel::newSamplerStateWithDescriptor_,
-                                                    static_cast<id>(descriptor));
+                                                    descriptor.get());
             return SamplerState{samplerState};
         }
 
@@ -201,7 +201,7 @@ namespace mtl
         {
             id error;
             const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
-                                               static_cast<id>(source),
+                                               source.get(),
                                                nil,
                                                &error);
 
@@ -215,8 +215,8 @@ namespace mtl
         {
             id error;
             const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
-                                               static_cast<id>(source),
-                                               static_cast<id>(compileOptions),
+                                               source.get(),
+                                               compileOptions.get(),
                                                &error);
 
             if (error != nil)
@@ -239,7 +239,7 @@ namespace mtl
         {
             id error;
             const id renderPipelineState = sendMessage<id>(sel::newRenderPipelineStateWithDescriptor_error_,
-                                                           static_cast<id>(renderPipelineDescriptor),
+                                                           renderPipelineDescriptor.get(),
                                                            &error);
 
             if (error != nil)

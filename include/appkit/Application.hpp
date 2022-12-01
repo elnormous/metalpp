@@ -29,7 +29,7 @@ namespace ns
 
         void setDelegate(const ApplicationDelegate& delegate) noexcept
         {
-            sendMessage(sel::setDelegate_, static_cast<id>(delegate));
+            sendMessage(sel::setDelegate_, delegate.get());
         }
 
         void activateIgnoringOtherApps(bool flag) noexcept
@@ -49,7 +49,7 @@ namespace ns
 
         void setMainMenu(const ns::Menu& mainMenu) noexcept
         {
-            sendMessage(sel::setMainMenu_, static_cast<id>(mainMenu));
+            sendMessage(sel::setMainMenu_, mainMenu.get());
         }
 
         [[nodiscard]] auto helpMenu() const noexcept API_AVAILABLE(macos(10.6))
@@ -59,7 +59,7 @@ namespace ns
 
         void setHelpMenu(const ns::Menu& helpMenu) noexcept API_AVAILABLE(macos(10.6))
         {
-            sendMessage(sel::setHelpMenu_, static_cast<id>(helpMenu));
+            sendMessage(sel::setHelpMenu_, helpMenu.get());
         }
 
         [[nodiscard]] auto windowsMenu() const noexcept
@@ -69,7 +69,7 @@ namespace ns
 
         void setWindowsMenu(const ns::Menu& windowsMenu) noexcept
         {
-            sendMessage(sel::setWindowsMenu_, static_cast<id>(windowsMenu));
+            sendMessage(sel::setWindowsMenu_, windowsMenu.get());
         }
 
         [[nodiscard]] auto servicesMenu() const noexcept
@@ -79,7 +79,7 @@ namespace ns
 
         void setServicesMenu(const ns::Menu& servicesMenu) noexcept
         {
-            sendMessage(sel::setServicesMenu_, static_cast<id>(servicesMenu));
+            sendMessage(sel::setServicesMenu_, servicesMenu.get());
         }
     };
 }

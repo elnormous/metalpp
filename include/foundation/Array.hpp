@@ -25,7 +25,7 @@ namespace ns
         Array(const Args&... objects) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithObjects_,
-                                         static_cast<id>(objects)...,
+                                         objects.get()...,
                                          nil)}
         {
         }

@@ -24,8 +24,8 @@ namespace ns
         Dictionary(const Array<ObjectType>& objects, const Array<KeyType>& keys) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithObjects_forKeys_,
-                                         static_cast<id>(objects),
-                                         static_cast<id>(keys))}
+                                         objects.get(),
+                                         keys.get())}
         {
         }
 
@@ -33,7 +33,7 @@ namespace ns
         Dictionary(const Args&... objectsAndKeys) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithObjectsAndKeys_,
-                                         static_cast<id>(objectsAndKeys)...,
+                                         objectsAndKeys.get()...,
                                          nil)}
         {
         }
@@ -51,13 +51,13 @@ namespace ns
         template<class T = ObjectType>
         [[nodiscard]] auto objectForKey(const KeyType& key) const noexcept
         {
-            return getRetained<T>(sel::objectForKey_, static_cast<id>(key));
+            return getRetained<T>(sel::objectForKey_, key.get());
         }
 
         template<class T = ObjectType>
         [[nodiscard]] auto objectForKey(const KeyType&& key) const noexcept
         {
-            return getRetained<T>(sel::objectForKey_, static_cast<id>(key));
+            return getRetained<T>(sel::objectForKey_, key.get());
         }
 
         [[nodiscard]] auto allKeys() const noexcept
@@ -67,7 +67,7 @@ namespace ns
 
         [[nodiscard]] auto allKeysForObject(const Object& object) const noexcept
         {
-            return getRetained<Array<KeyType>>(sel::allKeysForObject_, static_cast<id>(object));
+            return getRetained<Array<KeyType>>(sel::allKeysForObject_, object.get());
         }
 
         [[nodiscard]] auto allValues() const noexcept

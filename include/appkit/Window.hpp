@@ -83,7 +83,7 @@ namespace ns
                                          style,
                                          backingStoreType,
                                          defer ? YES : NO,
-                                         static_cast<id>(screen))}
+                                         screen.get())}
         {
         }
     };

@@ -24,7 +24,7 @@ namespace mtl
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, label.get());
         }
 
         [[nodiscard]] auto commandBuffer() const noexcept

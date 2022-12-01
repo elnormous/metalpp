@@ -145,7 +145,7 @@ namespace ca
 
         void setMinificationFilter(const LayerContentsFilter& minificationFilter) noexcept
         {
-            sendMessage(sel::setMinificationFilter_, static_cast<id>(minificationFilter));
+            sendMessage(sel::setMinificationFilter_, minificationFilter.get());
         }
 
         [[nodiscard]] auto magnificationFilter() const noexcept
@@ -155,7 +155,7 @@ namespace ca
 
         void setMagnificationFilter(const LayerContentsFilter& magnificationFilter) noexcept
         {
-            sendMessage(sel::setMagnificationFilter_, static_cast<id>(magnificationFilter));
+            sendMessage(sel::setMagnificationFilter_, magnificationFilter.get());
         }
 
         [[nodiscard]] auto edgeAntialiasingMask() const noexcept

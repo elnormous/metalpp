@@ -43,7 +43,7 @@ namespace ca
 
         void setDevice(const mtl::Device& device) noexcept
         {
-            sendMessage(mtl::sel::setDevice_, static_cast<id>(device));
+            sendMessage(mtl::sel::setDevice_, device.get());
         }
 
         [[nodiscard]] auto pixelFormat() const noexcept

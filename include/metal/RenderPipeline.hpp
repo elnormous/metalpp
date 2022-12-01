@@ -250,7 +250,7 @@ namespace mtl
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, static_cast<id>(label));
+            sendMessage(sel::setLabel_, label.get());
         }
 
         [[nodiscard]] auto vertexFunction() const noexcept
@@ -260,7 +260,7 @@ namespace mtl
 
         void setVertexFunction(const Function& function) noexcept
         {
-            sendMessage(sel::setVertexFunction_, static_cast<id>(function));
+            sendMessage(sel::setVertexFunction_, function.get());
         }
 
         [[nodiscard]] auto fragmentFunction() const noexcept
@@ -270,7 +270,7 @@ namespace mtl
 
         void setFragmentFunction(const Function& function) noexcept
         {
-            sendMessage(sel::setFragmentFunction_, static_cast<id>(function));
+            sendMessage(sel::setFragmentFunction_, function.get());
         }
 
         [[nodiscard]] auto vertexDescriptor() const noexcept
@@ -280,7 +280,7 @@ namespace mtl
 
         void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
         {
-            sendMessage(sel::setVertexDescriptor_, static_cast<id>(vertexDescriptor));
+            sendMessage(sel::setVertexDescriptor_, vertexDescriptor.get());
         }
 
         [[nodiscard]] auto colorAttachments() const noexcept
