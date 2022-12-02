@@ -35,7 +35,7 @@ namespace
 {
     void applicationWillTerminate(id, SEL, id)
     {
-        NSLog(@"applicationWillTerminate");
+        std::cout << "applicationWillTerminate\n";
     }
 
     BOOL applicationShouldTerminateAfterLastWindowClosed(id, SEL, id) noexcept
@@ -191,7 +191,7 @@ static const char* shadersSource =
 "    return in.color;\n" \
 "}";
 
-class App
+class App final
 {
 public:
     App()
