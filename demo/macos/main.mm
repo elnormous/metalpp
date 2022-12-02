@@ -9,6 +9,7 @@
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Bundle.hpp"
 #include "metal/Metal.hpp"
+#include "objc/Class.hpp"
 #include "quartzcore/MetalLayer.hpp"
 
 struct Uniforms
@@ -30,46 +31,18 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
     return m;
 }
 
-//@interface AppDelegate : NSObject<NSApplicationDelegate>
-//
-//@end
-//
-//@implementation AppDelegate
-//
-//- (void)applicationDidFinishLaunching:(NSNotification*)notification {
-//    [[NSAppleEventManager sharedAppleEventManager]
-//        setEventHandler:self
-//            andSelector:@selector(handleURLEvent:withReplyEvent:)
-//          forEventClass:kInternetEventClass
-//             andEventID:kAEGetURL];
-//
-//    NSDictionary* defaults = [NSDictionary dictionaryWithObjectsAndKeys:
-//                              [NSNumber numberWithBool:NO], @"AppleMomentumScrollSupported",
-//                              [NSNumber numberWithBool:NO], @"ApplePressAndHoldEnabled",
-//                              [NSNumber numberWithBool:YES], @"ApplePersistenceIgnoreState",
-//                              nil];
-//    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-//}
-//
-//- (void)applicationWillTerminate:(NSNotification*)notification {
-//
-//}
-//
-//- (BOOL)applicationSupportsSecureRestorableState:(NSApplication*)app {
-//    return YES;
-//}
-//
-//- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)app {
-//    return YES;
-//}
-//
-//- (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
-//{
-//    NSString* path = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-//    NSLog(@"URL event %@", path);
-//}
-//
-//@end
+namespace
+{
+    void applicationWillTerminate(id, SEL, id)
+    {
+        NSLog(@"applicationWillTerminate");
+    }
+
+    BOOL applicationShouldTerminateAfterLastWindowClosed(id, SEL, id) noexcept
+    {
+        return YES;
+    }
+}
 
 @interface WindowDelegate: NSObject<NSWindowDelegate>
 {
@@ -281,20 +254,19 @@ static const char* shadersSource =
 "    return in.color;\n" \
 "}";
 
-class AppDelegate: public ns::ApplicationDelegate
-{
-public:
-    virtual void applicationDidFinishLaunching([[maybe_unused]] id notification) override
-    {
-        NSLog(@"applicationDidFinishLaunching");
-    }
-};
-
 class App
 {
 public:
     App()
     {
+        appDelegateClass.addMethod(sel_registerName("applicationWillTerminate:"),
+                                   applicationWillTerminate,
+                                   "v@:@");
+        appDelegateClass.addMethod(sel_registerName("applicationShouldTerminateAfterLastWindowClosed:"),
+                                   applicationShouldTerminateAfterLastWindowClosed,
+                                   "b@:@");
+        appDelegate = appDelegateClass.createInstance();
+
         application.activateIgnoringOtherApps(true);
         application.setDelegate(appDelegate);
         createMainMenu(application);
@@ -453,7 +425,8 @@ public:
 
     }
 private:
-    AppDelegate appDelegate;
+    objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
+    ns::Object appDelegate;
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
