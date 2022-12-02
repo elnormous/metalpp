@@ -8,7 +8,7 @@
 
 namespace ns
 {
-    template <class KeyType, class ObjectType>
+    template<class KeyType, class ObjectType>
     class Dictionary: public Object
     {
     public:
@@ -29,7 +29,7 @@ namespace ns
         {
         }
 
-        template <class ...Args>
+        template<class ...Args>
         Dictionary(const Args&... objectsAndKeys) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithObjectsAndKeys_,

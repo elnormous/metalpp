@@ -4,10 +4,12 @@
 #include <string>
 #include <objc/objc.h>
 #include <objc/runtime.h>
+#include "Runtime.hpp"
+#include "Selectors.hpp"
 
 namespace objc
 {
-    template <class T>
+    template<class T>
     class Class final
     {
     public:
@@ -50,6 +52,16 @@ namespace objc
             return cls != other;
         }
 
+        operator ::Class() const noexcept
+        {
+            return cls;
+        }
+
+        [[nodiscard]] auto get() const noexcept
+        {
+            return cls;
+        }
+
         void reg() noexcept
         {
             if (cls) objc_registerClassPair(cls);
@@ -75,6 +87,17 @@ namespace objc
             if (cls) class_setVersion(cls, version);
         }
 
+        template<typename Ret, typename... Args>
+        void addMethod(SEL name, Ret(*imp)(id, SEL, Args...), const char* types) noexcept
+        {
+            if (cls) class_addMethod(cls, name, reinterpret_cast<IMP>(imp), types);
+        }
+
+        T createInstance() const noexcept
+        {
+            id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init);
+            return T{object};
+        }
     private:
         ::Class cls = nullptr;
     };

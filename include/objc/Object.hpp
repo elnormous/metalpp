@@ -103,13 +103,13 @@ namespace ns
         }
 
     protected:
-        template <typename Ret = void, typename... Args>
+        template<typename Ret = void, typename... Args>
         Ret sendMessage(SEL selector, Args... args) const noexcept
         {
             return objc::sendMessage<Ret>(ptr, selector, args...);
         }
 
-        template <typename Ret, typename... Args>
+        template<typename Ret, typename... Args>
         std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
         {
             const id object = objc::sendMessage<id>(ptr, selector, args...);

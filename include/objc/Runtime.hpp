@@ -18,35 +18,35 @@ namespace ns
 namespace objc
 {
 #if defined(__i386__) || defined(__x86_64__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresStret: std::bool_constant<(sizeof(Type) > (sizeof(std::uintptr_t) << 1))> {};
 #elif defined(__arm__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresStret: std::bool_constant<(std::is_class_v<Type> && sizeof(Type) > sizeof(std::uintptr_t))> {};
 #elif defined(__arm64__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresStret: std::false_type {};
 #else
 #  error "Unsupported architecture"
 #endif
 
-    template <>
+    template<>
     struct reguiresStret<void>: std::false_type {};
 
 #if defined(__i386__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresFpret: std::bool_constant<is_floating_point_v<Type>> {};
 #elif defined(__x86_64__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresFpret: std::bool_constant<std::is_same_v<Type, long double>> {};
 #elif defined(__arm__) || defined(__arm64__)
-    template <typename Type>
+    template<typename Type>
     struct reguiresFpret: std::false_type {};
 #else
 #  error "Unsupported architecture"
 #endif
 
-    template <typename Ret = void, typename... Args>
+    template<typename Ret = void, typename... Args>
     static inline Ret sendMessage(const void* self, SEL selector, Args... args) noexcept
     {
 #if defined(__i386__) || defined(__x86_64__) || defined(__arm__)

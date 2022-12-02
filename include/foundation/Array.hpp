@@ -8,7 +8,7 @@
 
 namespace ns
 {
-    template <class Type>
+    template<class Type>
     class Array: public Object
     {
     public:
@@ -21,7 +21,7 @@ namespace ns
         {
         }
 
-        template <class ...Args>
+        template<class ...Args>
         Array(const Args&... objects) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
                                          sel::initWithObjects_,

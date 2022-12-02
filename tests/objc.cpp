@@ -2,6 +2,14 @@
 #include "objc/Class.hpp"
 #include "objc/Object.hpp"
 
+namespace
+{
+    int foo(id, SEL, int i)
+    {
+        return i;
+    }
+}
+
 TEST_CASE("Class")
 {
     objc::Class<ns::Object> cls{"test"};
@@ -11,6 +19,12 @@ TEST_CASE("Class")
     CHECK(cls.getVersion() == 0);
     cls.setVersion(1);
     CHECK(cls.getVersion() == 1);
+
+    SEL testSelector = sel_registerName("test");
+    cls.addMethod(testSelector, foo, "i@:i");
+
+    auto object = cls.createInstance();
+    CHECK(objc::sendMessage<int>(object, testSelector, 42) == 42);
 }
 
 TEST_CASE("Object")
