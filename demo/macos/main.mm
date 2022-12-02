@@ -33,31 +33,23 @@ static matrix_float4x4 rotationMatrix2d(const float radians)
 
 namespace
 {
+    // AppDelegate
     void applicationWillTerminate(id, SEL, id)
     {
-        std::cout << "applicationWillTerminate\n";
+        std::cout << "Application will terminate\n";
     }
 
     BOOL applicationShouldTerminateAfterLastWindowClosed(id, SEL, id) noexcept
     {
         return YES;
     }
+
+    // WindowDelegate
+    void windowDidResize(id, SEL, id notification)
+    {
+        std::cout << "Window did resize " << notification << '\n';
+    }
 }
-
-@interface WindowDelegate: NSObject<NSWindowDelegate>
-{
-}
-
-@end
-
-@implementation WindowDelegate
-
--(void)windowDidResize:(__unused NSNotification*)notification
-{
-    std::cout << "Window did resize\n";
-}
-
-@end
 
 @interface View : NSView
 
@@ -229,7 +221,11 @@ public:
 
         [window setAcceptsMouseMovedEvents:YES];
 
-        WindowDelegate* windowDelegate = [[WindowDelegate alloc] init];
+        windowDelegateClass.addMethod(sel_registerName("windowDidResize:"),
+                                      windowDidResize,
+                                      "v@:@");
+        windowDelegate = windowDelegateClass.createInstance();
+
         [window setDelegate:windowDelegate];
 
         [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
@@ -425,6 +421,9 @@ private:
 
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
     ns::Object appDelegate;
+    objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
+    ns::Object windowDelegate;
+
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
