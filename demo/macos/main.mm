@@ -154,69 +154,6 @@ namespace
 
 @end
 
-static void createMainMenu(ns::Application& application)
-{
-    ns::Menu mainMenu;
-
-    // Apple menu
-    auto mainMenuItem = mainMenu.addItem("", nullptr, "");
-
-    ns::Menu applicationMenu;
-    mainMenuItem.setSubmenu(applicationMenu);
-
-    const auto mainBundle = ns::Bundle::mainBundle();
-    const auto infoDictionary = mainBundle.infoDictionary();
-
-    ns::String bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
-    if (!bundleName)
-        bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
-
-    applicationMenu.addItem(ns::String{"About "} + bundleName, @selector(orderFrontStandardAboutPanel:), "");
-    applicationMenu.addItem(ns::MenuItem::separatorItem());
-
-    auto servicesItem = applicationMenu.addItem("Services", nil, "");
-
-    ns::Menu servicesMenu;
-    servicesItem.setSubmenu(servicesMenu);
-    application.setServicesMenu(servicesMenu);
-
-    applicationMenu.addItem(ns::MenuItem::separatorItem());
-    applicationMenu.addItem(ns::String{"Hide "} + bundleName, @selector(hide:), "h");
-
-    auto hideOthersItem = applicationMenu.addItem("Hide Others", @selector(hideOtherApplications:), "h");
-    hideOthersItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Option | ns::EventModifierFlags::Command);
-
-    applicationMenu.addItem("Show All", @selector(unhideAllApplications:), "");
-    applicationMenu.addItem(ns::MenuItem::separatorItem());
-    applicationMenu.addItem(ns::String{"Quit "} + bundleName, @selector(terminate:), "q");
-
-    // View menu
-    auto viewItem = mainMenu.addItem("View", nullptr, "");
-
-    ns::Menu viewMenu{"View"};
-    viewItem.setSubmenu(viewMenu);
-
-    // Window menu
-    auto windowsItem = mainMenu.addItem("Window", nullptr, "");
-
-    ns::Menu windowsMenu{"Window"};
-    windowsMenu.addItem("Minimize", @selector(performMiniaturize:), "m");
-    windowsMenu.addItem("Zoom", @selector(performZoom:), "");
-
-    windowsItem.setSubmenu(windowsMenu);
-    application.setWindowsMenu(windowsMenu);
-
-    // Help menu
-    auto helpItem = mainMenu.addItem("Help", nullptr, "");
-
-    ns::Menu helpMenu{"Help"};
-    helpItem.setSubmenu(helpMenu);
-    application.setHelpMenu(helpMenu);
-
-    application.setMainMenu(mainMenu);
-}
-
-
 static const char* shadersSource =
 "#include <metal_stdlib>\n" \
 "#include <simd/simd.h>\n" \
@@ -269,7 +206,7 @@ public:
 
         application.activateIgnoringOtherApps(true);
         application.setDelegate(appDelegate);
-        createMainMenu(application);
+        createMainMenu();
 
         const ns::WindowStyleMask windowStyleMask = ns::WindowStyleMask::Titled | ns::WindowStyleMask::Closable | ns::WindowStyleMask::Miniaturizable | ns::WindowStyleMask::Resizable;
 
@@ -416,7 +353,6 @@ public:
         application.run();
 
 //        CVDisplayLinkRelease(displayLink);
-//        [window release];
 //        [windowDelegate release];
     }
 
@@ -425,6 +361,68 @@ public:
 
     }
 private:
+    void createMainMenu()
+    {
+        ns::Menu mainMenu;
+
+        // Apple menu
+        auto mainMenuItem = mainMenu.addItem("", nullptr, "");
+
+        ns::Menu applicationMenu;
+        mainMenuItem.setSubmenu(applicationMenu);
+
+        const auto mainBundle = ns::Bundle::mainBundle();
+        const auto infoDictionary = mainBundle.infoDictionary();
+
+        ns::String bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
+        if (!bundleName)
+            bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
+
+        applicationMenu.addItem(ns::String{"About "} + bundleName, @selector(orderFrontStandardAboutPanel:), "");
+        applicationMenu.addItem(ns::MenuItem::separatorItem());
+
+        auto servicesItem = applicationMenu.addItem("Services", nil, "");
+
+        ns::Menu servicesMenu;
+        servicesItem.setSubmenu(servicesMenu);
+        application.setServicesMenu(servicesMenu);
+
+        applicationMenu.addItem(ns::MenuItem::separatorItem());
+        applicationMenu.addItem(ns::String{"Hide "} + bundleName, @selector(hide:), "h");
+
+        auto hideOthersItem = applicationMenu.addItem("Hide Others", @selector(hideOtherApplications:), "h");
+        hideOthersItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Option | ns::EventModifierFlags::Command);
+
+        applicationMenu.addItem("Show All", @selector(unhideAllApplications:), "");
+        applicationMenu.addItem(ns::MenuItem::separatorItem());
+        applicationMenu.addItem(ns::String{"Quit "} + bundleName, @selector(terminate:), "q");
+
+        // View menu
+        auto viewItem = mainMenu.addItem("View", nullptr, "");
+
+        ns::Menu viewMenu{"View"};
+        viewItem.setSubmenu(viewMenu);
+
+        // Window menu
+        auto windowsItem = mainMenu.addItem("Window", nullptr, "");
+
+        ns::Menu windowsMenu{"Window"};
+        windowsMenu.addItem("Minimize", @selector(performMiniaturize:), "m");
+        windowsMenu.addItem("Zoom", @selector(performZoom:), "");
+
+        windowsItem.setSubmenu(windowsMenu);
+        application.setWindowsMenu(windowsMenu);
+
+        // Help menu
+        auto helpItem = mainMenu.addItem("Help", nullptr, "");
+
+        ns::Menu helpMenu{"Help"};
+        helpItem.setSubmenu(helpMenu);
+        application.setHelpMenu(helpMenu);
+
+        application.setMainMenu(mainMenu);
+    }
+
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
     ns::Object appDelegate;
     ns::Application application = ns::Application::sharedApplication();
