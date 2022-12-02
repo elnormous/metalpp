@@ -4,7 +4,6 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Selectors.hpp"
-#include "ApplicationDelegate.hpp"
 #include "Menu.hpp"
 #include "Selectors.hpp"
 
@@ -22,12 +21,12 @@ namespace ns
 
         Application() = delete;
 
-//        [[nodiscard]] auto delegate() const noexcept
-//        {
-//            return getRetained<ApplicationDelegate>(sel::delegate);
-//        }
+        [[nodiscard]] auto delegate() const noexcept
+        {
+            return getRetained<Object>(sel::delegate);
+        }
 
-        void setDelegate(const ApplicationDelegate& delegate) noexcept
+        void setDelegate(const Object& delegate) noexcept
         {
             sendMessage(sel::setDelegate_, delegate.get());
         }

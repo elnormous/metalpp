@@ -5,6 +5,7 @@
 #include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "Event.hpp"
+#include "Selectors.hpp"
 
 namespace ns
 {

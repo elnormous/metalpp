@@ -6,6 +6,7 @@
 #include "../objc/Selectors.hpp"
 #include "../foundation/String.hpp"
 #include "MenuItem.hpp"
+#include "Selectors.hpp"
 
 namespace ns
 {

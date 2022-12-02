@@ -77,7 +77,6 @@
 		30901109292E9F48002D121D /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		3090110A292E9FB6002D121D /* appkit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = appkit.cpp; sourceTree = "<group>"; };
 		3090110B292EA269002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
-		3090110D292F67B6002D121D /* ApplicationDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ApplicationDelegate.hpp; sourceTree = "<group>"; };
 		309011102930C2A1002D121D /* CoreVideoErrorCategory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreVideoErrorCategory.hpp; sourceTree = "<group>"; };
 		309011112930C2A1002D121D /* DisplayLink.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisplayLink.hpp; sourceTree = "<group>"; };
 		309011122930D42A002D121D /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
@@ -196,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				30901109292E9F48002D121D /* Application.hpp */,
-				3090110D292F67B6002D121D /* ApplicationDelegate.hpp */,
 				3023334F2937BA30003114B4 /* Event.hpp */,
 				3023335329382128003114B4 /* Graphics.hpp */,
 				3090111529350B42002D121D /* Menu.hpp */,

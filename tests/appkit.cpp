@@ -1,6 +1,5 @@
 #include "doctest.h"
 #include "appkit/Application.hpp"
-#include "appkit/ApplicationDelegate.hpp"
 #include "appkit/Menu.hpp"
 #include "appkit/MenuItem.hpp"
 #include "appkit/Screen.hpp"
@@ -15,6 +14,10 @@ TEST_CASE("Application")
     application.activateIgnoringOtherApps(true);
     //application.run();
 
+    ns::Object delegate;
+    application.setDelegate(delegate);
+    CHECK(application.delegate() == delegate);
+
     ns::Menu mainMenu;
     application.setMainMenu(mainMenu);
     CHECK(application.mainMenu() == mainMenu);
@@ -27,21 +30,6 @@ TEST_CASE("Application")
     ns::Menu servicesMenu;
     application.setServicesMenu(servicesMenu);
     CHECK(application.servicesMenu() == servicesMenu);
-}
-
-TEST_CASE("ApplicationDelegate")
-{
-    ns::ApplicationDelegate delegate;
-}
-
-class ApplicationDelegate: public ns::ApplicationDelegate
-{
-
-};
-
-TEST_CASE("ApplicationDelegate")
-{
-    ApplicationDelegate delegate;
 }
 
 TEST_CASE("Array")
