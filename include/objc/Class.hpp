@@ -4,17 +4,18 @@
 #include <string>
 #include <objc/objc.h>
 #include <objc/runtime.h>
+#include "Object.hpp"
 #include "Runtime.hpp"
 #include "Selectors.hpp"
 
 namespace objc
 {
-    template<class T>
+    template<class ParentType = ns::Object, class Type = ParentType>
     class Class final
     {
     public:
         Class(const char* name) noexcept:
-            cls{objc_allocateClassPair(T::cls, name, 0)}
+            cls{objc_allocateClassPair(ParentType::cls, name, 0)}
         {
         }
 
@@ -93,10 +94,10 @@ namespace objc
             if (cls) class_addMethod(cls, name, reinterpret_cast<IMP>(imp), types);
         }
 
-        T createInstance() const noexcept
+        Type createInstance() const noexcept
         {
             id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init);
-            return T{object};
+            return Type{object};
         }
     private:
         ::Class cls = nullptr;
