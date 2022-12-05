@@ -104,6 +104,9 @@ namespace ns
         METALPP_PRIVATE_SEL(setContentView_, "setContentView:");
         METALPP_PRIVATE_SEL(delegate, "delegate");
         METALPP_PRIVATE_SEL(setDelegate_, "setDelegate:");
+        METALPP_PRIVATE_SEL(isReleasedWhenClosed, "isReleasedWhenClosed");
+        METALPP_PRIVATE_SEL(setReleasedWhenClosed, "setReleasedWhenClosed:");
+        METALPP_PRIVATE_SEL(close, "close");
         METALPP_PRIVATE_SEL(collectionBehavior, "collectionBehavior");
         METALPP_PRIVATE_SEL(setCollectionBehavior_, "setCollectionBehavior:");
         METALPP_PRIVATE_SEL(tabbingMode, "tabbingMode");
@@ -124,6 +127,7 @@ namespace ns
                                          backingStoreType,
                                          defer ? YES : NO)}
         {
+            sendMessage(METALPP_SEL(setReleasedWhenClosed), NO);
         }
 
         Window(const Rect contentRect, const WindowStyleMask style, const BackingStoreType backingStoreType, bool defer, const Screen& screen) noexcept:
@@ -135,6 +139,7 @@ namespace ns
                                          defer ? YES : NO,
                                          screen.get())}
         {
+            sendMessage(METALPP_SEL(setReleasedWhenClosed), NO);
         }
 
         [[nodiscard]] auto title() const noexcept
@@ -165,6 +170,16 @@ namespace ns
         void setDelegate(const Object& delegate) noexcept
         {
             sendMessage(METALPP_SEL(setDelegate_), delegate.get());
+        }
+
+        [[nodiscard]] auto releasedWhenClosed() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isReleasedWhenClosed)) == YES;
+        }
+
+        void close() const noexcept
+        {
+            return sendMessage(METALPP_SEL(close));
         }
 
         [[nodiscard]] auto collectionBehavior() const noexcept API_AVAILABLE(macos(10.5))

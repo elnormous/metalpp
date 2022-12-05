@@ -213,8 +213,6 @@ public:
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
-        [window setReleasedWhenClosed:NO];
-
         window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
         window.setAcceptsMouseMovedEvents(true);
 

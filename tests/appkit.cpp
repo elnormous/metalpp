@@ -1,4 +1,5 @@
 #include "doctest.h"
+#include "foundation/AutoreleasePool.hpp"
 #include "appkit/Application.hpp"
 #include "appkit/Menu.hpp"
 #include "appkit/MenuItem.hpp"
@@ -8,6 +9,8 @@
 
 TEST_CASE("Application")
 {
+    ns::AutoreleasePool pool;
+
     ns::Application application = ns::Application::sharedApplication();
     REQUIRE(application);
     CHECK(application.retainCount());
@@ -34,6 +37,8 @@ TEST_CASE("Application")
 
 TEST_CASE("Array")
 {
+    ns::AutoreleasePool pool;
+
     ns::Array<ns::Object> emptyArray;
     REQUIRE(emptyArray);
     CHECK(emptyArray.retainCount());
@@ -49,6 +54,8 @@ TEST_CASE("Array")
 
 TEST_CASE("Menu")
 {
+    ns::AutoreleasePool pool;
+
     ns::Menu menu;
     REQUIRE(menu);
     CHECK(menu.retainCount());
@@ -64,6 +71,8 @@ TEST_CASE("Menu")
 
 TEST_CASE("MenuItem")
 {
+    ns::AutoreleasePool pool;
+
     ns::MenuItem separatorItem = ns::MenuItem::separatorItem();
     REQUIRE(separatorItem);
     CHECK(separatorItem.retainCount());
@@ -93,6 +102,8 @@ TEST_CASE("MenuItem")
 
 TEST_CASE("Screen")
 {
+    ns::AutoreleasePool pool;
+
     ns::Array<ns::Screen> screens = ns::Screen::screens();
     REQUIRE(screens);
     CHECK(screens.retainCount());
@@ -113,6 +124,8 @@ TEST_CASE("Screen")
 
 TEST_CASE("View")
 {
+    ns::AutoreleasePool pool;
+
     ns::View view;
     REQUIRE(view);
     CHECK(view.retainCount());
@@ -120,6 +133,8 @@ TEST_CASE("View")
 
 TEST_CASE("Window")
 {
+    ns::AutoreleasePool pool;
+
     ns::Window window{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false};
     REQUIRE(window);
     CHECK(window.retainCount());
@@ -135,6 +150,8 @@ TEST_CASE("Window")
     window.setDelegate(delegate);
     CHECK(window.delegate() == delegate);
 
+    CHECK(!window.releasedWhenClosed());
+    
     CHECK(window.collectionBehavior() == ns::WindowCollectionBehavior::Default);
     window.setCollectionBehavior(ns::WindowCollectionBehavior::Auxiliary);
     CHECK(window.collectionBehavior() == ns::WindowCollectionBehavior::Auxiliary);
@@ -151,7 +168,12 @@ TEST_CASE("Window")
     window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
     CHECK(window.tabbingMode() == ns::WindowTabbingMode::Disallowed);
 
+    window.close();
+
     ns::Window windowOnScreen{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false, ns::Screen::mainScreen()};
     REQUIRE(windowOnScreen);
     CHECK(windowOnScreen.retainCount());
+
+    pool.drain();
+    CHECK(window.retainCount() == 1);
 }
