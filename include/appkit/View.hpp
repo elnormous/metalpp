@@ -2,7 +2,7 @@
 #define METALPP_APPKIT_VIEW_HPP
 
 #include "../objc/Object.hpp"
-#include "../objc/Selectors.hpp"
+#include "../objc/Private.hpp"
 
 namespace ns
 {
@@ -14,7 +14,7 @@ namespace ns
         using Object::Object;
 
         View() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
     };

@@ -2,9 +2,8 @@
 #define METALPP_FOUNDATION_ARRAY_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
-#include "Selectors.hpp"
 
 namespace ns
 {
@@ -14,17 +13,24 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSArray");
 
+        METALPP_PRIVATE_SEL(initWithObjects_, "initWithObjects:");
+        METALPP_PRIVATE_SEL(initWithObjects_count_, "initWithObjects:count:");
+        METALPP_PRIVATE_SEL(objectAtIndex_, "objectAtIndex:");
+        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
+        METALPP_PRIVATE_SEL(count, "count");
+        
         using Object::Object;
 
         Array() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         template<class ...Args>
         Array(const Args&... objects) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
-                                         sel::initWithObjects_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithObjects_),
                                          objects.get()...,
                                          nil)}
         {
@@ -38,12 +44,12 @@ namespace ns
         template<class T = Type>
         [[nodiscard]] auto objectAtIndex(const UInteger index) const noexcept
         {
-            return getRetained<T>(sel::objectAtIndex_, index);
+            return getRetained<T>(METALPP_SEL(objectAtIndex_), index);
         }
 
         [[nodiscard]] auto count() const noexcept
         {
-            return sendMessage<UInteger>(sel::count);
+            return sendMessage<UInteger>(METALPP_SEL(count));
         }
     };
 }

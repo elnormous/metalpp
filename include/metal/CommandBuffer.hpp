@@ -4,12 +4,12 @@
 #include <os/availability.h>
 #include <CoreFoundation/CFDate.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 #include "BlitCommandEncoder.hpp"
 #include "Drawable.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -59,48 +59,58 @@ namespace mtl
     class CommandBuffer: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
+        METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
+        METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
+        METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
+        METALPP_PRIVATE_SEL(commit, "commit");
+        METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
+
         CommandBuffer() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
         [[nodiscard]] auto blitCommandEncoder() const noexcept
         {
-            return getRetained<BlitCommandEncoder>(sel::blitCommandEncoder);
+            return getRetained<BlitCommandEncoder>(METALPP_SEL(blitCommandEncoder));
         }
 
         [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            return getRetained<RenderCommandEncoder>(sel::renderCommandEncoderWithDescriptor_, renderPassDescriptor.get());
+            return getRetained<RenderCommandEncoder>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get());
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept
         {
-            sendMessage(sel::presentDrawable_, drawable.get());
+            sendMessage(METALPP_SEL(presentDrawable_), drawable.get());
         }
 
         void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
-            sendMessage(sel::presentDrawable_atTime_, drawable.get(), presentationTime);
+            sendMessage(METALPP_SEL(presentDrawable_atTime_), drawable.get(), presentationTime);
         }
 
         void commit() noexcept
         {
-            sendMessage(sel::commit);
+            sendMessage(METALPP_SEL(commit));
         }
 
         void waitUntilCompleted() noexcept
         {
-            sendMessage(sel::waitUntilCompleted);
+            sendMessage(METALPP_SEL(waitUntilCompleted));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

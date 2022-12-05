@@ -3,13 +3,12 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
 #include "../foundation/Geometry.hpp"
 #include "../foundation/String.hpp"
 #include "Graphics.hpp"
 #include "Screen.hpp"
-#include "Selectors.hpp"
 #include "View.hpp"
 
 namespace ns
@@ -97,12 +96,29 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSWindow");
 
+        METALPP_PRIVATE_SEL(initWithContentRect_styleMask_backing_defer_, "initWithContentRect:styleMask:backing:defer:");
+        METALPP_PRIVATE_SEL(initWithContentRect_styleMask_backing_defer_screen_, "initWithContentRect:styleMask:backing:defer:screen:");
+        METALPP_PRIVATE_SEL(title, "title");
+        METALPP_PRIVATE_SEL(setTitle_, "setTitle:");
+        METALPP_PRIVATE_SEL(contentView, "contentView");
+        METALPP_PRIVATE_SEL(setContentView_, "setContentView:");
+        METALPP_PRIVATE_SEL(delegate, "delegate");
+        METALPP_PRIVATE_SEL(setDelegate_, "setDelegate:");
+        METALPP_PRIVATE_SEL(collectionBehavior, "collectionBehavior");
+        METALPP_PRIVATE_SEL(setCollectionBehavior_, "setCollectionBehavior:");
+        METALPP_PRIVATE_SEL(tabbingMode, "tabbingMode");
+        METALPP_PRIVATE_SEL(setTabbingMode_, "setTabbingMode:");
+        METALPP_PRIVATE_SEL(acceptsMouseMovedEvents, "acceptsMouseMovedEvents");
+        METALPP_PRIVATE_SEL(setAcceptsMouseMovedEvents_, "setAcceptsMouseMovedEvents:");
+        METALPP_PRIVATE_SEL(ignoresMouseEvents, "ignoresMouseEvents");
+        METALPP_PRIVATE_SEL(setIgnoresMouseEvents_, "setIgnoresMouseEvents:");
+        
         using Object::Object;
         Window() = delete;
 
         Window(const Rect contentRect, const WindowStyleMask style, const BackingStoreType backingStoreType, bool defer) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
-                                         ns::sel::initWithContentRect_styleMask_backing_defer_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithContentRect_styleMask_backing_defer_),
                                          contentRect,
                                          style,
                                          backingStoreType,
@@ -111,8 +127,8 @@ namespace ns
         }
 
         Window(const Rect contentRect, const WindowStyleMask style, const BackingStoreType backingStoreType, bool defer, const Screen& screen) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc),
-                                         ns::sel::initWithContentRect_styleMask_backing_defer_screen_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithContentRect_styleMask_backing_defer_screen_),
                                          contentRect,
                                          style,
                                          backingStoreType,
@@ -123,72 +139,72 @@ namespace ns
 
         [[nodiscard]] auto title() const noexcept
         {
-            return getRetained<ns::String>(sel::title);
+            return getRetained<ns::String>(METALPP_SEL(title));
         }
 
         void setTitle(const ns::String& title) noexcept
         {
-            sendMessage(sel::setTitle_, title.get());
+            sendMessage(METALPP_SEL(setTitle_), title.get());
         }
 
         [[nodiscard]] auto contentView() const noexcept
         {
-            return getRetained<View>(sel::contentView);
+            return getRetained<View>(METALPP_SEL(contentView));
         }
 
         void setContentView(const View& contentView) noexcept
         {
-            sendMessage(sel::setContentView_, contentView.get());
+            sendMessage(METALPP_SEL(setContentView_), contentView.get());
         }
 
         [[nodiscard]] auto delegate() const noexcept
         {
-            return getRetained<Object>(sel::delegate);
+            return getRetained<Object>(METALPP_SEL(delegate));
         }
 
         void setDelegate(const Object& delegate) noexcept
         {
-            sendMessage(sel::setDelegate_, delegate.get());
+            sendMessage(METALPP_SEL(setDelegate_), delegate.get());
         }
 
         [[nodiscard]] auto collectionBehavior() const noexcept API_AVAILABLE(macos(10.5))
         {
-            return sendMessage<WindowCollectionBehavior>(sel::collectionBehavior);
+            return sendMessage<WindowCollectionBehavior>(METALPP_SEL(collectionBehavior));
         }
 
         void setCollectionBehavior(const WindowCollectionBehavior collectionBehavior) noexcept API_AVAILABLE(macos(10.5))
         {
-            sendMessage(sel::setCollectionBehavior_, collectionBehavior);
+            sendMessage(METALPP_SEL(setCollectionBehavior_), collectionBehavior);
         }
 
         [[nodiscard]] auto tabbingMode() const noexcept API_AVAILABLE(macos(10.12))
         {
-            return sendMessage<WindowTabbingMode>(sel::tabbingMode);
+            return sendMessage<WindowTabbingMode>(METALPP_SEL(tabbingMode));
         }
 
         void setTabbingMode(const WindowTabbingMode tabbingMode) noexcept API_AVAILABLE(macos(10.12))
         {
-            sendMessage(sel::setTabbingMode_, tabbingMode);
+            sendMessage(METALPP_SEL(setTabbingMode_), tabbingMode);
         }
 
         [[nodiscard]] auto acceptsMouseMovedEvents() const noexcept
         {
-            return sendMessage<BOOL>(sel::acceptsMouseMovedEvents) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(acceptsMouseMovedEvents)) == YES;
         }
 
         void setAcceptsMouseMovedEvents(const bool acceptsMouseMovedEvents) noexcept
         {
-            sendMessage(sel::setAcceptsMouseMovedEvents_, acceptsMouseMovedEvents ? YES : NO);
+            sendMessage(METALPP_SEL(setAcceptsMouseMovedEvents_), acceptsMouseMovedEvents ? YES : NO);
         }
 
         [[nodiscard]] auto ignoresMouseEvents() const noexcept
         {
-            return sendMessage<BOOL>(sel::ignoresMouseEvents) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(ignoresMouseEvents)) == YES;
         }
 
         void setIgnoresMouseEvents(const bool ignoresMouseEvents) noexcept
         {
-            sendMessage(sel::setIgnoresMouseEvents_, ignoresMouseEvents ? YES : NO);
+            sendMessage(METALPP_SEL(setIgnoresMouseEvents_), ignoresMouseEvents ? YES : NO);
         }
     };
 }

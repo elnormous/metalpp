@@ -2,8 +2,8 @@
 #define METALPP_FOUNDATION_BUNDLE_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
 #include "Dictionary.hpp"
 #include "String.hpp"
 
@@ -14,28 +14,32 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSBundle");
 
+        METALPP_PRIVATE_SEL(mainBundle, "mainBundle");
+        METALPP_PRIVATE_SEL(initWithPath_, "initWithPath:");
+        METALPP_PRIVATE_SEL(infoDictionary, "infoDictionary");
+        
         using Object::Object;
 
         [[nodiscard]] static auto mainBundle() noexcept
         {
-            return Bundle{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::mainBundle), sel::retain)};
+            return Bundle{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(mainBundle)), METALPP_SEL(retain))};
         }
 
         Bundle() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         Bundle(const String& title) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
-                                         sel::initWithPath_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithPath_),
                                          title.get())}
         {
         }
 
         [[nodiscard]] Dictionary<String, Object> infoDictionary() const noexcept
         {
-            return getRetained<Dictionary<String, Object>>(sel::infoDictionary);
+            return getRetained<Dictionary<String, Object>>(METALPP_SEL(infoDictionary));
         }
     };
 }

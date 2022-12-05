@@ -3,13 +3,12 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
 #include "../foundation/Array.hpp"
 #include "../foundation/Dictionary.hpp"
 #include "../foundation/String.hpp"
 #include "DynamicLibrary.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -60,53 +59,64 @@ namespace mtl
     class Function final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(functionType, "functionType");
+        METALPP_PRIVATE_SEL(patchType, "patchType");
+        METALPP_PRIVATE_SEL(patchControlPointCount, "patchControlPointCount");
+        METALPP_PRIVATE_SEL(vertexAttributes, "vertexAttributes");
+        METALPP_PRIVATE_SEL(stageInputAttributes, "stageInputAttributes");
+        METALPP_PRIVATE_SEL(name, "name");
+        METALPP_PRIVATE_SEL(functionConstantsDictionary, "functionConstantsDictionary");
+
         Function() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
         [[nodiscard]] auto functionType() const noexcept
         {
-            return sendMessage<FunctionType>(sel::functionType);
+            return sendMessage<FunctionType>(METALPP_SEL(functionType));
         }
 
         [[nodiscard]] auto patchType() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return sendMessage<PatchType>(sel::patchType);
+            return sendMessage<PatchType>(METALPP_SEL(patchType));
         }
 
         [[nodiscard]] auto patchControlPointCount() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return sendMessage<ns::Integer>(sel::patchControlPointCount);
+            return sendMessage<ns::Integer>(METALPP_SEL(patchControlPointCount));
         }
 
         [[nodiscard]] auto vertexAttributes() const noexcept
         {
-            return getRetained<ns::Array<VertexAttribute>>(sel::vertexAttributes);
+            return getRetained<ns::Array<VertexAttribute>>(METALPP_SEL(vertexAttributes));
         }
 
         [[nodiscard]] auto stageInputAttributes() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::Array<Attribute>>(sel::stageInputAttributes);
+            return getRetained<ns::Array<Attribute>>(METALPP_SEL(stageInputAttributes));
         }
 
         [[nodiscard]] auto name() const noexcept
         {
-            return getRetained<ns::String>(sel::name);
+            return getRetained<ns::String>(METALPP_SEL(name));
         }
 
         [[nodiscard]] auto functionConstantsDictionary() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::Dictionary<ns::String, FunctionConstant>>(sel::functionConstantsDictionary);
+            return getRetained<ns::Dictionary<ns::String, FunctionConstant>>(METALPP_SEL(functionConstantsDictionary));
         }
     };
 
@@ -140,112 +150,134 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLCompileOptions");
 
+        METALPP_PRIVATE_SEL(preprocessorMacros, "preprocessorMacros");
+        METALPP_PRIVATE_SEL(setPreprocessorMacros_, "setPreprocessorMacros:");
+        METALPP_PRIVATE_SEL(fastMathEnabled, "fastMathEnabled");
+        METALPP_PRIVATE_SEL(setFastMathEnabled_, "setFastMathEnabled:");
+        METALPP_PRIVATE_SEL(languageVersion, "languageVersion");
+        METALPP_PRIVATE_SEL(setLanguageVersion_, "setLanguageVersion:");
+        METALPP_PRIVATE_SEL(libraryType, "libraryType");
+        METALPP_PRIVATE_SEL(setLibraryType_, "setLibraryType:");
+        METALPP_PRIVATE_SEL(installName, "installName");
+        METALPP_PRIVATE_SEL(setInstallName_, "setInstallName:");
+        METALPP_PRIVATE_SEL(libraries, "libraries");
+        METALPP_PRIVATE_SEL(setLibraries_, "setLibraries:");
+        METALPP_PRIVATE_SEL(preserveInvariance, "preserveInvariance");
+        METALPP_PRIVATE_SEL(setPreserveInvariance_, "setPreserveInvariance:");
+        METALPP_PRIVATE_SEL(optimizationLevel, "optimizationLevel");
+        METALPP_PRIVATE_SEL(setOptimizationLevel_, "setOptimizationLevel:");
+
         CompileOptions():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto preprocessorMacros() const noexcept
         {
-            return getRetained<ns::Dictionary<ns::String, ns::Object>>(sel::preprocessorMacros);
+            return getRetained<ns::Dictionary<ns::String, ns::Object>>(METALPP_SEL(preprocessorMacros));
         }
 
         void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
         {
-            sendMessage(sel::setPreprocessorMacros_, preprocessorMacros.get());
+            sendMessage(METALPP_SEL(setPreprocessorMacros_), preprocessorMacros.get());
         }
 
         [[nodiscard]] auto fastMathEnabled() const noexcept
         {
-            return sendMessage<BOOL>(sel::fastMathEnabled) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(fastMathEnabled)) == YES;
         }
 
         void setFastMathEnabled(bool fastMathEnabled) noexcept
         {
-            sendMessage(sel::setFastMathEnabled_, fastMathEnabled ? YES : NO);
+            sendMessage(METALPP_SEL(setFastMathEnabled_), fastMathEnabled ? YES : NO);
         }
 
         [[nodiscard]] auto languageVersion() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<LanguageVersion>(sel::languageVersion);
+            return sendMessage<LanguageVersion>(METALPP_SEL(languageVersion));
         }
 
         void setLanguageVersion(LanguageVersion languageVersion) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            sendMessage(sel::setLanguageVersion_, languageVersion);
+            sendMessage(METALPP_SEL(setLanguageVersion_), languageVersion);
         }
 
         [[nodiscard]] auto libraryType() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return sendMessage<LibraryType>(sel::libraryType);
+            return sendMessage<LibraryType>(METALPP_SEL(libraryType));
         }
 
         void setLibraryType(LibraryType libraryType) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            sendMessage(sel::setLibraryType_, libraryType);
+            sendMessage(METALPP_SEL(setLibraryType_), libraryType);
         }
 
         [[nodiscard]] auto installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return getRetained<ns::String>(sel::installName);
+            return getRetained<ns::String>(METALPP_SEL(installName));
         }
 
         void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            sendMessage(sel::setInstallName_, installName.get());
+            sendMessage(METALPP_SEL(setInstallName_), installName.get());
         }
 
         [[nodiscard]] auto libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return getRetained<ns::Array<DynamicLibrary>>(sel::libraries);
+            return getRetained<ns::Array<DynamicLibrary>>(METALPP_SEL(libraries));
         }
 
         void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            sendMessage(sel::setLibraries_, libraries.get());
+            sendMessage(METALPP_SEL(setLibraries_), libraries.get());
         }
 
         [[nodiscard]] auto preserveInvariance() const noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
-            return sendMessage<BOOL>(sel::preserveInvariance) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(preserveInvariance)) == YES;
         }
 
         void setPreserveInstance(bool preserveInvariance) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
-            sendMessage(sel::setPreserveInvariance_, preserveInvariance ? YES : NO);
+            sendMessage(METALPP_SEL(setPreserveInvariance_), preserveInvariance ? YES : NO);
         }
 
         [[nodiscard]] auto optimizationLevel() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            return sendMessage<LibraryOptimizationLevel>(sel::optimizationLevel);
+            return sendMessage<LibraryOptimizationLevel>(METALPP_SEL(optimizationLevel));
         }
 
         void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            sendMessage(sel::setOptimizationLevel_, optimizationLevel);
+            sendMessage(METALPP_SEL(setOptimizationLevel_), optimizationLevel);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
     
     class Library final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(newFunctionWithName_, "newFunctionWithName:");
+
         Library() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
         [[nodiscard]] auto newFunction(const ns::String& name) const noexcept
         {
-            const id function = sendMessage<id>(sel::newFunctionWithName_,
+            const id function = sendMessage<id>(METALPP_SEL(newFunctionWithName_),
                                                 name.get());
             return Function{function};
         }

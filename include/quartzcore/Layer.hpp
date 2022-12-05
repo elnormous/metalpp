@@ -3,9 +3,9 @@
 
 #include <dlfcn.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../corefoundation/Types.hpp"
 #include "../foundation/String.hpp"
-#include "Selectors.hpp"
 
 namespace ca
 {
@@ -92,90 +92,105 @@ namespace ca
         LayerContentsFilter() = delete;
     };
 
-    inline const LayerContentsFilter filterNearest{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterNearest")), ns::sel::retain)};
-    inline const LayerContentsFilter filterLinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterLinear")), ns::sel::retain)};
-    inline const LayerContentsFilter filterTrilinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear")), ns::sel::retain)};
+    inline const LayerContentsFilter filterNearest{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterNearest")), ns::Object::METALPP_SEL(retain))};
+    inline const LayerContentsFilter filterLinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterLinear")), ns::Object::METALPP_SEL(retain))};
+    inline const LayerContentsFilter filterTrilinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear")), ns::Object::METALPP_SEL(retain))};
 
     class Layer: public ns::Object
     {
     public:
         static inline const auto cls = objc_lookUpClass("CALayer");
 
+        METALPP_PRIVATE_SEL(anchorPoint, "anchorPoint");
+        METALPP_PRIVATE_SEL(setAnchorPoint_, "setAnchorPoint:");
+        METALPP_PRIVATE_SEL(frame, "frame");
+        METALPP_PRIVATE_SEL(setFrame_, "setFrame:");
+        METALPP_PRIVATE_SEL(masksToBounds, "masksToBounds");
+        METALPP_PRIVATE_SEL(setMasksToBounds_, "setMasksToBounds:");
+        METALPP_PRIVATE_SEL(minificationFilter, "minificationFilter");
+        METALPP_PRIVATE_SEL(setMinificationFilter_, "setMinificationFilter:");
+        METALPP_PRIVATE_SEL(magnificationFilter, "magnificationFilter");
+        METALPP_PRIVATE_SEL(setMagnificationFilter_, "setMagnificationFilter:");
+        METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
+        METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
+        METALPP_PRIVATE_SEL(edgeAntialiasingMask, "edgeAntialiasingMask");
+        METALPP_PRIVATE_SEL(setEdgeAntialiasingMask_, "setEdgeAntialiasingMask:");
+
         using Object::Object;
 
         Layer() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto anchorPoint() const noexcept
         {
-            return sendMessage<cg::Point>(sel::anchorPoint);
+            return sendMessage<cg::Point>(METALPP_SEL(anchorPoint));
         }
 
         void setAnchorPoint(const cg::Point& anchorPoint) noexcept
         {
-            sendMessage(sel::setAnchorPoint_, anchorPoint);
+            sendMessage(METALPP_SEL(setAnchorPoint_), anchorPoint);
         }
 
         [[nodiscard]] auto frame() const noexcept
         {
-            return sendMessage<cg::Rect>(sel::frame);
+            return sendMessage<cg::Rect>(METALPP_SEL(frame));
         }
 
         void setFrame(cg::Rect frame) noexcept
         {
-            sendMessage(sel::setFrame_, frame);
+            sendMessage(METALPP_SEL(setFrame_), frame);
         }
 
         [[nodiscard]] auto masksToBounds() const noexcept
         {
-            return sendMessage<BOOL>(sel::masksToBounds) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(masksToBounds)) == YES;
         }
 
         void setMasksToBounds(const BOOL masksToBounds) noexcept
         {
-            sendMessage(sel::setMasksToBounds_, masksToBounds ? YES : NO);
+            sendMessage(METALPP_SEL(setMasksToBounds_), masksToBounds ? YES : NO);
         }
 
         [[nodiscard]] auto minificationFilter() const noexcept
         {
-            return getRetained<LayerContentsFilter>(sel::minificationFilter);
+            return getRetained<LayerContentsFilter>(METALPP_SEL(minificationFilter));
         }
 
         void setMinificationFilter(const LayerContentsFilter& minificationFilter) noexcept
         {
-            sendMessage(sel::setMinificationFilter_, minificationFilter.get());
+            sendMessage(METALPP_SEL(setMinificationFilter_), minificationFilter.get());
         }
 
         [[nodiscard]] auto magnificationFilter() const noexcept
         {
-            return getRetained<LayerContentsFilter>(sel::magnificationFilter);
+            return getRetained<LayerContentsFilter>(METALPP_SEL(magnificationFilter));
         }
 
         void setMagnificationFilter(const LayerContentsFilter& magnificationFilter) noexcept
         {
-            sendMessage(sel::setMagnificationFilter_, magnificationFilter.get());
+            sendMessage(METALPP_SEL(setMagnificationFilter_), magnificationFilter.get());
         }
 
         [[nodiscard]] auto edgeAntialiasingMask() const noexcept
         {
-            return sendMessage<EdgeAntialiasingMask>(sel::edgeAntialiasingMask);
+            return sendMessage<EdgeAntialiasingMask>(METALPP_SEL(edgeAntialiasingMask));
         }
 
         void setEdgeAntialiasingMask(const EdgeAntialiasingMask edgeAntialiasingMask) noexcept
         {
-            sendMessage(sel::setEdgeAntialiasingMask_, edgeAntialiasingMask);
+            sendMessage(METALPP_SEL(setEdgeAntialiasingMask_), edgeAntialiasingMask);
         }
 
         [[nodiscard]] auto autoresizingMask() const noexcept
         {
-            return sendMessage<AutoresizingMask>(sel::autoresizingMask);
+            return sendMessage<AutoresizingMask>(METALPP_SEL(autoresizingMask));
         }
 
         void setAutoresizingMask(const AutoresizingMask autoresizingMask) noexcept
         {
-            sendMessage(sel::setAutoresizingMask_, autoresizingMask);
+            sendMessage(METALPP_SEL(setAutoresizingMask_), autoresizingMask);
         }
     };
 }

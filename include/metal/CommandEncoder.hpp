@@ -3,8 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -27,13 +27,16 @@ namespace mtl
     class CommandEncoder: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(endEncoding, "endEncoding");
+        
         CommandEncoder() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         void endEncoding() noexcept
         {
-            sendMessage(sel::endEncoding);
+            sendMessage(METALPP_SEL(endEncoding));
         }
     };
 }

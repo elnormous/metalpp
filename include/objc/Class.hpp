@@ -6,7 +6,6 @@
 #include <objc/runtime.h>
 #include "Object.hpp"
 #include "Runtime.hpp"
-#include "Selectors.hpp"
 
 namespace objc
 {
@@ -96,7 +95,7 @@ namespace objc
 
         Type createInstance() const noexcept
         {
-            id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init);
+            id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::Object::METALPP_SEL(alloc)), ns::Object::METALPP_SEL(init));
             return Type{object};
         }
     private:

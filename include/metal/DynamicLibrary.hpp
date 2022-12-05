@@ -8,6 +8,8 @@ namespace mtl
     class DynamicLibrary final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+
         DynamicLibrary() = delete;
 
         [[nodiscard]] Device device() const noexcept;

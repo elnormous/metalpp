@@ -3,10 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
-#include "../foundation/Selectors.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -95,47 +93,56 @@ namespace mtl
     class VertexBufferLayoutDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(stride, "stride");
+        METALPP_PRIVATE_SEL(setStride_, "setStride:");
+        METALPP_PRIVATE_SEL(stepFunction, "stepFunction");
+        METALPP_PRIVATE_SEL(setStepFunction_, "setStepFunction:");
+        METALPP_PRIVATE_SEL(stepRate, "stepRate");
+        METALPP_PRIVATE_SEL(setStepRate_, "setStepRate:");
+
         VertexBufferLayoutDescriptor() = delete;
 
         [[nodiscard]] auto stride() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::stride);
+            return sendMessage<ns::UInteger>(METALPP_SEL(stride));
         }
 
         void setStride(ns::UInteger stride) noexcept
         {
-            sendMessage(sel::setStride_, stride);
+            sendMessage(METALPP_SEL(setStride_), stride);
         }
 
         [[nodiscard]] auto stepFunction() const noexcept
         {
-            return sendMessage<VertexStepFunction>(sel::stepFunction);
+            return sendMessage<VertexStepFunction>(METALPP_SEL(stepFunction));
         }
 
         void setStepFunction(VertexStepFunction stepFunction) noexcept
         {
-            sendMessage(sel::setStepFunction_, stepFunction);
+            sendMessage(METALPP_SEL(setStepFunction_), stepFunction);
         }
 
         [[nodiscard]] auto stepRate() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::stepRate);
+            return sendMessage<ns::UInteger>(METALPP_SEL(stepRate));
         }
 
         void setStepRate(ns::UInteger stepRate) noexcept
         {
-            sendMessage(sel::setStepRate_, stepRate);
+            sendMessage(METALPP_SEL(setStepRate_), stepRate);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexBufferLayoutDescriptorArray final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+
         VertexBufferLayoutDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
-            return getRetained<VertexBufferLayoutDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<VertexBufferLayoutDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
@@ -147,47 +154,56 @@ namespace mtl
     class VertexAttributeDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(format, "format");
+        METALPP_PRIVATE_SEL(setFormat_, "setFormat:");
+        METALPP_PRIVATE_SEL(offset, "offset");
+        METALPP_PRIVATE_SEL(setOffset_, "setOffset:");
+        METALPP_PRIVATE_SEL(bufferIndex, "bufferIndex");
+        METALPP_PRIVATE_SEL(setBufferIndex_, "setBufferIndex:");
+
         VertexAttributeDescriptor() = delete;
 
         [[nodiscard]] auto format() const noexcept
         {
-            return sendMessage<VertexFormat>(sel::format);
+            return sendMessage<VertexFormat>(METALPP_SEL(format));
         }
 
         void setFormat(VertexFormat vertexFormat) noexcept
         {
-            sendMessage(sel::setFormat_, vertexFormat);
+            sendMessage(METALPP_SEL(setFormat_), vertexFormat);
         }
 
         [[nodiscard]] auto offset() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::offset);
+            return sendMessage<ns::UInteger>(METALPP_SEL(offset));
         }
 
         void setOffset(ns::UInteger offset) noexcept
         {
-            sendMessage(sel::setOffset_, offset);
+            sendMessage(METALPP_SEL(setOffset_), offset);
         }
 
         [[nodiscard]] auto bufferIndex() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::bufferIndex);
+            return sendMessage<ns::UInteger>(METALPP_SEL(bufferIndex));
         }
 
         void setBufferIndex(ns::UInteger bufferIndex) noexcept
         {
-            sendMessage(sel::setBufferIndex_, bufferIndex);
+            sendMessage(METALPP_SEL(setBufferIndex_), bufferIndex);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class VertexAttributeDescriptorArray final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+
         VertexAttributeDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
-            return getRetained<VertexAttributeDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<VertexAttributeDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
@@ -201,26 +217,30 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
 
+        METALPP_PRIVATE_SEL(layouts, "layouts");
+        METALPP_PRIVATE_SEL(attributes, "attributes");
+        METALPP_PRIVATE_SEL(reset, "reset");
+
         using Object::Object;
 
         VertexDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto layouts() const noexcept
         {
-            return getRetained<VertexBufferLayoutDescriptorArray>(sel::layouts);
+            return getRetained<VertexBufferLayoutDescriptorArray>(METALPP_SEL(layouts));
         }
 
         [[nodiscard]] auto attributes() const noexcept
         {
-            return getRetained<VertexAttributeDescriptorArray>(sel::attributes);
+            return getRetained<VertexAttributeDescriptorArray>(METALPP_SEL(attributes));
         }
 
         void reset() noexcept
         {
-            sendMessage(sel::reset);
+            sendMessage(METALPP_SEL(reset));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

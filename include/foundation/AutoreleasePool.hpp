@@ -2,8 +2,7 @@
 #define METALPP_FOUNDATION_AUTORELEASEPOOL_HPP
 
 #include "../objc/Object.hpp"
-#include "../objc/Selectors.hpp"
-#include "Selectors.hpp"
+#include "../objc/Private.hpp"
 
 namespace ns
 {
@@ -12,14 +11,16 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
 
+        METALPP_PRIVATE_SEL(drain, "drain");
+        
         AutoreleasePool() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {            
         }
 
         void drain() noexcept
         {
-            objc::sendMessage(release(), sel::drain);
+            objc::sendMessage(release(), METALPP_SEL(drain));
         }
     };
 }

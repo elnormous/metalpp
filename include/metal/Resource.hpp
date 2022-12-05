@@ -3,8 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../foundation/String.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -87,38 +87,46 @@ namespace mtl
     class Resource: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(cpuCacheMode, "cpuCacheMode");
+        METALPP_PRIVATE_SEL(storageMode, "storageMode");
+        METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
+        METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
+
         Resource() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
         [[nodiscard]] auto cpuCacheMode() const noexcept
         {
-            return sendMessage<CPUCacheMode>(sel::cpuCacheMode);
+            return sendMessage<CPUCacheMode>(METALPP_SEL(cpuCacheMode));
         }
 
         [[nodiscard]] auto storageMode() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<StorageMode>(sel::storageMode);
+            return sendMessage<StorageMode>(METALPP_SEL(storageMode));
         }
 
         [[nodiscard]] auto hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<HazardTrackingMode>(sel::hazardTrackingMode);
+            return sendMessage<HazardTrackingMode>(METALPP_SEL(hazardTrackingMode));
         }
 
         [[nodiscard]] auto resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<ResourceOptions>(sel::resourceOptions);
+            return sendMessage<ResourceOptions>(METALPP_SEL(resourceOptions));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

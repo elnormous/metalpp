@@ -3,8 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "Texture.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -55,116 +55,141 @@ namespace mtl
     class RenderPassAttachmentDescriptor: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(texture, "texture");
+        METALPP_PRIVATE_SEL(setTexture_, "setTexture:");
+        METALPP_PRIVATE_SEL(level, "level");
+        METALPP_PRIVATE_SEL(setLevel_, "setLevel:");
+        METALPP_PRIVATE_SEL(slice, "slice");
+        METALPP_PRIVATE_SEL(setSlice_, "setSlice:");
+        METALPP_PRIVATE_SEL(depthPlane, "depthPlane");
+        METALPP_PRIVATE_SEL(setDepthPlane_, "setDepthPlane:");
+        METALPP_PRIVATE_SEL(resolveTexture, "resolveTexture");
+        METALPP_PRIVATE_SEL(setResolveTexture_, "setResolveTexture:");
+        METALPP_PRIVATE_SEL(resolveLevel, "resolveLevel");
+        METALPP_PRIVATE_SEL(setResolveLevel_, "setResolveLevel:");
+        METALPP_PRIVATE_SEL(resolveSlice, "resolveSlice");
+        METALPP_PRIVATE_SEL(setResolveSlice_, "setResolveSlice:");
+        METALPP_PRIVATE_SEL(resolveDepthPlane, "resolveDepthPlane");
+        METALPP_PRIVATE_SEL(setResolveDepthPlane_, "setResolveDepthPlane:");
+        METALPP_PRIVATE_SEL(loadAction, "loadAction");
+        METALPP_PRIVATE_SEL(setLoadAction_, "setLoadAction:");
+        METALPP_PRIVATE_SEL(storeAction, "storeAction");
+        METALPP_PRIVATE_SEL(setStoreAction_, "setStoreAction:");
+        METALPP_PRIVATE_SEL(storeActionOptions, "storeActionOptions");
+        METALPP_PRIVATE_SEL(setStoreActionOptions_, "setStoreActionOptions:");
+        METALPP_PRIVATE_SEL(clearColor, "clearColor");
+        METALPP_PRIVATE_SEL(setClearColor_, "setClearColor:");
+
         RenderPassAttachmentDescriptor() = delete;
 
         [[nodiscard]] auto texture() const noexcept
         {
-            return getRetained<Texture>(sel::texture);
+            return getRetained<Texture>(METALPP_SEL(texture));
         }
 
         void setTexture(const Texture& texture) noexcept
         {
-            sendMessage(sel::setTexture_, texture.get());
+            sendMessage(METALPP_SEL(setTexture_), texture.get());
         }
 
         [[nodiscard]] auto level() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::level);
+            return sendMessage<ns::UInteger>(METALPP_SEL(level));
         }
 
         void setLevel(ns::UInteger level) noexcept
         {
-            sendMessage(sel::setLevel_, level);
+            sendMessage(METALPP_SEL(setLevel_), level);
         }
 
         [[nodiscard]] auto slice() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::slice);
+            return sendMessage<ns::UInteger>(METALPP_SEL(slice));
         }
 
         void setSlice(ns::UInteger slice) noexcept
         {
-            sendMessage(sel::setSlice_, slice);
+            sendMessage(METALPP_SEL(setSlice_), slice);
         }
 
         [[nodiscard]] auto depthPlane() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::depthPlane);
+            return sendMessage<ns::UInteger>(METALPP_SEL(depthPlane));
         }
 
         void setDepthPlane(ns::UInteger depthPlane) noexcept
         {
-            sendMessage(sel::setDepthPlane_, depthPlane);
+            sendMessage(METALPP_SEL(setDepthPlane_), depthPlane);
         }
 
         [[nodiscard]] auto resolveTexture() const noexcept
         {
-            return getRetained<Texture>(sel::resolveTexture);
+            return getRetained<Texture>(METALPP_SEL(resolveTexture));
         }
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
         {
-            sendMessage(sel::setResolveTexture_, resolveTexture.get());
+            sendMessage(METALPP_SEL(setResolveTexture_), resolveTexture.get());
         }
 
         [[nodiscard]] auto resolveLevel() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::resolveLevel);
+            return sendMessage<ns::UInteger>(METALPP_SEL(resolveLevel));
         }
 
         void setResolveLevel(ns::UInteger resolveLevel) noexcept
         {
-            sendMessage(sel::setResolveLevel_, resolveLevel);
+            sendMessage(METALPP_SEL(setResolveLevel_), resolveLevel);
         }
 
         [[nodiscard]] auto resolveSlice() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::resolveSlice);
+            return sendMessage<ns::UInteger>(METALPP_SEL(resolveSlice));
         }
 
         void setResolveSlice(ns::UInteger resolveSlice) noexcept
         {
-            sendMessage(sel::setResolveSlice_, resolveSlice);
+            sendMessage(METALPP_SEL(setResolveSlice_), resolveSlice);
         }
 
         [[nodiscard]] auto resolveDepthPlane() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::resolveDepthPlane);
+            return sendMessage<ns::UInteger>(METALPP_SEL(resolveDepthPlane));
         }
 
         void setResolveDepthPlane(ns::UInteger resolveDepthPlane) noexcept
         {
-            sendMessage(sel::setResolveDepthPlane_, resolveDepthPlane);
+            sendMessage(METALPP_SEL(setResolveDepthPlane_), resolveDepthPlane);
         }
 
         [[nodiscard]] auto loadAction() const noexcept
         {
-            return sendMessage<LoadAction>(sel::loadAction);
+            return sendMessage<LoadAction>(METALPP_SEL(loadAction));
         }
 
         void setLoadAction(LoadAction loadAction) noexcept
         {
-            sendMessage(sel::setLoadAction_, loadAction);
+            sendMessage(METALPP_SEL(setLoadAction_), loadAction);
         }
 
         [[nodiscard]] auto storeAction() const noexcept
         {
-            return sendMessage<StoreAction>(sel::storeAction);
+            return sendMessage<StoreAction>(METALPP_SEL(storeAction));
         }
 
         void setStoreAction(StoreAction storeAction) noexcept
         {
-            sendMessage(sel::setStoreAction_, storeAction);
+            sendMessage(METALPP_SEL(setStoreAction_), storeAction);
         }
 
         [[nodiscard]] auto storeActionOptions() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<StoreActionOptions>(sel::storeActionOptions);
+            return sendMessage<StoreActionOptions>(METALPP_SEL(storeActionOptions));
         }
 
         void setStoreActionOptions(StoreActionOptions storeActionOptions) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            sendMessage(sel::setStoreActionOptions_, storeActionOptions);
+            sendMessage(METALPP_SEL(setStoreActionOptions_), storeActionOptions);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -173,12 +198,12 @@ namespace mtl
     public:
         [[nodiscard]] auto clearColor() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<ClearColor>(sel::clearColor);
+            return sendMessage<ClearColor>(METALPP_SEL(clearColor));
         }
 
         void setClearColor(ClearColor clearColor) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            sendMessage(sel::setClearColor_, clearColor);
+            sendMessage(METALPP_SEL(setClearColor_), clearColor);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -192,24 +217,29 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(clearDepth, "clearDepth");
+        METALPP_PRIVATE_SEL(setClearDepth_, "setClearDepth:");
+        METALPP_PRIVATE_SEL(depthResolveFilter, "depthResolveFilter");
+        METALPP_PRIVATE_SEL(setDepthResolveFilter_, "setDepthResolveFilter:");
+
         [[nodiscard]] auto clearDepth() const noexcept
         {
-            return sendMessage<double>(sel::clearDepth);
+            return sendMessage<double>(METALPP_SEL(clearDepth));
         }
 
         void setClearDepth(double clearDepth) noexcept
         {
-            sendMessage(sel::setClearDepth_, clearDepth);
+            sendMessage(METALPP_SEL(setClearDepth_), clearDepth);
         }
 
         [[nodiscard]] auto depthResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
-            return sendMessage<MultisampleDepthResolveFilter>(sel::depthResolveFilter);
+            return sendMessage<MultisampleDepthResolveFilter>(METALPP_SEL(depthResolveFilter));
         }
 
         void setDepthResolveFilter(MultisampleDepthResolveFilter depthResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
-            sendMessage(sel::setDepthResolveFilter_, depthResolveFilter);
+            sendMessage(METALPP_SEL(setDepthResolveFilter_), depthResolveFilter);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
@@ -222,33 +252,40 @@ namespace mtl
     class RenderPassStencilAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(clearStencil, "clearStencil");
+        METALPP_PRIVATE_SEL(setClearStencil_, "setClearStencil:");
+        METALPP_PRIVATE_SEL(stencilResolveFilter, "stencilResolveFilter");
+        METALPP_PRIVATE_SEL(setStencilResolveFilter_, "setStencilResolveFilter:");
+
         [[nodiscard]] auto clearStencil() const noexcept
         {
-            return sendMessage<uint32_t>(sel::clearStencil);
+            return sendMessage<uint32_t>(METALPP_SEL(clearStencil));
         }
 
         void setClearStencil(uint32_t clearStencil) noexcept
         {
-            sendMessage(sel::setClearStencil_, clearStencil);
+            sendMessage(METALPP_SEL(setClearStencil_), clearStencil);
         }
 
         [[nodiscard]] auto stencilResolveFilter() const noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
-            return sendMessage<MultisampleStencilResolveFilter>(sel::stencilResolveFilter);
+            return sendMessage<MultisampleStencilResolveFilter>(METALPP_SEL(stencilResolveFilter));
         }
 
         void setStencilResolveFilter(MultisampleStencilResolveFilter stencilResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
-            sendMessage(sel::setStencilResolveFilter_, stencilResolveFilter);
+            sendMessage(METALPP_SEL(setStencilResolveFilter_), stencilResolveFilter);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPassColorAttachmentDescriptorArray final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
-            return getRetained<RenderPassColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<RenderPassColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
@@ -262,24 +299,28 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLRenderPassDescriptor");
 
+        METALPP_PRIVATE_SEL(colorAttachments, "colorAttachments");
+        METALPP_PRIVATE_SEL(depthAttachment, "depthAttachment");
+        METALPP_PRIVATE_SEL(stencilAttachment, "stencilAttachment");
+
         RenderPassDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto colorAttachments() const noexcept
         {
-            return getRetained<RenderPassColorAttachmentDescriptorArray>(sel::colorAttachments);
+            return getRetained<RenderPassColorAttachmentDescriptorArray>(METALPP_SEL(colorAttachments));
         }
 
         [[nodiscard]] auto depthAttachment() const noexcept
         {
-            return getRetained<RenderPassDepthAttachmentDescriptor>(sel::depthAttachment);
+            return getRetained<RenderPassDepthAttachmentDescriptor>(METALPP_SEL(depthAttachment));
         }
 
         [[nodiscard]] auto stencilAttachment() const noexcept
         {
-            return getRetained<RenderPassStencilAttachmentDescriptor>(sel::stencilAttachment);
+            return getRetained<RenderPassStencilAttachmentDescriptor>(METALPP_SEL(stencilAttachment));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

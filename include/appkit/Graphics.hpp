@@ -1,6 +1,7 @@
 #ifndef METALPP_APPKIT_GRAPHICS_HPP
 #define METALPP_APPKIT_GRAPHICS_HPP
 
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 
 namespace ns

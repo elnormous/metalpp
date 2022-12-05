@@ -3,11 +3,10 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
-#include "Selectors.hpp"
 #include "VertexDescriptor.hpp"
 
 namespace mtl
@@ -124,107 +123,128 @@ namespace mtl
     class RenderPipelineColorAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(pixelFormat, "pixelFormat");
+        METALPP_PRIVATE_SEL(setPixelFormat_, "setPixelFormat:");
+        METALPP_PRIVATE_SEL(isBlendingEnabled, "isBlendingEnabled");
+        METALPP_PRIVATE_SEL(setBlendingEnabled_, "setBlendingEnabled:");
+        METALPP_PRIVATE_SEL(sourceRGBBlendFactor, "sourceRGBBlendFactor");
+        METALPP_PRIVATE_SEL(setSourceRGBBlendFactor_, "setSourceRGBBlendFactor:");
+        METALPP_PRIVATE_SEL(destinationRGBBlendFactor, "destinationRGBBlendFactor");
+        METALPP_PRIVATE_SEL(setDestinationRGBBlendFactor_, "setDestinationRGBBlendFactor:");
+        METALPP_PRIVATE_SEL(rgbBlendOperation, "rgbBlendOperation");
+        METALPP_PRIVATE_SEL(setRgbBlendOperation_, "setRgbBlendOperation:");
+        METALPP_PRIVATE_SEL(sourceAlphaBlendFactor, "sourceAlphaBlendFactor");
+        METALPP_PRIVATE_SEL(setSourceAlphaBlendFactor_, "setSourceAlphaBlendFactor:");
+        METALPP_PRIVATE_SEL(destinationAlphaBlendFactor, "destinationAlphaBlendFactor");
+        METALPP_PRIVATE_SEL(setDestinationAlphaBlendFactor_, "setDestinationAlphaBlendFactor:");
+        METALPP_PRIVATE_SEL(alphaBlendOperation, "alphaBlendOperation");
+        METALPP_PRIVATE_SEL(setAlphaBlendOperation_, "setAlphaBlendOperation:");
+        METALPP_PRIVATE_SEL(writeMask, "writeMask");
+        METALPP_PRIVATE_SEL(setWriteMask_, "setWriteMask:");
+
         RenderPipelineColorAttachmentDescriptor() = delete;
 
         [[nodiscard]] auto pixelFormat() const noexcept
         {
-            return sendMessage<PixelFormat>(sel::pixelFormat);
+            return sendMessage<PixelFormat>(METALPP_SEL(pixelFormat));
         }
 
         void setPixelFormat(PixelFormat pixelFormat) noexcept
         {
-            sendMessage(sel::setPixelFormat_, pixelFormat);
+            sendMessage(METALPP_SEL(setPixelFormat_), pixelFormat);
         }
 
         [[nodiscard]] auto isBlendingEnabled() const noexcept
         {
-            return sendMessage<BOOL>(sel::isBlendingEnabled) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(isBlendingEnabled)) == YES;
         }
 
         void setBlendingEnabled(bool blendingEnabled) noexcept
         {
-            sendMessage(sel::setBlendingEnabled_, blendingEnabled ? YES : NO);
+            sendMessage(METALPP_SEL(setBlendingEnabled_), blendingEnabled ? YES : NO);
         }
 
         [[nodiscard]] auto sourceRGBBlendFactor() const noexcept
         {
-            return sendMessage<BlendFactor>(sel::sourceRGBBlendFactor);
+            return sendMessage<BlendFactor>(METALPP_SEL(sourceRGBBlendFactor));
         }
 
         void setSourceRGBBlendFactor(BlendFactor sourceRGBBlendFactor) noexcept
         {
-            sendMessage(sel::setSourceRGBBlendFactor_, sourceRGBBlendFactor);
+            sendMessage(METALPP_SEL(setSourceRGBBlendFactor_), sourceRGBBlendFactor);
         }
 
         [[nodiscard]] auto destinationRGBBlendFactor() const noexcept
         {
-            return sendMessage<BlendFactor>(sel::destinationRGBBlendFactor);
+            return sendMessage<BlendFactor>(METALPP_SEL(destinationRGBBlendFactor));
         }
 
         void setDestinationRGBBlendFactor(BlendFactor destinationRGBBlendFactor) noexcept
         {
-            sendMessage(sel::setDestinationRGBBlendFactor_, destinationRGBBlendFactor);
+            sendMessage(METALPP_SEL(setDestinationRGBBlendFactor_), destinationRGBBlendFactor);
         }
 
         [[nodiscard]] auto rgbBlendOperation() const noexcept
         {
-            return sendMessage<BlendOperation>(sel::rgbBlendOperation);
+            return sendMessage<BlendOperation>(METALPP_SEL(rgbBlendOperation));
         }
 
         void setRgbBlendOperation(BlendOperation rgbBlendOperation) noexcept
         {
-            sendMessage(sel::setRgbBlendOperation_, rgbBlendOperation);
+            sendMessage(METALPP_SEL(setRgbBlendOperation_), rgbBlendOperation);
         }
 
         [[nodiscard]] auto sourceAlphaBlendFactor() const noexcept
         {
-            return sendMessage<BlendFactor>(sel::sourceAlphaBlendFactor);
+            return sendMessage<BlendFactor>(METALPP_SEL(sourceAlphaBlendFactor));
         }
 
         void setSourceAlphaBlendFactor(BlendFactor sourceAlphaBlendFactor) noexcept
         {
-            sendMessage(sel::setSourceAlphaBlendFactor_, sourceAlphaBlendFactor);
+            sendMessage(METALPP_SEL(setSourceAlphaBlendFactor_), sourceAlphaBlendFactor);
         }
 
         [[nodiscard]] auto destinationAlphaBlendFactor() const noexcept
         {
-            return sendMessage<BlendFactor>(sel::destinationAlphaBlendFactor);
+            return sendMessage<BlendFactor>(METALPP_SEL(destinationAlphaBlendFactor));
         }
 
         void setDestinationAlphaBlendFactor(BlendFactor destinationAlphaBlendFactor) noexcept
         {
-            sendMessage(sel::setDestinationAlphaBlendFactor_, destinationAlphaBlendFactor);
+            sendMessage(METALPP_SEL(setDestinationAlphaBlendFactor_), destinationAlphaBlendFactor);
         }
 
         [[nodiscard]] auto alphaBlendOperation() const noexcept
         {
-            return sendMessage<BlendOperation>(sel::alphaBlendOperation);
+            return sendMessage<BlendOperation>(METALPP_SEL(alphaBlendOperation));
         }
 
         void setAlphaBlendOperation(BlendOperation alphaBlendOperation) noexcept
         {
-            sendMessage(sel::setAlphaBlendOperation_, alphaBlendOperation);
+            sendMessage(METALPP_SEL(setAlphaBlendOperation_), alphaBlendOperation);
         }
 
         [[nodiscard]] auto writeMask() const noexcept
         {
-            return sendMessage<ColorWriteMask>(sel::writeMask);
+            return sendMessage<ColorWriteMask>(METALPP_SEL(writeMask));
         }
 
         void setWriteMask(ColorWriteMask writeMask) noexcept
         {
-            sendMessage(sel::setWriteMask_, writeMask);
+            sendMessage(METALPP_SEL(setWriteMask_), writeMask);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPipelineColorAttachmentDescriptorArray final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
-            return getRetained<RenderPipelineColorAttachmentDescriptor>(ns::sel::objectAtIndexedSubscript_, index);
+            return getRetained<RenderPipelineColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
@@ -238,87 +258,104 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
 
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(vertexFunction, "vertexFunction");
+        METALPP_PRIVATE_SEL(setVertexFunction_, "setVertexFunction:");
+        METALPP_PRIVATE_SEL(fragmentFunction, "fragmentFunction");
+        METALPP_PRIVATE_SEL(setFragmentFunction_, "setFragmentFunction:");
+        METALPP_PRIVATE_SEL(vertexDescriptor, "vertexDescriptor");
+        METALPP_PRIVATE_SEL(setVertexDescriptor_, "setVertexDescriptor:");
+        METALPP_PRIVATE_SEL(colorAttachments, "colorAttachments");
+        METALPP_PRIVATE_SEL(depthAttachmentPixelFormat, "depthAttachmentPixelFormat");
+        METALPP_PRIVATE_SEL(setDepthAttachmentPixelFormat_, "setDepthAttachmentPixelFormat:");
+        METALPP_PRIVATE_SEL(stencilAttachmentPixelFormat, "stencilAttachmentPixelFormat");
+        METALPP_PRIVATE_SEL(setStencilAttachmentPixelFormat_, "setStencilAttachmentPixelFormat:");
+
         RenderPipelineDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
         [[nodiscard]] auto vertexFunction() const noexcept
         {
-            return getRetained<Function>(sel::vertexFunction);
+            return getRetained<Function>(METALPP_SEL(vertexFunction));
         }
 
         void setVertexFunction(const Function& function) noexcept
         {
-            sendMessage(sel::setVertexFunction_, function.get());
+            sendMessage(METALPP_SEL(setVertexFunction_), function.get());
         }
 
         [[nodiscard]] auto fragmentFunction() const noexcept
         {
-            return getRetained<Function>(sel::fragmentFunction);
+            return getRetained<Function>(METALPP_SEL(fragmentFunction));
         }
 
         void setFragmentFunction(const Function& function) noexcept
         {
-            sendMessage(sel::setFragmentFunction_, function.get());
+            sendMessage(METALPP_SEL(setFragmentFunction_), function.get());
         }
 
         [[nodiscard]] auto vertexDescriptor() const noexcept
         {
-            return getRetained<VertexDescriptor>(sel::vertexDescriptor);
+            return getRetained<VertexDescriptor>(METALPP_SEL(vertexDescriptor));
         }
 
         void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
         {
-            sendMessage(sel::setVertexDescriptor_, vertexDescriptor.get());
+            sendMessage(METALPP_SEL(setVertexDescriptor_), vertexDescriptor.get());
         }
 
         [[nodiscard]] auto colorAttachments() const noexcept
         {
-            return getRetained<RenderPipelineColorAttachmentDescriptorArray>(sel::colorAttachments);
+            return getRetained<RenderPipelineColorAttachmentDescriptorArray>(METALPP_SEL(colorAttachments));
         }
 
         [[nodiscard]] auto depthAttachmentPixelFormat() const noexcept
         {
-            return sendMessage<PixelFormat>(sel::depthAttachmentPixelFormat);
+            return sendMessage<PixelFormat>(METALPP_SEL(depthAttachmentPixelFormat));
         }
 
         void setDepthAttachmentPixelFormat(const PixelFormat pixelFormat) noexcept
         {
-            sendMessage(sel::setDepthAttachmentPixelFormat_, pixelFormat);
+            sendMessage(METALPP_SEL(setDepthAttachmentPixelFormat_), pixelFormat);
         }
 
         [[nodiscard]] auto stencilAttachmentPixelFormat() const noexcept
         {
-            return sendMessage<PixelFormat>(sel::stencilAttachmentPixelFormat);
+            return sendMessage<PixelFormat>(METALPP_SEL(stencilAttachmentPixelFormat));
         }
 
         void setStencilAttachmentPixelFormat(const PixelFormat pixelFormat) noexcept
         {
-            sendMessage(sel::setStencilAttachmentPixelFormat_, pixelFormat);
+            sendMessage(METALPP_SEL(setStencilAttachmentPixelFormat_), pixelFormat);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class RenderPipelineState final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        
         RenderPipelineState() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

@@ -3,9 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
-#include "../objc/Selectors.hpp"
+#include "../objc/Private.hpp"
 #include "../foundation/String.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -40,32 +39,38 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLDepthStencilDescriptor");
 
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+
         DepthStencilDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class DepthStencilState final: public ns::Object
     {        
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+
         DepthStencilState() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

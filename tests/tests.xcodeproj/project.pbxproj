@@ -38,13 +38,13 @@
 		3023335329382128003114B4 /* Graphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics.hpp; sourceTree = "<group>"; };
 		3023335F2938279A003114B4 /* View.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = View.hpp; sourceTree = "<group>"; };
 		302333602938F450003114B4 /* Class.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Class.hpp; sourceTree = "<group>"; };
+		30233364293D9C11003114B4 /* Private.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Private.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
 		309010DB292B7833002D121D /* Metal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Metal.hpp; sourceTree = "<group>"; };
 		309010DC292B7833002D121D /* CommandBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandBuffer.hpp; sourceTree = "<group>"; };
 		309010DD292B7833002D121D /* Library.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Library.hpp; sourceTree = "<group>"; };
-		309010DE292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309010DF292B7833002D121D /* StageInputOutputDescriptor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StageInputOutputDescriptor.hpp; sourceTree = "<group>"; };
 		309010E0292B7833002D121D /* DepthStencil.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DepthStencil.hpp; sourceTree = "<group>"; };
 		309010E1292B7833002D121D /* RenderPass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RenderPass.hpp; sourceTree = "<group>"; };
@@ -60,7 +60,6 @@
 		309010EB292B7833002D121D /* CommandQueue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandQueue.hpp; sourceTree = "<group>"; };
 		309010EC292B7833002D121D /* Resource.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Resource.hpp; sourceTree = "<group>"; };
 		309010EE292B7833002D121D /* Dictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dictionary.hpp; sourceTree = "<group>"; };
-		309010EF292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309010F0292B7833002D121D /* Array.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Array.hpp; sourceTree = "<group>"; };
 		309010F1292B7833002D121D /* Error.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Error.hpp; sourceTree = "<group>"; };
 		309010F2292B7833002D121D /* String.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = String.hpp; sourceTree = "<group>"; };
@@ -68,15 +67,12 @@
 		309010F4292B7833002D121D /* Range.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Range.hpp; sourceTree = "<group>"; };
 		309010F6292B7833002D121D /* MetalLayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalLayer.hpp; sourceTree = "<group>"; };
 		309010F7292B7833002D121D /* Layer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Layer.hpp; sourceTree = "<group>"; };
-		309010FA292B7833002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309010FB292B7833002D121D /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		309010FC292B7B72002D121D /* quartzcore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = quartzcore.cpp; sourceTree = "<group>"; };
-		30901100292B877E002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		30901104292B8B38002D121D /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 		30901105292CCCCE002D121D /* Runtime.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Runtime.hpp; sourceTree = "<group>"; };
 		30901109292E9F48002D121D /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 		3090110A292E9FB6002D121D /* appkit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = appkit.cpp; sourceTree = "<group>"; };
-		3090110B292EA269002D121D /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Selectors.hpp; sourceTree = "<group>"; };
 		309011102930C2A1002D121D /* CoreVideoErrorCategory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreVideoErrorCategory.hpp; sourceTree = "<group>"; };
 		309011112930C2A1002D121D /* DisplayLink.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DisplayLink.hpp; sourceTree = "<group>"; };
 		309011122930D42A002D121D /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
@@ -138,7 +134,6 @@
 				309010E8292B7833002D121D /* RenderPipeline.hpp */,
 				309010EC292B7833002D121D /* Resource.hpp */,
 				309010E5292B7833002D121D /* Sampler.hpp */,
-				309010DE292B7833002D121D /* Selectors.hpp */,
 				309010DF292B7833002D121D /* StageInputOutputDescriptor.hpp */,
 				309010E2292B7833002D121D /* Texture.hpp */,
 				309010E7292B7833002D121D /* VertexDescriptor.hpp */,
@@ -156,7 +151,6 @@
 				309010F1292B7833002D121D /* Error.hpp */,
 				3023335229382031003114B4 /* Geometry.hpp */,
 				309010F4292B7833002D121D /* Range.hpp */,
-				309010EF292B7833002D121D /* Selectors.hpp */,
 				309010F2292B7833002D121D /* String.hpp */,
 			);
 			path = foundation;
@@ -167,7 +161,6 @@
 			children = (
 				309010F7292B7833002D121D /* Layer.hpp */,
 				309010F6292B7833002D121D /* MetalLayer.hpp */,
-				30901100292B877E002D121D /* Selectors.hpp */,
 			);
 			path = quartzcore;
 			sourceTree = "<group>";
@@ -178,7 +171,7 @@
 				302333602938F450003114B4 /* Class.hpp */,
 				309010FB292B7833002D121D /* Object.hpp */,
 				30901105292CCCCE002D121D /* Runtime.hpp */,
-				309010FA292B7833002D121D /* Selectors.hpp */,
+				30233364293D9C11003114B4 /* Private.hpp */,
 			);
 			path = objc;
 			sourceTree = "<group>";
@@ -200,7 +193,6 @@
 				3090111529350B42002D121D /* Menu.hpp */,
 				3023334E293621AC003114B4 /* MenuItem.hpp */,
 				309011122930D42A002D121D /* Screen.hpp */,
-				3090110B292EA269002D121D /* Selectors.hpp */,
 				3023335F2938279A003114B4 /* View.hpp */,
 				3023335129381CCC003114B4 /* Window.hpp */,
 			);

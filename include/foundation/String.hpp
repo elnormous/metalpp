@@ -4,9 +4,8 @@
 #include <string>
 #include <string_view>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
-#include "Selectors.hpp"
 
 namespace ns
 {
@@ -47,24 +46,32 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSString");
 
+        METALPP_PRIVATE_SEL(initWithBytes_length_encoding_, "initWithBytes:length:encoding:");
+        METALPP_PRIVATE_SEL(initWithCString_encoding_, "initWithCString:encoding:");
+        METALPP_PRIVATE_SEL(length, "length");
+        METALPP_PRIVATE_SEL(characterAtIndex_, "characterAtIndex:");
+        METALPP_PRIVATE_SEL(cStringUsingEncoding_, "cStringUsingEncoding:");
+        METALPP_PRIVATE_SEL(isEqualToString_, "isEqualToString:");
+        METALPP_PRIVATE_SEL(stringByAppendingString_, "stringByAppendingString:");
+        
         using Object::Object;
 
         String():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         String(const char* str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
-                                         sel::initWithCString_encoding_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithCString_encoding_),
                                          str,
                                          encoding)}
         {
         }
 
         String(const std::string_view str, const StringEncoding encoding = StringEncoding::ASCII) noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
-                                         sel::initWithBytes_length_encoding_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithBytes_length_encoding_),
                                          str.data(),
                                          static_cast<UInteger>(str.length()),
                                          encoding)}
@@ -73,7 +80,7 @@ namespace ns
 
         [[nodiscard]] auto charAtIndex(const UInteger index) const noexcept
         {
-            const auto c = sendMessage<unichar>(sel::characterAtIndex_, index);
+            const auto c = sendMessage<unichar>(METALPP_SEL(characterAtIndex_), index);
             return static_cast<char>(c);
         }
 
@@ -84,29 +91,29 @@ namespace ns
 
         [[nodiscard]] auto length() const noexcept
         {
-            return sendMessage<UInteger>(sel::length);
+            return sendMessage<UInteger>(METALPP_SEL(length));
         }
 
         [[nodiscard]] auto cString(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
-            const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
+            const auto str = sendMessage<const char*>(METALPP_SEL(cStringUsingEncoding_), encoding);
             return str;
         }
 
         [[nodiscard]] auto string(const StringEncoding encoding = StringEncoding::ASCII) const noexcept
         {
-            const auto str = sendMessage<const char*>(sel::cStringUsingEncoding_, encoding);
+            const auto str = sendMessage<const char*>(METALPP_SEL(cStringUsingEncoding_), encoding);
             return std::string{str};
         }
 
         [[nodiscard]] auto isEqualToString(const String& string) const noexcept
         {
-            return sendMessage<BOOL>(sel::isEqualToString_, string.get()) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(isEqualToString_), string.get()) == YES;
         }
 
         [[nodiscard]] auto stringByAppendingString(const String& string) const noexcept
         {
-            return getRetained<String>(sel::stringByAppendingString_, string.get());
+            return getRetained<String>(METALPP_SEL(stringByAppendingString_), string.get());
         }
 
         [[nodiscard]] auto operator+(const String& string) const noexcept

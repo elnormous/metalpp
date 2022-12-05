@@ -2,10 +2,9 @@
 #define METALPP_APPKIT_MENUITEM_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
-#include "../objc/Selectors.hpp"
 #include "Event.hpp"
-#include "Selectors.hpp"
 
 namespace ns
 {
@@ -16,21 +15,33 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSMenuItem");
 
+        METALPP_PRIVATE_SEL(separatorItem, "separatorItem");
+        METALPP_PRIVATE_SEL(initWithTitle_action_keyEquivalent_, "initWithTitle:action:keyEquivalent:");
+        METALPP_PRIVATE_SEL(submenu, "submenu");
+        METALPP_PRIVATE_SEL(setSubmenu_, "setSubmenu:");
+        METALPP_PRIVATE_SEL(title, "title");
+        METALPP_PRIVATE_SEL(setTitle_, "setTitle:");
+        METALPP_PRIVATE_SEL(isSeparatorItem, "isSeparatorItem");
+        METALPP_PRIVATE_SEL(keyEquivalent, "keyEquivalent");
+        METALPP_PRIVATE_SEL(setKeyEquivalent_, "setKeyEquivalent:");
+        METALPP_PRIVATE_SEL(keyEquivalentModifierMask, "keyEquivalentModifierMask");
+        METALPP_PRIVATE_SEL(setKeyEquivalentModifierMask_, "setKeyEquivalentModifierMask:");
+
         using Object::Object;
 
         [[nodiscard]] static auto separatorItem() noexcept
         {
-            return MenuItem{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::separatorItem), sel::retain)};
+            return MenuItem{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(separatorItem)), METALPP_SEL(retain))};
         }
 
         MenuItem():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         MenuItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent):
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc),
-                                         sel::initWithTitle_action_keyEquivalent_,
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
+                                         METALPP_SEL(initWithTitle_action_keyEquivalent_),
                                          title.get(),
                                          action,
                                          keyEquivalent.get())}
@@ -42,37 +53,37 @@ namespace ns
 
         [[nodiscard]] auto title() const noexcept
         {
-            return getRetained<String>(sel::title);
+            return getRetained<String>(METALPP_SEL(title));
         }
 
         void setTitle(const String& title) noexcept
         {
-            sendMessage(sel::setTitle_, title.get());
+            sendMessage(METALPP_SEL(setTitle_), title.get());
         }
 
         [[nodiscard]] auto isSeparatorItem() const noexcept
         {
-            return sendMessage<BOOL>(sel::isSeparatorItem) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(isSeparatorItem)) == YES;
         }
 
         [[nodiscard]] auto keyEquivalent() const noexcept
         {
-            return getRetained<String>(sel::keyEquivalent);
+            return getRetained<String>(METALPP_SEL(keyEquivalent));
         }
 
         void setKeyEquivalent(const String& keyEquivalent) noexcept
         {
-            sendMessage(sel::setKeyEquivalent_, keyEquivalent.get());
+            sendMessage(METALPP_SEL(setKeyEquivalent_), keyEquivalent.get());
         }
 
         [[nodiscard]] auto keyEquivalentModifierMask() const noexcept
         {
-            return sendMessage<ns::EventModifierFlags>(sel::keyEquivalentModifierMask);
+            return sendMessage<ns::EventModifierFlags>(METALPP_SEL(keyEquivalentModifierMask));
         }
 
         void setKeyEquivalentModifierMask(const ns::EventModifierFlags keyEquivalentModifierMask) noexcept
         {
-            sendMessage(sel::setKeyEquivalentModifierMask_, keyEquivalentModifierMask);
+            sendMessage(METALPP_SEL(setKeyEquivalentModifierMask_), keyEquivalentModifierMask);
         }
     };
 }

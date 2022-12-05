@@ -3,8 +3,8 @@
 
 #include <cstdint>
 #include <type_traits>
+#include "Private.hpp"
 #include "Runtime.hpp"
-#include "Selectors.hpp"
 
 namespace ns
 {
@@ -13,20 +13,28 @@ namespace ns
     public:
         static inline const auto cls = objc_lookUpClass("NSObject");
 
+        METALPP_PRIVATE_SEL(getClass, "class");
+        METALPP_PRIVATE_SEL(alloc, "alloc");
+        METALPP_PRIVATE_SEL(init, "init");
+        METALPP_PRIVATE_SEL(retain, "retain");
+        METALPP_PRIVATE_SEL(release, "release");
+        METALPP_PRIVATE_SEL(retainCount, "retainCount");
+        METALPP_PRIVATE_SEL(autorelease, "autorelease");
+
         Object() noexcept:
-            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, sel::alloc), sel::init)}
+            ptr{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         ~Object()
         {
-            sendMessage(sel::release);
+            sendMessage(METALPP_SEL(release));
         }
 
         Object(const Object& other) noexcept:
             ptr{other.ptr}
         {
-            sendMessage(sel::retain);
+            sendMessage(METALPP_SEL(retain));
         }
 
         Object(Object&& other) noexcept:
@@ -38,8 +46,8 @@ namespace ns
         Object& operator=(const Object& other) noexcept
         {
             if (&other == this) return *this;
-            other.sendMessage(sel::retain);
-            sendMessage(sel::release);
+            other.sendMessage(METALPP_SEL(retain));
+            sendMessage(METALPP_SEL(release));
             ptr = other.ptr;
             return *this;
         }
@@ -86,12 +94,12 @@ namespace ns
 
         [[nodiscard]] auto getClass() const noexcept
         {
-            return sendMessage<Class>(sel::getClass);
+            return sendMessage<Class>(METALPP_SEL(getClass));
         }
 
         [[nodiscard]] auto retainCount() const noexcept
         {
-            return sendMessage<UInteger>(sel::retainCount);
+            return sendMessage<UInteger>(METALPP_SEL(retainCount));
         }
 
         // Releases the ownership of the pointer without sending a release message
@@ -113,7 +121,7 @@ namespace ns
         std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
         {
             const id object = objc::sendMessage<id>(ptr, selector, args...);
-            return Ret{objc::sendMessage<id>(object, sel::retain)};
+            return Ret{objc::sendMessage<id>(object, METALPP_SEL(retain))};
         }
 
     private:

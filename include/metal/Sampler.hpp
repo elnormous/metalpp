@@ -3,8 +3,8 @@
 
 #include <os/availability.h>
 #include "../objc/Object.hpp"
+#include "../objc/Private.hpp"
 #include "DepthStencil.hpp"
-#include "Selectors.hpp"
 
 namespace mtl
 {
@@ -45,172 +45,206 @@ namespace mtl
     public:
         static inline const auto cls = objc_lookUpClass("MTLSamplerDescriptor");
 
+        METALPP_PRIVATE_SEL(minFilter, "minFilter");
+        METALPP_PRIVATE_SEL(setMinFilter_, "setMinFilter:");
+        METALPP_PRIVATE_SEL(magFilter, "magFilter");
+        METALPP_PRIVATE_SEL(setMagFilter_, "setMagFilter:");
+        METALPP_PRIVATE_SEL(mipFilter, "mipFilter");
+        METALPP_PRIVATE_SEL(setMipFilter_, "setMipFilter:");
+        METALPP_PRIVATE_SEL(maxAnisotropy, "maxAnisotropy");
+        METALPP_PRIVATE_SEL(setMaxAnisotropy_, "setMaxAnisotropy:");
+        METALPP_PRIVATE_SEL(sAddressMode, "sAddressMode");
+        METALPP_PRIVATE_SEL(setSAddressMode_, "setSAddressMode:");
+        METALPP_PRIVATE_SEL(tAddressMode, "tAddressMode");
+        METALPP_PRIVATE_SEL(setTAddressMode_, "setTAddressMode:");
+        METALPP_PRIVATE_SEL(rAddressMode, "rAddressMode");
+        METALPP_PRIVATE_SEL(setRAddressMode_, "setRAddressMode:");
+        METALPP_PRIVATE_SEL(borderColor, "borderColor");
+        METALPP_PRIVATE_SEL(setBorderColor_, "setBorderColor:");
+        METALPP_PRIVATE_SEL(normalizedCoordinates, "normalizedCoordinates");
+        METALPP_PRIVATE_SEL(setNormalizedCoordinates_, "setNormalizedCoordinates:");
+        METALPP_PRIVATE_SEL(lodMinClamp, "lodMinClamp");
+        METALPP_PRIVATE_SEL(setLodMinClamp_, "setLodMinClamp:");
+        METALPP_PRIVATE_SEL(lodMaxClamp, "lodMaxClamp");
+        METALPP_PRIVATE_SEL(setLodMaxClamp_, "setLodMaxClamp:");
+        METALPP_PRIVATE_SEL(lodAverage, "lodAverage");
+        METALPP_PRIVATE_SEL(setLodAverage_, "setLodAverage:");
+        METALPP_PRIVATE_SEL(compareFunction, "compareFunction");
+        METALPP_PRIVATE_SEL(setCompareFunction_, "setCompareFunction:");
+        METALPP_PRIVATE_SEL(supportArgumentBuffers, "supportArgumentBuffers");
+        METALPP_PRIVATE_SEL(setSupportArgumentBuffers_, "setSupportArgumentBuffers:");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+
         SamplerDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::sel::alloc), ns::sel::init)}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
         {
         }
 
         [[nodiscard]] auto minFilter() const noexcept
         {
-            return sendMessage<SamplerMinMagFilter>(sel::minFilter);
+            return sendMessage<SamplerMinMagFilter>(METALPP_SEL(minFilter));
         }
 
         void setMinFilter(const SamplerMinMagFilter minFilter) noexcept
         {
-            sendMessage(sel::setMinFilter_, minFilter);
+            sendMessage(METALPP_SEL(setMinFilter_), minFilter);
         }
 
         [[nodiscard]] auto magFilter() const noexcept
         {
-            return sendMessage<SamplerMinMagFilter>(sel::magFilter);
+            return sendMessage<SamplerMinMagFilter>(METALPP_SEL(magFilter));
         }
 
         void setMagFilter(const SamplerMinMagFilter magFilter) noexcept
         {
-            sendMessage(sel::setMagFilter_, magFilter);
+            sendMessage(METALPP_SEL(setMagFilter_), magFilter);
         }
 
         [[nodiscard]] auto mipFilter() const noexcept
         {
-            return sendMessage<SamplerMipFilter>(sel::mipFilter);
+            return sendMessage<SamplerMipFilter>(METALPP_SEL(mipFilter));
         }
 
         void setMipFilter(const SamplerMipFilter mipFilter) noexcept
         {
-            sendMessage(sel::setMipFilter_, mipFilter);
+            sendMessage(METALPP_SEL(setMipFilter_), mipFilter);
         }
 
         [[nodiscard]] auto maxAnisotropy() const noexcept
         {
-            return sendMessage<ns::UInteger>(sel::maxAnisotropy);
+            return sendMessage<ns::UInteger>(METALPP_SEL(maxAnisotropy));
         }
 
         void setMaxAnisotropy(const ns::UInteger maxAnisotropy) noexcept
         {
-            sendMessage(sel::setMaxAnisotropy_, maxAnisotropy);
+            sendMessage(METALPP_SEL(setMaxAnisotropy_), maxAnisotropy);
         }
 
         [[nodiscard]] auto sAddressMode() const noexcept
         {
-            return sendMessage<SamplerAddressMode>(sel::sAddressMode);
+            return sendMessage<SamplerAddressMode>(METALPP_SEL(sAddressMode));
         }
 
         void setSAddressMode(const SamplerAddressMode sAddressMode) noexcept
         {
-            sendMessage(sel::setSAddressMode_, sAddressMode);
+            sendMessage(METALPP_SEL(setSAddressMode_), sAddressMode);
         }
 
         [[nodiscard]] auto tAddressMode() const noexcept
         {
-            return sendMessage<SamplerAddressMode>(sel::tAddressMode);
+            return sendMessage<SamplerAddressMode>(METALPP_SEL(tAddressMode));
         }
 
         void setTAddressMode(const SamplerAddressMode tAddressMode) noexcept
         {
-            sendMessage(sel::setTAddressMode_, tAddressMode);
+            sendMessage(METALPP_SEL(setTAddressMode_), tAddressMode);
         }
 
         [[nodiscard]] auto rAddressMode() const noexcept
         {
-            return sendMessage<SamplerAddressMode>(sel::rAddressMode);
+            return sendMessage<SamplerAddressMode>(METALPP_SEL(rAddressMode));
         }
 
         void setRAddressMode(const SamplerAddressMode rAddressMode) noexcept
         {
-            sendMessage(sel::setRAddressMode_, rAddressMode);
+            sendMessage(METALPP_SEL(setRAddressMode_), rAddressMode);
         }
 
         [[nodiscard]] auto borderColor() const noexcept
         {
-            return sendMessage<SamplerBorderColor>(sel::borderColor);
+            return sendMessage<SamplerBorderColor>(METALPP_SEL(borderColor));
         }
 
         void setBorderColor(const SamplerBorderColor borderColor) noexcept
         {
-            sendMessage(sel::setBorderColor_, borderColor);
+            sendMessage(METALPP_SEL(setBorderColor_), borderColor);
         }
 
         [[nodiscard]] auto normalizedCoordinates() const noexcept
         {
-            return sendMessage<BOOL>(sel::normalizedCoordinates) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(normalizedCoordinates)) == YES;
         }
 
         void setNormalizedCoordinates(const bool normalizedCoordinates) noexcept
         {
-            sendMessage(sel::setNormalizedCoordinates_, normalizedCoordinates ? YES : NO);
+            sendMessage(METALPP_SEL(setNormalizedCoordinates_), normalizedCoordinates ? YES : NO);
         }
 
         [[nodiscard]] auto lodMinClamp() const noexcept
         {
-            return sendMessage<float>(sel::lodMinClamp);
+            return sendMessage<float>(METALPP_SEL(lodMinClamp));
         }
 
         void setLodMinClamp(const float lodMinClamp) noexcept
         {
-            sendMessage(sel::setLodMinClamp_, lodMinClamp);
+            sendMessage(METALPP_SEL(setLodMinClamp_), lodMinClamp);
         }
 
         [[nodiscard]] auto lodMaxClamp() const noexcept
         {
-            return sendMessage<float>(sel::lodMaxClamp);
+            return sendMessage<float>(METALPP_SEL(lodMaxClamp));
         }
 
         void setLodMaxClamp(const float lodMaxClamp) noexcept
         {
-            sendMessage(sel::setLodMaxClamp_, lodMaxClamp);
+            sendMessage(METALPP_SEL(setLodMaxClamp_), lodMaxClamp);
         }
 
         [[nodiscard]] auto lodAverage() const noexcept API_AVAILABLE(ios(9.0), macos(11.0), macCatalyst(14.0))
         {
-            return sendMessage<BOOL>(sel::lodAverage) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(lodAverage)) == YES;
         }
 
         void setLodAverage(const bool lodAverage) noexcept API_AVAILABLE(ios(9.0), macos(11.0), macCatalyst(14.0))
         {
-            sendMessage(sel::setLodAverage_, lodAverage ? YES : NO);
+            sendMessage(METALPP_SEL(setLodAverage_), lodAverage ? YES : NO);
         }
 
         [[nodiscard]] auto compareFunction() const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            return sendMessage<CompareFunction>(sel::compareFunction);
+            return sendMessage<CompareFunction>(METALPP_SEL(compareFunction));
         }
 
         void setCompareFunction(const CompareFunction compareFunction) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
-            sendMessage(sel::setCompareFunction_, compareFunction);
+            sendMessage(METALPP_SEL(setCompareFunction_), compareFunction);
         }
 
         [[nodiscard]] auto supportArgumentBuffers() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<BOOL>(sel::supportArgumentBuffers) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(supportArgumentBuffers)) == YES;
         }
 
         void setSupportArgumentBuffers(const bool supportArgumentBuffers) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            sendMessage(sel::setSupportArgumentBuffers_, supportArgumentBuffers ? YES : NO);
+            sendMessage(METALPP_SEL(setSupportArgumentBuffers_), supportArgumentBuffers ? YES : NO);
         }
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
 
         void setLabel(const ns::String& label) noexcept
         {
-            sendMessage(sel::setLabel_, label.get());
+            sendMessage(METALPP_SEL(setLabel_), label.get());
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     class SamplerState final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        
         SamplerState() = delete;
 
         [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(sel::label);
+            return getRetained<ns::String>(METALPP_SEL(label));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

@@ -2,12 +2,12 @@
 #define METALPP_METAL_RENDERCOMMANDENCODER_HPP
 
 #include <os/availability.h>
+#include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 #include "Buffer.hpp"
 #include "CommandEncoder.hpp"
 #include "RenderPipeline.hpp"
 #include "Sampler.hpp"
-#include "Selectors.hpp"
 #include "StageInputOutputDescriptor.hpp"
 #include "Texture.hpp"
 
@@ -87,16 +87,24 @@ namespace mtl
     class RenderCommandEncoder final: public CommandEncoder
     {
     public:
+        METALPP_PRIVATE_SEL(setRenderPipelineState_, "setRenderPipelineState:");
+        METALPP_PRIVATE_SEL(setVertexBuffer_offset_atIndex_, "setVertexBuffer:offset:atIndex:");
+        METALPP_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_, "setFragmentBuffer:offset:atIndex:");
+        METALPP_PRIVATE_SEL(setFragmentTexture_atIndex_, "setFragmentTexture:atIndex:");
+        METALPP_PRIVATE_SEL(setFragmentSamplerState_atIndex_, "setFragmentSamplerState:atIndex:");
+        METALPP_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_, "drawPrimitives:vertexStart:vertexCount:");
+        METALPP_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, "drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
+
         RenderCommandEncoder() = delete;
 
         void setRenderPipelineState(const RenderPipelineState& pipelineState) noexcept
         {
-            sendMessage(sel::setRenderPipelineState_, pipelineState.get());
+            sendMessage(METALPP_SEL(setRenderPipelineState_), pipelineState.get());
         }
 
         void setVertexBuffer(const Buffer& buffer, const ns::UInteger offset, const ns::UInteger index) noexcept
         {
-            sendMessage(sel::setVertexBuffer_offset_atIndex_,
+            sendMessage(METALPP_SEL(setVertexBuffer_offset_atIndex_),
                         buffer.get(),
                         offset,
                         index);
@@ -104,7 +112,7 @@ namespace mtl
 
         void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index)  noexcept
         {
-            sendMessage(sel::setFragmentBuffer_offset_atIndex_,
+            sendMessage(METALPP_SEL(setFragmentBuffer_offset_atIndex_),
                         buffer.get(),
                         offset,
                         index);
@@ -112,21 +120,21 @@ namespace mtl
 
         void setFragmentTexture(const Texture& texture, ns::UInteger index)  noexcept
         {
-            sendMessage(sel::setFragmentTexture_atIndex_,
+            sendMessage(METALPP_SEL(setFragmentTexture_atIndex_),
                         texture.get(),
                         index);
         }
 
         void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index)  noexcept
         {
-            sendMessage(sel::setFragmentSamplerState_atIndex_,
+            sendMessage(METALPP_SEL(setFragmentSamplerState_atIndex_),
                         sampler.get(),
                         index);
         }
 
         void drawPrimitives(const PrimitiveType primitiveType, const ns::UInteger vertexStart, const ns::UInteger vertexCount) noexcept
         {
-            sendMessage(sel::drawPrimitives_vertexStart_vertexCount_,
+            sendMessage(METALPP_SEL(drawPrimitives_vertexStart_vertexCount_),
                         primitiveType,
                         vertexStart,
                         vertexCount);
@@ -134,7 +142,7 @@ namespace mtl
 
         void drawIndexedPrimitives(const PrimitiveType primitiveType, const ns::UInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const ns::UInteger indexBufferOffset) noexcept
         {
-            sendMessage(sel::drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_,
+            sendMessage(METALPP_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_),
                         primitiveType,
                         indexCount,
                         indexType,

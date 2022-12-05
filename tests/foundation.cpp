@@ -32,8 +32,8 @@ TEST_CASE("AutoreleasePool")
     REQUIRE(autoreleasePool);
 
     ns::Object obj{};
-    objc::sendMessage<id>(objc::sendMessage<id>(obj, ns::sel::retain),
-                          ns::sel::autorelease);
+    objc::sendMessage<id>(objc::sendMessage<id>(obj, ns::Object::METALPP_SEL(retain)),
+                          ns::Object::METALPP_SEL(autorelease));
 
     CHECK(obj.retainCount() == 2);
     autoreleasePool.drain();

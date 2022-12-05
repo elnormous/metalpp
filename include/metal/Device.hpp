@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <os/availability.h>
 #include "../objc/Object.hpp"
-#include "../objc/Selectors.hpp"
+#include "../objc/Private.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "Buffer.hpp"
@@ -18,7 +18,6 @@
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
 #include "Sampler.hpp"
-#include "Selectors.hpp"
 #include "Texture.hpp"
 
 enum class FeatureSet: ns::UInteger
@@ -113,6 +112,23 @@ namespace mtl
     class Device final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_SEL(name, "name");
+        METALPP_PRIVATE_SEL(location, "location");
+        METALPP_PRIVATE_SEL(locationNumber, "locationNumber");
+        METALPP_PRIVATE_SEL(currentAllocatedSize, "currentAllocatedSize");
+        METALPP_PRIVATE_SEL(newCommandQueue, "newCommandQueue");
+        METALPP_PRIVATE_SEL(newCommandQueueWithMaxCommandBufferCount_, "newCommandQueueWithMaxCommandBufferCount:");
+        METALPP_PRIVATE_SEL(newDepthStencilStateWithDescriptor_, "newDepthStencilStateWithDescriptor:");
+        METALPP_PRIVATE_SEL(newBufferWithLength_options_, "newBufferWithLength:options:");
+        METALPP_PRIVATE_SEL(newBufferWithBytes_length_options_, "newBufferWithBytes:length:options:");
+        METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
+        METALPP_PRIVATE_SEL(newSamplerStateWithDescriptor_, "newSamplerStateWithDescriptor:");
+        METALPP_PRIVATE_SEL(newDefaultLibrary, "newDefaultLibrary");
+        METALPP_PRIVATE_SEL(newLibraryWithSource_options_error_, "newLibraryWithSource:options:error:");
+        METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
+        METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
+        METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
+
         static auto createSystemDefaultDevice() noexcept
         {
             return Device{detail::createSystemDefaultDevice()};
@@ -122,47 +138,47 @@ namespace mtl
 
         [[nodiscard]] auto name() const noexcept
         {
-            return getRetained<ns::String>(sel::name);
+            return getRetained<ns::String>(METALPP_SEL(name));
         }
 
         [[nodiscard]] auto location() const noexcept API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios)
         {
-            return sendMessage<DeviceLocation>(sel::location);
+            return sendMessage<DeviceLocation>(METALPP_SEL(location));
         }
 
         [[nodiscard]] auto locationNumber() const noexcept API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios)
         {
-            return sendMessage<ns::UInteger>(sel::locationNumber);
+            return sendMessage<ns::UInteger>(METALPP_SEL(locationNumber));
         }
 
         [[nodiscard]] auto currentAllocatedSize() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
-            return sendMessage<ns::UInteger>(sel::currentAllocatedSize);
+            return sendMessage<ns::UInteger>(METALPP_SEL(currentAllocatedSize));
         }
 
         [[nodiscard]] auto newCommandQueue() const noexcept
         {
-            const id commandQueue = sendMessage<id>(sel::newCommandQueue);
+            const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueue));
             return CommandQueue{commandQueue};
         }
 
         [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
         {
-            const id commandQueue = sendMessage<id>(sel::newCommandQueueWithMaxCommandBufferCount_,
+            const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueueWithMaxCommandBufferCount_),
                                                     maxCommandBufferCount);
             return CommandQueue{commandQueue};
         }
 
         [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
-            const id depthStencilState = sendMessage<id>(sel::newDepthStencilStateWithDescriptor_,
+            const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
                                                          descriptor.get());
             return DepthStencilState{depthStencilState};
         }
 
         [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
         {
-            const id buffer = sendMessage<id>(sel::newBufferWithLength_options_,
+            const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_),
                                               length,
                                               options);
             return Buffer{buffer};
@@ -170,7 +186,7 @@ namespace mtl
 
         [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
         {
-            const id buffer = sendMessage<id>(sel::newBufferWithBytes_length_options_,
+            const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytes_length_options_),
                                               pointer,
                                               length,
                                               options);
@@ -179,34 +195,34 @@ namespace mtl
 
         [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
         {
-            const id texture = sendMessage<id>(sel::newTextureWithDescriptor_,
+            const id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_),
                                                descriptor.get());
             return Texture{texture};
         }
 
         [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
         {
-            const id samplerState = sendMessage<id>(sel::newSamplerStateWithDescriptor_,
+            const id samplerState = sendMessage<id>(METALPP_SEL(newSamplerStateWithDescriptor_),
                                                     descriptor.get());
             return SamplerState{samplerState};
         }
 
         [[nodiscard]] auto newDefaultLibrary() const noexcept
         {
-            const id library = sendMessage<id>(sel::newDefaultLibrary);
+            const id library = sendMessage<id>(METALPP_SEL(newDefaultLibrary));
             return Library{library};
         }
 
         [[nodiscard]] auto newLibrary(const ns::String& source) const
         {
             id error;
-            const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
+            const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
                                                source.get(),
                                                nil,
                                                &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
 
             return Library{library};
         }
@@ -214,36 +230,36 @@ namespace mtl
         [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
         {
             id error;
-            const id library = sendMessage<id>(sel::newLibraryWithSource_options_error_,
+            const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
                                                source.get(),
                                                compileOptions.get(),
                                                &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
 
             return Library{library};
         }
 
         [[nodiscard]] auto supportsFeatureSet(const FeatureSet featureSet) const noexcept API_DEPRECATED("Use supportsFamily instead", macos(10.11, 13.0), ios(8.0, 16.0), tvos(9.0, 16.0))
         {
-            return sendMessage<BOOL>(sel::supportsFeatureSet_, featureSet) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(supportsFeatureSet_), featureSet) == YES;
         }
 
         [[nodiscard]] auto supportsFamily(const GPUFamily gpuFamily) const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            return sendMessage<BOOL>(sel::supportsFamily_, gpuFamily) == YES;
+            return sendMessage<BOOL>(METALPP_SEL(supportsFamily_), gpuFamily) == YES;
         }
 
         [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error;
-            const id renderPipelineState = sendMessage<id>(sel::newRenderPipelineStateWithDescriptor_error_,
+            const id renderPipelineState = sendMessage<id>(METALPP_SEL(newRenderPipelineStateWithDescriptor_error_),
                                                            renderPipelineDescriptor.get(),
                                                            &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, ns::sel::retain)};
+                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
 
             return RenderPipelineState{renderPipelineState};
         }
@@ -251,52 +267,52 @@ namespace mtl
 
     [[nodiscard]] inline Device CommandBuffer::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device CommandEncoder::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device CommandQueue::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device DepthStencilState::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device DynamicLibrary::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device Function::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device Library::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device SamplerState::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device RenderPipelineState::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 
     [[nodiscard]] inline Device Resource::device() const noexcept
     {
-        return getRetained<Device>(sel::device);
+        return getRetained<Device>(METALPP_SEL(device));
     }
 }
 
