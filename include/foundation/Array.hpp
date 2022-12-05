@@ -16,8 +16,6 @@ namespace ns
         METALPP_PRIVATE_SEL(initWithObjects_, "initWithObjects:");
         METALPP_PRIVATE_SEL(initWithObjects_count_, "initWithObjects:count:");
         METALPP_PRIVATE_SEL(objectAtIndex_, "objectAtIndex:");
-        METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
-        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
         METALPP_PRIVATE_SEL(count, "count");
         
         using Object::Object;
