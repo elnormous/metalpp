@@ -89,7 +89,7 @@ namespace ca
     class LayerContentsFilter: public ns::String
     {
     public:
-        using ns::String::String;
+        using String::String;
 
         LayerContentsFilter() = delete;
         LayerContentsFilter(const char* name):

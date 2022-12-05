@@ -55,6 +55,8 @@ namespace mtl
     class RenderPassAttachmentDescriptor: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLRenderPassAttachmentDescriptor");
+
         METALPP_PRIVATE_SEL(texture, "texture");
         METALPP_PRIVATE_SEL(setTexture_, "setTexture:");
         METALPP_PRIVATE_SEL(level, "level");
@@ -80,7 +82,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(clearColor, "clearColor");
         METALPP_PRIVATE_SEL(setClearColor_, "setClearColor:");
 
-        RenderPassAttachmentDescriptor() = delete;
+        using Object::Object;
+
+        RenderPassAttachmentDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto texture() const noexcept
         {
@@ -196,6 +203,15 @@ namespace mtl
     class RenderPassColorAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
+        METALPP_PRIVATE_CLS("MTLRenderPassColorAttachmentDescriptor");
+
+        using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
+
+        RenderPassColorAttachmentDescriptor() noexcept:
+            RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
+
         [[nodiscard]] auto clearColor() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
             return sendMessage<ClearColor>(METALPP_SEL(clearColor));
@@ -217,10 +233,19 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLRenderPassDepthAttachmentDescriptor");
+
         METALPP_PRIVATE_SEL(clearDepth, "clearDepth");
         METALPP_PRIVATE_SEL(setClearDepth_, "setClearDepth:");
         METALPP_PRIVATE_SEL(depthResolveFilter, "depthResolveFilter");
         METALPP_PRIVATE_SEL(setDepthResolveFilter_, "setDepthResolveFilter:");
+
+        using Object::Object;
+
+        RenderPassDepthAttachmentDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto clearDepth() const noexcept
         {
@@ -252,10 +277,19 @@ namespace mtl
     class RenderPassStencilAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLRenderPassStencilAttachmentDescriptor");
+
         METALPP_PRIVATE_SEL(clearStencil, "clearStencil");
         METALPP_PRIVATE_SEL(setClearStencil_, "setClearStencil:");
         METALPP_PRIVATE_SEL(stencilResolveFilter, "stencilResolveFilter");
         METALPP_PRIVATE_SEL(setStencilResolveFilter_, "setStencilResolveFilter:");
+
+        using Object::Object;
+
+        RenderPassStencilAttachmentDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto clearStencil() const noexcept
         {
@@ -282,10 +316,16 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+        }
+
+        void setObjectAtIndexedSubscript(const RenderPassColorAttachmentDescriptor& derscriptor) noexcept
+        {
+            sendMessage(METALPP_SEL(setObject_atIndexedSubscript_), derscriptor, index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept

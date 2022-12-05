@@ -123,6 +123,8 @@ namespace mtl
     class RenderPipelineColorAttachmentDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLRenderPipelineColorAttachmentDescriptor");
+
         METALPP_PRIVATE_SEL(pixelFormat, "pixelFormat");
         METALPP_PRIVATE_SEL(setPixelFormat_, "setPixelFormat:");
         METALPP_PRIVATE_SEL(isBlendingEnabled, "isBlendingEnabled");
@@ -142,7 +144,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(writeMask, "writeMask");
         METALPP_PRIVATE_SEL(setWriteMask_, "setWriteMask:");
 
-        RenderPipelineColorAttachmentDescriptor() = delete;
+        using Object::Object;
+
+        RenderPipelineColorAttachmentDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto pixelFormat() const noexcept
         {
@@ -239,12 +246,18 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPipelineColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+        }
+
+        void setObjectAtIndexedSubscript(const RenderPipelineColorAttachmentDescriptor& derscriptor) noexcept
+        {
+            sendMessage(METALPP_SEL(setObject_atIndexedSubscript_), derscriptor, index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept

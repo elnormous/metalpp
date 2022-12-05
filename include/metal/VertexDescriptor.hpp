@@ -93,6 +93,8 @@ namespace mtl
     class VertexBufferLayoutDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLVertexBufferLayoutDescriptor");
+
         METALPP_PRIVATE_SEL(stride, "stride");
         METALPP_PRIVATE_SEL(setStride_, "setStride:");
         METALPP_PRIVATE_SEL(stepFunction, "stepFunction");
@@ -100,7 +102,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(stepRate, "stepRate");
         METALPP_PRIVATE_SEL(setStepRate_, "setStepRate:");
 
-        VertexBufferLayoutDescriptor() = delete;
+        using Object::Object;
+
+        VertexBufferLayoutDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto stride() const noexcept
         {
@@ -137,12 +144,18 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         VertexBufferLayoutDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexBufferLayoutDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+        }
+
+        void setObjectAtIndexedSubscript(const VertexBufferLayoutDescriptor& derscriptor) noexcept
+        {
+            sendMessage(METALPP_SEL(setObject_atIndexedSubscript_), derscriptor, index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
@@ -154,6 +167,8 @@ namespace mtl
     class VertexAttributeDescriptor final: public ns::Object
     {
     public:
+        METALPP_PRIVATE_CLS("MTLVertexAttributeDescriptor");
+
         METALPP_PRIVATE_SEL(format, "format");
         METALPP_PRIVATE_SEL(setFormat_, "setFormat:");
         METALPP_PRIVATE_SEL(offset, "offset");
@@ -161,7 +176,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(bufferIndex, "bufferIndex");
         METALPP_PRIVATE_SEL(setBufferIndex_, "setBufferIndex:");
 
-        VertexAttributeDescriptor() = delete;
+        using Object::Object;
+
+        VertexAttributeDescriptor() noexcept:
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+        {
+        }
 
         [[nodiscard]] auto format() const noexcept
         {
@@ -198,12 +218,18 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
+        METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         VertexAttributeDescriptorArray() = delete;
 
         [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
         {
             return getRetained<VertexAttributeDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+        }
+
+        void setObjectAtIndexedSubscript(const VertexAttributeDescriptor& derscriptor) noexcept
+        {
+            sendMessage(METALPP_SEL(setObject_atIndexedSubscript_), derscriptor, index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
