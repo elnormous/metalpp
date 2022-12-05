@@ -11,7 +11,7 @@ namespace ns
     class Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSObject");
+        METALPP_PRIVATE_CLS("NSObject");
 
         METALPP_PRIVATE_SEL(getClass, "class");
         METALPP_PRIVATE_SEL(alloc, "alloc");

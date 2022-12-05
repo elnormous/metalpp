@@ -9,7 +9,7 @@ namespace ns
     class View: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSView");
+        METALPP_PRIVATE_CLS("NSView");
 
         using Object::Object;
 

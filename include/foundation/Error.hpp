@@ -12,7 +12,7 @@ namespace ns
     class Error: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSError");
+        METALPP_PRIVATE_CLS("NSError");
 
         METALPP_PRIVATE_SEL(initWithDomain_code_userInfo_, "initWithDomain:code:userInfo:");
         METALPP_PRIVATE_SEL(code, "code");

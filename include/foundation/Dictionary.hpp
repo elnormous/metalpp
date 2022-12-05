@@ -11,7 +11,7 @@ namespace ns
     class Dictionary: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSDictionary");
+        METALPP_PRIVATE_CLS("NSDictionary");
 
         METALPP_PRIVATE_SEL(initWithObjects_forKeys_, "initWithObjects:forKeys:");
         METALPP_PRIVATE_SEL(initWithObjectsAndKeys_, "initWithObjectsAndKeys:");

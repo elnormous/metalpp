@@ -105,7 +105,7 @@ namespace ca
     class Layer: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("CALayer");
+        METALPP_PRIVATE_CLS("CALayer");
 
         METALPP_PRIVATE_SEL(anchorPoint, "anchorPoint");
         METALPP_PRIVATE_SEL(setAnchorPoint_, "setAnchorPoint:");

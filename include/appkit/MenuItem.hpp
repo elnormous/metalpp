@@ -13,7 +13,7 @@ namespace ns
     class MenuItem final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSMenuItem");
+        METALPP_PRIVATE_CLS("NSMenuItem");
 
         METALPP_PRIVATE_SEL(separatorItem, "separatorItem");
         METALPP_PRIVATE_SEL(initWithTitle_action_keyEquivalent_, "initWithTitle:action:keyEquivalent:");

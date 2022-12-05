@@ -94,7 +94,7 @@ namespace ns
     class Window final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSWindow");
+        METALPP_PRIVATE_CLS("NSWindow");
 
         METALPP_PRIVATE_SEL(initWithContentRect_styleMask_backing_defer_, "initWithContentRect:styleMask:backing:defer:");
         METALPP_PRIVATE_SEL(initWithContentRect_styleMask_backing_defer_screen_, "initWithContentRect:styleMask:backing:defer:screen:");

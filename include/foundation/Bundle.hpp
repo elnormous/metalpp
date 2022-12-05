@@ -12,7 +12,7 @@ namespace ns
     class Bundle final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSBundle");
+        METALPP_PRIVATE_CLS("NSBundle");
 
         METALPP_PRIVATE_SEL(mainBundle, "mainBundle");
         METALPP_PRIVATE_SEL(initWithPath_, "initWithPath:");

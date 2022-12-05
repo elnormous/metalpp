@@ -58,7 +58,7 @@ namespace mtl
     class TextureDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLTextureDescriptor");
+        METALPP_PRIVATE_CLS("MTLTextureDescriptor");
 
         METALPP_PRIVATE_SEL(textureType, "textureType");
         METALPP_PRIVATE_SEL(setTextureType_, "setTextureType:");

@@ -11,7 +11,7 @@ namespace ns
     class Array: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSArray");
+        METALPP_PRIVATE_CLS("NSArray");
 
         METALPP_PRIVATE_SEL(initWithObjects_, "initWithObjects:");
         METALPP_PRIVATE_SEL(initWithObjects_count_, "initWithObjects:count:");

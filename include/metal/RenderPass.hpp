@@ -297,7 +297,7 @@ namespace mtl
     class RenderPassDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLRenderPassDescriptor");
+        METALPP_PRIVATE_CLS("MTLRenderPassDescriptor");
 
         METALPP_PRIVATE_SEL(colorAttachments, "colorAttachments");
         METALPP_PRIVATE_SEL(depthAttachment, "depthAttachment");

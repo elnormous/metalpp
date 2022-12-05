@@ -12,7 +12,7 @@ namespace ns
     class Menu final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSMenu");
+        METALPP_PRIVATE_CLS("NSMenu");
 
         METALPP_PRIVATE_SEL(initWithTitle_, "initWithTitle:");
         METALPP_PRIVATE_SEL(insertItem_atIndex_, "insertItem:atIndex:");

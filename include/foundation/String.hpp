@@ -44,7 +44,7 @@ namespace ns
     class String: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSString");
+        METALPP_PRIVATE_CLS("NSString");
 
         METALPP_PRIVATE_SEL(initWithBytes_length_encoding_, "initWithBytes:length:encoding:");
         METALPP_PRIVATE_SEL(initWithCString_encoding_, "initWithCString:encoding:");

@@ -11,7 +11,7 @@ namespace ns
     class Application final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSApplication");
+        METALPP_PRIVATE_CLS("NSApplication");
 
         METALPP_PRIVATE_SEL(sharedApplication, "sharedApplication");
         METALPP_PRIVATE_SEL(delegate, "delegate");

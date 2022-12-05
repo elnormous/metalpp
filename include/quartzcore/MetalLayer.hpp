@@ -30,7 +30,7 @@ namespace ca
     class MetalLayer final: public Layer
     {
     public:
-        static inline const auto cls = objc_lookUpClass("CAMetalLayer");
+        METALPP_PRIVATE_CLS("CAMetalLayer");
 
         METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(setDevice_, "setDevice:");

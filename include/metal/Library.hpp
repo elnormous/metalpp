@@ -148,7 +148,7 @@ namespace mtl
     class CompileOptions final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLCompileOptions");
+        METALPP_PRIVATE_CLS("MTLCompileOptions");
 
         METALPP_PRIVATE_SEL(preprocessorMacros, "preprocessorMacros");
         METALPP_PRIVATE_SEL(setPreprocessorMacros_, "setPreprocessorMacros:");

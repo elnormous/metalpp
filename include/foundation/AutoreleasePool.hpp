@@ -9,7 +9,7 @@ namespace ns
     class AutoreleasePool final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSAutoreleasePool");
+        METALPP_PRIVATE_CLS("NSAutoreleasePool");
 
         METALPP_PRIVATE_SEL(drain, "drain");
         

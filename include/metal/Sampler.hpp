@@ -43,7 +43,7 @@ namespace mtl
     class SamplerDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLSamplerDescriptor");
+        METALPP_PRIVATE_CLS("MTLSamplerDescriptor");
 
         METALPP_PRIVATE_SEL(minFilter, "minFilter");
         METALPP_PRIVATE_SEL(setMinFilter_, "setMinFilter:");

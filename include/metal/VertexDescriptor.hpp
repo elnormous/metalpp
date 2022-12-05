@@ -215,7 +215,7 @@ namespace mtl
     class VertexDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLVertexDescriptor");
+        METALPP_PRIVATE_CLS("MTLVertexDescriptor");
 
         METALPP_PRIVATE_SEL(layouts, "layouts");
         METALPP_PRIVATE_SEL(attributes, "attributes");

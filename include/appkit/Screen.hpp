@@ -11,7 +11,7 @@ namespace ns
     class Screen final: public Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("NSScreen");
+        METALPP_PRIVATE_CLS("NSScreen");
         
         METALPP_PRIVATE_SEL(screens, "screens");
         METALPP_PRIVATE_SEL(mainScreen, "mainScreen");

@@ -256,7 +256,7 @@ namespace mtl
     class RenderPipelineDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLRenderPipelineDescriptor");
+        METALPP_PRIVATE_CLS("MTLRenderPipelineDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");

@@ -37,7 +37,7 @@ namespace mtl
     class DepthStencilDescriptor final: public ns::Object
     {
     public:
-        static inline const auto cls = objc_lookUpClass("MTLDepthStencilDescriptor");
+        METALPP_PRIVATE_CLS("MTLDepthStencilDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
