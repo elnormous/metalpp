@@ -210,21 +210,19 @@ public:
         };
 
         ns::Window window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
+        window.setTitle("demo");
+        window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
         [window setReleasedWhenClosed:NO];
-        [window setTabbingMode:NSWindowTabbingModeDisallowed];
 
-        [window setAcceptsMouseMovedEvents:YES];
+        window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
+        window.setAcceptsMouseMovedEvents(true);
 
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"),
                                       windowDidResize,
                                       "v@:@");
         windowDelegate = windowDelegateClass.createInstance();
-
-        [window setDelegate:windowDelegate];
-
-        [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
-        [window setTitle:@"demo"];
+        window.setDelegate(windowDelegate);
 
         NSView* view = [[[View alloc] init] autorelease];
 

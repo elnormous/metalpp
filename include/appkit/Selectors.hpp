@@ -46,6 +46,16 @@ namespace ns
 
         inline const auto initWithContentRect_styleMask_backing_defer_ = sel_registerName("initWithContentRect:styleMask:backing:defer:");
         inline const auto initWithContentRect_styleMask_backing_defer_screen_ = sel_registerName("initWithContentRect:styleMask:backing:defer:screen:");
+        inline const auto contentView = sel_registerName("contentView");
+        inline const auto setContentView_ = sel_registerName("setContentView:");
+        inline const auto collectionBehavior = sel_registerName("collectionBehavior");
+        inline const auto setCollectionBehavior_ = sel_registerName("setCollectionBehavior:");
+        inline const auto tabbingMode = sel_registerName("tabbingMode");
+        inline const auto setTabbingMode_ = sel_registerName("setTabbingMode:");
+        inline const auto acceptsMouseMovedEvents = sel_registerName("acceptsMouseMovedEvents");
+        inline const auto setAcceptsMouseMovedEvents_ = sel_registerName("setAcceptsMouseMovedEvents:");
+        inline const auto ignoresMouseEvents = sel_registerName("ignoresMouseEvents");
+        inline const auto setIgnoresMouseEvents_ = sel_registerName("setIgnoresMouseEvents:");
     }
 }
 

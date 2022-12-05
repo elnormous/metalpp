@@ -6,9 +6,11 @@
 #include "../objc/Runtime.hpp"
 #include "../objc/Selectors.hpp"
 #include "../foundation/Geometry.hpp"
+#include "../foundation/String.hpp"
 #include "Graphics.hpp"
 #include "Screen.hpp"
 #include "Selectors.hpp"
+#include "View.hpp"
 
 namespace ns
 {
@@ -57,7 +59,39 @@ namespace ns
     {
         return a = static_cast<WindowStyleMask>(static_cast<std::underlying_type_t<WindowStyleMask>>(a) ^ static_cast<std::underlying_type_t<WindowStyleMask>>(b));
     }
-    
+
+    enum class WindowTabbingMode: ns::Integer
+    {
+        Automatic,
+        Preferred,
+        Disallowed
+    }  API_AVAILABLE(macos(10.12));
+
+    enum class WindowCollectionBehavior: ns::UInteger
+    {
+        Default = 0,
+        CanJoinAllSpaces = 1 << 0,
+        MoveToActiveSpace = 1 << 1,
+
+        Managed API_AVAILABLE(macos(10.6)) = 1 << 2,
+        Transient API_AVAILABLE(macos(10.6)) = 1 << 3,
+        Stationary API_AVAILABLE(macos(10.6)) = 1 << 4,
+
+        ParticipatesInCycle API_AVAILABLE(macos(10.6)) = 1 << 5,
+        IgnoresCycle API_AVAILABLE(macos(10.6)) = 1 << 6,
+
+        FullScreenPrimary API_AVAILABLE(macos(10.7)) = 1 << 7,
+        FullScreenAuxiliary API_AVAILABLE(macos(10.7)) = 1 << 8,
+        FullScreenNone API_AVAILABLE(macos(10.7)) = 1 << 9,
+
+        FullScreenAllowsTiling API_AVAILABLE(macos(10.11)) = 1 << 11,
+        FullScreenDisallowsTiling API_AVAILABLE(macos(10.11)) = 1 << 12,
+
+        Primary API_AVAILABLE(macos(13.0)) = 1 << 16,
+        Auxiliary API_AVAILABLE(macos(13.0)) = 1 << 17,
+        CanJoinAllApplications API_AVAILABLE(macos(13.0)) = 1 << 18,
+    } API_AVAILABLE(macos(10.5));
+
     class Window final: public Object
     {
     public:
@@ -85,6 +119,76 @@ namespace ns
                                          defer ? YES : NO,
                                          screen.get())}
         {
+        }
+
+        [[nodiscard]] auto title() const noexcept
+        {
+            return getRetained<ns::String>(sel::title);
+        }
+
+        void setTitle(const ns::String& title) noexcept
+        {
+            sendMessage(sel::setTitle_, title.get());
+        }
+
+        [[nodiscard]] auto contentView() const noexcept
+        {
+            return getRetained<View>(sel::contentView);
+        }
+
+        void setContentView(const View& contentView) noexcept
+        {
+            sendMessage(sel::setContentView_, contentView.get());
+        }
+
+        [[nodiscard]] auto delegate() const noexcept
+        {
+            return getRetained<Object>(sel::delegate);
+        }
+
+        void setDelegate(const Object& delegate) noexcept
+        {
+            sendMessage(sel::setDelegate_, delegate.get());
+        }
+
+        [[nodiscard]] auto collectionBehavior() const noexcept API_AVAILABLE(macos(10.5))
+        {
+            return sendMessage<WindowCollectionBehavior>(sel::collectionBehavior);
+        }
+
+        void setCollectionBehavior(const WindowCollectionBehavior collectionBehavior) noexcept API_AVAILABLE(macos(10.5))
+        {
+            sendMessage(sel::setCollectionBehavior_, collectionBehavior);
+        }
+
+        [[nodiscard]] auto tabbingMode() const noexcept API_AVAILABLE(macos(10.12))
+        {
+            return sendMessage<WindowTabbingMode>(sel::tabbingMode);
+        }
+
+        void setTabbingMode(const WindowTabbingMode tabbingMode) noexcept API_AVAILABLE(macos(10.12))
+        {
+            sendMessage(sel::setTabbingMode_, tabbingMode);
+        }
+
+        [[nodiscard]] auto acceptsMouseMovedEvents() const noexcept
+        {
+            return sendMessage<BOOL>(sel::acceptsMouseMovedEvents) == YES;
+        }
+
+        void setAcceptsMouseMovedEvents(const bool acceptsMouseMovedEvents) noexcept
+        {
+            sendMessage(sel::setAcceptsMouseMovedEvents_, acceptsMouseMovedEvents ? YES : NO);
+        }
+
+        [[nodiscard]] auto ignoresMouseEvents() const noexcept
+        {
+            return sendMessage<BOOL>(sel::ignoresMouseEvents) == YES;
+        }
+
+        void setIgnoresMouseEvents(const bool ignoresMouseEvents) noexcept
+        {
+            sendMessage(sel::setIgnoresMouseEvents_, ignoresMouseEvents ? YES : NO);
         }
     };
 }

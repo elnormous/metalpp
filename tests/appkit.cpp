@@ -124,6 +124,33 @@ TEST_CASE("Window")
     REQUIRE(window);
     CHECK(window.retainCount());
 
+    window.setTitle("title");
+    CHECK(window.title().isEqualToString("title"));
+
+    ns::View view;
+    window.setContentView(view);
+    CHECK(window.contentView() == view);
+
+    ns::Object delegate;
+    window.setDelegate(delegate);
+    CHECK(window.delegate() == delegate);
+
+    CHECK(window.collectionBehavior() == ns::WindowCollectionBehavior::Default);
+    window.setCollectionBehavior(ns::WindowCollectionBehavior::Auxiliary);
+    CHECK(window.collectionBehavior() == ns::WindowCollectionBehavior::Auxiliary);
+
+    CHECK(!window.acceptsMouseMovedEvents());
+    window.setAcceptsMouseMovedEvents(true);
+    CHECK(window.acceptsMouseMovedEvents());
+
+    CHECK(!window.ignoresMouseEvents());
+    window.setIgnoresMouseEvents(true);
+    CHECK(window.ignoresMouseEvents());
+
+    CHECK(window.tabbingMode() == ns::WindowTabbingMode::Automatic);
+    window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
+    CHECK(window.tabbingMode() == ns::WindowTabbingMode::Disallowed);
+
     ns::Window windowOnScreen{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false, ns::Screen::mainScreen()};
     REQUIRE(windowOnScreen);
     CHECK(windowOnScreen.retainCount());
