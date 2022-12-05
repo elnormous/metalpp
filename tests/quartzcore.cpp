@@ -13,15 +13,15 @@ TEST_CASE("Layer")
     CHECK(layer.getClass() == objc_getClass("CALayer"));
     layer.setFrame(cg::Rect{0, 0, 100, 100});
     CHECK(layer.frame() == cg::Rect{0, 0, 100, 100});
-    layer.setMinificationFilter(ca::filterLinear);
-    CHECK(layer.minificationFilter().isEqualToString(ca::filterLinear));
-    layer.setMinificationFilter(ca::filterNearest);
-    CHECK(layer.minificationFilter().isEqualToString(ca::filterNearest));
+    layer.setMinificationFilter(ca::FilterLinear);
+    CHECK(layer.minificationFilter().isEqualToString(ca::FilterLinear));
+    layer.setMinificationFilter(ca::FilterNearest);
+    CHECK(layer.minificationFilter().isEqualToString(ca::FilterNearest));
 
-    layer.setMagnificationFilter(ca::filterLinear);
-    CHECK(layer.magnificationFilter().isEqualToString(ca::filterLinear));
-    layer.setMagnificationFilter(ca::filterNearest);
-    CHECK(layer.magnificationFilter().isEqualToString(ca::filterNearest));
+    layer.setMagnificationFilter(ca::FilterLinear);
+    CHECK(layer.magnificationFilter().isEqualToString(ca::FilterLinear));
+    layer.setMagnificationFilter(ca::FilterNearest);
+    CHECK(layer.magnificationFilter().isEqualToString(ca::FilterNearest));
 }
 
 TEST_CASE("MetalLayer")

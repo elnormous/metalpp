@@ -89,12 +89,18 @@ namespace ca
     class LayerContentsFilter: public ns::String
     {
     public:
+        using ns::String::String;
+
         LayerContentsFilter() = delete;
+        LayerContentsFilter(const char* name):
+            ns::String{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, name)), METALPP_SEL(retain))}
+        {
+        }
     };
 
-    inline const LayerContentsFilter filterNearest{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterNearest")), ns::Object::METALPP_SEL(retain))};
-    inline const LayerContentsFilter filterLinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterLinear")), ns::Object::METALPP_SEL(retain))};
-    inline const LayerContentsFilter filterTrilinear{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, "kCAFilterTrilinear")), ns::Object::METALPP_SEL(retain))};
+    inline const LayerContentsFilter FilterNearest{"kCAFilterNearest"};
+    inline const LayerContentsFilter FilterLinear{"kCAFilterLinear"};
+    inline const LayerContentsFilter FilterTrilinear{"kCAFilterTrilinear"};
 
     class Layer: public ns::Object
     {

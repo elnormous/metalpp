@@ -76,8 +76,8 @@ namespace
         metalLayer.setPresentsWithTransaction(false);
         metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
         metalLayer.setFrame(cg::Rect{cg::Point{frameRect.origin.x, frameRect.origin.y}, cg::Size{frameRect.size.width, frameRect.size.height}});
-        metalLayer.setMagnificationFilter(ca::filterNearest);
-        metalLayer.setMinificationFilter(ca::filterNearest);
+        metalLayer.setMagnificationFilter(ca::FilterNearest);
+        metalLayer.setMinificationFilter(ca::FilterNearest);
         metalLayer.setFramebufferOnly(false);
         metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
 
