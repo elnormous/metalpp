@@ -38,8 +38,8 @@
 			isa = PBXGroup;
 			children = (
 				30233354293825E0003114B4 /* Frameworks */,
-				3008F03B28FC42F100A74CB8 /* macos */,
 				3008F02D28FC42AA00A74CB8 /* Products */,
+				3008F03B28FC42F100A74CB8 /* macos */,
 			);
 			sourceTree = "<group>";
 		};
