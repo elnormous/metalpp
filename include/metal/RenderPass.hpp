@@ -324,19 +324,19 @@ namespace mtl
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
-        [[nodiscard]] auto objectAtIndexedSubscript(const ns::UInteger index) const noexcept
+        [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
         }
 
-        void setObjectAtIndexedSubscript(const RenderPassColorAttachmentDescriptor& derscriptor) noexcept
+        void setObject(const RenderPassColorAttachmentDescriptor& derscriptor) noexcept
         {
             sendMessage(METALPP_SEL(setObject_atIndexedSubscript_), derscriptor, index);
         }
 
         [[nodiscard]] auto operator[](const ns::UInteger index) const noexcept
         {
-            return objectAtIndexedSubscript(index);
+            return object(index);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
