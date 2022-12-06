@@ -55,6 +55,12 @@ namespace ns
         METALPP_PRIVATE_SEL(initWithFrame_, "initWithFrame:");
         METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
         METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
+        METALPP_PRIVATE_SEL(convertPoint_fromView_, "convertPoint:fromView:");
+        METALPP_PRIVATE_SEL(convertPoint_toView_, "convertPoint:toView:");
+        METALPP_PRIVATE_SEL(convertSize_fromView_, "convertSize:fromView:");
+        METALPP_PRIVATE_SEL(convertSize_toView_, "convertSize:toView:");
+        METALPP_PRIVATE_SEL(convertRect_fromView_, "convertRect:fromView:");
+        METALPP_PRIVATE_SEL(convertRect_toView_, "convertRect:toView:");
         METALPP_PRIVATE_SEL(wantsLayer, "wantsLayer");
         METALPP_PRIVATE_SEL(setWantsLayer_, "setWantsLayer:");
         METALPP_PRIVATE_SEL(layer, "layer");
@@ -80,6 +86,36 @@ namespace ns
         void setAutoresizingMask(const AutoresizingMaskOptions autoresizingMask) noexcept
         {
             sendMessage(METALPP_SEL(setAutoresizingMask_), autoresizingMask);
+        }
+        
+        [[nodiscard]] auto convertFromView(const Point& point, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertPoint_fromView_), point, view.get());
+        }
+
+        [[nodiscard]] auto convertToView(const Point& point, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertPoint_toView_), point, view.get());
+        }
+
+        [[nodiscard]] auto convertFromView(const Size& size, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertSize_fromView_), size, view.get());
+        }
+
+        [[nodiscard]] auto convertToView(const Size& size, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertSize_toView_), size, view.get());
+        }
+
+        [[nodiscard]] auto convertFromView(const Rect& rect, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertRect_fromView_), rect, view.get());
+        }
+
+        [[nodiscard]] auto convertToView(const Rect& rect, const View& view) const noexcept
+        {
+            return sendMessage<Point>(METALPP_SEL(convertRect_toView_), rect, view.get());
         }
 
         [[nodiscard]] auto wantsLayer() const noexcept API_AVAILABLE(macos(10.5))
