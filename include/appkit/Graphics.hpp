@@ -14,6 +14,13 @@ namespace ns
         Nonretained API_DEPRECATED_WITH_REPLACEMENT("Buffered", macos(10.0,10.13)) = 1,
         Buffered = 2,
     };
+
+    enum class WindowOrderingMode: ns::Integer
+    {
+        Above         =  1,
+        Below         = -1,
+        Out           =  0
+    };
 }
 
 #endif

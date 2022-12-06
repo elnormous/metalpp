@@ -107,6 +107,13 @@ namespace ns
         METALPP_PRIVATE_SEL(isReleasedWhenClosed, "isReleasedWhenClosed");
         METALPP_PRIVATE_SEL(setReleasedWhenClosed, "setReleasedWhenClosed:");
         METALPP_PRIVATE_SEL(close, "close");
+        METALPP_PRIVATE_SEL(center, "center");
+        METALPP_PRIVATE_SEL(makeKeyAndOrderFront_, "makeKeyAndOrderFront:");
+        METALPP_PRIVATE_SEL(orderFront_, "orderFront:");
+        METALPP_PRIVATE_SEL(orderBack_, "orderBack:");
+        METALPP_PRIVATE_SEL(orderOut_, "orderOut:");
+        METALPP_PRIVATE_SEL(orderWindow_relativeTo_, "orderWindow:relativeTo:");
+        METALPP_PRIVATE_SEL(orderFrontRegardless, "orderFrontRegardless");
         METALPP_PRIVATE_SEL(collectionBehavior, "collectionBehavior");
         METALPP_PRIVATE_SEL(setCollectionBehavior_, "setCollectionBehavior:");
         METALPP_PRIVATE_SEL(tabbingMode, "tabbingMode");
@@ -177,9 +184,37 @@ namespace ns
             return sendMessage<BOOL>(METALPP_SEL(isReleasedWhenClosed)) == YES;
         }
 
-        void close() const noexcept
+        void close() const noexcept { sendMessage(METALPP_SEL(close)); }
+        void center() noexcept { sendMessage(METALPP_SEL(center)); }
+
+        void makeKeyAndOrderFront(const ns::Object& sender) noexcept
         {
-            return sendMessage(METALPP_SEL(close));
+            sendMessage(METALPP_SEL(makeKeyAndOrderFront_), sender.get());
+        }
+
+        void orderFront(const ns::Object& sender) noexcept
+        {
+            sendMessage(METALPP_SEL(orderFront_), sender.get());
+        }
+
+        void orderBack(const ns::Object& sender) noexcept
+        {
+            sendMessage(METALPP_SEL(orderBack_), sender.get());
+        }
+
+        void orderOut(const ns::Object& sender) noexcept
+        {
+            sendMessage(METALPP_SEL(orderOut_), sender.get());
+        }
+
+        void orderWindow(const WindowOrderingMode place, const ns::Integer otherWin)
+        {
+            sendMessage(METALPP_SEL(orderWindow_relativeTo_), place, otherWin);
+        }
+
+        void orderFrontRegardless() noexcept
+        {
+            sendMessage(METALPP_SEL(orderFrontRegardless));
         }
 
         [[nodiscard]] auto collectionBehavior() const noexcept API_AVAILABLE(macos(10.5))

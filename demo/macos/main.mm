@@ -225,7 +225,8 @@ public:
         NSView* view = [[[View alloc] init] autorelease];
 
         [window setContentView:view];
-        [window makeKeyAndOrderFront:nil];
+
+        window.makeKeyAndOrderFront(nullptr);
 
         ca::MetalLayer metalLayer{[view.layer retain]};
         metalLayer.setDevice(device); // assign device
