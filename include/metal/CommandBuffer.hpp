@@ -56,6 +56,12 @@ namespace mtl
         Faulted = 4,
     } API_AVAILABLE(macos(11.0), ios(14.0));
 
+    class CommandBufferDescriptor final: public ns::Object
+    {
+    public:
+        static constexpr bool copying = true;
+    };
+
     class CommandBuffer: public ns::Object
     {
     public:

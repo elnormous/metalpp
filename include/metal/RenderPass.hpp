@@ -55,6 +55,8 @@ namespace mtl
     class RenderPassAttachmentDescriptor: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLRenderPassAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(texture, "texture");
@@ -203,6 +205,8 @@ namespace mtl
     class RenderPassColorAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLRenderPassColorAttachmentDescriptor");
 
         using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
@@ -233,6 +237,8 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLRenderPassDepthAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(clearDepth, "clearDepth");

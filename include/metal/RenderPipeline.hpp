@@ -123,6 +123,8 @@ namespace mtl
     class RenderPipelineColorAttachmentDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLRenderPipelineColorAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(pixelFormat, "pixelFormat");
@@ -269,6 +271,8 @@ namespace mtl
     class RenderPipelineDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLRenderPipelineDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");

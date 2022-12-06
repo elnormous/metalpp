@@ -58,6 +58,8 @@ namespace mtl
     class TextureDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLTextureDescriptor");
 
         METALPP_PRIVATE_SEL(textureType, "textureType");

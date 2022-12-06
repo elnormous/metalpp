@@ -148,6 +148,8 @@ namespace mtl
     class CompileOptions final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLCompileOptions");
 
         METALPP_PRIVATE_SEL(preprocessorMacros, "preprocessorMacros");

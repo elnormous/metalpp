@@ -44,6 +44,8 @@ namespace ns
     class String: public Object
     {
     public:
+        static constexpr bool copying = true;
+        
         METALPP_PRIVATE_CLS("NSString");
 
         METALPP_PRIVATE_SEL(initWithBytes_length_encoding_, "initWithBytes:length:encoding:");

@@ -11,6 +11,8 @@ namespace ns
     class Dictionary: public Object
     {
     public:
+        static constexpr bool copying = true;
+        
         METALPP_PRIVATE_CLS("NSDictionary");
 
         METALPP_PRIVATE_SEL(initWithObjects_forKeys_, "initWithObjects:forKeys:");

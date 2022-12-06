@@ -11,6 +11,8 @@ namespace ns
     class Array: public Object
     {
     public:
+        static constexpr bool copying = true;
+        
         METALPP_PRIVATE_CLS("NSArray");
 
         METALPP_PRIVATE_SEL(initWithObjects_, "initWithObjects:");

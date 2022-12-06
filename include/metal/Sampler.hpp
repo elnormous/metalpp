@@ -43,6 +43,8 @@ namespace mtl
     class SamplerDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLSamplerDescriptor");
 
         METALPP_PRIVATE_SEL(minFilter, "minFilter");

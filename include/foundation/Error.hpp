@@ -12,6 +12,8 @@ namespace ns
     class Error: public Object
     {
     public:
+        static constexpr bool copying = true;
+        
         METALPP_PRIVATE_CLS("NSError");
 
         METALPP_PRIVATE_SEL(initWithDomain_code_userInfo_, "initWithDomain:code:userInfo:");

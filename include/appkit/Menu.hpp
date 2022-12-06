@@ -12,6 +12,8 @@ namespace ns
     class Menu final: public Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("NSMenu");
 
         METALPP_PRIVATE_SEL(initWithTitle_, "initWithTitle:");

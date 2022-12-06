@@ -93,6 +93,8 @@ namespace mtl
     class VertexBufferLayoutDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLVertexBufferLayoutDescriptor");
 
         METALPP_PRIVATE_SEL(stride, "stride");
@@ -167,6 +169,8 @@ namespace mtl
     class VertexAttributeDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLVertexAttributeDescriptor");
 
         METALPP_PRIVATE_SEL(format, "format");
@@ -241,6 +245,8 @@ namespace mtl
     class VertexDescriptor final: public ns::Object
     {
     public:
+        static constexpr bool copying = true;
+
         METALPP_PRIVATE_CLS("MTLVertexDescriptor");
 
         METALPP_PRIVATE_SEL(layouts, "layouts");

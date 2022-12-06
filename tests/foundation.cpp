@@ -119,6 +119,11 @@ TEST_CASE("Error")
     REQUIRE(userInfo);
     CHECK(userInfo.retainCount() > 0);
     CHECK(userInfo.count() == 1);
+
+    const ns::Error errorCopy = copy(error);
+    CHECK(error != errorCopy);
+    CHECK(error.domain().isEqualToString(errorCopy.domain()));
+    CHECK(error.code() == errorCopy.code());
 }
 
 TEST_CASE("String")

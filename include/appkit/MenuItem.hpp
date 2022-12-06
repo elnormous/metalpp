@@ -13,6 +13,8 @@ namespace ns
     class MenuItem final: public Object
     {
     public:
+        static constexpr bool copying = true;
+        
         METALPP_PRIVATE_CLS("NSMenuItem");
 
         METALPP_PRIVATE_SEL(separatorItem, "separatorItem");
