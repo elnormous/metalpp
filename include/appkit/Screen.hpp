@@ -37,7 +37,7 @@ namespace ns
 
         [[nodiscard]] auto frame() const noexcept
         {
-            return sendMessage<ns::Rect>(METALPP_SEL(frame));
+            return sendMessage<Rect>(METALPP_SEL(frame));
         }
     };
 }

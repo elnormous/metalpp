@@ -389,7 +389,6 @@ public:
         application.run();
 
 //        CVDisplayLinkRelease(displayLink);
-//        [windowDelegate release];
     }
 
     void render()

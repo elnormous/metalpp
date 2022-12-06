@@ -7,7 +7,7 @@
 
 namespace ns
 {
-    enum class AutoresizingMaskOptions: ns::UInteger
+    enum class AutoresizingMaskOptions: UInteger
     {
         NotSizable            =  0,
         MinXMargin            =  1,
@@ -67,7 +67,7 @@ namespace ns
         {
         }
 
-        View(const ns::Rect& frameRect) noexcept:
+        View(const Rect& frameRect) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithFrame_), frameRect)}
         {
         }

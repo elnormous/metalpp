@@ -39,6 +39,7 @@
 		3023335F2938279A003114B4 /* View.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = View.hpp; sourceTree = "<group>"; };
 		302333602938F450003114B4 /* Class.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Class.hpp; sourceTree = "<group>"; };
 		30233364293D9C11003114B4 /* Private.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Private.hpp; sourceTree = "<group>"; };
+		30233369293F0637003114B4 /* Date.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 				309010F0292B7833002D121D /* Array.hpp */,
 				309010F3292B7833002D121D /* AutoreleasePool.hpp */,
 				302333502937BDD4003114B4 /* Bundle.hpp */,
+				30233369293F0637003114B4 /* Date.hpp */,
 				309010EE292B7833002D121D /* Dictionary.hpp */,
 				309010F1292B7833002D121D /* Error.hpp */,
 				3023335229382031003114B4 /* Geometry.hpp */,

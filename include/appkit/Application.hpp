@@ -56,40 +56,40 @@ namespace ns
 
         [[nodiscard]] auto mainMenu() const noexcept
         {
-            return getRetained<ns::Menu>(METALPP_SEL(mainMenu));
+            return getRetained<Menu>(METALPP_SEL(mainMenu));
         }
 
-        void setMainMenu(const ns::Menu& mainMenu) noexcept
+        void setMainMenu(const Menu& mainMenu) noexcept
         {
             sendMessage(METALPP_SEL(setMainMenu_), mainMenu.get());
         }
 
         [[nodiscard]] auto helpMenu() const noexcept API_AVAILABLE(macos(10.6))
         {
-            return getRetained<ns::Menu>(METALPP_SEL(helpMenu));
+            return getRetained<Menu>(METALPP_SEL(helpMenu));
         }
 
-        void setHelpMenu(const ns::Menu& helpMenu) noexcept API_AVAILABLE(macos(10.6))
+        void setHelpMenu(const Menu& helpMenu) noexcept API_AVAILABLE(macos(10.6))
         {
             sendMessage(METALPP_SEL(setHelpMenu_), helpMenu.get());
         }
 
         [[nodiscard]] auto windowsMenu() const noexcept
         {
-            return getRetained<ns::Menu>(METALPP_SEL(windowsMenu));
+            return getRetained<Menu>(METALPP_SEL(windowsMenu));
         }
 
-        void setWindowsMenu(const ns::Menu& windowsMenu) noexcept
+        void setWindowsMenu(const Menu& windowsMenu) noexcept
         {
             sendMessage(METALPP_SEL(setWindowsMenu_), windowsMenu.get());
         }
 
         [[nodiscard]] auto servicesMenu() const noexcept
         {
-            return getRetained<ns::Menu>(METALPP_SEL(servicesMenu));
+            return getRetained<Menu>(METALPP_SEL(servicesMenu));
         }
 
-        void setServicesMenu(const ns::Menu& servicesMenu) noexcept
+        void setServicesMenu(const Menu& servicesMenu) noexcept
         {
             sendMessage(METALPP_SEL(setServicesMenu_), servicesMenu.get());
         }

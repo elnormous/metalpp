@@ -41,7 +41,7 @@ namespace ns
         {
         }
 
-        MenuItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent):
+        MenuItem(const String& title, const SEL action, const String& keyEquivalent):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithTitle_action_keyEquivalent_),
                                          title.get(),
@@ -80,10 +80,10 @@ namespace ns
 
         [[nodiscard]] auto keyEquivalentModifierMask() const noexcept
         {
-            return sendMessage<ns::EventModifierFlags>(METALPP_SEL(keyEquivalentModifierMask));
+            return sendMessage<EventModifierFlags>(METALPP_SEL(keyEquivalentModifierMask));
         }
 
-        void setKeyEquivalentModifierMask(const ns::EventModifierFlags keyEquivalentModifierMask) noexcept
+        void setKeyEquivalentModifierMask(const EventModifierFlags keyEquivalentModifierMask) noexcept
         {
             sendMessage(METALPP_SEL(setKeyEquivalentModifierMask_), keyEquivalentModifierMask);
         }

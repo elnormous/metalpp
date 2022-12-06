@@ -6,7 +6,7 @@
 
 namespace ns
 {
-    enum class BackingStoreType: ns::UInteger
+    enum class BackingStoreType: UInteger
     {
         /* Retained and Nonretained have effectively been synonyms of Buffered since OS X Mountain Lion.  Please switch to the equivalent Buffered.
          */
@@ -15,7 +15,7 @@ namespace ns
         Buffered = 2,
     };
 
-    enum class WindowOrderingMode: ns::Integer
+    enum class WindowOrderingMode: Integer
     {
         Above         =  1,
         Below         = -1,

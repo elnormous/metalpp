@@ -52,6 +52,15 @@ TEST_CASE("Array")
     CHECK(filledArray[0] == object);
 }
 
+TEST_CASE("Event")
+{
+    ns::AutoreleasePool pool;
+
+    ns::Event event;
+    REQUIRE(event);
+    CHECK(event.retainCount());
+}
+
 TEST_CASE("Menu")
 {
     ns::AutoreleasePool pool;

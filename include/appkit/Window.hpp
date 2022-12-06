@@ -7,13 +7,14 @@
 #include "../objc/Runtime.hpp"
 #include "../foundation/Geometry.hpp"
 #include "../foundation/String.hpp"
+#include "Event.hpp"
 #include "Graphics.hpp"
 #include "Screen.hpp"
 #include "View.hpp"
 
 namespace ns
 {
-    enum class WindowStyleMask: ns::UInteger
+    enum class WindowStyleMask: UInteger
     {
         Borderless = 0,
         Titled = 1 << 0,
@@ -59,14 +60,14 @@ namespace ns
         return a = static_cast<WindowStyleMask>(static_cast<std::underlying_type_t<WindowStyleMask>>(a) ^ static_cast<std::underlying_type_t<WindowStyleMask>>(b));
     }
 
-    enum class WindowTabbingMode: ns::Integer
+    enum class WindowTabbingMode: Integer
     {
         Automatic,
         Preferred,
         Disallowed
     }  API_AVAILABLE(macos(10.12));
 
-    enum class WindowCollectionBehavior: ns::UInteger
+    enum class WindowCollectionBehavior: UInteger
     {
         Default = 0,
         CanJoinAllSpaces = 1 << 0,
@@ -151,10 +152,10 @@ namespace ns
 
         [[nodiscard]] auto title() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(title));
+            return getRetained<String>(METALPP_SEL(title));
         }
 
-        void setTitle(const ns::String& title) noexcept
+        void setTitle(const String& title) noexcept
         {
             sendMessage(METALPP_SEL(setTitle_), title.get());
         }
@@ -187,27 +188,27 @@ namespace ns
         void close() const noexcept { sendMessage(METALPP_SEL(close)); }
         void center() noexcept { sendMessage(METALPP_SEL(center)); }
 
-        void makeKeyAndOrderFront(const ns::Object& sender) noexcept
+        void makeKeyAndOrderFront(const Object& sender) noexcept
         {
             sendMessage(METALPP_SEL(makeKeyAndOrderFront_), sender.get());
         }
 
-        void orderFront(const ns::Object& sender) noexcept
+        void orderFront(const Object& sender) noexcept
         {
             sendMessage(METALPP_SEL(orderFront_), sender.get());
         }
 
-        void orderBack(const ns::Object& sender) noexcept
+        void orderBack(const Object& sender) noexcept
         {
             sendMessage(METALPP_SEL(orderBack_), sender.get());
         }
 
-        void orderOut(const ns::Object& sender) noexcept
+        void orderOut(const Object& sender) noexcept
         {
             sendMessage(METALPP_SEL(orderOut_), sender.get());
         }
 
-        void orderWindow(const WindowOrderingMode place, const ns::Integer otherWin)
+        void orderWindow(const WindowOrderingMode place, const Integer otherWin)
         {
             sendMessage(METALPP_SEL(orderWindow_relativeTo_), place, otherWin);
         }
@@ -257,6 +258,11 @@ namespace ns
             sendMessage(METALPP_SEL(setIgnoresMouseEvents_), ignoresMouseEvents ? YES : NO);
         }
     };
+
+    [[nodiscard]] Window Event::window() const noexcept
+    {
+        return getRetained<Window>(METALPP_SEL(window));
+    }
 }
 
 #endif

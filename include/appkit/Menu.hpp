@@ -29,14 +29,14 @@ namespace ns
         {
         }
 
-        Menu(const ns::String& title):
+        Menu(const String& title):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithTitle_),
                                          title.get())}
         {
         }
 
-        void insertItem(const MenuItem& item, ns::Integer index) noexcept
+        void insertItem(const MenuItem& item, Integer index) noexcept
         {
             sendMessage(METALPP_SEL(insertItem_atIndex_), item.get(), index);
         }
@@ -46,7 +46,7 @@ namespace ns
             sendMessage(METALPP_SEL(addItem_), item.get());
         }
 
-        auto insertItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent, ns::Integer index) noexcept
+        auto insertItem(const String& title, const SEL action, const String& keyEquivalent, Integer index) noexcept
         {
             return getRetained<MenuItem>(METALPP_SEL(insertItemWithTitle_action_keyEquivalent_atIndex_),
                                          title.get(),
@@ -55,7 +55,7 @@ namespace ns
                                          index);
         }
 
-        auto addItem(const ns::String& title, const SEL action, const ns::String& keyEquivalent) noexcept
+        auto addItem(const String& title, const SEL action, const String& keyEquivalent) noexcept
         {
             return getRetained<MenuItem>(METALPP_SEL(addItemWithTitle_action_keyEquivalent_),
                                          title.get(),
