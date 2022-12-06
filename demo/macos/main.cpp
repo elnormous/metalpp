@@ -1,6 +1,4 @@
 #include <iostream>
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/CAMetalLayer.h>
 #include <simd/simd.h>
 #include "appkit/Application.hpp"
 #include "appkit/Menu.hpp"
@@ -355,7 +353,7 @@ private:
         if (!bundleName)
             bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
 
-        applicationMenu.addItem(ns::String{"About "} + bundleName, @selector(orderFrontStandardAboutPanel:), "");
+        applicationMenu.addItem(ns::String{"About "} + bundleName, sel_registerName("orderFrontStandardAboutPanel:"), "");
         applicationMenu.addItem(ns::MenuItem::separatorItem());
 
         auto servicesItem = applicationMenu.addItem("Services", nil, "");
@@ -365,14 +363,14 @@ private:
         application.setServicesMenu(servicesMenu);
 
         applicationMenu.addItem(ns::MenuItem::separatorItem());
-        applicationMenu.addItem(ns::String{"Hide "} + bundleName, @selector(hide:), "h");
+        applicationMenu.addItem(ns::String{"Hide "} + bundleName, sel_registerName("hide:"), "h");
 
-        auto hideOthersItem = applicationMenu.addItem("Hide Others", @selector(hideOtherApplications:), "h");
+        auto hideOthersItem = applicationMenu.addItem("Hide Others", sel_registerName("hideOtherApplications:"), "h");
         hideOthersItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Option | ns::EventModifierFlags::Command);
 
-        applicationMenu.addItem("Show All", @selector(unhideAllApplications:), "");
+        applicationMenu.addItem("Show All", sel_registerName("unhideAllApplications:"), "");
         applicationMenu.addItem(ns::MenuItem::separatorItem());
-        applicationMenu.addItem(ns::String{"Quit "} + bundleName, @selector(terminate:), "q");
+        applicationMenu.addItem(ns::String{"Quit "} + bundleName, sel_registerName("terminate:"), "q");
 
         // View menu
         auto viewItem = mainMenu.addItem("View", nullptr, "");
@@ -384,8 +382,8 @@ private:
         auto windowsItem = mainMenu.addItem("Window", nullptr, "");
 
         ns::Menu windowsMenu{"Window"};
-        windowsMenu.addItem("Minimize", @selector(performMiniaturize:), "m");
-        windowsMenu.addItem("Zoom", @selector(performZoom:), "");
+        windowsMenu.addItem("Minimize", sel_registerName("performMiniaturize:"), "m");
+        windowsMenu.addItem("Zoom", sel_registerName("performZoom:"), "");
 
         windowsItem.setSubmenu(windowsMenu);
         application.setWindowsMenu(windowsMenu);
@@ -411,15 +409,15 @@ private:
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
 };
 
-static CVReturn renderCallback(CVDisplayLinkRef,
-                               const CVTimeStamp*,
-                               const CVTimeStamp*,
-                               CVOptionFlags,
-                               CVOptionFlags*,
-                               void* userInfo)
-{
-    return kCVReturnSuccess;
-}
+//static CVReturn renderCallback(CVDisplayLinkRef,
+//                               const CVTimeStamp*,
+//                               const CVTimeStamp*,
+//                               CVOptionFlags,
+//                               CVOptionFlags*,
+//                               void* userInfo)
+//{
+//    return kCVReturnSuccess;
+//}
 
 int main(int argc, const char* argv[])
 {
