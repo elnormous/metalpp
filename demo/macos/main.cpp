@@ -133,6 +133,20 @@ namespace
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
     }
+
+    void rightMouseDragged(id, SEL, id event)
+    {
+        std::cout << "Right mouse drag " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Right mouse drag " << location.x << ' ' << location.y << '\n';
+    }
+
+    void otherMouseDragged(id, SEL, id event)
+    {
+        std::cout << "Other mouse drag " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
+    }
 }
 
 static const char* shadersSource =
@@ -229,6 +243,8 @@ public:
         viewClass.addMethod(sel_registerName("otherMouseUp:"), otherMouseUp, "v@:@");
         viewClass.addMethod(sel_registerName("mouseMoved:"), mouseMoved, "v@:@");
         viewClass.addMethod(sel_registerName("mouseDragged:"), mouseDragged, "v@:@");
+        viewClass.addMethod(sel_registerName("rightMouseDragged:"), rightMouseDragged, "v@:@");
+        viewClass.addMethod(sel_registerName("otherMouseDragged:"), otherMouseDragged, "v@:@");
 
         viewClass.reg();
 
