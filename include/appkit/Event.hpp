@@ -117,6 +117,7 @@ namespace ns
         METALPP_PRIVATE_SEL(deltaX, "deltaX");
         METALPP_PRIVATE_SEL(deltaY, "deltaY");
         METALPP_PRIVATE_SEL(deltaZ, "deltaZ");
+        METALPP_PRIVATE_SEL(keyCode, "keyCode");
 
         using Object::Object;
 
@@ -185,6 +186,11 @@ namespace ns
         [[nodiscard]] auto deltaZ() const noexcept
         {
             return sendMessage<cg::Float>(METALPP_SEL(deltaZ));
+        }
+
+        [[nodiscard]] auto keyCode() const noexcept
+        {
+            return sendMessage<unsigned short>(METALPP_SEL(keyCode));
         }
     };
 }
