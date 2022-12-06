@@ -95,9 +95,10 @@ namespace objc
         }
 
         template<typename Ret, typename... Args>
-        void addMethod(SEL name, Ret(*imp)(id, SEL, Args...), const char* types) noexcept
+        void addMethod(SEL name, Ret(*imp)(id, SEL, Args...), const char* types)
         {
-            if (cls) class_addMethod(cls, name, reinterpret_cast<IMP>(imp), types);
+            if (cls && !class_addMethod(cls, name, reinterpret_cast<IMP>(imp), types))
+                throw ClassError("Failed to add method");
         }
 
         Type createInstance() const noexcept
