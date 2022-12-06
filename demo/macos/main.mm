@@ -51,7 +51,7 @@ namespace
     }
 }
 
-@interface View : NSView
+/*@interface View : NSView
 
 @end
 
@@ -106,7 +106,7 @@ namespace
 //    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
 }
 
-@end
+@end*/
 
 static const char* shadersSource =
 "#include <metal_stdlib>\n" \
@@ -189,7 +189,7 @@ public:
         windowDelegate = windowDelegateClass.createInstance();
         window.setDelegate(windowDelegate);
 
-        ns::View view;
+        auto view = viewClass.createInstance();
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
 
@@ -404,6 +404,7 @@ private:
     ns::Object appDelegate;
     objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
     ns::Object windowDelegate;
+    objc::Class<ns::View> viewClass{"View"};
 
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();

@@ -1,6 +1,7 @@
 #ifndef METALPP_OBJC_CLASS_HPP
 #define METALPP_OBJC_CLASS_HPP
 
+#include <stdexcept>
 #include <string>
 #include <objc/objc.h>
 #include <objc/runtime.h>
@@ -9,13 +10,19 @@
 
 namespace objc
 {
+    class ClassError: public std::runtime_error
+    {
+        using runtime_error::runtime_error;
+    };
+
     template<class ParentType = ns::Object, class Type = ParentType>
     class Class final
     {
     public:
-        Class(const char* name) noexcept:
+        Class(const char* name):
             cls{objc_allocateClassPair(ParentType::cls, name, 0)}
         {
+            if (!cls) throw ClassError("Failed to allocate class pair");
         }
 
         Class(const std::string& name) noexcept:
