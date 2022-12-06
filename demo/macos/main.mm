@@ -57,39 +57,6 @@ namespace
 
 @implementation View
 
-- (id)initWithFrame:(NSRect)frameRect
-{
-    if (self = [super initWithFrame:frameRect])
-    {
-        [self setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
-        [self setWantsLayer:YES];
-
-        ca::MetalLayer metalLayer;
-
-//        const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
-//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//        CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
-
-        metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
-        metalLayer.setMasksToBounds(true);
-//        metalLayer.setBackgroundColor(backgroundColor);
-        metalLayer.setPresentsWithTransaction(false);
-        metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
-        metalLayer.setFrame(cg::Rect{cg::Point{frameRect.origin.x, frameRect.origin.y}, cg::Size{frameRect.size.width, frameRect.size.height}});
-        metalLayer.setMagnificationFilter(ca::FilterNearest);
-        metalLayer.setMinificationFilter(ca::FilterNearest);
-        metalLayer.setFramebufferOnly(false);
-        metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-
-        [self setLayer:metalLayer];
-
-//        CGColorRelease(backgroundColor);
-//        CGColorSpaceRelease(colorSpace);
-    }
-
-    return self;
-}
-
 - (BOOL)isOpaque
 {
     return YES;
@@ -222,13 +189,36 @@ public:
         windowDelegate = windowDelegateClass.createInstance();
         window.setDelegate(windowDelegate);
 
-        NSView* view = [[[View alloc] init] autorelease];
+        ns::View view;
+        view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
+        view.setWantsLayer(true);
 
-        [window setContentView:view];
+        ca::MetalLayer metalLayer;
+
+//        const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
+//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//        CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
+
+        metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
+        metalLayer.setMasksToBounds(true);
+//        metalLayer.setBackgroundColor(backgroundColor);
+        metalLayer.setPresentsWithTransaction(false);
+        metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
+        metalLayer.setFrame(cg::Rect{cg::Point{0.0, 0.0}, cg::Size{frame.size.width, frame.size.height}});
+        metalLayer.setMagnificationFilter(ca::FilterNearest);
+        metalLayer.setMinificationFilter(ca::FilterNearest);
+        metalLayer.setFramebufferOnly(false);
+        metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+
+//        CGColorRelease(backgroundColor);
+//        CGColorSpaceRelease(colorSpace);
+
+        view.setLayer(metalLayer);
+
+        window.setContentView(view);
 
         window.makeKeyAndOrderFront(nullptr);
 
-        ca::MetalLayer metalLayer{[view.layer retain]};
         metalLayer.setDevice(device); // assign device
         const cg::Size drawableSize{windowSize.width, windowSize.height};
         metalLayer.setDrawableSize(drawableSize);

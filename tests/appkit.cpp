@@ -129,6 +129,17 @@ TEST_CASE("View")
     ns::View view;
     REQUIRE(view);
     CHECK(view.retainCount());
+    CHECK(view.autoresizingMask() == ns::AutoresizingMaskOptions::NotSizable);
+    view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable);
+    CHECK(view.autoresizingMask() == ns::AutoresizingMaskOptions::WidthSizable);
+
+    CHECK(!view.wantsLayer());
+    view.setWantsLayer(true);
+    CHECK(view.wantsLayer());
+
+    ca::Layer layer;
+    view.setLayer(layer);
+    CHECK(view.layer() == layer);
 
     ns::View viewWithFrame{ns::Rect{0, 0, 100, 100}};
     REQUIRE(viewWithFrame);
