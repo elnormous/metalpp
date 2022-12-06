@@ -294,7 +294,7 @@ public:
         auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
         Uniforms uniforms;
         uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
-        void *bufferPointer = uniformBuffer.contents();
+        auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
         auto drawable = metalLayer.nextDrawable();
@@ -315,11 +315,10 @@ public:
         renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
         renderCommand.endEncoding();
 
-        //commandBuffer.presentDrawable(drawable);
-
         commandBuffer.commit();
         commandBuffer.waitUntilCompleted();
 
+        //commandBuffer.presentDrawable(drawable);
         drawable.present();
 
 //        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
