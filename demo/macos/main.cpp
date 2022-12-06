@@ -49,62 +49,91 @@ namespace
     }
 }
 
-/*@interface View : NSView
-
-@end
-
-@implementation View
-
-- (BOOL)isOpaque
+namespace
 {
-    return YES;
-}
+    BOOL isOpaque(id, SEL)
+    {
+        return YES;
+    }
 
-- (BOOL)acceptsFirstResponder
-{
-    return YES;
-}
+    BOOL acceptsFirstResponder(id, SEL)
+    {
+        return YES;
+    }
 
-- (BOOL)acceptsFirstMouse:(__unused NSEvent*)event
-{
-    return YES;
-}
+    BOOL acceptsFirstMouse(id, SEL, [[maybe_unused]] id event)
+    {
+        return YES;
+    }
 
-- (void)keyDown:(NSEvent*)event
-{
-    //std::cout << "Key down " << event.keyCode << '\n';
-}
+    void keyDown(id, SEL, id event)
+    {
+        std::cout << "Key down " << event << '\n';
+        //std::cout << "Key down " << event.keyCode << '\n';
+    }
 
-- (void)keyUp:(NSEvent*)event
-{
-    //std::cout << "Key up " << event.keyCode << '\n';
-}
+    void keyUp(id, SEL, id event)
+    {
+        std::cout << "Key up " << event << '\n';
+        //std::cout << "Key up " << event.keyCode << '\n';
+    }
 
-- (void)mouseDown:(NSEvent*)event
-{
-//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-//    std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
-}
+    void mouseDown(id, SEL, id event)
+    {
+        std::cout << "Mouse down " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
+    }
 
-- (void)mouseUp:(NSEvent*)event
-{
-//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-//    std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
-}
+    void mouseUp(id, SEL, id event)
+    {
+        std::cout << "Mouse up " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
+    }
 
-- (void)mouseMoved:(NSEvent*)event
-{
-//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-//    std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
-}
+    void rightMouseDown(id, SEL, id event)
+    {
+        std::cout << "Right mouse down " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Right mouse down " << location.x << ' ' << location.y << '\n';
+    }
 
-- (void)mouseDragged:(NSEvent*)event
-{
-//    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
-//    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
-}
+    void rightMouseUp(id, SEL, id event)
+    {
+        std::cout << "Right mouse up " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Right mouse up " << location.x << ' ' << location.y << '\n';
+    }
 
-@end*/
+    void otherMouseDown(id, SEL, id event)
+    {
+        std::cout << "Other mouse down " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Other mouse down " << location.x << ' ' << location.y << '\n';
+    }
+
+    void otherMouseUp(id, SEL, id event)
+    {
+        std::cout << "Other mouse up " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Other mouse up " << location.x << ' ' << location.y << '\n';
+    }
+
+    void mouseMoved(id, SEL, id event)
+    {
+        std::cout << "Mouse move " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
+    }
+
+    void mouseDragged(id, SEL, id event)
+    {
+        std::cout << "Mouse drag " << event << '\n';
+        //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
+        //    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
+    }
+}
 
 static const char* shadersSource =
 "#include <metal_stdlib>\n" \
@@ -154,6 +183,7 @@ public:
         appDelegateClass.addMethod(sel_registerName("applicationShouldTerminateAfterLastWindowClosed:"),
                                    applicationShouldTerminateAfterLastWindowClosed,
                                    "b@:@");
+        appDelegateClass.reg();
         appDelegate = appDelegateClass.createInstance();
 
         application.activateIgnoringOtherApps(true);
@@ -181,11 +211,26 @@ public:
         window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
         window.setAcceptsMouseMovedEvents(true);
 
-        windowDelegateClass.addMethod(sel_registerName("windowDidResize:"),
-                                      windowDidResize,
-                                      "v@:@");
+        windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
+        windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance();
         window.setDelegate(windowDelegate);
+
+        viewClass.addMethod(sel_registerName("isOpaque"), isOpaque, "B@:");
+        viewClass.addMethod(sel_registerName("acceptsFirstResponder"), acceptsFirstResponder, "B@:");
+        viewClass.addMethod(sel_registerName("acceptsFirstMouse:"), acceptsFirstMouse, "B@:@");
+        viewClass.addMethod(sel_registerName("keyDown:"), keyDown, "v@:@");
+        viewClass.addMethod(sel_registerName("keyUp:"), keyUp, "v@:@");
+        viewClass.addMethod(sel_registerName("mouseDown:"), mouseDown, "v@:@");
+        viewClass.addMethod(sel_registerName("mouseUp:"), mouseUp, "v@:@");
+        viewClass.addMethod(sel_registerName("rightMouseDown:"), rightMouseDown, "v@:@");
+        viewClass.addMethod(sel_registerName("rightMouseUp:"), rightMouseUp, "v@:@");
+        viewClass.addMethod(sel_registerName("otherMouseDown:"), otherMouseDown, "v@:@");
+        viewClass.addMethod(sel_registerName("otherMouseUp:"), otherMouseUp, "v@:@");
+        viewClass.addMethod(sel_registerName("mouseMoved:"), mouseMoved, "v@:@");
+        viewClass.addMethod(sel_registerName("mouseDragged:"), mouseDragged, "v@:@");
+
+        viewClass.reg();
 
         auto view = viewClass.createInstance();
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
