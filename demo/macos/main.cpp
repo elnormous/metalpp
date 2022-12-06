@@ -66,84 +66,94 @@ namespace
         return YES;
     }
 
-    void keyDown(id, SEL, id event)
+    void keyDown(id, SEL, id e)
     {
-        std::cout << "Key down " << event << '\n';
-        //std::cout << "Key down " << event.keyCode << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Key down " << event.keyCode() << '\n';
     }
 
-    void keyUp(id, SEL, id event)
+    void keyUp(id, SEL, id e)
     {
-        std::cout << "Key up " << event << '\n';
-        //std::cout << "Key up " << event.keyCode << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Key up " << event.keyCode() << '\n';
     }
 
-    void mouseDown(id, SEL, id event)
+    void mouseDown(id, SEL, id e)
     {
-        std::cout << "Mouse down " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Mouse down " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
     }
 
-    void mouseUp(id, SEL, id event)
+    void mouseUp(id, SEL, id e)
     {
-        std::cout << "Mouse up " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Mouse up " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
     }
 
-    void rightMouseDown(id, SEL, id event)
+    void rightMouseDown(id, SEL, id e)
     {
-        std::cout << "Right mouse down " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Right mouse down " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Right mouse down " << location.x << ' ' << location.y << '\n';
     }
 
-    void rightMouseUp(id, SEL, id event)
+    void rightMouseUp(id, SEL, id e)
     {
-        std::cout << "Right mouse up " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Right mouse up " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Right mouse up " << location.x << ' ' << location.y << '\n';
     }
 
-    void otherMouseDown(id, SEL, id event)
+    void otherMouseDown(id, SEL, id e)
     {
-        std::cout << "Other mouse down " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Other mouse down " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Other mouse down " << location.x << ' ' << location.y << '\n';
     }
 
-    void otherMouseUp(id, SEL, id event)
+    void otherMouseUp(id, SEL, id e)
     {
-        std::cout << "Other mouse up " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Other mouse up " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Other mouse up " << location.x << ' ' << location.y << '\n';
     }
 
-    void mouseMoved(id, SEL, id event)
+    void mouseMoved(id, SEL, id e)
     {
-        std::cout << "Mouse move " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Mouse move " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
     }
 
-    void mouseDragged(id, SEL, id event)
+    void mouseDragged(id, SEL, id e)
     {
-        std::cout << "Mouse drag " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Mouse drag " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
     }
 
-    void rightMouseDragged(id, SEL, id event)
+    void rightMouseDragged(id, SEL, id e)
     {
-        std::cout << "Right mouse drag " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Right mouse drag " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Right mouse drag " << location.x << ' ' << location.y << '\n';
     }
 
-    void otherMouseDragged(id, SEL, id event)
+    void otherMouseDragged(id, SEL, id e)
     {
-        std::cout << "Other mouse drag " << event << '\n';
+        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        std::cout << "Other mouse drag " << event.locationInWindow().x << ' ' << event.locationInWindow().y << '\n';
         //    const NSPoint location = [self convertPoint:event.locationInWindow fromView: nil];
         //    std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
     }
