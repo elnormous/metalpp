@@ -43,6 +43,7 @@
 		30233369293F0637003114B4 /* Date.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
 		3023336B2940335F003114B4 /* ColorSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ColorSpace.hpp; sourceTree = "<group>"; };
 		3023336C294033FD003114B4 /* coregraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coregraphics.cpp; sourceTree = "<group>"; };
+		3023336F29403DAC003114B4 /* Color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 		3023336A2940333E003114B4 /* coregraphics */ = {
 			isa = PBXGroup;
 			children = (
+				3023336F29403DAC003114B4 /* Color.hpp */,
 				3023336B2940335F003114B4 /* ColorSpace.hpp */,
 			);
 			path = coregraphics;

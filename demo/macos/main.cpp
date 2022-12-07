@@ -4,6 +4,8 @@
 #include "appkit/Menu.hpp"
 #include "appkit/Screen.hpp"
 #include "appkit/Window.hpp"
+#include "coregraphics/Color.hpp"
+#include "coregraphics/ColorSpace.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Bundle.hpp"
 #include "metal/Metal.hpp"
@@ -134,13 +136,13 @@ public:
 
         ca::MetalLayer metalLayer;
 
-//        const CGFloat bgColor[] = {0.0, 0.0, 0.0, 0.0};
-//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//        CGColorRef backgroundColor = CGColorCreate(colorSpace, bgColor);
+        cg::ColorSpace colorSpace = cg::ColorSpace::deviceRGB();
+        const cg::Float bgColor[] = {0.0, 0.0, 0.0, 0.0};
+        cg::Color backgroundColor{colorSpace, bgColor};
 
         metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
         metalLayer.setMasksToBounds(true);
-//        metalLayer.setBackgroundColor(backgroundColor);
+        metalLayer.setBackgroundColor(backgroundColor);
         metalLayer.setPresentsWithTransaction(false);
         metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
         metalLayer.setFrame(cg::Rect{cg::Point{0.0, 0.0}, cg::Size{frame.size.width, frame.size.height}});
@@ -148,9 +150,6 @@ public:
         metalLayer.setMinificationFilter(ca::FilterNearest);
         metalLayer.setFramebufferOnly(false);
         metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-
-//        CGColorRelease(backgroundColor);
-//        CGColorSpaceRelease(colorSpace);
 
         view.setLayer(metalLayer);
 

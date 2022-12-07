@@ -56,6 +56,11 @@ namespace cv
             return displayLink;
         }
 
+        [[nodiscard]] auto get() const noexcept
+        {
+            return ref;
+        }
+        
         [[nodiscard]] auto retainCount() const noexcept
         {
             return ref ? CFGetRetainCount(ref) : 0;

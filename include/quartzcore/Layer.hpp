@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../corefoundation/Types.hpp"
+#include "../coregraphics/Color.hpp"
 #include "../foundation/String.hpp"
 
 namespace ca
@@ -119,6 +120,8 @@ namespace ca
         METALPP_PRIVATE_SEL(setMagnificationFilter_, "setMagnificationFilter:");
         METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
         METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
+        METALPP_PRIVATE_SEL(backgroundColor, "backgroundColor");
+        METALPP_PRIVATE_SEL(setBackgroundColor_, "setBackgroundColor:");
         METALPP_PRIVATE_SEL(edgeAntialiasingMask, "edgeAntialiasingMask");
         METALPP_PRIVATE_SEL(setEdgeAntialiasingMask_, "setEdgeAntialiasingMask:");
 
@@ -187,6 +190,16 @@ namespace ca
         void setEdgeAntialiasingMask(const EdgeAntialiasingMask edgeAntialiasingMask) noexcept
         {
             sendMessage(METALPP_SEL(setEdgeAntialiasingMask_), edgeAntialiasingMask);
+        }
+
+        [[nodiscard]] auto backgroundColor() const noexcept
+        {
+            return cg::Color{CGColorRetain(sendMessage<CGColorRef>(METALPP_SEL(backgroundColor)))};
+        }
+
+        void setBackgroundColor(const cg::Color& backgroundColor) noexcept
+        {
+            sendMessage(METALPP_SEL(setBackgroundColor_), backgroundColor.get());
         }
 
         [[nodiscard]] auto autoresizingMask() const noexcept
