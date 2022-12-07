@@ -129,7 +129,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
 
-        static auto createSystemDefaultDevice() noexcept
+        [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {
             return Device{detail::createSystemDefaultDevice()};
         }
