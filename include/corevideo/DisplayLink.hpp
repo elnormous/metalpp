@@ -51,6 +51,16 @@ namespace cv
             return *this;
         }
 
+        [[nodiscard]] operator CVDisplayLinkRef() const noexcept
+        {
+            return displayLink;
+        }
+
+        [[nodiscard]] auto retainCount() const noexcept
+        {
+            return ref ? CFGetRetainCount(ref) : 0;
+        }
+        
         void setCallback(const CVDisplayLinkOutputCallback callback, void* userInfo)
         {
             if (const auto result = CVDisplayLinkSetOutputCallback(displayLink, callback, userInfo); result != kCVReturnSuccess)

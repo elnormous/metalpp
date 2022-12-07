@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3023336D294033FE003114B4 /* coregraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3023336C294033FD003114B4 /* coregraphics.cpp */; };
 		309010FD292B7B72002D121D /* quartzcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 309010FC292B7B72002D121D /* quartzcore.cpp */; };
 		3090110C292EA3F9002D121D /* appkit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3090110A292E9FB6002D121D /* appkit.cpp */; };
 		30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
@@ -40,6 +41,8 @@
 		302333602938F450003114B4 /* Class.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Class.hpp; sourceTree = "<group>"; };
 		30233364293D9C11003114B4 /* Private.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Private.hpp; sourceTree = "<group>"; };
 		30233369293F0637003114B4 /* Date.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Date.hpp; sourceTree = "<group>"; };
+		3023336B2940335F003114B4 /* ColorSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ColorSpace.hpp; sourceTree = "<group>"; };
+		3023336C294033FD003114B4 /* coregraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coregraphics.cpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -100,11 +103,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3023336A2940333E003114B4 /* coregraphics */ = {
+			isa = PBXGroup;
+			children = (
+				3023336B2940335F003114B4 /* ColorSpace.hpp */,
+			);
+			path = coregraphics;
+			sourceTree = "<group>";
+		};
 		309010D6292B7833002D121D /* include */ = {
 			isa = PBXGroup;
 			children = (
 				30901108292E9C6B002D121D /* appkit */,
 				30901102292B8B0B002D121D /* corefoundation */,
+				3023336A2940333E003114B4 /* coregraphics */,
 				3090110F2930C251002D121D /* corevideo */,
 				309010ED292B7833002D121D /* foundation */,
 				309010D7292B7833002D121D /* metal */,
@@ -214,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				3090110A292E9FB6002D121D /* appkit.cpp */,
+				3023336C294033FD003114B4 /* coregraphics.cpp */,
 				30B953122921B911007C8914 /* foundation.cpp */,
 				30B9530D2920C8EB007C8914 /* Frameworks */,
 				309010D6292B7833002D121D /* include */,
@@ -303,6 +316,7 @@
 				30B19E55292738A3002BA9A2 /* main.cpp in Sources */,
 				309010FD292B7B72002D121D /* quartzcore.cpp in Sources */,
 				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
+				3023336D294033FE003114B4 /* coregraphics.cpp in Sources */,
 				3090110C292EA3F9002D121D /* appkit.cpp in Sources */,
 				30B19E57292738A8002BA9A2 /* objc.cpp in Sources */,
 			);
