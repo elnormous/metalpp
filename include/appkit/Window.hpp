@@ -65,7 +65,7 @@ namespace ns
         Automatic,
         Preferred,
         Disallowed
-    }  API_AVAILABLE(macos(10.12));
+    } API_AVAILABLE(macos(10.12));
 
     enum class WindowCollectionBehavior: UInteger
     {

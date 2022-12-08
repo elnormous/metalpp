@@ -15,7 +15,7 @@ namespace ns
         
         AutoreleasePool() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
-        {            
+        {
         }
 
         void drain() noexcept

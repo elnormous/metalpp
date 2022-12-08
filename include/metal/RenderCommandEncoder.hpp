@@ -110,7 +110,7 @@ namespace mtl
                         index);
         }
 
-        void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index)  noexcept
+        void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentBuffer_offset_atIndex_),
                         buffer.get(),
@@ -118,14 +118,14 @@ namespace mtl
                         index);
         }
 
-        void setFragmentTexture(const Texture& texture, ns::UInteger index)  noexcept
+        void setFragmentTexture(const Texture& texture, ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentTexture_atIndex_),
                         texture.get(),
                         index);
         }
 
-        void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index)  noexcept
+        void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentSamplerState_atIndex_),
                         sampler.get(),
