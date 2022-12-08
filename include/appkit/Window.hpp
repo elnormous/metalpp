@@ -31,19 +31,19 @@ namespace ns
         HUDWindow API_AVAILABLE(macos(10.6)) = 1 << 13
     };
 
-    inline constexpr WindowStyleMask operator&(const WindowStyleMask a, const WindowStyleMask b) noexcept
+    [[nodiscard]] inline constexpr WindowStyleMask operator&(const WindowStyleMask a, const WindowStyleMask b) noexcept
     {
         return static_cast<WindowStyleMask>(static_cast<std::underlying_type_t<WindowStyleMask>>(a) & static_cast<std::underlying_type_t<WindowStyleMask>>(b));
     }
-    inline constexpr WindowStyleMask operator|(const WindowStyleMask a, const WindowStyleMask b) noexcept
+    [[nodiscard]] inline constexpr WindowStyleMask operator|(const WindowStyleMask a, const WindowStyleMask b) noexcept
     {
         return static_cast<WindowStyleMask>(static_cast<std::underlying_type_t<WindowStyleMask>>(a) | static_cast<std::underlying_type_t<WindowStyleMask>>(b));
     }
-    inline constexpr WindowStyleMask operator^(const WindowStyleMask a, const WindowStyleMask b) noexcept
+    [[nodiscard]] inline constexpr WindowStyleMask operator^(const WindowStyleMask a, const WindowStyleMask b) noexcept
     {
         return static_cast<WindowStyleMask>(static_cast<std::underlying_type_t<WindowStyleMask>>(a) ^ static_cast<std::underlying_type_t<WindowStyleMask>>(b));
     }
-    inline constexpr WindowStyleMask operator~(const WindowStyleMask a) noexcept
+    [[nodiscard]] inline constexpr WindowStyleMask operator~(const WindowStyleMask a) noexcept
     {
         return static_cast<WindowStyleMask>(~static_cast<std::underlying_type_t<WindowStyleMask>>(a));
     }

@@ -31,12 +31,12 @@ namespace mtl
 
     struct ScissorRect final
     {
-        bool operator==(const ScissorRect& other) const noexcept
+        [[nodiscard]] bool operator==(const ScissorRect& other) const noexcept
         {
             return other.x == x && other.y == y && other.width == width && other.height == height;
         }
 
-        bool operator!=(const ScissorRect& other) const noexcept
+        [[nodiscard]] bool operator!=(const ScissorRect& other) const noexcept
         {
             return other.x != x || other.y != y || other.width != width || other.height != height;
         }
@@ -46,12 +46,12 @@ namespace mtl
 
     struct Viewport final
     {
-        bool operator==(const Viewport& other) const noexcept
+        [[nodiscard]] bool operator==(const Viewport& other) const noexcept
         {
             return other.originX == originX && other.originY == originY && other.width == width && other.height == height && other.znear == znear && other.zfar == zfar;
         }
 
-        bool operator!=(const Viewport& other) const noexcept
+        [[nodiscard]] bool operator!=(const Viewport& other) const noexcept
         {
             return other.originX != originX || other.originY != originY || other.width != width || other.height != height || other.znear != znear || other.zfar != zfar;
         }

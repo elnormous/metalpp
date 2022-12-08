@@ -55,19 +55,19 @@ namespace mtl
         All   = 0xf
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    inline constexpr ColorWriteMask operator&(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ColorWriteMask operator&(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) & static_cast<std::underlying_type_t<ColorWriteMask>>(b));
     }
-    inline constexpr ColorWriteMask operator|(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ColorWriteMask operator|(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) | static_cast<std::underlying_type_t<ColorWriteMask>>(b));
     }
-    inline constexpr ColorWriteMask operator^(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ColorWriteMask operator^(const ColorWriteMask a, const ColorWriteMask b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ColorWriteMask>(static_cast<std::underlying_type_t<ColorWriteMask>>(a) ^ static_cast<std::underlying_type_t<ColorWriteMask>>(b));
     }
-    inline constexpr ColorWriteMask operator~(const ColorWriteMask a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ColorWriteMask operator~(const ColorWriteMask a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ColorWriteMask>(~static_cast<std::underlying_type_t<ColorWriteMask>>(a));
     }

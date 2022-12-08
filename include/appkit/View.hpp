@@ -18,19 +18,19 @@ namespace ns
         MaxYMargin            = 32
     };
 
-    inline constexpr AutoresizingMaskOptions operator&(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
+    [[nodiscard]] inline constexpr AutoresizingMaskOptions operator&(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
     {
         return static_cast<AutoresizingMaskOptions>(static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(a) & static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(b));
     }
-    inline constexpr AutoresizingMaskOptions operator|(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
+    [[nodiscard]] inline constexpr AutoresizingMaskOptions operator|(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
     {
         return static_cast<AutoresizingMaskOptions>(static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(a) | static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(b));
     }
-    inline constexpr AutoresizingMaskOptions operator^(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
+    [[nodiscard]] inline constexpr AutoresizingMaskOptions operator^(const AutoresizingMaskOptions a, const AutoresizingMaskOptions b) noexcept
     {
         return static_cast<AutoresizingMaskOptions>(static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(a) ^ static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(b));
     }
-    inline constexpr AutoresizingMaskOptions operator~(const AutoresizingMaskOptions a) noexcept
+    [[nodiscard]] inline constexpr AutoresizingMaskOptions operator~(const AutoresizingMaskOptions a) noexcept
     {
         return static_cast<AutoresizingMaskOptions>(~static_cast<std::underlying_type_t<AutoresizingMaskOptions>>(a));
     }

@@ -68,19 +68,19 @@ namespace ns
         DeviceIndependentFlagsMask    = 0xffff0000UL
     };
 
-    inline constexpr EventModifierFlags operator&(const EventModifierFlags a, const EventModifierFlags b) noexcept
+    [[nodiscard]] inline constexpr EventModifierFlags operator&(const EventModifierFlags a, const EventModifierFlags b) noexcept
     {
         return static_cast<EventModifierFlags>(static_cast<std::underlying_type_t<EventModifierFlags>>(a) & static_cast<std::underlying_type_t<EventModifierFlags>>(b));
     }
-    inline constexpr EventModifierFlags operator|(const EventModifierFlags a, const EventModifierFlags b) noexcept
+    [[nodiscard]] inline constexpr EventModifierFlags operator|(const EventModifierFlags a, const EventModifierFlags b) noexcept
     {
         return static_cast<EventModifierFlags>(static_cast<std::underlying_type_t<EventModifierFlags>>(a) | static_cast<std::underlying_type_t<EventModifierFlags>>(b));
     }
-    inline constexpr EventModifierFlags operator^(const EventModifierFlags a, const EventModifierFlags b) noexcept
+    [[nodiscard]] inline constexpr EventModifierFlags operator^(const EventModifierFlags a, const EventModifierFlags b) noexcept
     {
         return static_cast<EventModifierFlags>(static_cast<std::underlying_type_t<EventModifierFlags>>(a) ^ static_cast<std::underlying_type_t<EventModifierFlags>>(b));
     }
-    inline constexpr EventModifierFlags operator~(const EventModifierFlags a) noexcept
+    [[nodiscard]] inline constexpr EventModifierFlags operator~(const EventModifierFlags a) noexcept
     {
         return static_cast<EventModifierFlags>(~static_cast<std::underlying_type_t<EventModifierFlags>>(a));
     }

@@ -55,19 +55,19 @@ namespace mtl
         HazardTrackingModeTracked API_AVAILABLE(macos(10.15), ios(13.0)) = static_cast<ns::UInteger>(HazardTrackingMode::Tracked) << HazardTrackingModeShift,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ResourceOptions operator&(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) & static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator|(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ResourceOptions operator|(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) | static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator^(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ResourceOptions operator^(const ResourceOptions a, const ResourceOptions b) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(static_cast<std::underlying_type_t<ResourceOptions>>(a) ^ static_cast<std::underlying_type_t<ResourceOptions>>(b));
     }
-    inline constexpr ResourceOptions operator~(const ResourceOptions a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
+    [[nodiscard]] inline constexpr ResourceOptions operator~(const ResourceOptions a) noexcept API_AVAILABLE(macos(10.11), ios(8.0))
     {
         return static_cast<ResourceOptions>(~static_cast<std::underlying_type_t<ResourceOptions>>(a));
     }

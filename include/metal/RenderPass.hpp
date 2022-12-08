@@ -13,12 +13,12 @@ namespace mtl
         ClearColor() noexcept = default;
         ClearColor(double r, double g, double b, double a) noexcept: red{r}, green{g}, blue{b}, alpha{a} {}
 
-        bool operator==(const ClearColor& other) const noexcept
+        [[nodiscard]] bool operator==(const ClearColor& other) const noexcept
         {
             return other.red == red && other.green == green && other.blue == blue && other.alpha == alpha;
         }
 
-        bool operator!=(const ClearColor& other) const noexcept
+        [[nodiscard]] bool operator!=(const ClearColor& other) const noexcept
         {
             return other.red != red || other.green != green || other.blue != blue || other.alpha != alpha;
         }
