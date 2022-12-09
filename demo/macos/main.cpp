@@ -134,23 +134,22 @@ public:
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
 
-        ca::MetalLayer metalLayer;
 
         cg::ColorSpace colorSpace = cg::ColorSpace::deviceRGB();
         const cg::Float bgColor[] = {0.0, 0.0, 0.0, 0.0};
         cg::Color backgroundColor{colorSpace, bgColor};
 
+        ca::MetalLayer metalLayer;
         metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
         metalLayer.setMasksToBounds(true);
         metalLayer.setBackgroundColor(backgroundColor);
         metalLayer.setPresentsWithTransaction(false);
-        metalLayer.setAnchorPoint(cg::Point(0.5, 0.5));
+        metalLayer.setAnchorPoint(cg::Point{0.5, 0.5});
         metalLayer.setFrame(cg::Rect{cg::Point{0.0, 0.0}, cg::Size{frame.size.width, frame.size.height}});
         metalLayer.setMagnificationFilter(ca::FilterNearest);
         metalLayer.setMinificationFilter(ca::FilterNearest);
         metalLayer.setFramebufferOnly(false);
         metalLayer.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-
         view.setLayer(metalLayer);
 
         window.setContentView(view);
@@ -199,8 +198,8 @@ public:
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
-    //    renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-    //    renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+        //renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+        //renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
         colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
