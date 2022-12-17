@@ -86,7 +86,7 @@ public:
         application.setDelegate(appDelegate);
         createMainMenu();
 
-        const ns::WindowStyleMask windowStyleMask = ns::WindowStyleMask::Titled | ns::WindowStyleMask::Closable | ns::WindowStyleMask::Miniaturizable | ns::WindowStyleMask::Resizable;
+        const auto windowStyleMask = ns::WindowStyleMask::Titled | ns::WindowStyleMask::Closable | ns::WindowStyleMask::Miniaturizable | ns::WindowStyleMask::Resizable;
 
         const auto screenFrame = screen.frame();
         const ns::Size windowSize{
@@ -133,7 +133,6 @@ public:
         auto view = viewClass.createInstance();
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
-
 
         cg::ColorSpace colorSpace = cg::ColorSpace::deviceRGB();
         const cg::Float bgColor[] = {0.0, 0.0, 0.0, 0.0};
@@ -246,7 +245,6 @@ public:
         commandBuffer.waitUntilCompleted();
 
         //commandBuffer.presentDrawable(drawable);
-        drawable.present();
 
 //        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
 //        CVDisplayLinkRef displayLink = NULL;
@@ -287,7 +285,7 @@ private:
         const auto mainBundle = ns::Bundle::mainBundle();
         const auto infoDictionary = mainBundle.infoDictionary();
 
-        ns::String bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
+        auto bundleName = infoDictionary.objectForKey<ns::String>("CFBundleDisplayName");
         if (!bundleName)
             bundleName = infoDictionary.objectForKey<ns::String>("CFBundleName");
 
