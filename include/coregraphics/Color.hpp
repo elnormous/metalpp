@@ -1,5 +1,5 @@
-#ifndef METALPP_APPKIT_COLOR_HPP
-#define METALPP_APPKIT_COLOR_HPP
+#ifndef METALPP_COREGRAPHICS_COLOR_HPP
+#define METALPP_COREGRAPHICS_COLOR_HPP
 
 #include <CoreGraphics/CGColor.h>
 #include "../corefoundation/Types.hpp"

@@ -3,6 +3,7 @@
 
 #include <system_error>
 #include <CoreVideo/CVDisplayLink.h>
+#include "../coregraphics/DirectDisplay.hpp"
 #include "CoreVideoErrorCategory.hpp"
 
 namespace cv
@@ -10,7 +11,7 @@ namespace cv
     class DisplayLink final
     {
     public:
-        explicit DisplayLink(const CGDirectDisplayID displayId)
+        explicit DisplayLink(const cg::DirectDisplayID displayId)
         {
             if (const auto result = CVDisplayLinkCreateWithCGDisplay(displayId, &ref); result != kCVReturnSuccess)
                 throw std::system_error{result, errorCategory, "Failed to create display link"};

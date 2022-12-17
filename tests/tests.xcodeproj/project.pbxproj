@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3023336D294033FE003114B4 /* coregraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3023336C294033FD003114B4 /* coregraphics.cpp */; };
+		303B6AA5294E28D400A4DEC6 /* corevideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 303B6AA4294E28D400A4DEC6 /* corevideo.cpp */; };
 		309010FD292B7B72002D121D /* quartzcore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 309010FC292B7B72002D121D /* quartzcore.cpp */; };
 		3090110C292EA3F9002D121D /* appkit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3090110A292E9FB6002D121D /* appkit.cpp */; };
 		30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953122921B911007C8914 /* foundation.cpp */; };
@@ -44,6 +45,8 @@
 		3023336B2940335F003114B4 /* ColorSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ColorSpace.hpp; sourceTree = "<group>"; };
 		3023336C294033FD003114B4 /* coregraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coregraphics.cpp; sourceTree = "<group>"; };
 		3023336F29403DAC003114B4 /* Color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
+		303B6AA3294E282600A4DEC6 /* DirectDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DirectDisplay.hpp; sourceTree = "<group>"; };
+		303B6AA4294E28D400A4DEC6 /* corevideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = corevideo.cpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 			children = (
 				3023336F29403DAC003114B4 /* Color.hpp */,
 				3023336B2940335F003114B4 /* ColorSpace.hpp */,
+				303B6AA3294E282600A4DEC6 /* DirectDisplay.hpp */,
 			);
 			path = coregraphics;
 			sourceTree = "<group>";
@@ -229,6 +233,7 @@
 			children = (
 				3090110A292E9FB6002D121D /* appkit.cpp */,
 				3023336C294033FD003114B4 /* coregraphics.cpp */,
+				303B6AA4294E28D400A4DEC6 /* corevideo.cpp */,
 				30B953122921B911007C8914 /* foundation.cpp */,
 				30B9530D2920C8EB007C8914 /* Frameworks */,
 				309010D6292B7833002D121D /* include */,
@@ -318,6 +323,7 @@
 				30B19E55292738A3002BA9A2 /* main.cpp in Sources */,
 				309010FD292B7B72002D121D /* quartzcore.cpp in Sources */,
 				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
+				303B6AA5294E28D400A4DEC6 /* corevideo.cpp in Sources */,
 				3023336D294033FE003114B4 /* coregraphics.cpp in Sources */,
 				3090110C292EA3F9002D121D /* appkit.cpp in Sources */,
 				30B19E57292738A8002BA9A2 /* objc.cpp in Sources */,

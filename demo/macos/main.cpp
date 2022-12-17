@@ -6,6 +6,7 @@
 #include "appkit/Window.hpp"
 #include "coregraphics/Color.hpp"
 #include "coregraphics/ColorSpace.hpp"
+#include "corevideo/DisplayLink.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Bundle.hpp"
 #include "metal/Metal.hpp"
@@ -470,6 +471,7 @@ private:
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    //cv::DisplayLink displayLink;
 };
 
 //static CVReturn renderCallback(CVDisplayLinkRef,
