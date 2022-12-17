@@ -12,48 +12,48 @@ namespace cv
     public:
         explicit DisplayLink(const CGDirectDisplayID displayId)
         {
-            if (const auto result = CVDisplayLinkCreateWithCGDisplay(displayId, &displayLink); result != kCVReturnSuccess)
+            if (const auto result = CVDisplayLinkCreateWithCGDisplay(displayId, &ref); result != kCVReturnSuccess)
                 throw std::system_error{result, errorCategory, "Failed to create display link"};
         }
 
         ~DisplayLink()
         {
-            CVDisplayLinkRelease(displayLink);
+            CVDisplayLinkRelease(ref);
         }
 
         DisplayLink(DisplayLink&& other) noexcept:
-            displayLink{other.displayLink}
+            ref{other.ref}
         {
-            other.displayLink = nullptr;
+            other.ref = nullptr;
         }
 
         DisplayLink(const DisplayLink& other) noexcept:
-            displayLink{other.displayLink}
+            ref{other.ref}
         {
-            CVDisplayLinkRetain(displayLink);
+            CVDisplayLinkRetain(ref);
         }
 
         DisplayLink& operator=(DisplayLink&& other) noexcept
         {
             if (&other == this) return *this;
-            CVDisplayLinkRelease(displayLink);
-            displayLink = other.displayLink;
-            other.displayLink = nullptr;
+            CVDisplayLinkRelease(ref);
+            ref = other.ref;
+            other.ref = nullptr;
             return *this;
         }
 
         DisplayLink& operator=(const DisplayLink& other) noexcept
         {
             if (&other == this) return *this;
-            CVDisplayLinkRetain(other.displayLink);
-            CVDisplayLinkRelease(displayLink);
-            displayLink = other.displayLink;
+            CVDisplayLinkRetain(other.ref);
+            CVDisplayLinkRelease(ref);
+            ref = other.ref;
             return *this;
         }
 
         [[nodiscard]] operator CVDisplayLinkRef() const noexcept
         {
-            return displayLink;
+            return ref;
         }
 
         [[nodiscard]] auto get() const noexcept
@@ -68,26 +68,26 @@ namespace cv
         
         void setCallback(const CVDisplayLinkOutputCallback callback, void* userInfo)
         {
-            if (const auto result = CVDisplayLinkSetOutputCallback(displayLink, callback, userInfo); result != kCVReturnSuccess)
+            if (const auto result = CVDisplayLinkSetOutputCallback(ref, callback, userInfo); result != kCVReturnSuccess)
                 throw std::system_error{result, errorCategory, "Failed to set output callback for the display link"};
         }
 
         void start()
         {
-            if (displayLink)
-                if (const auto result = CVDisplayLinkStart(displayLink); result != kCVReturnSuccess)
+            if (ref)
+                if (const auto result = CVDisplayLinkStart(ref); result != kCVReturnSuccess)
                     throw std::system_error{result, errorCategory, "Failed to start display link"};
         }
 
         void stop()
         {
-            if (displayLink)
-                if (const auto result = CVDisplayLinkStop(displayLink); result != kCVReturnSuccess)
+            if (ref)
+                if (const auto result = CVDisplayLinkStop(ref); result != kCVReturnSuccess)
                     throw std::system_error{result, errorCategory, "Failed to stop display link"};
         }
 
     private:
-        CVDisplayLinkRef displayLink = nullptr;
+        CVDisplayLinkRef ref = nullptr;
     };
 }
 
