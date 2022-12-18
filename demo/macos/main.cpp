@@ -246,6 +246,7 @@ public:
         commandBuffer.waitUntilCompleted();
 
         //commandBuffer.presentDrawable(drawable);
+        drawable.present();
 
 //        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
 //        CVDisplayLinkRef displayLink = NULL;

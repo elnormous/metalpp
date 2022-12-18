@@ -104,11 +104,6 @@ enum class DeviceLocation: ns::UInteger
 
 namespace mtl
 {
-    namespace detail
-    {
-        inline const auto createSystemDefaultDevice = reinterpret_cast<id (*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
-    }
-
     class Device final: public ns::Object
     {
     public:
@@ -131,7 +126,8 @@ namespace mtl
 
         [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {
-            return Device{detail::createSystemDefaultDevice()};
+            static const auto mtlCreateSystemDefaultDevice = reinterpret_cast<id(*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
+            return Device{mtlCreateSystemDefaultDevice()};
         }
 
         Device() = delete;
