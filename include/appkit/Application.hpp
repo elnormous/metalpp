@@ -27,9 +27,11 @@ namespace ns
         METALPP_PRIVATE_SEL(servicesMenu, "servicesMenu");
         METALPP_PRIVATE_SEL(setServicesMenu_, "setServicesMenu:");
 
+        using Object::Object;
+
         [[nodiscard]] static auto sharedApplication() noexcept
         {
-            return Application{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(sharedApplication)), METALPP_SEL(retain))};
+            return Application{objc::sendMessage<id>(cls, METALPP_SEL(sharedApplication)), ns::retain};
         }
 
         Application() = delete;
@@ -44,7 +46,7 @@ namespace ns
             sendMessage(METALPP_SEL(setDelegate_), delegate.get());
         }
 
-        void activateIgnoringOtherApps(bool flag) noexcept
+        void activateIgnoringOtherApps(const bool flag) noexcept
         {
             sendMessage(METALPP_SEL(activateIgnoringOtherApps_), flag ? YES: NO);
         }

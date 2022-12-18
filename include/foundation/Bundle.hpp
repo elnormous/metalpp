@@ -22,7 +22,7 @@ namespace ns
 
         [[nodiscard]] static auto mainBundle() noexcept
         {
-            return Bundle{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(mainBundle)), METALPP_SEL(retain))};
+            return Bundle{objc::sendMessage<id>(cls, METALPP_SEL(mainBundle)), ns::retain};
         }
 
         Bundle() noexcept:

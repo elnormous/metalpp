@@ -8,6 +8,9 @@
 
 namespace ns
 {
+    struct Retain { explicit Retain() = default; };
+    constexpr Retain retain;
+
     class Object
     {
     public:
@@ -62,6 +65,10 @@ namespace ns
         }
 
         Object(const id p) noexcept: ptr{p} {}
+        Object(const id p, Retain) noexcept: ptr{p}
+        {
+            sendMessage(METALPP_SEL(retain));
+        }
 
         [[nodiscard]] bool operator==(const Object& other) const noexcept
         {

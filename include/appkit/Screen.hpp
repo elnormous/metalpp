@@ -18,19 +18,21 @@ namespace ns
         METALPP_PRIVATE_SEL(deepestScreen, "deepestScreen");
         METALPP_PRIVATE_SEL(frame, "frame");
 
+        using Object::Object;
+
         [[nodiscard]] static auto screens() noexcept
         {
-            return Array<Screen>{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(screens)), METALPP_SEL(retain))};
+            return Array<Screen>{objc::sendMessage<id>(cls, METALPP_SEL(screens)), ns::retain};
         }
 
         [[nodiscard]] static auto mainScreen() noexcept
         {
-            return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(mainScreen)), METALPP_SEL(retain))};
+            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(mainScreen)), ns::retain};
         }
 
         [[nodiscard]] static auto deepestScreen() noexcept
         {
-            return Screen{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(deepestScreen)), METALPP_SEL(retain))};
+            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(deepestScreen)), ns::retain};
         }
 
         Screen() = delete;

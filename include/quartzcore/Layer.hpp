@@ -94,7 +94,7 @@ namespace ca
 
         LayerContentsFilter() = delete;
         LayerContentsFilter(const char* name):
-            ns::String{objc::sendMessage<id>(*static_cast<id*>(dlsym(RTLD_DEFAULT, name)), METALPP_SEL(retain))}
+            ns::String{*static_cast<id*>(dlsym(RTLD_DEFAULT, name)), ns::retain}
         {
         }
     };

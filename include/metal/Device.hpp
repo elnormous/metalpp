@@ -218,7 +218,7 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
+                throw ns::Error{error, ns::retain};
 
             return Library{library};
         }
@@ -232,7 +232,7 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
+                throw ns::Error{error, ns::retain};
 
             return Library{library};
         }
@@ -255,7 +255,7 @@ namespace mtl
                                                            &error);
 
             if (error != nil)
-                throw ns::Error{objc::sendMessage<id>(error, METALPP_SEL(retain))};
+                throw ns::Error{error, ns::retain};
 
             return RenderPipelineState{renderPipelineState};
         }
