@@ -1,6 +1,7 @@
 #ifndef METALPP_COREVIDEO_DISPLAYLINK_HPP
 #define METALPP_COREVIDEO_DISPLAYLINK_HPP
 
+#include <dlfcn.h>
 #include <system_error>
 #include <CoreVideo/CVDisplayLink.h>
 #include "../coregraphics/DirectDisplay.hpp"
@@ -8,6 +9,12 @@
 
 namespace cv
 {
+    inline cg::DirectDisplayID mainDisplayID() noexcept
+    {
+        static const auto cgMainDisplayID = reinterpret_cast<cg::DirectDisplayID(*)()>(dlsym(RTLD_DEFAULT, "CGMainDisplayID"));
+        return cgMainDisplayID();
+    }
+
     class DisplayLink final
     {
     public:
