@@ -29,7 +29,9 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(endEncoding, "endEncoding");
-        
+
+        using Object::Object;
+
         CommandEncoder() = delete;
 
         [[nodiscard]] Device device() const noexcept;

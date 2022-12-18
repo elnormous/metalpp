@@ -13,6 +13,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(present, "present");
         METALPP_PRIVATE_SEL(presentAtTime_, "presentAtTime:");
 
+        using Object::Object;
+
         Drawable() = delete;
 
         void present() noexcept

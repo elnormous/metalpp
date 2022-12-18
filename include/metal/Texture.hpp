@@ -264,6 +264,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(usage, "usage");
         METALPP_PRIVATE_SEL(compressionType, "compressionType");
 
+        using Resource::Resource;
+
         Texture() = delete;
 
         [[nodiscard]] auto textureType() const noexcept

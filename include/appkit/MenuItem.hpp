@@ -33,7 +33,7 @@ namespace ns
 
         [[nodiscard]] static auto separatorItem() noexcept
         {
-            return MenuItem{objc::sendMessage<id>(cls, METALPP_SEL(separatorItem)), ns::retain};
+            return MenuItem{objc::sendMessage<id>(cls, METALPP_SEL(separatorItem)), retain};
         }
 
         MenuItem():

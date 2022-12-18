@@ -129,7 +129,7 @@ namespace ns
         std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
         {
             const id object = objc::sendMessage<id>(ptr, selector, args...);
-            return Ret{objc::sendMessage<id>(object, METALPP_SEL(retain))};
+            return Ret{object, retain};
         }
 
     private:

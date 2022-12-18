@@ -95,6 +95,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_, "drawPrimitives:vertexStart:vertexCount:");
         METALPP_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, "drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
 
+        using CommandEncoder::CommandEncoder;
+
         RenderCommandEncoder() = delete;
 
         void setRenderPipelineState(const RenderPipelineState& pipelineState) noexcept

@@ -70,6 +70,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(name, "name");
         METALPP_PRIVATE_SEL(functionConstantsDictionary, "functionConstantsDictionary");
 
+        using Object::Object;
+        
         Function() = delete;
 
         [[nodiscard]] Device device() const noexcept;

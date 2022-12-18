@@ -124,6 +124,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
 
+        using Object::Object;
+        
         [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {
             static const auto mtlCreateSystemDefaultDevice = reinterpret_cast<id(*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));

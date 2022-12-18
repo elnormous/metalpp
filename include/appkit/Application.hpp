@@ -31,7 +31,7 @@ namespace ns
 
         [[nodiscard]] static auto sharedApplication() noexcept
         {
-            return Application{objc::sendMessage<id>(cls, METALPP_SEL(sharedApplication)), ns::retain};
+            return Application{objc::sendMessage<id>(cls, METALPP_SEL(sharedApplication)), retain};
         }
 
         Application() = delete;

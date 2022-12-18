@@ -324,6 +324,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
+        using Object::Object;
+        
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
             return getRetained<RenderPassColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);

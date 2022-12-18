@@ -75,6 +75,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
 
+        using Object::Object;
+        
         CommandBuffer() = delete;
 
         [[nodiscard]] Device device() const noexcept;

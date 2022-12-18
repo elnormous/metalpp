@@ -17,6 +17,8 @@ namespace ca
         METALPP_PRIVATE_SEL(texture, "texture");
         METALPP_PRIVATE_SEL(layer, "layer");
 
+        using Drawable::Drawable;
+
         MetalDrawable() = delete;
 
         [[nodiscard]] auto texture() const noexcept

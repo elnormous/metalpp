@@ -148,6 +148,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
+        using Object::Object;
+        
         VertexBufferLayoutDescriptorArray() = delete;
 
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
@@ -224,6 +226,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(objectAtIndexedSubscript_, "objectAtIndexedSubscript:");
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
+        using Object::Object;
+        
         VertexAttributeDescriptorArray() = delete;
 
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept

@@ -22,17 +22,17 @@ namespace ns
 
         [[nodiscard]] static auto screens() noexcept
         {
-            return Array<Screen>{objc::sendMessage<id>(cls, METALPP_SEL(screens)), ns::retain};
+            return Array<Screen>{objc::sendMessage<id>(cls, METALPP_SEL(screens)), retain};
         }
 
         [[nodiscard]] static auto mainScreen() noexcept
         {
-            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(mainScreen)), ns::retain};
+            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(mainScreen)), retain};
         }
 
         [[nodiscard]] static auto deepestScreen() noexcept
         {
-            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(deepestScreen)), ns::retain};
+            return Screen{objc::sendMessage<id>(cls, METALPP_SEL(deepestScreen)), retain};
         }
 
         Screen() = delete;

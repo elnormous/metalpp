@@ -95,6 +95,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
         METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
 
+        using Object::Object;
+        
         Resource() = delete;
 
         [[nodiscard]] Device device() const noexcept;

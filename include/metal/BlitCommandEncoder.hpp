@@ -18,6 +18,8 @@ namespace mtl
     class BlitCommandEncoder final: public CommandEncoder
     {
     public:
+        using CommandEncoder::CommandEncoder;
+
         BlitCommandEncoder() = delete;
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

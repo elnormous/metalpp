@@ -12,6 +12,8 @@ namespace ns
         METALPP_PRIVATE_CLS("NSAutoreleasePool");
 
         METALPP_PRIVATE_SEL(drain, "drain");
+
+        using Object::Object;
         
         AutoreleasePool() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
