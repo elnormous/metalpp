@@ -172,7 +172,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setOptimizationLevel_, "setOptimizationLevel:");
 
         CompileOptions():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -265,6 +265,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(newFunctionWithName_, "newFunctionWithName:");
 
+        using Object::Object;
+
         Library() = delete;
 
         [[nodiscard]] Device device() const noexcept;
@@ -283,7 +285,7 @@ namespace mtl
         {
             const id function = sendMessage<id>(METALPP_SEL(newFunctionWithName_),
                                                 name.get());
-            return Function{function};
+            return Function{function, ns::adopt};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

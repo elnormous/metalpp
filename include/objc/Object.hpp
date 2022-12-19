@@ -8,8 +8,8 @@
 
 namespace ns
 {
-    struct Retain { explicit Retain() = default; };
-    constexpr Retain retain;
+    struct Adopt { explicit Adopt() = default; };
+    constexpr Adopt adopt;
 
     class Object
     {
@@ -64,11 +64,11 @@ namespace ns
             return *this;
         }
 
-        Object(const id p) noexcept: ptr{p} {}
-        Object(const id p, Retain) noexcept: ptr{p}
+        Object(const id p) noexcept: ptr{p}
         {
             sendMessage(METALPP_SEL(retain));
         }
+        Object(const id p, Adopt) noexcept: ptr{p} {}
 
         [[nodiscard]] bool operator==(const Object& other) const noexcept
         {
@@ -129,7 +129,7 @@ namespace ns
         std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
         {
             const id object = objc::sendMessage<id>(ptr, selector, args...);
-            return Ret{object, retain};
+            return Ret{object};
         }
 
     private:
@@ -139,7 +139,7 @@ namespace ns
     template<class Type>
     [[nodiscard]] std::enable_if_t<Type::copying, Type> copy(const Type& object) noexcept
     {
-        return Type{objc::sendMessage<id>(object.get(), Object::METALPP_SEL(copy))};
+        return Type{objc::sendMessage<id>(object.get(), Object::METALPP_SEL(copy)), adopt};
     }
 }
 

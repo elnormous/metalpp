@@ -23,7 +23,7 @@ namespace ns
         using Object::Object;
 
         Array() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
@@ -32,7 +32,7 @@ namespace ns
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithObjects_),
                                          objects.get()...,
-                                         nil)}
+                                         nil), adopt}
         {
         }
 

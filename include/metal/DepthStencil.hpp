@@ -51,7 +51,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
 
         DepthStencilDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -71,6 +71,8 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
+
+        using Object::Object;
 
         DepthStencilState() = delete;
 

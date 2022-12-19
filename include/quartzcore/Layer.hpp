@@ -94,7 +94,7 @@ namespace ca
 
         LayerContentsFilter() = delete;
         LayerContentsFilter(const char* name):
-            ns::String{*static_cast<id*>(dlsym(RTLD_DEFAULT, name)), ns::retain}
+            ns::String{*static_cast<id*>(dlsym(RTLD_DEFAULT, name))}
         {
         }
     };
@@ -128,7 +128,7 @@ namespace ca
         using Object::Object;
 
         Layer() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 

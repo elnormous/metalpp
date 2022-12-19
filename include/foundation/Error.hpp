@@ -30,7 +30,7 @@ namespace ns
                                          METALPP_SEL(initWithDomain_code_userInfo_),
                                          domain.get(),
                                          code,
-                                         nil)}
+                                         nil), adopt}
         {
         }
 
@@ -39,7 +39,7 @@ namespace ns
                                          METALPP_SEL(initWithDomain_code_userInfo_),
                                          domain.get(),
                                          code,
-                                         userInfo.get())}
+                                         userInfo.get()), adopt}
         {
         }
 

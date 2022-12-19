@@ -25,14 +25,14 @@ namespace ns
         using Object::Object;
 
         Menu():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
         Menu(const String& title):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithTitle_),
-                                         title.get())}
+                                         title.get()), adopt}
         {
         }
 

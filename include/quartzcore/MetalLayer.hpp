@@ -49,7 +49,7 @@ namespace ca
         using Layer::Layer;
         
         MetalLayer() noexcept:
-            Layer{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Layer{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 

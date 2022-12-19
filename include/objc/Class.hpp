@@ -104,7 +104,7 @@ namespace objc
         Type createInstance() const noexcept
         {
             id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::Object::METALPP_SEL(alloc)), ns::Object::METALPP_SEL(init));
-            return Type{object};
+            return Type{object, ns::adopt};
         }
     private:
         ::Class cls = nullptr;

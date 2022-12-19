@@ -129,7 +129,7 @@ namespace mtl
         [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {
             static const auto mtlCreateSystemDefaultDevice = reinterpret_cast<id(*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
-            return Device{mtlCreateSystemDefaultDevice()};
+            return Device{mtlCreateSystemDefaultDevice(), ns::adopt};
         }
 
         Device() = delete;
@@ -157,21 +157,21 @@ namespace mtl
         [[nodiscard]] auto newCommandQueue() const noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueue));
-            return CommandQueue{commandQueue};
+            return CommandQueue{commandQueue, ns::adopt};
         }
 
         [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueueWithMaxCommandBufferCount_),
                                                     maxCommandBufferCount);
-            return CommandQueue{commandQueue};
+            return CommandQueue{commandQueue, ns::adopt};
         }
 
         [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
                                                          descriptor.get());
-            return DepthStencilState{depthStencilState};
+            return DepthStencilState{depthStencilState, ns::adopt};
         }
 
         [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
@@ -179,7 +179,7 @@ namespace mtl
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_),
                                               length,
                                               options);
-            return Buffer{buffer};
+            return Buffer{buffer, ns::adopt};
         }
 
         [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
@@ -188,27 +188,27 @@ namespace mtl
                                               pointer,
                                               length,
                                               options);
-            return Buffer{buffer};
+            return Buffer{buffer, ns::adopt};
         }
 
         [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
         {
             const id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_),
                                                descriptor.get());
-            return Texture{texture};
+            return Texture{texture, ns::adopt};
         }
 
         [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
         {
             const id samplerState = sendMessage<id>(METALPP_SEL(newSamplerStateWithDescriptor_),
                                                     descriptor.get());
-            return SamplerState{samplerState};
+            return SamplerState{samplerState, ns::adopt};
         }
 
         [[nodiscard]] auto newDefaultLibrary() const noexcept
         {
             const id library = sendMessage<id>(METALPP_SEL(newDefaultLibrary));
-            return Library{library};
+            return Library{library, ns::adopt};
         }
 
         [[nodiscard]] auto newLibrary(const ns::String& source) const
@@ -220,9 +220,9 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{error, ns::retain};
+                throw ns::Error{error};
 
-            return Library{library};
+            return Library{library, ns::adopt};
         }
 
         [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
@@ -234,9 +234,9 @@ namespace mtl
                                                &error);
 
             if (error != nil)
-                throw ns::Error{error, ns::retain};
+                throw ns::Error{error};
 
-            return Library{library};
+            return Library{library, ns::adopt};
         }
 
         [[nodiscard]] auto supportsFeatureSet(const FeatureSet featureSet) const noexcept API_DEPRECATED("Use supportsFamily instead", macos(10.11, 13.0), ios(8.0, 16.0), tvos(9.0, 16.0))
@@ -257,9 +257,9 @@ namespace mtl
                                                            &error);
 
             if (error != nil)
-                throw ns::Error{error, ns::retain};
+                throw ns::Error{error};
 
-            return RenderPipelineState{renderPipelineState};
+            return RenderPipelineState{renderPipelineState, ns::adopt};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 

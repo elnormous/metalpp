@@ -87,7 +87,7 @@ namespace mtl
         using Object::Object;
 
         RenderPassAttachmentDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -212,7 +212,7 @@ namespace mtl
         using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
 
         RenderPassColorAttachmentDescriptor() noexcept:
-            RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -249,7 +249,7 @@ namespace mtl
         using Object::Object;
 
         RenderPassDepthAttachmentDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -293,7 +293,7 @@ namespace mtl
         using Object::Object;
 
         RenderPassStencilAttachmentDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
@@ -352,7 +352,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(stencilAttachment, "stencilAttachment");
 
         RenderPassDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 

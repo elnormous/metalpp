@@ -33,11 +33,11 @@ namespace ns
 
         [[nodiscard]] static auto separatorItem() noexcept
         {
-            return MenuItem{objc::sendMessage<id>(cls, METALPP_SEL(separatorItem)), retain};
+            return MenuItem{objc::sendMessage<id>(cls, METALPP_SEL(separatorItem))};
         }
 
         MenuItem():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
@@ -46,7 +46,7 @@ namespace ns
                                          METALPP_SEL(initWithTitle_action_keyEquivalent_),
                                          title.get(),
                                          action,
-                                         keyEquivalent.get())}
+                                         keyEquivalent.get()), adopt}
         {
         }
 

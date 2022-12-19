@@ -26,7 +26,7 @@ namespace ns
         using Object::Object;
 
         Dictionary() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
@@ -34,7 +34,7 @@ namespace ns
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithObjects_forKeys_),
                                          objects.get(),
-                                         keys.get())}
+                                         keys.get()), adopt}
         {
         }
 
@@ -43,7 +43,7 @@ namespace ns
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithObjectsAndKeys_),
                                          objectsAndKeys.get()...,
-                                         nil)}
+                                         nil), adopt}
         {
         }
 

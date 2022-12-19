@@ -18,6 +18,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(commandBuffer, "commandBuffer");
 
+        using Object::Object;
+
         CommandQueue() = delete;
 
         [[nodiscard]] Device device() const noexcept;

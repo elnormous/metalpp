@@ -59,7 +59,7 @@ namespace ns
         using Object::Object;
 
         String():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
@@ -67,7 +67,7 @@ namespace ns
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithCString_encoding_),
                                          str,
-                                         encoding)}
+                                         encoding), adopt}
         {
         }
 
@@ -76,7 +76,7 @@ namespace ns
                                          METALPP_SEL(initWithBytes_length_encoding_),
                                          str.data(),
                                          static_cast<UInteger>(str.length()),
-                                         encoding)}
+                                         encoding), adopt}
         {
         }
 

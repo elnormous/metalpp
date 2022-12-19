@@ -16,6 +16,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(didModifyRange_, "didModifyRange:");
         METALPP_PRIVATE_SEL(gpuAddress, "gpuAddress");
 
+        using Resource::Resource;
+
         Buffer() = delete;
 
         [[nodiscard]] auto length() const noexcept

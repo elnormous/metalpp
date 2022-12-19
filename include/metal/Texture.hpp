@@ -95,7 +95,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setSwizzle_, "setSwizzle:");
 
         TextureDescriptor():
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 

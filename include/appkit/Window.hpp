@@ -133,7 +133,7 @@ namespace ns
                                          contentRect,
                                          style,
                                          backingStoreType,
-                                         defer ? YES : NO)}
+                                         defer ? YES : NO), adopt}
         {
             sendMessage(METALPP_SEL(setReleasedWhenClosed), NO);
         }
@@ -145,7 +145,7 @@ namespace ns
                                          style,
                                          backingStoreType,
                                          defer ? YES : NO,
-                                         screen.get())}
+                                         screen.get()), adopt}
         {
             sendMessage(METALPP_SEL(setReleasedWhenClosed), NO);
         }

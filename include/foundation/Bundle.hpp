@@ -22,18 +22,18 @@ namespace ns
 
         [[nodiscard]] static auto mainBundle() noexcept
         {
-            return Bundle{objc::sendMessage<id>(cls, METALPP_SEL(mainBundle)), retain};
+            return Bundle{objc::sendMessage<id>(cls, METALPP_SEL(mainBundle))};
         }
 
         Bundle() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init))}
+            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
         Bundle(const String& title) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithPath_),
-                                         title.get())}
+                                         title.get()), adopt}
         {
         }
 
