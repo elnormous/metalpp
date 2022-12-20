@@ -18,17 +18,19 @@
 		30B19E57292738A8002BA9A2 /* objc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30B953402921ED99007C8914 /* objc.cpp */; };
 		30B19E58292738DC002BA9A2 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
 		30B19E5A292738E1002BA9A2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B19E59292738E1002BA9A2 /* Cocoa.framework */; };
+		30BD2DB92952687600DED449 /* test.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30BD2DB82952687000DED449 /* test.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		30B19E4B29273892002BA9A2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = Resources;
+			dstSubfolderSpec = 16;
 			files = (
+				30BD2DB92952687600DED449 /* test.txt in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -94,6 +96,7 @@
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
 		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
+		30BD2DB82952687000DED449 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +237,7 @@
 		30B952F82920C60E007C8914 = {
 			isa = PBXGroup;
 			children = (
+				30BD2DB72952687000DED449 /* Resources */,
 				3090110A292E9FB6002D121D /* appkit.cpp */,
 				3023336C294033FD003114B4 /* coregraphics.cpp */,
 				303B6AA4294E28D400A4DEC6 /* corevideo.cpp */,
@@ -264,6 +268,14 @@
 				30B953102920C8F1007C8914 /* Metal.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		30BD2DB72952687000DED449 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				30BD2DB82952687000DED449 /* test.txt */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

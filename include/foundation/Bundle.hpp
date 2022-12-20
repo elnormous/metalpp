@@ -16,6 +16,7 @@ namespace ns
 
         METALPP_PRIVATE_SEL(mainBundle, "mainBundle");
         METALPP_PRIVATE_SEL(initWithPath_, "initWithPath:");
+        METALPP_PRIVATE_SEL(pathForResource_ofType_, "pathForResource:ofType:");
         METALPP_PRIVATE_SEL(infoDictionary, "infoDictionary");
         
         using Object::Object;
@@ -35,6 +36,11 @@ namespace ns
                                          METALPP_SEL(initWithPath_),
                                          path.get()), adopt}
         {
+        }
+
+        [[nodiscard]] String pathForResource(const String& name, const String& ext) const noexcept
+        {
+            return getRetained<String>(METALPP_SEL(pathForResource_ofType_), name.get(), ext.get());
         }
 
         [[nodiscard]] Dictionary<String, Object> infoDictionary() const noexcept

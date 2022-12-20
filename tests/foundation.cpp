@@ -1,3 +1,4 @@
+#include <fstream>
 #include "doctest.h"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Array.hpp"
@@ -50,6 +51,17 @@ TEST_CASE("Bundle")
     REQUIRE(mainBundle);
     CHECK(mainBundle.retainCount());
     CHECK(mainBundle.infoDictionary());
+
+    ns::Bundle bundleWithPath = ns::Bundle("Resources");
+    REQUIRE(bundleWithPath);
+
+    ns::String pathForResource = bundleWithPath.pathForResource("test.txt", nullptr);
+    REQUIRE(pathForResource);
+    CHECK(pathForResource.length());
+    std::ifstream f{pathForResource.cString()};
+    std::string line;
+    std::getline(f, line);
+    CHECK(line == "test");
 }
 
 TEST_CASE("Dictionary")
