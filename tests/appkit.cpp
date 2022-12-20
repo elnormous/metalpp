@@ -69,7 +69,7 @@ TEST_CASE("Menu")
     REQUIRE(menu);
     CHECK(menu.retainCount());
 
-    ns::MenuItem menuItem = menu.addItem("test", nil, "w");
+    ns::MenuItem menuItem = menu.addItem("test", nullptr, "w");
     REQUIRE(menuItem);
     CHECK(menuItem.retainCount());
 
@@ -87,7 +87,7 @@ TEST_CASE("MenuItem")
     CHECK(separatorItem.retainCount());
     CHECK(separatorItem.isSeparatorItem());
 
-    ns::MenuItem menuItemWithTitle("test", nil, "w");
+    ns::MenuItem menuItemWithTitle("test", nullptr, "w");
     REQUIRE(menuItemWithTitle);
     CHECK(menuItemWithTitle.retainCount());
     CHECK(menuItemWithTitle.title().isEqualToString("test"));

@@ -64,6 +64,7 @@ namespace ns
             return *this;
         }
 
+        Object(const nullptr_t) noexcept {}
         Object(const id p) noexcept: ptr{p}
         {
             sendMessage(METALPP_SEL(retain));
