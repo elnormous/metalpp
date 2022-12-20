@@ -55,13 +55,18 @@ TEST_CASE("Bundle")
     ns::Bundle bundleWithPath = ns::Bundle("Resources");
     REQUIRE(bundleWithPath);
 
-    ns::String pathForResource = bundleWithPath.pathForResource("test.txt", nullptr);
+    const ns::String pathForResource = bundleWithPath.pathForResource("test.txt", nullptr);
     REQUIRE(pathForResource);
     CHECK(pathForResource.length());
+
     std::ifstream f{pathForResource.cString()};
     std::string line;
     std::getline(f, line);
     CHECK(line == "test");
+
+    const ns::String pathForResourceWithExt = bundleWithPath.pathForResource("test", "txt");
+    REQUIRE(pathForResourceWithExt);
+    CHECK(pathForResourceWithExt.isEqualToString(pathForResource));
 }
 
 TEST_CASE("Dictionary")
