@@ -30,10 +30,10 @@ namespace ns
         {
         }
 
-        Bundle(const String& title) noexcept:
+        Bundle(const String& path) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithPath_),
-                                         title.get()), adopt}
+                                         path.get()), adopt}
         {
         }
 
