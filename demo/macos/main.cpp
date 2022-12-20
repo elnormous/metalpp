@@ -294,7 +294,7 @@ private:
         applicationMenu.addItem(ns::String{"About "} + bundleName, sel_registerName("orderFrontStandardAboutPanel:"), "");
         applicationMenu.addItem(ns::MenuItem::separatorItem());
 
-        auto servicesItem = applicationMenu.addItem("Services", nil, "");
+        auto servicesItem = applicationMenu.addItem("Services", nullptr, "");
 
         ns::Menu servicesMenu;
         servicesItem.setSubmenu(servicesMenu);
