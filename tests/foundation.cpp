@@ -67,6 +67,10 @@ TEST_CASE("Bundle")
     const ns::String pathForResourceWithExt = bundleWithPath.pathForResource("test", "txt");
     REQUIRE(pathForResourceWithExt);
     CHECK(pathForResourceWithExt.isEqualToString(pathForResource));
+
+    const ns::String pathForResourceInDirectory = bundleWithPath.pathForResource("test2.txt", nullptr, "directory");
+    REQUIRE(pathForResourceInDirectory);
+    CHECK(pathForResourceInDirectory.length());
 }
 
 TEST_CASE("Dictionary")

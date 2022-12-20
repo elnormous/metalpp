@@ -19,6 +19,7 @@
 		30B19E58292738DC002BA9A2 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B953102920C8F1007C8914 /* Metal.framework */; };
 		30B19E5A292738E1002BA9A2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B19E59292738E1002BA9A2 /* Cocoa.framework */; };
 		30BD2DB92952687600DED449 /* test.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30BD2DB82952687000DED449 /* test.txt */; };
+		30BD2DBF295272DD00DED449 /* test2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30BD2DBB2952721700DED449 /* test2.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,9 +27,19 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = Resources;
-			dstSubfolderSpec = 16;
+			dstSubfolderSpec = 7;
 			files = (
 				30BD2DB92952687600DED449 /* test.txt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30BD2DBE295272D200DED449 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Resources/directory;
+			dstSubfolderSpec = 7;
+			files = (
+				30BD2DBF295272DD00DED449 /* test2.txt in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +108,7 @@
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
 		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
 		30BD2DB82952687000DED449 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		30BD2DBB2952721700DED449 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,9 +285,18 @@
 		30BD2DB72952687000DED449 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				30BD2DBA295271FB00DED449 /* directory */,
 				30BD2DB82952687000DED449 /* test.txt */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		30BD2DBA295271FB00DED449 /* directory */ = {
+			isa = PBXGroup;
+			children = (
+				30BD2DBB2952721700DED449 /* test2.txt */,
+			);
+			path = directory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +309,7 @@
 				30B19E4929273892002BA9A2 /* Sources */,
 				30B19E4A29273892002BA9A2 /* Frameworks */,
 				30B19E4B29273892002BA9A2 /* CopyFiles */,
+				30BD2DBE295272D200DED449 /* CopyFiles */,
 			);
 			buildRules = (
 			);
