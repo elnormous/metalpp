@@ -104,8 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				303B6AA7294F720F00A4DEC6 /* CoreVideo.framework in Frameworks */,
 				30B19E5A292738E1002BA9A2 /* Cocoa.framework in Frameworks */,
+				303B6AA7294F720F00A4DEC6 /* CoreVideo.framework in Frameworks */,
 				30B19E58292738DC002BA9A2 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

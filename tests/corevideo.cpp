@@ -12,12 +12,12 @@ namespace
         std::condition_variable condition;
     };
 
-    CVReturn callback(CVDisplayLinkRef CV_NONNULL,
-                      const CVTimeStamp* CV_NONNULL,
-                      const CVTimeStamp* CV_NONNULL,
+    CVReturn callback(CVDisplayLinkRef,
+                      const CVTimeStamp*,
+                      const CVTimeStamp*,
                       CVOptionFlags,
-                      CVOptionFlags* CV_NONNULL,
-                      void* CV_NULLABLE displayLinkContext)
+                      CVOptionFlags*,
+                      void* displayLinkContext)
     {
         Flag& flag = *static_cast<Flag*>(displayLinkContext);
 
