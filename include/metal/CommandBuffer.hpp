@@ -83,7 +83,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -93,12 +93,12 @@ namespace mtl
 
         [[nodiscard]] auto blitCommandEncoder() const noexcept
         {
-            return getRetained<BlitCommandEncoder>(METALPP_SEL(blitCommandEncoder));
+            return BlitCommandEncoder{sendMessage<id>(METALPP_SEL(blitCommandEncoder))};
         }
 
         [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
         {
-            return getRetained<RenderCommandEncoder>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get());
+            return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept

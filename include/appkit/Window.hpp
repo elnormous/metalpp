@@ -152,7 +152,7 @@ namespace ns
 
         [[nodiscard]] auto title() const noexcept
         {
-            return getRetained<String>(METALPP_SEL(title));
+            return String{sendMessage<id>(METALPP_SEL(title))};
         }
 
         void setTitle(const String& title) noexcept
@@ -162,7 +162,7 @@ namespace ns
 
         [[nodiscard]] auto contentView() const noexcept
         {
-            return getRetained<View>(METALPP_SEL(contentView));
+            return View{sendMessage<id>(METALPP_SEL(contentView))};
         }
 
         void setContentView(const View& contentView) noexcept
@@ -172,7 +172,7 @@ namespace ns
 
         [[nodiscard]] auto delegate() const noexcept
         {
-            return getRetained<Object>(METALPP_SEL(delegate));
+            return Object{sendMessage<id>(METALPP_SEL(delegate))};
         }
 
         void setDelegate(const Object& delegate) noexcept
@@ -261,7 +261,7 @@ namespace ns
 
     [[nodiscard]] Window Event::window() const noexcept
     {
-        return getRetained<Window>(METALPP_SEL(window));
+        return Window{sendMessage<id>(METALPP_SEL(window))};
     }
 }
 

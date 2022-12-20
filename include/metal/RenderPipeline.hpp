@@ -256,7 +256,7 @@ namespace mtl
 
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
-            return getRetained<RenderPipelineColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+            return RenderPipelineColorAttachmentDescriptor{sendMessage<id>(METALPP_SEL(objectAtIndexedSubscript_), index)};
         }
 
         void setObject(const RenderPipelineColorAttachmentDescriptor& derscriptor) noexcept
@@ -298,7 +298,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -308,7 +308,7 @@ namespace mtl
 
         [[nodiscard]] auto vertexFunction() const noexcept
         {
-            return getRetained<Function>(METALPP_SEL(vertexFunction));
+            return Function{sendMessage<id>(METALPP_SEL(vertexFunction))};
         }
 
         void setVertexFunction(const Function& function) noexcept
@@ -318,7 +318,7 @@ namespace mtl
 
         [[nodiscard]] auto fragmentFunction() const noexcept
         {
-            return getRetained<Function>(METALPP_SEL(fragmentFunction));
+            return Function{sendMessage<id>(METALPP_SEL(fragmentFunction))};
         }
 
         void setFragmentFunction(const Function& function) noexcept
@@ -328,7 +328,7 @@ namespace mtl
 
         [[nodiscard]] auto vertexDescriptor() const noexcept
         {
-            return getRetained<VertexDescriptor>(METALPP_SEL(vertexDescriptor));
+            return VertexDescriptor{sendMessage<id>(METALPP_SEL(vertexDescriptor))};
         }
 
         void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
@@ -338,7 +338,7 @@ namespace mtl
 
         [[nodiscard]] auto colorAttachments() const noexcept
         {
-            return getRetained<RenderPipelineColorAttachmentDescriptorArray>(METALPP_SEL(colorAttachments));
+            return RenderPipelineColorAttachmentDescriptorArray{sendMessage<id>(METALPP_SEL(colorAttachments))};
         }
 
         [[nodiscard]] auto depthAttachmentPixelFormat() const noexcept
@@ -376,7 +376,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

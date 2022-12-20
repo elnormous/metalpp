@@ -154,7 +154,7 @@ namespace mtl
 
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
-            return getRetained<VertexBufferLayoutDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+            return VertexBufferLayoutDescriptor{sendMessage<id>(METALPP_SEL(objectAtIndexedSubscript_), index)};
         }
 
         void setObject(const VertexBufferLayoutDescriptor& derscriptor) noexcept
@@ -232,7 +232,7 @@ namespace mtl
 
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
-            return getRetained<VertexAttributeDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+            return VertexAttributeDescriptor{sendMessage<id>(METALPP_SEL(objectAtIndexedSubscript_), index)};
         }
 
         void setObject(const VertexAttributeDescriptor& derscriptor) noexcept
@@ -266,12 +266,12 @@ namespace mtl
 
         [[nodiscard]] auto layouts() const noexcept
         {
-            return getRetained<VertexBufferLayoutDescriptorArray>(METALPP_SEL(layouts));
+            return VertexBufferLayoutDescriptorArray{sendMessage<id>(METALPP_SEL(layouts))};
         }
 
         [[nodiscard]] auto attributes() const noexcept
         {
-            return getRetained<VertexAttributeDescriptorArray>(METALPP_SEL(attributes));
+            return VertexAttributeDescriptorArray{sendMessage<id>(METALPP_SEL(attributes))};
         }
 
         void reset() noexcept

@@ -50,17 +50,17 @@ namespace ns
 
         [[nodiscard]] String domain() const noexcept
         {
-            return getRetained<String>(METALPP_SEL(domain));
+            return String{sendMessage<id>(METALPP_SEL(domain))};
         }
 
         [[nodiscard]] Dictionary<String, Object> userInfo() const noexcept
         {
-            return getRetained<Dictionary<String, Object>>(METALPP_SEL(userInfo));
+            return Dictionary<String, Object>{sendMessage<id>(METALPP_SEL(userInfo))};
         }
 
         [[nodiscard]] String localizedDescription() const noexcept
         {
-            return getRetained<String>(METALPP_SEL(localizedDescription));
+            return String{sendMessage<id>(METALPP_SEL(localizedDescription))};
         }
     };
 }

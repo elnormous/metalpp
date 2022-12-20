@@ -57,7 +57,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
 
         void setLabel(const ns::String& label) noexcept
@@ -80,7 +80,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

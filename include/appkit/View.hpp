@@ -130,7 +130,7 @@ namespace ns
 
         [[nodiscard]] auto layer() const noexcept API_AVAILABLE(macos(10.5))
         {
-            return getRetained<ca::Layer>(METALPP_SEL(layer));
+            return ca::Layer{sendMessage<id>(METALPP_SEL(layer))};
         }
 
         void setLayer(const ca::Layer& layer) noexcept API_AVAILABLE(macos(10.5))

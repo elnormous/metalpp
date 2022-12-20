@@ -60,28 +60,28 @@ namespace ns
         template<class T = ObjectType>
         [[nodiscard]] auto objectForKey(const KeyType& key) const noexcept
         {
-            return getRetained<T>(METALPP_SEL(objectForKey_), key.get());
+            return T{sendMessage<id>(METALPP_SEL(objectForKey_), key.get())};
         }
 
         template<class T = ObjectType>
         [[nodiscard]] auto objectForKey(const KeyType&& key) const noexcept
         {
-            return getRetained<T>(METALPP_SEL(objectForKey_), key.get());
+            return T{sendMessage<id>(METALPP_SEL(objectForKey_), key.get())};
         }
 
         [[nodiscard]] auto allKeys() const noexcept
         {
-            return getRetained<Array<KeyType>>(METALPP_SEL(allKeys));
+            return Array<KeyType>{sendMessage<id>(METALPP_SEL(allKeys))};
         }
 
         [[nodiscard]] auto allKeysForObject(const Object& object) const noexcept
         {
-            return getRetained<Array<KeyType>>(METALPP_SEL(allKeysForObject_), object.get());
+            return Array<KeyType>{sendMessage<id>(METALPP_SEL(allKeysForObject_), object.get())};
         }
 
         [[nodiscard]] auto allValues() const noexcept
         {
-            return getRetained<Array<ObjectType>>(METALPP_SEL(allValues));
+            return Array<ObjectType>{sendMessage<id>(METALPP_SEL(allValues))};
         }
 
         [[nodiscard]] auto count() const noexcept

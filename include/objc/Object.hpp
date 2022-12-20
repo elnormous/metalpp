@@ -126,13 +126,6 @@ namespace ns
             return objc::sendMessage<Ret>(ptr, selector, args...);
         }
 
-        template<typename Ret, typename... Args>
-        std::enable_if_t<std::is_base_of_v<Object, Ret>, Ret> getRetained(SEL selector, Args... args) const noexcept
-        {
-            const id object = objc::sendMessage<id>(ptr, selector, args...);
-            return Ret{object};
-        }
-
     private:
         id ptr = nil;
     };

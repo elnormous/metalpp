@@ -78,7 +78,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
 
         void setLabel(const ns::String& label) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
@@ -103,22 +103,22 @@ namespace mtl
 
         [[nodiscard]] auto vertexAttributes() const noexcept
         {
-            return getRetained<ns::Array<VertexAttribute>>(METALPP_SEL(vertexAttributes));
+            return ns::Array<VertexAttribute>{sendMessage<id>(METALPP_SEL(vertexAttributes))};
         }
 
         [[nodiscard]] auto stageInputAttributes() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::Array<Attribute>>(METALPP_SEL(stageInputAttributes));
+            return ns::Array<Attribute>{sendMessage<id>(METALPP_SEL(stageInputAttributes))};
         }
 
         [[nodiscard]] auto name() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(name));
+            return ns::String{sendMessage<id>(METALPP_SEL(name))};
         }
 
         [[nodiscard]] auto functionConstantsDictionary() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
-            return getRetained<ns::Dictionary<ns::String, FunctionConstant>>(METALPP_SEL(functionConstantsDictionary));
+            return ns::Dictionary<ns::String, FunctionConstant>{sendMessage<id>(METALPP_SEL(functionConstantsDictionary))};
         }
     };
 
@@ -178,7 +178,7 @@ namespace mtl
 
         [[nodiscard]] auto preprocessorMacros() const noexcept
         {
-            return getRetained<ns::Dictionary<ns::String, ns::Object>>(METALPP_SEL(preprocessorMacros));
+            return ns::Dictionary<ns::String, ns::Object>{sendMessage<id>(METALPP_SEL(preprocessorMacros))};
         }
 
         void setPreprocessorMacros(const ns::Dictionary<ns::String, ns::Object>& preprocessorMacros) noexcept
@@ -218,7 +218,7 @@ namespace mtl
 
         [[nodiscard]] auto installName() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return getRetained<ns::String>(METALPP_SEL(installName));
+            return ns::String{sendMessage<id>(METALPP_SEL(installName))};
         }
 
         void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
@@ -228,7 +228,7 @@ namespace mtl
 
         [[nodiscard]] auto libraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
-            return getRetained<ns::Array<DynamicLibrary>>(METALPP_SEL(libraries));
+            return ns::Array<DynamicLibrary>{sendMessage<id>(METALPP_SEL(libraries))};
         }
 
         void setLibraries(const ns::Array<DynamicLibrary>& libraries) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
@@ -273,7 +273,7 @@ namespace mtl
 
         [[nodiscard]] auto label() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(label));
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
 
         void setLabel(const ns::String& label) noexcept

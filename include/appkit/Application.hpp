@@ -38,7 +38,7 @@ namespace ns
 
         [[nodiscard]] auto delegate() const noexcept
         {
-            return getRetained<Object>(METALPP_SEL(delegate));
+            return Object{sendMessage<id>(METALPP_SEL(delegate))};
         }
 
         void setDelegate(const Object& delegate) noexcept
@@ -58,7 +58,7 @@ namespace ns
 
         [[nodiscard]] auto mainMenu() const noexcept
         {
-            return getRetained<Menu>(METALPP_SEL(mainMenu));
+            return Menu{sendMessage<id>(METALPP_SEL(mainMenu))};
         }
 
         void setMainMenu(const Menu& mainMenu) noexcept
@@ -68,7 +68,7 @@ namespace ns
 
         [[nodiscard]] auto helpMenu() const noexcept API_AVAILABLE(macos(10.6))
         {
-            return getRetained<Menu>(METALPP_SEL(helpMenu));
+            return Menu{sendMessage<id>(METALPP_SEL(helpMenu))};
         }
 
         void setHelpMenu(const Menu& helpMenu) noexcept API_AVAILABLE(macos(10.6))
@@ -78,7 +78,7 @@ namespace ns
 
         [[nodiscard]] auto windowsMenu() const noexcept
         {
-            return getRetained<Menu>(METALPP_SEL(windowsMenu));
+            return Menu{sendMessage<id>(METALPP_SEL(windowsMenu))};
         }
 
         void setWindowsMenu(const Menu& windowsMenu) noexcept
@@ -88,7 +88,7 @@ namespace ns
 
         [[nodiscard]] auto servicesMenu() const noexcept
         {
-            return getRetained<Menu>(METALPP_SEL(servicesMenu));
+            return Menu{sendMessage<id>(METALPP_SEL(servicesMenu))};
         }
 
         void setServicesMenu(const Menu& servicesMenu) noexcept

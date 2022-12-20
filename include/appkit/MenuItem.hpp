@@ -55,7 +55,7 @@ namespace ns
 
         [[nodiscard]] auto title() const noexcept
         {
-            return getRetained<String>(METALPP_SEL(title));
+            return String{sendMessage<id>(METALPP_SEL(title))};
         }
 
         void setTitle(const String& title) noexcept
@@ -70,7 +70,7 @@ namespace ns
 
         [[nodiscard]] auto keyEquivalent() const noexcept
         {
-            return getRetained<String>(METALPP_SEL(keyEquivalent));
+            return String{sendMessage<id>(METALPP_SEL(keyEquivalent))};
         }
 
         void setKeyEquivalent(const String& keyEquivalent) noexcept

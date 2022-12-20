@@ -48,25 +48,25 @@ namespace ns
 
         auto insertItem(const String& title, const SEL action, const String& keyEquivalent, Integer index) noexcept
         {
-            return getRetained<MenuItem>(METALPP_SEL(insertItemWithTitle_action_keyEquivalent_atIndex_),
-                                         title.get(),
-                                         action,
-                                         keyEquivalent.get(),
-                                         index);
+            return MenuItem{sendMessage<id>(METALPP_SEL(insertItemWithTitle_action_keyEquivalent_atIndex_),
+                                            title.get(),
+                                            action,
+                                            keyEquivalent.get(),
+                                            index)};
         }
 
         auto addItem(const String& title, const SEL action, const String& keyEquivalent) noexcept
         {
-            return getRetained<MenuItem>(METALPP_SEL(addItemWithTitle_action_keyEquivalent_),
-                                         title.get(),
-                                         action,
-                                         keyEquivalent.get());
+            return MenuItem{sendMessage<id>(METALPP_SEL(addItemWithTitle_action_keyEquivalent_),
+                                            title.get(),
+                                            action,
+                                            keyEquivalent.get())};
         }
     };
 
     [[nodiscard]] inline Menu MenuItem::submenu() const noexcept
     {
-        return getRetained<Menu>(METALPP_SEL(submenu));
+        return Menu{sendMessage<id>(METALPP_SEL(submenu))};
     }
 
     inline void MenuItem::setSubmenu(const Menu& submenu) noexcept

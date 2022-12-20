@@ -136,7 +136,7 @@ namespace mtl
 
         [[nodiscard]] auto name() const noexcept
         {
-            return getRetained<ns::String>(METALPP_SEL(name));
+            return ns::String{sendMessage<id>(METALPP_SEL(name))};
         }
 
         [[nodiscard]] auto location() const noexcept API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios)
@@ -265,52 +265,52 @@ namespace mtl
 
     [[nodiscard]] inline Device CommandBuffer::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device CommandEncoder::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device CommandQueue::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device DepthStencilState::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device DynamicLibrary::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device Function::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device Library::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device SamplerState::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device RenderPipelineState::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 
     [[nodiscard]] inline Device Resource::device() const noexcept
     {
-        return getRetained<Device>(METALPP_SEL(device));
+        return Device{sendMessage<id>(METALPP_SEL(device))};
     }
 }
 

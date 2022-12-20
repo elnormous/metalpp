@@ -115,7 +115,7 @@ namespace ns
 
         [[nodiscard]] auto stringByAppendingString(const String& string) const noexcept
         {
-            return getRetained<String>(METALPP_SEL(stringByAppendingString_), string.get());
+            return String{sendMessage<id>(METALPP_SEL(stringByAppendingString_), string.get())};
         }
 
         [[nodiscard]] auto operator+(const String& string) const noexcept

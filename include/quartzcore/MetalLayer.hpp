@@ -23,7 +23,7 @@ namespace ca
 
         [[nodiscard]] auto texture() const noexcept
         {
-            return getRetained<mtl::Texture>(METALPP_SEL(texture));
+            return mtl::Texture{sendMessage<id>(METALPP_SEL(texture))};
         }
 
         [[nodiscard]] MetalLayer layer() const noexcept;
@@ -55,7 +55,7 @@ namespace ca
 
         [[nodiscard]] auto device() const noexcept
         {
-            return getRetained<mtl::Device>(METALPP_SEL(device));
+            return mtl::Device{sendMessage<id>(METALPP_SEL(device))};
         }
 
         void setDevice(const mtl::Device& device) noexcept
@@ -95,7 +95,7 @@ namespace ca
 
         auto nextDrawable() noexcept
         {
-            return getRetained<MetalDrawable>(METALPP_SEL(nextDrawable));
+            return MetalDrawable{sendMessage<id>(METALPP_SEL(nextDrawable))};
         }
 
         [[nodiscard]] auto presentsWithTransaction() const noexcept
@@ -111,7 +111,7 @@ namespace ca
 
     [[nodiscard]] inline MetalLayer MetalDrawable::layer() const noexcept
     {
-        return getRetained<MetalLayer>(METALPP_SEL(layer));
+        return MetalLayer{sendMessage<id>(METALPP_SEL(layer))};
     }
 }
 

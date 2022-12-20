@@ -164,7 +164,7 @@ namespace ca
 
         [[nodiscard]] auto minificationFilter() const noexcept
         {
-            return getRetained<LayerContentsFilter>(METALPP_SEL(minificationFilter));
+            return LayerContentsFilter{sendMessage<id>(METALPP_SEL(minificationFilter))};
         }
 
         void setMinificationFilter(const LayerContentsFilter& minificationFilter) noexcept
@@ -174,7 +174,7 @@ namespace ca
 
         [[nodiscard]] auto magnificationFilter() const noexcept
         {
-            return getRetained<LayerContentsFilter>(METALPP_SEL(magnificationFilter));
+            return LayerContentsFilter{sendMessage<id>(METALPP_SEL(magnificationFilter))};
         }
 
         void setMagnificationFilter(const LayerContentsFilter& magnificationFilter) noexcept

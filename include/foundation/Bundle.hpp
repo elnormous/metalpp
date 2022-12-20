@@ -41,17 +41,17 @@ namespace ns
 
         [[nodiscard]] String pathForResource(const String& name, const String& ext) const noexcept
         {
-            return getRetained<String>(METALPP_SEL(pathForResource_ofType_), name.get(), ext.get());
+            return String{sendMessage<id>(METALPP_SEL(pathForResource_ofType_), name.get(), ext.get())};
         }
 
         [[nodiscard]] String pathForResource(const String& name, const String& ext, const String& subpath) const noexcept
         {
-            return getRetained<String>(METALPP_SEL(pathForResource_ofType_inDirectory_), name.get(), ext.get(), subpath.get());
+            return String{sendMessage<id>(METALPP_SEL(pathForResource_ofType_inDirectory_), name.get(), ext.get(), subpath.get())};
         }
 
         [[nodiscard]] Dictionary<String, Object> infoDictionary() const noexcept
         {
-            return getRetained<Dictionary<String, Object>>(METALPP_SEL(infoDictionary));
+            return Dictionary<String, Object>{sendMessage<id>(METALPP_SEL(infoDictionary))};
         }
     };
 }

@@ -93,7 +93,7 @@ namespace mtl
 
         [[nodiscard]] auto texture() const noexcept
         {
-            return getRetained<Texture>(METALPP_SEL(texture));
+            return Texture{sendMessage<id>(METALPP_SEL(texture))};
         }
 
         void setTexture(const Texture& texture) noexcept
@@ -133,7 +133,7 @@ namespace mtl
 
         [[nodiscard]] auto resolveTexture() const noexcept
         {
-            return getRetained<Texture>(METALPP_SEL(resolveTexture));
+            return Texture{sendMessage<id>(METALPP_SEL(resolveTexture))};
         }
 
         void setResolveTexture(const Texture& resolveTexture) noexcept
@@ -328,7 +328,7 @@ namespace mtl
         
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {
-            return getRetained<RenderPassColorAttachmentDescriptor>(METALPP_SEL(objectAtIndexedSubscript_), index);
+            return RenderPassColorAttachmentDescriptor{sendMessage<id>(METALPP_SEL(objectAtIndexedSubscript_), index)};
         }
 
         void setObject(const RenderPassColorAttachmentDescriptor& derscriptor) noexcept
@@ -358,17 +358,17 @@ namespace mtl
 
         [[nodiscard]] auto colorAttachments() const noexcept
         {
-            return getRetained<RenderPassColorAttachmentDescriptorArray>(METALPP_SEL(colorAttachments));
+            return RenderPassColorAttachmentDescriptorArray{sendMessage<id>(METALPP_SEL(colorAttachments))};
         }
 
         [[nodiscard]] auto depthAttachment() const noexcept
         {
-            return getRetained<RenderPassDepthAttachmentDescriptor>(METALPP_SEL(depthAttachment));
+            return RenderPassDepthAttachmentDescriptor{sendMessage<id>(METALPP_SEL(depthAttachment))};
         }
 
         [[nodiscard]] auto stencilAttachment() const noexcept
         {
-            return getRetained<RenderPassStencilAttachmentDescriptor>(METALPP_SEL(stencilAttachment));
+            return RenderPassStencilAttachmentDescriptor{sendMessage<id>(METALPP_SEL(stencilAttachment))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

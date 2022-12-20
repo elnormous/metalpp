@@ -44,7 +44,7 @@ namespace ns
         template<class T = Type>
         [[nodiscard]] auto objectAtIndex(const UInteger index) const noexcept
         {
-            return getRetained<T>(METALPP_SEL(objectAtIndex_), index);
+            return T{sendMessage<id>(METALPP_SEL(objectAtIndex_), index)};
         }
 
         [[nodiscard]] auto count() const noexcept
