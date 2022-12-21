@@ -504,8 +504,8 @@ TEST_CASE("Texture")
 
     textureDescriptor.setMipmapLevelCount(20);
     CHECK(textureDescriptor.mipmapLevelCount() == 20);
-    textureDescriptor.setMipmapLevelCount(1);
-    CHECK(textureDescriptor.mipmapLevelCount() == 1);
+    textureDescriptor.setMipmapLevelCount(2);
+    CHECK(textureDescriptor.mipmapLevelCount() == 2);
 
     textureDescriptor.setSampleCount(4);
     CHECK(textureDescriptor.sampleCount() == 4);
@@ -543,11 +543,21 @@ TEST_CASE("Texture")
     CHECK(texture.width() == 1024);
     CHECK(texture.height() == 768);
     CHECK(texture.depth() == 1);
-    CHECK(texture.mipmapLevelCount() == 1);
+    CHECK(texture.mipmapLevelCount() == 2);
     CHECK(texture.sampleCount() == 1);
     CHECK(texture.arrayLength() == 1);
     CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
     CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
+
+    std::uint8_t level0[] = {
+        0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x00U, 0x00U, 0x00U, 0xFFU,
+        0x00U, 0x00U, 0x00U, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU
+    };
+    std::uint8_t level1[] = {
+        0xFFU, 0xFFU, 0xFFU, 0xFFU
+    };
+    texture.replaceRegion(mtl::Region{0, 0, 0, 2, 2, 1}, 0, level0, 8);
+    texture.replaceRegion(mtl::Region{0, 0, 0, 1, 1, 1}, 1, level1, 4);
 }
 
 TEST_CASE("Sampler descriptor")

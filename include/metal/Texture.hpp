@@ -5,6 +5,7 @@
 #include "../objc/Private.hpp"
 #include "PixelFormat.hpp"
 #include "Resource.hpp"
+#include "Types.hpp"
 
 namespace mtl
 {
@@ -263,6 +264,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(arrayLength, "arrayLength");
         METALPP_PRIVATE_SEL(usage, "usage");
         METALPP_PRIVATE_SEL(compressionType, "compressionType");
+        METALPP_PRIVATE_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_, "replaceRegion:mipmapLevel:withBytes:bytesPerRow:");
 
         using Resource::Resource;
 
@@ -316,6 +318,15 @@ namespace mtl
         [[nodiscard]] auto compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
             return sendMessage<TextureCompressionType>(METALPP_SEL(compressionType));
+        }
+
+        void replaceRegion(const Region& region,
+                           const ns::UInteger level,
+                           const void* pixelBytes,
+                           const ns::UInteger bytesPerRow) noexcept
+        {
+
+            return sendMessage(METALPP_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_), region, level, pixelBytes, bytesPerRow);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

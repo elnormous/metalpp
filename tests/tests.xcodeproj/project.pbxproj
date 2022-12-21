@@ -109,6 +109,7 @@
 		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
 		30BD2DB82952687000DED449 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		30BD2DBB2952721700DED449 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
+		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +174,7 @@
 				309010E5292B7833002D121D /* Sampler.hpp */,
 				309010DF292B7833002D121D /* StageInputOutputDescriptor.hpp */,
 				309010E2292B7833002D121D /* Texture.hpp */,
+				30BD2DC329535A9700DED449 /* Types.hpp */,
 				309010E7292B7833002D121D /* VertexDescriptor.hpp */,
 			);
 			path = metal;

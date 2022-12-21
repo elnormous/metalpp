@@ -10,7 +10,7 @@ namespace cg
     struct Point final
     {
         Point() noexcept = default;
-        Point(Float px, Float py) noexcept: x{px}, y{py} {}
+        Point(const Float px, const Float py) noexcept: x{px}, y{py} {}
 
         [[nodiscard]] bool operator==(const Point& other) const noexcept
         {
@@ -29,7 +29,7 @@ namespace cg
     struct Size final
     {
         Size() noexcept = default;
-        Size(Float w, Float h) noexcept: width{w}, height{h} {}
+        Size(const Float w, const Float h) noexcept: width{w}, height{h} {}
 
         [[nodiscard]] bool operator==(const Size& other) const noexcept
         {
@@ -48,7 +48,7 @@ namespace cg
     struct Vector final
     {
         Vector() noexcept = default;
-        Vector(Float x, Float y) noexcept: dx{x}, dy{y} {}
+        Vector(const Float x, const Float y) noexcept: dx{x}, dy{y} {}
 
         [[nodiscard]] bool operator==(const Vector& other) const noexcept
         {
@@ -67,8 +67,8 @@ namespace cg
     struct Rect final
     {
         Rect() noexcept = default;
-        Rect(Float x, Float y, Float w, Float h) noexcept: origin{x, y}, size{w, h} {}
-        Rect(Point o, Size s) noexcept: origin{o}, size{s} {}
+        Rect(const Float x, const Float y, const Float w, const Float h) noexcept: origin{x, y}, size{w, h} {}
+        Rect(const Point o, const Size s) noexcept: origin{o}, size{s} {}
 
         [[nodiscard]] bool operator==(const Rect& other) const noexcept
         {
