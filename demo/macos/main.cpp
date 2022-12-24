@@ -1,4 +1,6 @@
+#include <fstream>
 #include <iostream>
+#include <type_traits>
 #include <simd/simd.h>
 #include "appkit/Application.hpp"
 #include "appkit/Menu.hpp"
@@ -12,6 +14,20 @@
 #include "metal/Metal.hpp"
 #include "objc/Class.hpp"
 #include "quartzcore/MetalLayer.hpp"
+
+template<typename T>
+std::enable_if_t<std::is_unsigned_v<T>, T> readUint(std::istream& stream)
+{
+    std::uint8_t data[sizeof(T)];
+    stream.read(reinterpret_cast<char*>(data), sizeof(T));
+
+    T result = T(0);
+
+    for (std::size_t i = 0; i < sizeof(T); ++i)
+        result |= static_cast<T>(static_cast<std::uint8_t>(data[i]) << ((sizeof(T) - i - 1) * 8));
+
+    return result;
+}
 
 struct Uniforms
 {
@@ -223,6 +239,41 @@ public:
         uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
+
+        const auto bundle = ns::Bundle::mainBundle();
+        const auto diffuseTexturePath = bundle.pathForResource("wall_color", "tex");
+
+        std::ifstream textureFile{diffuseTexturePath.cString(), std::ios::binary};
+        const auto mipmapCount = readUint<std::uint8_t>(textureFile);
+        auto width = readUint<std::uint32_t>(textureFile);
+        auto height = readUint<std::uint32_t>(textureFile);
+
+        mtl::TextureDescriptor textureDescriptor;
+        textureDescriptor.setWidth(static_cast<ns::UInteger>(width));
+        textureDescriptor.setHeight(static_cast<ns::UInteger>(height));
+        textureDescriptor.setPixelFormat(mtl::PixelFormat::RGBA8Unorm);
+        textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+        textureDescriptor.setMipmapLevelCount(mipmapCount);
+
+        auto texture = device.newTexture(textureDescriptor);
+
+        std::unique_ptr<char[]> pixelBytes{new char[width * height * 4]};
+
+        for (std::uint32_t i = 0; i < mipmapCount; ++i)
+        {
+            if (i != 0)
+            {
+                width = readUint<std::uint32_t>(textureFile);
+                height = readUint<std::uint32_t>(textureFile);
+            }
+
+            textureFile.read(pixelBytes.get(), width * height * 4);
+
+            texture.replaceRegion(mtl::Region{0, 0, 0, width, height, 1},
+                                  i,
+                                  pixelBytes.get(),
+                                  width * 4);
+        }
 
         auto drawable = metalLayer.nextDrawable();
 
