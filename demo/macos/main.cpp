@@ -15,18 +15,58 @@
 #include "objc/Class.hpp"
 #include "quartzcore/MetalLayer.hpp"
 
-template<typename T>
-std::enable_if_t<std::is_unsigned_v<T>, T> readUint(std::istream& stream)
+namespace
 {
-    std::uint8_t data[sizeof(T)];
-    stream.read(reinterpret_cast<char*>(data), sizeof(T));
+    template<typename T>
+    std::enable_if_t<std::is_unsigned_v<T>, T> readUint(std::istream& stream)
+    {
+        std::uint8_t data[sizeof(T)];
+        stream.read(reinterpret_cast<char*>(data), sizeof(T));
 
-    T result = T(0);
+        T result = T(0);
 
-    for (std::size_t i = 0; i < sizeof(T); ++i)
-        result |= static_cast<T>(static_cast<std::uint8_t>(data[i]) << ((sizeof(T) - i - 1) * 8));
+        for (std::size_t i = 0; i < sizeof(T); ++i)
+            result |= static_cast<T>(static_cast<std::uint8_t>(data[i]) << ((sizeof(T) - i - 1) * 8));
 
-    return result;
+        return result;
+    }
+
+    mtl::Texture loadTexture(const ns::String& filename, mtl::Device& device)
+    {
+        std::ifstream textureFile{filename.cString(), std::ios::binary};
+        const auto mipmapCount = readUint<std::uint8_t>(textureFile);
+        auto width = readUint<std::uint32_t>(textureFile);
+        auto height = readUint<std::uint32_t>(textureFile);
+
+        mtl::TextureDescriptor textureDescriptor;
+        textureDescriptor.setWidth(static_cast<ns::UInteger>(width));
+        textureDescriptor.setHeight(static_cast<ns::UInteger>(height));
+        textureDescriptor.setPixelFormat(mtl::PixelFormat::RGBA8Unorm);
+        textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+        textureDescriptor.setMipmapLevelCount(mipmapCount);
+
+        auto texture = device.newTexture(textureDescriptor);
+
+        std::unique_ptr<char[]> pixelBytes{new char[width * height * 4]};
+
+        for (std::uint32_t i = 0; i < mipmapCount; ++i)
+        {
+            if (i != 0)
+            {
+                width = readUint<std::uint32_t>(textureFile);
+                height = readUint<std::uint32_t>(textureFile);
+            }
+
+            textureFile.read(pixelBytes.get(), width * height * 4);
+
+            texture.replaceRegion(mtl::Region{0, 0, 0, width, height, 1},
+                                  i,
+                                  pixelBytes.get(),
+                                  width * 4);
+        }
+
+        return texture;
+    }
 }
 
 struct Uniforms
@@ -61,28 +101,32 @@ static const char* shadersSource =
 
 "typedef struct\n" \
 "{\n" \
-"    float4 position;\n" \
-"    float4 color;\n" \
+"    float4 position [[attribute(0)]];\n" \
+"    float4 color [[attribute(1)]];\n" \
+"    float2 texCoord [[attribute(2)]];\n" \
 "} VertexIn;\n" \
 
 "typedef struct {\n" \
 "    float4 position [[position]];\n" \
 "    half4  color;\n" \
+"    float2 texCoord;\n" \
 "} VertexOut;\n" \
 
-"vertex VertexOut vertex_function(const device VertexIn *vertices [[buffer(0)]],\n" \
-"                                 constant Uniforms &uniforms [[buffer(1)]],\n" \
-"                                 uint vid [[vertex_id]])\n" \
+"vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
+"                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
 "{\n" \
 "    VertexOut out;\n" \
-"    out.position = uniforms.rotation_matrix * vertices[vid].position;\n" \
-"    out.color = half4(vertices[vid].color);\n" \
+"    out.position = uniforms.rotation_matrix * input.position;\n" \
+"    out.color = half4(input.color);\n" \
+"    out.texCoord = input.texCoord;\n" \
 "    return out;\n" \
 "}\n" \
 
-"fragment half4 fragment_function(VertexOut in [[stage_in]])\n" \
+"fragment half4 fragment_function(VertexOut in [[stage_in]],\n" \
+"                                 texture2d<float> tex2D [[texture(0)]],\n" \
+"                                 sampler sampler2D [[sampler(0)]])\n" \
 "{\n" \
-"    return in.color;\n" \
+"    return in.color * half4(tex2D.sample(sampler2D, in.texCoord));\n" \
 "}";
 
 class Application final
@@ -191,7 +235,7 @@ public:
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
         mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-        vertexLayout0.setStride(32);
+        vertexLayout0.setStride(40);
         vertexLayout0.setStepRate(1);
         vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
 
@@ -209,6 +253,12 @@ public:
         vertexAttribute1.setOffset(16);
         vertexAttribute1.setBufferIndex(0);
 
+        // texCoord
+        mtl::VertexAttributeDescriptor vertexAttribute2 = vertexAttributes[2];
+        vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
+        vertexAttribute2.setOffset(32);
+        vertexAttribute2.setBufferIndex(0);
+
         mtl::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.setLabel("renderPipeline");
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
@@ -222,14 +272,14 @@ public:
 
         auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
-        static std::uint16_t indexData[] = { 0, 1, 2, 3, 0, 2 };
+        static std::uint16_t indexData[] = {0, 1, 2, 3, 0, 2};
         const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         static float quadVertexData[] = {
-             0.5, -0.5, 0.0, 1.0,     1.0, 0.0, 0.0, 1.0,
-            -0.5, -0.5, 0.0, 1.0,     0.0, 1.0, 0.0, 1.0,
-            -0.5,  0.5, 0.0, 1.0,     0.0, 0.0, 1.0, 1.0,
-             0.5,  0.5, 0.0, 1.0,     1.0, 1.0, 0.0, 1.0,
+             0.5F, -0.5F, 0.0F, 1.0F,    1.0F, 0.0F, 0.0F, 1.0F,    1.0f, 0.0F,
+            -0.5F, -0.5F, 0.0F, 1.0F,    0.0F, 1.0F, 0.0F, 1.0F,    0.0f, 0.0F,
+            -0.5F,  0.5F, 0.0F, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 0.0F, 1.0F,    1.0f, 1.0F,
         };
 
         const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
@@ -243,37 +293,17 @@ public:
         const auto bundle = ns::Bundle::mainBundle();
         const auto diffuseTexturePath = bundle.pathForResource("wall_color", "tex");
 
-        std::ifstream textureFile{diffuseTexturePath.cString(), std::ios::binary};
-        const auto mipmapCount = readUint<std::uint8_t>(textureFile);
-        auto width = readUint<std::uint32_t>(textureFile);
-        auto height = readUint<std::uint32_t>(textureFile);
+        const auto diffuseTexture = loadTexture(diffuseTexturePath, device);
 
-        mtl::TextureDescriptor textureDescriptor;
-        textureDescriptor.setWidth(static_cast<ns::UInteger>(width));
-        textureDescriptor.setHeight(static_cast<ns::UInteger>(height));
-        textureDescriptor.setPixelFormat(mtl::PixelFormat::RGBA8Unorm);
-        textureDescriptor.setTextureType(mtl::TextureType::Type2D);
-        textureDescriptor.setMipmapLevelCount(mipmapCount);
+        mtl::SamplerDescriptor samplerDescriptor;
+        samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
+        samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
+        samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
+        samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
 
-        auto texture = device.newTexture(textureDescriptor);
-
-        std::unique_ptr<char[]> pixelBytes{new char[width * height * 4]};
-
-        for (std::uint32_t i = 0; i < mipmapCount; ++i)
-        {
-            if (i != 0)
-            {
-                width = readUint<std::uint32_t>(textureFile);
-                height = readUint<std::uint32_t>(textureFile);
-            }
-
-            textureFile.read(pixelBytes.get(), width * height * 4);
-
-            texture.replaceRegion(mtl::Region{0, 0, 0, width, height, 1},
-                                  i,
-                                  pixelBytes.get(),
-                                  width * 4);
-        }
+        const auto sampler = device.newSamplerState(samplerDescriptor);
 
         auto drawable = metalLayer.nextDrawable();
 
@@ -287,6 +317,8 @@ public:
         auto commandBuffer = commandQueue.commandBuffer();
 
         auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
+        renderCommand.setFragmentTexture(diffuseTexture, 0);
+        renderCommand.setFragmentSamplerState(sampler, 0);
         renderCommand.setRenderPipelineState(pipelineState);
         renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
         renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
