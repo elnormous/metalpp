@@ -102,7 +102,7 @@ static const char* shadersSource =
 "typedef struct\n" \
 "{\n" \
 "    float4 position [[attribute(0)]];\n" \
-"    float4 color [[attribute(1)]];\n" \
+"    half4 color [[attribute(1)]];\n" \
 "    float2 texCoord [[attribute(2)]];\n" \
 "} VertexIn;\n" \
 
