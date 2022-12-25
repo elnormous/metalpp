@@ -123,10 +123,12 @@ static const char* shadersSource =
 "}\n" \
 
 "fragment half4 fragment_function(VertexOut in [[stage_in]],\n" \
-"                                 texture2d<float> tex2D [[texture(0)]],\n" \
-"                                 sampler sampler2D [[sampler(0)]])\n" \
+"                                 texture2d<float> diffuseTexture [[texture(0)]],\n" \
+"                                 sampler diffuseSampler [[sampler(0)]],\n" \
+"                                 texture2d<float> normalTexture [[texture(1)]],\n" \
+"                                 sampler normalSampler [[sampler(1)]])\n" \
 "{\n" \
-"    return in.color * half4(tex2D.sample(sampler2D, in.texCoord));\n" \
+"    return in.color * half4(diffuseTexture.sample(diffuseSampler, in.texCoord)) * half4(normalTexture.sample(normalSampler, in.texCoord));\n" \
 "}";
 
 class Application final
@@ -296,15 +298,23 @@ public:
         const auto diffuseTexture = loadTexture(diffuseTexturePath, device);
         const auto normalTexture = loadTexture(normalTexturePath, device);
 
-        mtl::SamplerDescriptor samplerDescriptor;
-        samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
-        samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
-        samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
-        samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
-        samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
-        samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        mtl::SamplerDescriptor diffuseSamplerDescriptor;
+        diffuseSamplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
+        diffuseSamplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
+        diffuseSamplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
+        diffuseSamplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        diffuseSamplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        diffuseSamplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        const auto diffuseSampler = device.newSamplerState(diffuseSamplerDescriptor);
 
-        const auto sampler = device.newSamplerState(samplerDescriptor);
+        mtl::SamplerDescriptor normalSamplerDescriptor;
+        normalSamplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
+        normalSamplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
+        normalSamplerDescriptor.setMipFilter(mtl::SamplerMipFilter::NotMipmapped);
+        normalSamplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        normalSamplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        normalSamplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
+        const auto normalSampler = device.newSamplerState(normalSamplerDescriptor);
 
         auto drawable = metalLayer.nextDrawable();
 
@@ -319,7 +329,9 @@ public:
 
         auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
         renderCommand.setFragmentTexture(diffuseTexture, 0);
-        renderCommand.setFragmentSamplerState(sampler, 0);
+        renderCommand.setFragmentSamplerState(diffuseSampler, 0);
+        renderCommand.setFragmentTexture(normalTexture, 1);
+        renderCommand.setFragmentSamplerState(normalSampler, 1);
         renderCommand.setRenderPipelineState(pipelineState);
         renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
         renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
