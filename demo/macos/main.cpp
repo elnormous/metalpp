@@ -272,16 +272,15 @@ public:
 
         auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
-        static std::uint16_t indexData[] = {0, 1, 2, 3, 0, 2};
+        static const std::uint16_t indexData[] = {0, 1, 2, 3, 0, 2};
         const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
-        static float quadVertexData[] = {
-             0.5F, -0.5F, 0.0F, 1.0F,    1.0F, 0.0F, 0.0F, 1.0F,    1.0f, 0.0F,
-            -0.5F, -0.5F, 0.0F, 1.0F,    0.0F, 1.0F, 0.0F, 1.0F,    0.0f, 0.0F,
-            -0.5F,  0.5F, 0.0F, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 0.0F, 1.0F,    1.0f, 1.0F,
+        static const float quadVertexData[] = {
+             0.5F, -0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+            -0.5F, -0.5F, 0.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+            -0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
         };
-
         const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
@@ -292,8 +291,10 @@ public:
 
         const auto bundle = ns::Bundle::mainBundle();
         const auto diffuseTexturePath = bundle.pathForResource("wall_color", "tex");
+        const auto normalTexturePath = bundle.pathForResource("wall_n", "tex");
 
         const auto diffuseTexture = loadTexture(diffuseTexturePath, device);
+        const auto normalTexture = loadTexture(normalTexturePath, device);
 
         mtl::SamplerDescriptor samplerDescriptor;
         samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
