@@ -40,7 +40,7 @@ TEST_CASE("DisplayLink")
     CHECK(displayLink.retainCount());
 
     Flag flag;
-    displayLink.setCallback(callback, &flag);
+    displayLink.setOutputCallback(callback, &flag);
     displayLink.start();
 
     std::unique_lock lock{flag.mutex};

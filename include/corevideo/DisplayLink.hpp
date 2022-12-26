@@ -74,7 +74,7 @@ namespace cv
             return ref ? CFGetRetainCount(ref) : 0;
         }
         
-        void setCallback(const CVDisplayLinkOutputCallback callback, void* userInfo)
+        void setOutputCallback(const CVDisplayLinkOutputCallback callback, void* userInfo)
         {
             if (const auto result = CVDisplayLinkSetOutputCallback(ref, callback, userInfo); result != kCVReturnSuccess)
                 throw std::system_error{result, errorCategory, "Failed to set output callback for the display link"};
