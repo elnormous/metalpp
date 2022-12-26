@@ -13,6 +13,7 @@
 		3023335E29382657003114B4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3023335D29382657003114B4 /* Cocoa.framework */; };
 		3035B97629567DB90076F163 /* wall_color.tex in Resources */ = {isa = PBXBuildFile; fileRef = 3035B97529567DB90076F163 /* wall_color.tex */; };
 		3035B978295680320076F163 /* wall_n.tex in Resources */ = {isa = PBXBuildFile; fileRef = 3035B977295680320076F163 /* wall_n.tex */; };
+		3035B980295A3EC00076F163 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3035B97F295A3EC00076F163 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		3023335D29382657003114B4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3035B97529567DB90076F163 /* wall_color.tex */ = {isa = PBXFileReference; lastKnownFileType = file; path = wall_color.tex; sourceTree = "<group>"; };
 		3035B977295680320076F163 /* wall_n.tex */ = {isa = PBXFileReference; lastKnownFileType = file; path = wall_n.tex; sourceTree = "<group>"; };
+		3035B97F295A3EC00076F163 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3023335E29382657003114B4 /* Cocoa.framework in Frameworks */,
+				3035B980295A3EC00076F163 /* CoreVideo.framework in Frameworks */,
 				30233358293825E6003114B4 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				3023335D29382657003114B4 /* Cocoa.framework */,
+				3035B97F295A3EC00076F163 /* CoreVideo.framework */,
 				30233357293825E6003114B4 /* Metal.framework */,
 			);
 			name = Frameworks;

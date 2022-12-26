@@ -67,6 +67,13 @@ namespace
 
         return texture;
     }
+
+    CVReturn renderCallback(CVDisplayLinkRef,
+                            const CVTimeStamp*,
+                            const CVTimeStamp*,
+                            CVOptionFlags,
+                            CVOptionFlags*,
+                            void* displayLinkContext);
 }
 
 struct Uniforms
@@ -344,25 +351,13 @@ public:
         //commandBuffer.presentDrawable(drawable);
         drawable.present();
 
-//        CGDirectDisplayID displayId = [[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue];
-//        CVDisplayLinkRef displayLink = NULL;
-//        const CVReturn createResult = CVDisplayLinkCreateWithCGDisplay(displayId, &displayLink);
-//        if (createResult != kCVReturnSuccess) return 1;
-//
-//        CVReturn setOutputCallbackResult = CVDisplayLinkSetOutputCallback(displayLink, renderCallback, NULL);
-//        if (setOutputCallbackResult != kCVReturnSuccess)
-//            return 1;
-//
-//        CVReturn startResult = CVDisplayLinkStart(displayLink);
-//        if (startResult != kCVReturnSuccess)
-//            return 1;
+        displayLink.setOutputCallback(renderCallback, this);
+        displayLink.start();
     }
 
     void run()
     {
         application.run();
-
-//        CVDisplayLinkRelease(displayLink);
     }
 
     void render()
@@ -568,18 +563,23 @@ private:
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    //cv::DisplayLink displayLink;
+    cv::DisplayLink displayLink{cv::mainDisplayID()};
 };
 
-//static CVReturn renderCallback(CVDisplayLinkRef,
-//                               const CVTimeStamp*,
-//                               const CVTimeStamp*,
-//                               CVOptionFlags,
-//                               CVOptionFlags*,
-//                               void* userInfo)
-//{
-//    return kCVReturnSuccess;
-//}
+namespace
+{
+    CVReturn renderCallback(CVDisplayLinkRef,
+                            const CVTimeStamp*,
+                            const CVTimeStamp*,
+                            CVOptionFlags,
+                            CVOptionFlags*,
+                            void* userInfo)
+    {
+        auto application = static_cast<Application*>(userInfo);
+        application->render();
+        return kCVReturnSuccess;
+    }
+}
 
 int main(int argc, const char* argv[])
 {
