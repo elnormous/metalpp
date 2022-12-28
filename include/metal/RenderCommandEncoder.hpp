@@ -106,6 +106,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, "drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
 
         using CommandEncoder::CommandEncoder;
+        using CommandEncoder::operator=;
 
         RenderCommandEncoder() = delete;
 

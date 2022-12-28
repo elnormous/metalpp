@@ -24,6 +24,7 @@ namespace ns
         METALPP_PRIVATE_SEL(count, "count");
         
         using Object::Object;
+        using Object::operator=;
 
         Dictionary() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}

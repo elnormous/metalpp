@@ -18,6 +18,7 @@ namespace ca
         METALPP_PRIVATE_SEL(layer, "layer");
 
         using Drawable::Drawable;
+        using Drawable::operator=;
 
         MetalDrawable() = delete;
 
@@ -47,6 +48,7 @@ namespace ca
         METALPP_PRIVATE_SEL(setPresentsWithTransaction_, "setPresentsWithTransaction:");
 
         using Layer::Layer;
+        using Layer::operator=;
         
         MetalLayer() noexcept:
             Layer{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}

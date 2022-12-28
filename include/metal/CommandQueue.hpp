@@ -19,6 +19,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(commandBuffer, "commandBuffer");
 
         using Object::Object;
+        using Object::operator=;
 
         CommandQueue() = delete;
 

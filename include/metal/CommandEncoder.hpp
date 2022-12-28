@@ -31,6 +31,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(endEncoding, "endEncoding");
 
         using Object::Object;
+        using Object::operator=;
 
         CommandEncoder() = delete;
 

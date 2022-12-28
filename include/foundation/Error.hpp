@@ -23,6 +23,8 @@ namespace ns
         METALPP_PRIVATE_SEL(localizedDescription, "localizedDescription");
         
         using Object::Object;
+        using Object::operator=;
+
         Error() = delete;
 
         Error(const String& domain, const Integer& code) noexcept:

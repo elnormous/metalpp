@@ -120,6 +120,7 @@ namespace ns
         METALPP_PRIVATE_SEL(keyCode, "keyCode");
 
         using Object::Object;
+        using Object::operator=;
 
         Event() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}

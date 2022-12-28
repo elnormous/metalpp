@@ -19,6 +19,7 @@ namespace ns
         METALPP_PRIVATE_SEL(frame, "frame");
 
         using Object::Object;
+        using Object::operator=;
 
         [[nodiscard]] static auto screens() noexcept
         {

@@ -73,6 +73,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(label, "label");
 
         using Object::Object;
+        using Object::operator=;
 
         DepthStencilState() = delete;
 

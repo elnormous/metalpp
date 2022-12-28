@@ -71,6 +71,13 @@ namespace ns
         }
         Object(const id p, Adopt) noexcept: ptr{p} {}
 
+        Object& operator=(std::nullptr_t) noexcept
+        {
+            sendMessage(METALPP_SEL(release));
+            ptr = nil;
+            return *this;
+        }
+
         [[nodiscard]] bool operator==(const Object& other) const noexcept
         {
             return ptr == other.ptr;

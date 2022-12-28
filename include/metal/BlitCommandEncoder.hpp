@@ -19,6 +19,7 @@ namespace mtl
     {
     public:
         using CommandEncoder::CommandEncoder;
+        using CommandEncoder::operator=;
 
         BlitCommandEncoder() = delete;
     } API_AVAILABLE(macos(10.11), ios(8.0));

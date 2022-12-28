@@ -147,6 +147,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setWriteMask_, "setWriteMask:");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPipelineColorAttachmentDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -251,6 +252,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPipelineColorAttachmentDescriptorArray() = delete;
 
@@ -369,6 +371,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(label, "label");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPipelineState() = delete;
 

@@ -125,6 +125,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
 
         using Object::Object;
+        using Object::operator=;
         
         [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {

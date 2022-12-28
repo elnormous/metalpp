@@ -28,6 +28,7 @@ namespace ns
         METALPP_PRIVATE_SEL(setServicesMenu_, "setServicesMenu:");
 
         using Object::Object;
+        using Object::operator=;
 
         [[nodiscard]] static auto sharedApplication() noexcept
         {

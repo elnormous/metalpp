@@ -96,6 +96,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
 
         using Object::Object;
+        using Object::operator=;
         
         Resource() = delete;
 

@@ -21,6 +21,7 @@ namespace ns
         METALPP_PRIVATE_SEL(infoDictionary, "infoDictionary");
         
         using Object::Object;
+        using Object::operator=;
 
         [[nodiscard]] static auto mainBundle() noexcept
         {

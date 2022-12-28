@@ -76,6 +76,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
 
         using Object::Object;
+        using Object::operator=;
         
         CommandBuffer() = delete;
 

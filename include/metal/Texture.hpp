@@ -267,6 +267,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_, "replaceRegion:mipmapLevel:withBytes:bytesPerRow:");
 
         using Resource::Resource;
+        using Resource::operator=;
 
         Texture() = delete;
 

@@ -14,6 +14,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(presentAtTime_, "presentAtTime:");
 
         using Object::Object;
+        using Object::operator=;
 
         Drawable() = delete;
 

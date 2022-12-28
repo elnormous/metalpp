@@ -125,6 +125,8 @@ namespace ns
         METALPP_PRIVATE_SEL(setIgnoresMouseEvents_, "setIgnoresMouseEvents:");
         
         using Object::Object;
+        using Object::operator=;
+        
         Window() = delete;
 
         Window(const Rect contentRect, const WindowStyleMask style, const BackingStoreType backingStoreType, bool defer) noexcept:

@@ -30,6 +30,7 @@ namespace ns
         METALPP_PRIVATE_SEL(setKeyEquivalentModifierMask_, "setKeyEquivalentModifierMask:");
 
         using Object::Object;
+        using Object::operator=;
 
         [[nodiscard]] static auto separatorItem() noexcept
         {

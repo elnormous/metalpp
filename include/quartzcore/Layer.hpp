@@ -91,6 +91,7 @@ namespace ca
     {
     public:
         using String::String;
+        using String::operator=;
 
         LayerContentsFilter() = delete;
         LayerContentsFilter(const char* name):
@@ -126,6 +127,7 @@ namespace ca
         METALPP_PRIVATE_SEL(setEdgeAntialiasingMask_, "setEdgeAntialiasingMask:");
 
         using Object::Object;
+        using Object::operator=;
 
         Layer() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}

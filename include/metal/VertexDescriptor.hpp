@@ -105,6 +105,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setStepRate_, "setStepRate:");
 
         using Object::Object;
+        using Object::operator=;
 
         VertexBufferLayoutDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -149,6 +150,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         using Object::Object;
+        using Object::operator=;
         
         VertexBufferLayoutDescriptorArray() = delete;
 
@@ -183,6 +185,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setBufferIndex_, "setBufferIndex:");
 
         using Object::Object;
+        using Object::operator=;
 
         VertexAttributeDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -227,6 +230,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         using Object::Object;
+        using Object::operator=;
         
         VertexAttributeDescriptorArray() = delete;
 
@@ -258,6 +262,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(reset, "reset");
 
         using Object::Object;
+        using Object::operator=;
 
         VertexDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}

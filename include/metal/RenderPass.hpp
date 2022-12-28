@@ -85,6 +85,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setClearColor_, "setClearColor:");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPassAttachmentDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -210,6 +211,7 @@ namespace mtl
         METALPP_PRIVATE_CLS("MTLRenderPassColorAttachmentDescriptor");
 
         using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
+        using RenderPassAttachmentDescriptor::operator=;
 
         RenderPassColorAttachmentDescriptor() noexcept:
             RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -247,6 +249,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setDepthResolveFilter_, "setDepthResolveFilter:");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPassDepthAttachmentDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -291,6 +294,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setStencilResolveFilter_, "setStencilResolveFilter:");
 
         using Object::Object;
+        using Object::operator=;
 
         RenderPassStencilAttachmentDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -325,6 +329,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setObject_atIndexedSubscript_, "setObject:atIndexedSubscript:");
 
         using Object::Object;
+        using Object::operator=;
         
         [[nodiscard]] auto object(const ns::UInteger index) const noexcept
         {

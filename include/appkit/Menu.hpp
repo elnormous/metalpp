@@ -23,6 +23,7 @@ namespace ns
         METALPP_PRIVATE_SEL(addItemWithTitle_action_keyEquivalent_, "addItemWithTitle:action:keyEquivalent:");
         
         using Object::Object;
+        using Object::operator=;
 
         Menu():
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}

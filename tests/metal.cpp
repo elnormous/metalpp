@@ -52,6 +52,8 @@ TEST_CASE("Buffer")
 
     mtl::Buffer bufferManaged = device.newBuffer(1024, mtl::ResourceOptions::StorageModeManaged);
     bufferManaged.didModifyRange(ns::Range{0, 1024});
+
+    buffer = nullptr;
 }
 
 TEST_CASE("Command queue")

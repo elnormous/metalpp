@@ -71,6 +71,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(functionConstantsDictionary, "functionConstantsDictionary");
 
         using Object::Object;
+        using Object::operator=;
         
         Function() = delete;
 
@@ -266,6 +267,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newFunctionWithName_, "newFunctionWithName:");
 
         using Object::Object;
+        using Object::operator=;
 
         Library() = delete;
 

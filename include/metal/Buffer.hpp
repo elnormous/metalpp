@@ -17,6 +17,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(gpuAddress, "gpuAddress");
 
         using Resource::Resource;
+        using Resource::operator=;
 
         Buffer() = delete;
 
