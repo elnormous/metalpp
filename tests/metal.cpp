@@ -146,6 +146,8 @@ TEST_CASE("Command buffer")
     CHECK(renderCommandEncoder.retainCount() == 2);
 
     renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
+    renderCommandEncoder.setVertexTexture(texture, 0);
+    renderCommandEncoder.setViewport(mtl::Viewport{});
     renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
     renderCommandEncoder.setFragmentTexture(texture, 0);
     renderCommandEncoder.setFragmentSamplerState(samplerState, 0);

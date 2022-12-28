@@ -41,7 +41,10 @@ namespace mtl
             return other.x != x || other.y != y || other.width != width || other.height != height;
         }
 
-        ns::UInteger x, y, width, height;
+        ns::UInteger x = 0;
+        ns::UInteger y = 0;
+        ns::UInteger width = 0;
+        ns::UInteger height = 0;
     };
 
     struct Viewport final
@@ -56,7 +59,12 @@ namespace mtl
             return other.originX != originX || other.originY != originY || other.width != width || other.height != height || other.znear != znear || other.zfar != zfar;
         }
 
-        double originX, originY, width, height, znear, zfar;
+        double originX = 0.0;
+        double originY = 0.0;
+        double width = 0.0;
+        double height = 0.0;
+        double znear = 0.0;
+        double zfar = 0.0;
     };
 
     enum class CullMode: ns::UInteger
@@ -89,6 +97,8 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(setRenderPipelineState_, "setRenderPipelineState:");
         METALPP_PRIVATE_SEL(setVertexBuffer_offset_atIndex_, "setVertexBuffer:offset:atIndex:");
+        METALPP_PRIVATE_SEL(setVertexTexture_atIndex_, "setVertexTexture:atIndex:");
+        METALPP_PRIVATE_SEL(setViewport_, "setViewport:");
         METALPP_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_, "setFragmentBuffer:offset:atIndex:");
         METALPP_PRIVATE_SEL(setFragmentTexture_atIndex_, "setFragmentTexture:atIndex:");
         METALPP_PRIVATE_SEL(setFragmentSamplerState_atIndex_, "setFragmentSamplerState:atIndex:");
@@ -110,6 +120,18 @@ namespace mtl
                         buffer.get(),
                         offset,
                         index);
+        }
+
+        void setVertexTexture(const Texture& texture, ns::UInteger index) noexcept
+        {
+            sendMessage(METALPP_SEL(setVertexTexture_atIndex_),
+                        texture.get(),
+                        index);
+        }
+
+        void setViewport(const Viewport& viewport) noexcept
+        {
+            sendMessage(METALPP_SEL(setViewport_), viewport);
         }
 
         void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index) noexcept
