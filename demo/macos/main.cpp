@@ -208,7 +208,6 @@ public:
         const cg::Float bgColor[] = {0.0, 0.0, 0.0, 0.0};
         cg::Color backgroundColor{colorSpace, bgColor};
 
-        ca::MetalLayer metalLayer;
         metalLayer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::None);
         metalLayer.setMasksToBounds(true);
         metalLayer.setBackgroundColor(backgroundColor);
@@ -279,10 +278,10 @@ public:
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
         colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
 
-        auto pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
+        pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
         static const std::uint16_t indexData[] = {0, 1, 2, 3, 0, 2};
-        const auto indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+        indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         static const float quadVertexData[] = {
              0.5F, -0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
@@ -290,20 +289,16 @@ public:
             -0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
              0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
         };
-        const auto vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+        vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
-        auto uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
-        Uniforms uniforms;
-        uniforms.rotation_matrix = rotationMatrix2d(static_cast<float>(M_PI_4));
-        auto bufferPointer = uniformBuffer.contents();
-        memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
+        uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         const auto bundle = ns::Bundle::mainBundle();
         const auto diffuseTexturePath = bundle.pathForResource("wall_color", "tex");
         const auto normalTexturePath = bundle.pathForResource("wall_n", "tex");
 
-        const auto diffuseTexture = loadTexture(diffuseTexturePath, device);
-        const auto normalTexture = loadTexture(normalTexturePath, device);
+        diffuseTexture = loadTexture(diffuseTexturePath, device);
+        normalTexture = loadTexture(normalTexturePath, device);
 
         mtl::SamplerDescriptor diffuseSamplerDescriptor;
         diffuseSamplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
@@ -312,7 +307,7 @@ public:
         diffuseSamplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         diffuseSamplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         diffuseSamplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
-        const auto diffuseSampler = device.newSamplerState(diffuseSamplerDescriptor);
+        diffuseSampler = device.newSamplerState(diffuseSamplerDescriptor);
 
         mtl::SamplerDescriptor normalSamplerDescriptor;
         normalSamplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
@@ -321,18 +316,36 @@ public:
         normalSamplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         normalSamplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         normalSamplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
-        const auto normalSampler = device.newSamplerState(normalSamplerDescriptor);
+        normalSampler = device.newSamplerState(normalSamplerDescriptor);
+
+        displayLink.setOutputCallback(renderCallback, this);
+        displayLink.start();
+    }
+
+    void run()
+    {
+        application.run();
+    }
+
+    void render()
+    {
+        auto commandQueue = device.newCommandQueue();
+        auto commandBuffer = commandQueue.commandBuffer();
 
         auto drawable = metalLayer.nextDrawable();
+
+        angle += 0.01F;
+
+        Uniforms uniforms;
+        uniforms.rotation_matrix = rotationMatrix2d(angle);
+        auto bufferPointer = uniformBuffer.contents();
+        memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
         mtl::RenderPassDescriptor renderPassDescriptor;
         renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
         renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
         renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
         renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
-
-        auto commandQueue = device.newCommandQueue();
-        auto commandBuffer = commandQueue.commandBuffer();
 
         auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
         renderCommand.setFragmentTexture(diffuseTexture, 0);
@@ -350,19 +363,6 @@ public:
 
         //commandBuffer.presentDrawable(drawable);
         drawable.present();
-
-        displayLink.setOutputCallback(renderCallback, this);
-        displayLink.start();
-    }
-
-    void run()
-    {
-        application.run();
-    }
-
-    void render()
-    {
-
     }
 private:
     void createMainMenu()
@@ -560,10 +560,26 @@ private:
     ns::Object windowDelegate;
     objc::Class<ns::View> viewClass{"View"};
 
+    ca::MetalLayer metalLayer;
+
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     cv::DisplayLink displayLink{cv::mainDisplayID()};
+
+    float angle = 0.0F;
+
+    mtl::RenderPipelineState pipelineState = nullptr;
+
+    mtl::Buffer indexBuffer = nullptr;
+    mtl::Buffer vertexBuffer = nullptr;
+    mtl::Buffer uniformBuffer = nullptr;
+
+    mtl::Texture diffuseTexture = nullptr;
+    mtl::Texture normalTexture = nullptr;
+
+    mtl::SamplerState diffuseSampler = nullptr;
+    mtl::SamplerState normalSampler = nullptr;
 };
 
 namespace
