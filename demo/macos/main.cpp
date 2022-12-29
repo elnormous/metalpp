@@ -74,82 +74,76 @@ namespace
                             CVOptionFlags,
                             CVOptionFlags*,
                             void* displayLinkContext);
+
+    matrix_float4x4 projectionMatrix() noexcept
+    {
+        matrix_float4x4 m = {
+            .columns[0] = { 1, 0, 0, 0 },
+            .columns[1] = { 0, 1.5, 0, 0 },
+            .columns[2] = { 0, 0, 1, 0 },
+            .columns[3] = { 0, 0, 0, 1 }
+        };
+        return m;
+    }
+
+    matrix_float4x4 rotationMatrix2d(const float radians) noexcept
+    {
+        const float c = std::cosf(radians);
+        const float s = std::sinf(radians);
+
+        matrix_float4x4 m = {
+            .columns[0] = {  c, s, 0, 0 },
+            .columns[1] = { -s, c, 0, 0 },
+            .columns[2] = {  0, 0, 1, 0 },
+            .columns[3] = {  0, 0, 0, 1 }
+        };
+        return m;
+    }
+
+    static const char* shadersSource =
+    "#include <metal_stdlib>\n" \
+    "#include <simd/simd.h>\n" \
+
+    "using namespace metal;\n" \
+
+    "typedef struct\n" \
+    "{\n" \
+    "    float4x4 projectionMatrix;\n" \
+    "    float4x4 modelMatrix;\n" \
+    "} Uniforms;\n" \
+
+    "typedef struct\n" \
+    "{\n" \
+    "    float4 position [[attribute(0)]];\n" \
+    "    half4 color [[attribute(1)]];\n" \
+    "    float2 texCoord [[attribute(2)]];\n" \
+    "} VertexIn;\n" \
+
+    "typedef struct {\n" \
+    "    float4 position [[position]];\n" \
+    "    half4  color;\n" \
+    "    float2 texCoord;\n" \
+    "} VertexOut;\n" \
+
+    "vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
+    "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
+    "{\n" \
+    "    VertexOut out;\n" \
+    "    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * input.position;\n" \
+    "    out.color = half4(input.color);\n" \
+    "    out.texCoord = input.texCoord;\n" \
+    "    return out;\n" \
+    "}\n" \
+
+    "fragment half4 fragment_function(VertexOut in [[stage_in]],\n" \
+    "                                 texture2d<float> diffuseTexture [[texture(0)]],\n" \
+    "                                 sampler diffuseSampler [[sampler(0)]],\n" \
+    "                                 texture2d<float> normalTexture [[texture(1)]],\n" \
+    "                                 sampler normalSampler [[sampler(1)]])\n" \
+    "{\n" \
+    "    return in.color * half4(diffuseTexture.sample(diffuseSampler, in.texCoord)) * half4(normalTexture.sample(normalSampler, in.texCoord));\n" \
+    "}";
 }
-
-struct Uniforms
-{
-    matrix_float4x4 projectionMatrix;
-    matrix_float4x4 modelMatrix;
-};
-
-static matrix_float4x4 projectionMatrix() noexcept
-{
-    matrix_float4x4 m = {
-        .columns[0] = { 1, 0, 0, 0 },
-        .columns[1] = { 0, 1.5, 0, 0 },
-        .columns[2] = { 0, 0, 1, 0 },
-        .columns[3] = { 0, 0, 0, 1 }
-    };
-    return m;
-}
-
-static matrix_float4x4 rotationMatrix2d(const float radians) noexcept
-{
-    const float c = std::cosf(radians);
-    const float s = std::sinf(radians);
-
-    matrix_float4x4 m = {
-        .columns[0] = {  c, s, 0, 0 },
-        .columns[1] = { -s, c, 0, 0 },
-        .columns[2] = {  0, 0, 1, 0 },
-        .columns[3] = {  0, 0, 0, 1 }
-    };
-    return m;
-}
-
-static const char* shadersSource =
-"#include <metal_stdlib>\n" \
-"#include <simd/simd.h>\n" \
-
-"using namespace metal;\n" \
-
-"typedef struct\n" \
-"{\n" \
-"    float4x4 projectionMatrix;\n" \
-"    float4x4 modelMatrix;\n" \
-"} Uniforms;\n" \
-
-"typedef struct\n" \
-"{\n" \
-"    float4 position [[attribute(0)]];\n" \
-"    half4 color [[attribute(1)]];\n" \
-"    float2 texCoord [[attribute(2)]];\n" \
-"} VertexIn;\n" \
-
-"typedef struct {\n" \
-"    float4 position [[position]];\n" \
-"    half4  color;\n" \
-"    float2 texCoord;\n" \
-"} VertexOut;\n" \
-
-"vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
-"                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
-"{\n" \
-"    VertexOut out;\n" \
-"    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * input.position;\n" \
-"    out.color = half4(input.color);\n" \
-"    out.texCoord = input.texCoord;\n" \
-"    return out;\n" \
-"}\n" \
-
-"fragment half4 fragment_function(VertexOut in [[stage_in]],\n" \
-"                                 texture2d<float> diffuseTexture [[texture(0)]],\n" \
-"                                 sampler diffuseSampler [[sampler(0)]],\n" \
-"                                 texture2d<float> normalTexture [[texture(1)]],\n" \
-"                                 sampler normalSampler [[sampler(1)]])\n" \
-"{\n" \
-"    return in.color * half4(diffuseTexture.sample(diffuseSampler, in.texCoord)) * half4(normalTexture.sample(normalSampler, in.texCoord));\n" \
-"}";
 
 class Application final
 {
@@ -567,6 +561,12 @@ private:
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
     }
+
+    struct Uniforms final
+    {
+        matrix_float4x4 projectionMatrix;
+        matrix_float4x4 modelMatrix;
+    };
 
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
     ns::Object appDelegate;
