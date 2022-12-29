@@ -78,10 +78,22 @@ namespace
 
 struct Uniforms
 {
-    matrix_float4x4 rotation_matrix;
+    matrix_float4x4 projectionMatrix;
+    matrix_float4x4 modelMatrix;
 };
 
-static matrix_float4x4 rotationMatrix2d(const float radians)
+static matrix_float4x4 projectionMatrix() noexcept
+{
+    matrix_float4x4 m = {
+        .columns[0] = { 1, 0, 0, 0 },
+        .columns[1] = { 0, 1.5, 0, 0 },
+        .columns[2] = { 0, 0, 1, 0 },
+        .columns[3] = { 0, 0, 0, 1 }
+    };
+    return m;
+}
+
+static matrix_float4x4 rotationMatrix2d(const float radians) noexcept
 {
     const float c = std::cosf(radians);
     const float s = std::sinf(radians);
@@ -103,7 +115,8 @@ static const char* shadersSource =
 
 "typedef struct\n" \
 "{\n" \
-"    float4x4 rotation_matrix;\n" \
+"    float4x4 projectionMatrix;\n" \
+"    float4x4 modelMatrix;\n" \
 "} Uniforms;\n" \
 
 "typedef struct\n" \
@@ -123,7 +136,7 @@ static const char* shadersSource =
 "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
 "{\n" \
 "    VertexOut out;\n" \
-"    out.position = uniforms.rotation_matrix * input.position;\n" \
+"    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * input.position;\n" \
 "    out.color = half4(input.color);\n" \
 "    out.texCoord = input.texCoord;\n" \
 "    return out;\n" \
@@ -337,7 +350,8 @@ public:
         angle += 0.01F;
 
         Uniforms uniforms;
-        uniforms.rotation_matrix = rotationMatrix2d(angle);
+        uniforms.projectionMatrix = projectionMatrix();
+        uniforms.modelMatrix = rotationMatrix2d(angle);
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
