@@ -149,10 +149,15 @@ TEST_CASE("Command buffer")
 
     renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
     renderCommandEncoder.setVertexTexture(texture, 0);
+    renderCommandEncoder.setVertexTextures({texture, texture}, ns::Range{0, 2});
+    renderCommandEncoder.setVertexSamplerState(samplerState, 0);
+    renderCommandEncoder.setVertexSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
     renderCommandEncoder.setViewport(mtl::Viewport{});
     renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
     renderCommandEncoder.setFragmentTexture(texture, 0);
+    renderCommandEncoder.setFragmentTextures({texture, texture}, ns::Range{0, 2});
     renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
+    renderCommandEncoder.setFragmentSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
 
     renderCommandEncoder.endEncoding();
 
