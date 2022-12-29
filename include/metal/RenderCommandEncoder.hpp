@@ -112,6 +112,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(setVertexSamplerState_atIndex_, "setVertexSamplerState:atIndex:");
         METALPP_PRIVATE_SEL(setVertexSamplerStates_withRange_, "setVertexSamplerStates:withRange:");
         METALPP_PRIVATE_SEL(setViewport_, "setViewport:");
+        METALPP_PRIVATE_SEL(setFrontFacingWinding_, "setFrontFacingWinding:");
+        METALPP_PRIVATE_SEL(setCullMode_, "setCullMode:");
+        METALPP_PRIVATE_SEL(setDepthClipMode_, "setDepthClipMode:");
+        METALPP_PRIVATE_SEL(setDepthBias_slopeScale_clamp_, "setDepthBias:slopeScale:clamp:");
+        METALPP_PRIVATE_SEL(setScissorRect_, "setScissorRect:");
+        METALPP_PRIVATE_SEL(setTriangleFillMode_, "setTriangleFillMode:");
         METALPP_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_, "setFragmentBuffer:offset:atIndex:");
         METALPP_PRIVATE_SEL(setFragmentTexture_atIndex_, "setFragmentTexture:atIndex:");
         METALPP_PRIVATE_SEL(setFragmentTextures_withRange_, "setFragmentTextures:withRange:");
@@ -171,6 +177,36 @@ namespace mtl
         void setViewport(const Viewport& viewport) noexcept
         {
             sendMessage(METALPP_SEL(setViewport_), viewport);
+        }
+
+        void setFrontFacingWinding(const Winding winding) noexcept
+        {
+            sendMessage(METALPP_SEL(setFrontFacingWinding_), winding);
+        }
+
+        void setCullMode(const CullMode cullMode) noexcept
+        {
+            sendMessage(METALPP_SEL(setCullMode_), cullMode);
+        }
+
+        void setDepthClipMode(const DepthClipMode depthClipMode) noexcept API_AVAILABLE(macos(10.11), ios(11.0))
+        {
+            sendMessage(METALPP_SEL(setDepthClipMode_), depthClipMode);
+        }
+
+        void setDepthBias(const float depthBias, float slopeScale, float clamp) noexcept
+        {
+            sendMessage(METALPP_SEL(setDepthBias_slopeScale_clamp_), depthBias, slopeScale, clamp);
+        }
+
+        void setScissorRect(const ScissorRect& rect) noexcept
+        {
+            sendMessage(METALPP_SEL(setScissorRect_), rect);
+        }
+
+        void setTriangleFillMode(const TriangleFillMode fillMode) noexcept
+        {
+            sendMessage(METALPP_SEL(setTriangleFillMode_), fillMode);
         }
 
         void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index) noexcept

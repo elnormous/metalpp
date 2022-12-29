@@ -153,6 +153,12 @@ TEST_CASE("Command buffer")
     renderCommandEncoder.setVertexSamplerState(samplerState, 0);
     renderCommandEncoder.setVertexSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
     renderCommandEncoder.setViewport(mtl::Viewport{});
+    renderCommandEncoder.setFrontFacingWinding(mtl::Winding::Clockwise);
+    renderCommandEncoder.setCullMode(mtl::CullMode::Front);
+    renderCommandEncoder.setDepthClipMode(mtl::DepthClipMode::Clip);
+    renderCommandEncoder.setDepthBias(10.0F, 10.0F, 10.0F);
+    renderCommandEncoder.setScissorRect(mtl::ScissorRect{0, 0, 100, 100});
+    renderCommandEncoder.setTriangleFillMode(mtl::TriangleFillMode::Lines);
     renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
     renderCommandEncoder.setFragmentTexture(texture, 0);
     renderCommandEncoder.setFragmentTextures({texture, texture}, ns::Range{0, 2});
