@@ -108,6 +108,11 @@ namespace ns
             return ptr;
         }
 
+        void* getIndexedIvars() noexcept
+        {
+            return object_getIndexedIvars(ptr);
+        }
+
         [[nodiscard]] auto getClass() const noexcept
         {
             return sendMessage<Class>(METALPP_SEL(getClass));

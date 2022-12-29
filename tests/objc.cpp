@@ -19,12 +19,21 @@ TEST_CASE("Class")
     CHECK(cls.getVersion() == 0);
     cls.setVersion(1);
     CHECK(cls.getVersion() == 1);
+    cls.reg();
 
     SEL testSelector = sel_registerName("test");
     cls.addMethod(testSelector, foo, "i@:i");
 
     auto object = cls.createInstance();
     CHECK(objc::sendMessage<int>(object, testSelector, 42) == 42);
+
+    const int extraData = -10;
+    objc::Class<ns::Object> clsWithExtraBytes{"test2", sizeof(extraData)};
+    cls.reg();
+
+    auto objectWithExtraBytes = clsWithExtraBytes.createInstance();
+    memcpy(objectWithExtraBytes.getIndexedIvars(), &extraData, sizeof(extraData));
+    CHECK(memcmp(objectWithExtraBytes.getIndexedIvars(), &extraData, sizeof(extraData)) == 0);
 }
 
 TEST_CASE("Object")

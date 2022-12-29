@@ -19,8 +19,8 @@ namespace objc
     class Class final
     {
     public:
-        Class(const char* name):
-            cls{objc_allocateClassPair(ParentType::cls, name, 0)}
+        Class(const char* name, const std::size_t extraBytes = 0):
+            cls{objc_allocateClassPair(ParentType::cls, name, extraBytes)}
         {
             if (!cls) throw ClassError("Failed to allocate class pair");
         }
