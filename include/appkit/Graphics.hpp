@@ -3,6 +3,7 @@
 
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/String.hpp"
 
 namespace ns
 {
@@ -21,6 +22,8 @@ namespace ns
         Below         = -1,
         Out           =  0
     };
+
+    using DeviceDescriptionKey = String;
 }
 
 #endif

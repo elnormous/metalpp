@@ -4,7 +4,9 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../foundation/Array.hpp"
+#include "../foundation/Dictionary.hpp"
 #include "../foundation/Geometry.hpp"
+#include "Graphics.hpp"
 
 namespace ns
 {
@@ -17,6 +19,7 @@ namespace ns
         METALPP_PRIVATE_SEL(mainScreen, "mainScreen");
         METALPP_PRIVATE_SEL(deepestScreen, "deepestScreen");
         METALPP_PRIVATE_SEL(frame, "frame");
+        METALPP_PRIVATE_SEL(deviceDescription, "deviceDescription");
 
         using Object::Object;
         using Object::operator=;
@@ -41,6 +44,11 @@ namespace ns
         [[nodiscard]] auto frame() const noexcept
         {
             return sendMessage<Rect>(METALPP_SEL(frame));
+        }
+
+        [[nodiscard]] auto deviceDescription() const noexcept
+        {
+            return Dictionary<DeviceDescriptionKey, Object>{sendMessage<id>(METALPP_SEL(deviceDescription))};
         }
     };
 }

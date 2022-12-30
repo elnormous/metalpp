@@ -122,6 +122,9 @@ TEST_CASE("Screen")
     REQUIRE(mainScreen);
     CHECK(mainScreen.retainCount());
 
+    ns::Dictionary<ns::DeviceDescriptionKey, ns::Object> deviceDescription = mainScreen.deviceDescription();
+    CHECK(deviceDescription);
+
     const ns::Rect frame = mainScreen.frame();
     CHECK(frame.size.width > 0);
     CHECK(frame.size.height > 0);
