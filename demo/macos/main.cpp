@@ -470,94 +470,94 @@ private:
 
     static void keyDown(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         std::cout << "Key down " << event.keyCode() << '\n';
     }
 
     static void keyUp(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         std::cout << "Key up " << event.keyCode() << '\n';
     }
 
     static void mouseDown(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
     }
 
     static void mouseUp(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
     }
 
     static void rightMouseDown(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Right mouse down " << location.x << ' ' << location.y << '\n';
     }
 
     static void rightMouseUp(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Right mouse up " << location.x << ' ' << location.y << '\n';
     }
 
     static void otherMouseDown(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Other mouse down " << location.x << ' ' << location.y << '\n';
     }
 
     static void otherMouseUp(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Other mouse up " << location.x << ' ' << location.y << '\n';
     }
 
     static void mouseMoved(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
     }
 
     static void mouseDragged(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
     }
 
     static void rightMouseDragged(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Right mouse drag " << location.x << ' ' << location.y << '\n';
     }
 
     static void otherMouseDragged(id self, SEL, id e)
     {
-        ns::View view{objc::sendMessage<id>(self, ns::Object::METALPP_SEL(retain))};
-        ns::Event event{objc::sendMessage<id>(e, ns::Object::METALPP_SEL(retain))};
+        ns::View view{self};
+        ns::Event event{e};
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
     }
