@@ -346,6 +346,8 @@ public:
 
     void render()
     {
+        ns::AutoreleasePool pool;
+
         auto commandQueue = device.newCommandQueue();
         auto commandBuffer = commandQueue.commandBuffer();
 
