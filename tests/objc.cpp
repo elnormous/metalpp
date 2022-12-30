@@ -17,6 +17,7 @@ TEST_CASE("Class")
     CHECK(strcmp("test", cls.getName()) == 0);
     CHECK(!cls.isMetaClass());
     CHECK(cls.getVersion() == 0);
+    cls.addIvar("var", sizeof(std::int32_t), alignof(std::int32_t), "i");
     cls.setVersion(1);
     CHECK(cls.getVersion() == 1);
     cls.reg();
@@ -26,6 +27,9 @@ TEST_CASE("Class")
 
     auto object = cls.createInstance();
     CHECK(objc::sendMessage<int>(object, testSelector, 42) == 42);
+    std::int32_t data = -100;
+    object.setInstanceVariable("var", &data);
+    CHECK(memcmp(object.getInstanceVariable("var"), &data, sizeof(data)) == 0);
 
     const int extraData = -10;
     objc::Class<ns::Object> clsWithExtraBytes{"test2", sizeof(extraData)};

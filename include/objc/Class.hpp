@@ -84,6 +84,15 @@ namespace objc
             return cls ? class_isMetaClass(cls) == YES : false;
         }
 
+        void addIvar(const char *name, std::size_t size, std::size_t minAlignment, const char *types)
+        {
+            std::uint8_t alignment = 0;
+            while (minAlignment >>= 1) ++alignment;
+
+            if (!class_addIvar(cls, name, size, alignment, types))
+                throw ClassError("Failed to add instance variable");
+        }
+
         [[nodiscard]] auto getVersion() const noexcept
         {
             return cls ? class_getVersion(cls) : 0;

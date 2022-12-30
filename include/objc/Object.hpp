@@ -108,7 +108,19 @@ namespace ns
             return ptr;
         }
 
-        void* getIndexedIvars() noexcept
+        void setInstanceVariable(const char* name, void* value) noexcept
+        {
+            object_setInstanceVariable(ptr, name, value);
+        }
+
+        [[nodiscard]] void* getInstanceVariable(const char* name) const noexcept
+        {
+            void* value;
+            object_getInstanceVariable(ptr, name, &value);
+            return value;
+        }
+
+        [[nodiscard]] void* getIndexedIvars() const noexcept
         {
             return object_getIndexedIvars(ptr);
         }
