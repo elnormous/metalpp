@@ -184,9 +184,11 @@ public:
         window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
         window.setAcceptsMouseMovedEvents(true);
 
+        windowDelegateClass.addIvar("application", sizeof(this), alignof(Application*), "^v");
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
         windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance();
+        windowDelegate.setInstanceVariable("application", this);
         window.setDelegate(windowDelegate);
 
         viewClass.addMethod(sel_registerName("isOpaque"), isOpaque, "B@:");
@@ -334,6 +336,11 @@ public:
         application.run();
     }
 
+    void windowDidResize()
+    {
+        std::cout << "Window did resize" << '\n';
+    }
+
     void render()
     {
         auto commandQueue = device.newCommandQueue();
@@ -447,9 +454,16 @@ private:
     }
 
     // WindowDelegate
-    static void windowDidResize(id, SEL, id notification)
+    static void windowDidResize(id self, SEL, id)
     {
-        std::cout << "Window did resize " << notification << '\n';
+        ns::Object windowDelegate{self};
+
+        void* applicationVariable = windowDelegate.getInstanceVariable("application");
+
+        Application* application;
+        std::memcpy(&application, &applicationVariable, sizeof(Application*));
+
+        application->windowDidResize();
     }
 
     // View
