@@ -213,6 +213,7 @@ public:
         viewClass.reg();
 
         auto view = viewClass.createInstance();
+        std::memcpy(view.getIndexedIvars(), thisPointer, sizeof(thisPointer));
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
 
@@ -344,6 +345,66 @@ public:
         std::cout << "Window did resize" << '\n';
     }
 
+    void keyDown(unsigned short keyCode)
+    {
+        std::cout << "Key down " << keyCode << '\n';
+    }
+
+    void keyUp(unsigned short keyCode)
+    {
+        std::cout << "Key up " << keyCode << '\n';
+    }
+
+    void mouseDown(const ns::Point& location)
+    {
+        std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
+    }
+
+    void mouseUp(const ns::Point& location)
+    {
+        std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
+    }
+
+    void rightMouseDown(const ns::Point& location)
+    {
+        std::cout << "Right mouse down " << location.x << ' ' << location.y << '\n';
+    }
+
+    void rightMouseUp(const ns::Point& location)
+    {
+        std::cout << "Right mouse up " << location.x << ' ' << location.y << '\n';
+    }
+
+    void otherMouseDown(const ns::Point& location)
+    {
+        std::cout << "Other mouse down " << location.x << ' ' << location.y << '\n';
+    }
+
+    void otherMouseUp(const ns::Point& location)
+    {
+        std::cout << "Other mouse up " << location.x << ' ' << location.y << '\n';
+    }
+
+    void mouseMoved(const ns::Point& location)
+    {
+        std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
+    }
+
+    void mouseDragged(const ns::Point& location)
+    {
+        std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
+    }
+
+    void rightMouseDragged(const ns::Point& location)
+    {
+        std::cout << "Right mouse drag " << location.x << ' ' << location.y << '\n';
+    }
+
+    void otherMouseDragged(const ns::Point& location)
+    {
+        std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
+    }
+
     void render()
     {
         ns::AutoreleasePool pool;
@@ -462,7 +523,6 @@ private:
     static void windowDidResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-
         Application* application;
         std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
 
@@ -489,94 +549,118 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        std::cout << "Key down " << event.keyCode() << '\n';
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        application->keyDown(event.keyCode());
     }
 
     static void keyUp(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
-        std::cout << "Key up " << event.keyCode() << '\n';
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        application->keyUp(event.keyCode());
     }
 
     static void mouseDown(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Mouse down " << location.x << ' ' << location.y << '\n';
+        application->mouseDown(location);
     }
 
     static void mouseUp(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Mouse up " << location.x << ' ' << location.y << '\n';
+        application->mouseUp(location);
     }
 
     static void rightMouseDown(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Right mouse down " << location.x << ' ' << location.y << '\n';
+        application->rightMouseDown(location);
     }
 
     static void rightMouseUp(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Right mouse up " << location.x << ' ' << location.y << '\n';
+        application->rightMouseUp(location);
     }
 
     static void otherMouseDown(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Other mouse down " << location.x << ' ' << location.y << '\n';
+        application->otherMouseDown(location);
     }
 
     static void otherMouseUp(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Other mouse up " << location.x << ' ' << location.y << '\n';
+        application->otherMouseUp(location);
     }
 
     static void mouseMoved(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Mouse move " << location.x << ' ' << location.y << '\n';
+        application->mouseMoved(location);
     }
 
     static void mouseDragged(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Mouse drag " << location.x << ' ' << location.y << '\n';
+        application->mouseDragged(location);
     }
 
     static void rightMouseDragged(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Right mouse drag " << location.x << ' ' << location.y << '\n';
+        application->rightMouseDragged(location);
     }
 
     static void otherMouseDragged(id self, SEL, id e)
     {
         ns::View view{self};
         ns::Event event{e};
+        Application* application;
+        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
-        std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
+        application->otherMouseDragged(location);
     }
 
     struct Uniforms final
