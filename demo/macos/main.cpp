@@ -150,6 +150,8 @@ class Application final
 public:
     Application()
     {
+        void* thisPointer = this;
+
         appDelegateClass.addMethod(sel_registerName("applicationWillTerminate:"),
                                    applicationWillTerminate,
                                    "v@:@");
@@ -158,6 +160,7 @@ public:
                                    "b@:@");
         appDelegateClass.reg();
         appDelegate = appDelegateClass.createInstance();
+        std::memcpy(appDelegate.getIndexedIvars(), thisPointer, sizeof(thisPointer));
 
         application.activateIgnoringOtherApps(true);
         application.setDelegate(appDelegate);
@@ -178,17 +181,17 @@ public:
         };
 
         ns::Window window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
+        std::memcpy(window.getIndexedIvars(), thisPointer, sizeof(thisPointer));
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
         window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
         window.setAcceptsMouseMovedEvents(true);
 
-        windowDelegateClass.addIvar("application", sizeof(this), alignof(Application*), "^v");
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
         windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance();
-        windowDelegate.setInstanceVariable("application", this);
+        std::memcpy(windowDelegate.getIndexedIvars(), thisPointer, sizeof(thisPointer));
         window.setDelegate(windowDelegate);
 
         viewClass.addMethod(sel_registerName("isOpaque"), isOpaque, "B@:");
@@ -458,10 +461,8 @@ private:
     {
         ns::Object windowDelegate{self};
 
-        void* applicationVariable = windowDelegate.getInstanceVariable("application");
-
         Application* application;
-        std::memcpy(&application, &applicationVariable, sizeof(Application*));
+        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
 
         application->windowDidResize();
     }
@@ -582,11 +583,11 @@ private:
         matrix_float4x4 modelMatrix;
     };
 
-    objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
+    objc::Class<ns::Object> appDelegateClass{"AppDelegate", sizeof(Application*)};
     ns::Object appDelegate;
-    objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
+    objc::Class<ns::Object> windowDelegateClass{"WindowDelegate", sizeof(Application*)};
     ns::Object windowDelegate;
-    objc::Class<ns::View> viewClass{"View"};
+    objc::Class<ns::View> viewClass{"View", sizeof(Application*)};
 
     ca::MetalLayer metalLayer;
 
