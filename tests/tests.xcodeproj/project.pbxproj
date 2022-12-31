@@ -110,6 +110,7 @@
 		30BD2DB82952687000DED449 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		30BD2DBB2952721700DED449 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
+		30CB1298295E7FEC0090DC8F /* Value.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Value.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +193,7 @@
 				3023335229382031003114B4 /* Geometry.hpp */,
 				309010F4292B7833002D121D /* Range.hpp */,
 				309010F2292B7833002D121D /* String.hpp */,
+				30CB1298295E7FEC0090DC8F /* Value.hpp */,
 			);
 			path = foundation;
 			sourceTree = "<group>";

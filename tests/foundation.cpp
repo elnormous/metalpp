@@ -6,6 +6,7 @@
 #include "foundation/Dictionary.hpp"
 #include "foundation/Error.hpp"
 #include "foundation/String.hpp"
+#include "foundation/Value.hpp"
 
 TEST_CASE("Array")
 {
@@ -172,4 +173,24 @@ TEST_CASE("String")
 
     const ns::String addedString = ns::String{"abc"} + ns::String{"def"};
     CHECK(addedString.isEqualToString("abcdef"));
+}
+
+TEST_CASE("Value")
+{
+    int i = 10;
+    ns::Value value{&i, "i"};
+    REQUIRE(value);
+}
+
+TEST_CASE("Number")
+{
+    const char c = 'a';
+    ns::Number charNumber{c};
+    REQUIRE(charNumber);
+    CHECK(charNumber.charValue() == c);
+
+    const unsigned char uc = 0x12;
+    ns::Number unsignedCharNumber{uc};
+    REQUIRE(unsignedCharNumber);
+    CHECK(unsignedCharNumber.unsignedCharValue() == uc);
 }

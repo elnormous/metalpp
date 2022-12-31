@@ -125,6 +125,9 @@ TEST_CASE("Screen")
     ns::Dictionary<ns::DeviceDescriptionKey, ns::Object> deviceDescription = mainScreen.deviceDescription();
     CHECK(deviceDescription);
 
+    ns::Object screenNumber = deviceDescription.objectForKey("NSScreenNumber");
+    CHECK(screenNumber);
+
     const ns::Rect frame = mainScreen.frame();
     CHECK(frame.size.width > 0);
     CHECK(frame.size.height > 0);
