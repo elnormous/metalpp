@@ -193,4 +193,59 @@ TEST_CASE("Number")
     ns::Number unsignedCharNumber{uc};
     REQUIRE(unsignedCharNumber);
     CHECK(unsignedCharNumber.unsignedCharValue() == uc);
+
+    const short s = 32532;
+    ns::Number shortNumber{s};
+    REQUIRE(shortNumber);
+    CHECK(shortNumber.shortValue() == s);
+
+    const unsigned short us = 0xFFFA;
+    ns::Number unsignedShortNumber{us};
+    REQUIRE(unsignedShortNumber);
+    CHECK(unsignedShortNumber.unsignedShortValue() == us);
+
+    const int i = 2147483642;
+    ns::Number intNumber{i};
+    REQUIRE(intNumber);
+    CHECK(intNumber.intValue() == i);
+
+    const unsigned int ui = 0xFFFFFFFA;
+    ns::Number unsignedIntNumber{ui};
+    REQUIRE(unsignedIntNumber);
+    CHECK(unsignedIntNumber.unsignedIntValue() == ui);
+
+    const long l = 2147483641L;
+    ns::Number longNumber{l};
+    REQUIRE(longNumber);
+    CHECK(longNumber.longValue() == l);
+
+    const unsigned long ul = 0xFFFFFFF4L;
+    ns::Number unsignedLongNumber{ul};
+    REQUIRE(unsignedLongNumber);
+    CHECK(unsignedLongNumber.unsignedLongValue() == ul);
+
+    const long ll = 2147483640LL;
+    ns::Number longLongNumber{ll};
+    REQUIRE(longLongNumber);
+    CHECK(longLongNumber.longLongValue() == ll);
+
+    const unsigned long ull = 0xFFFFFFF0LL;
+    ns::Number unsignedLongLongNumber{ull};
+    REQUIRE(unsignedLongLongNumber);
+    CHECK(unsignedLongLongNumber.unsignedLongLongValue() == ull);
+
+    const float f = 0.5F;
+    ns::Number floatNumber{f};
+    REQUIRE(floatNumber);
+    CHECK(floatNumber.floatValue() == f);
+
+    const double d = 1.5F;
+    ns::Number doubleNumber{d};
+    REQUIRE(doubleNumber);
+    CHECK(doubleNumber.doubleValue() == d);
+
+    const bool b = true;
+    ns::Number boolNumber{b};
+    REQUIRE(boolNumber);
+    CHECK(boolNumber.boolValue() == b);
 }

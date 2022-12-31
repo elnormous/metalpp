@@ -74,6 +74,61 @@ namespace ns
         {
         }
 
+        Number(const short value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithShort_), value), adopt}
+        {
+        }
+
+        Number(const unsigned short value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedShort_), value), adopt}
+        {
+        }
+
+        Number(const int value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithInt_), value), adopt}
+        {
+        }
+
+        Number(const unsigned int value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedInt_), value), adopt}
+        {
+        }
+
+        Number(const long value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithLong_), value), adopt}
+        {
+        }
+
+        Number(const unsigned long value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedLong_), value), adopt}
+        {
+        }
+
+        Number(const long long value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithLongLong_), value), adopt}
+        {
+        }
+
+        Number(const unsigned long long value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedLongLong_), value), adopt}
+        {
+        }
+
+        Number(const float value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithFloat_), value), adopt}
+        {
+        }
+
+        Number(const double value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithDouble_), value), adopt}
+        {
+        }
+
+        Number(const bool value):
+            Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithBool_), value ? YES : NO), adopt}
+        {
+        }
+
         [[nodiscard]] auto charValue() const noexcept
         {
             return sendMessage<char>(METALPP_SEL(charValue));
@@ -82,6 +137,61 @@ namespace ns
         [[nodiscard]] auto unsignedCharValue() const noexcept
         {
             return sendMessage<unsigned char>(METALPP_SEL(unsignedCharValue));
+        }
+
+        [[nodiscard]] auto shortValue() const noexcept
+        {
+            return sendMessage<short>(METALPP_SEL(shortValue));
+        }
+
+        [[nodiscard]] auto unsignedShortValue() const noexcept
+        {
+            return sendMessage<unsigned short>(METALPP_SEL(unsignedShortValue));
+        }
+
+        [[nodiscard]] auto intValue() const noexcept
+        {
+            return sendMessage<int>(METALPP_SEL(intValue));
+        }
+
+        [[nodiscard]] auto unsignedIntValue() const noexcept
+        {
+            return sendMessage<unsigned int>(METALPP_SEL(unsignedIntValue));
+        }
+
+        [[nodiscard]] auto longValue() const noexcept
+        {
+            return sendMessage<long>(METALPP_SEL(longValue));
+        }
+
+        [[nodiscard]] auto unsignedLongValue() const noexcept
+        {
+            return sendMessage<unsigned long>(METALPP_SEL(unsignedLongValue));
+        }
+
+        [[nodiscard]] auto longLongValue() const noexcept
+        {
+            return sendMessage<long long>(METALPP_SEL(longLongValue));
+        }
+
+        [[nodiscard]] auto unsignedLongLongValue() const noexcept
+        {
+            return sendMessage<unsigned long long>(METALPP_SEL(unsignedLongLongValue));
+        }
+
+        [[nodiscard]] auto floatValue() const noexcept
+        {
+            return sendMessage<float>(METALPP_SEL(floatValue));
+        }
+
+        [[nodiscard]] auto doubleValue() const noexcept
+        {
+            return sendMessage<double>(METALPP_SEL(doubleValue));
+        }
+
+        [[nodiscard]] auto boolValue() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(boolValue)) == YES;
         }
     };
 }
