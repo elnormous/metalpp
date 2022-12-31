@@ -181,6 +181,8 @@ TEST_CASE("Window")
     CHECK(window.delegate() == delegate);
 
     CHECK(!window.releasedWhenClosed());
+
+    CHECK(window.screen());
     
     CHECK(window.collectionBehavior() == ns::WindowCollectionBehavior::Default);
     window.setCollectionBehavior(ns::WindowCollectionBehavior::Auxiliary);

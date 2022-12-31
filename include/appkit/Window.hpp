@@ -115,6 +115,7 @@ namespace ns
         METALPP_PRIVATE_SEL(orderOut_, "orderOut:");
         METALPP_PRIVATE_SEL(orderWindow_relativeTo_, "orderWindow:relativeTo:");
         METALPP_PRIVATE_SEL(orderFrontRegardless, "orderFrontRegardless");
+        METALPP_PRIVATE_SEL(screen, "screen");
         METALPP_PRIVATE_SEL(collectionBehavior, "collectionBehavior");
         METALPP_PRIVATE_SEL(setCollectionBehavior_, "setCollectionBehavior:");
         METALPP_PRIVATE_SEL(tabbingMode, "tabbingMode");
@@ -218,6 +219,11 @@ namespace ns
         void orderFrontRegardless() noexcept
         {
             sendMessage(METALPP_SEL(orderFrontRegardless));
+        }
+
+        [[nodiscard]] auto screen() const noexcept
+        {
+            return ns::Screen{sendMessage<id>(METALPP_SEL(screen))};
         }
 
         [[nodiscard]] auto collectionBehavior() const noexcept API_AVAILABLE(macos(10.5))
