@@ -180,6 +180,7 @@ TEST_CASE("Value")
     int i = 10;
     ns::Value value{&i, "i"};
     REQUIRE(value);
+    CHECK(value.isEqualToValue(ns::Value{&i, "i"}));
 }
 
 TEST_CASE("Number")
@@ -208,6 +209,7 @@ TEST_CASE("Number")
     ns::Number intNumber{i};
     REQUIRE(intNumber);
     CHECK(intNumber.intValue() == i);
+    CHECK(intNumber.isEqualToNumber(ns::Number{i}));
 
     const unsigned int ui = 0xFFFFFFFA;
     ns::Number unsignedIntNumber{ui};

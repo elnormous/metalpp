@@ -12,6 +12,7 @@ namespace ns
 
         METALPP_PRIVATE_CLS("NSValue");
         METALPP_PRIVATE_SEL(initWithBytes_objCType_, "initWithBytes:objCType:");
+        METALPP_PRIVATE_SEL(isEqualToValue_, "isEqualToValue:");
 
         using Object::Object;
         using Object::operator=;
@@ -21,6 +22,11 @@ namespace ns
         Value(const void* value, const char* type):
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithBytes_objCType_), value, type), adopt}
         {
+        }
+
+        [[nodiscard]] auto isEqualToValue(const Value& value) const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isEqualToValue_), value.get()) == YES;
         }
     };
 
@@ -44,6 +50,7 @@ namespace ns
         METALPP_PRIVATE_SEL(initWithFloat_, "initWithFloat:");
         METALPP_PRIVATE_SEL(initWithDouble_, "initWithDouble:");
         METALPP_PRIVATE_SEL(initWithBool_, "initWithBool:");
+        METALPP_PRIVATE_SEL(isEqualToNumber_, "isEqualToNumber:");
 
         METALPP_PRIVATE_SEL(charValue, "charValue");
         METALPP_PRIVATE_SEL(unsignedCharValue, "unsignedCharValue");
@@ -192,6 +199,11 @@ namespace ns
         [[nodiscard]] auto boolValue() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(boolValue)) == YES;
+        }
+
+        [[nodiscard]] auto isEqualToNumber(const Number& number) const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isEqualToNumber_), number.get()) == YES;
         }
     };
 }
