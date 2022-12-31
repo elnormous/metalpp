@@ -11,6 +11,7 @@
 #include "corevideo/DisplayLink.hpp"
 #include "foundation/AutoreleasePool.hpp"
 #include "foundation/Bundle.hpp"
+#include "foundation/Value.hpp"
 #include "metal/Metal.hpp"
 #include "objc/Class.hpp"
 #include "quartzcore/MetalLayer.hpp"
@@ -680,7 +681,7 @@ private:
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    cv::DisplayLink displayLink{cv::mainDisplayID()};
+    cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 
     float angle = 0.0F;
 
