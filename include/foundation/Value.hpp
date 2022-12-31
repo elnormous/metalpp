@@ -2,6 +2,7 @@
 #define METALPP_FOUNDATION_VALUE_HPP
 
 #include "../objc/Object.hpp"
+#include "../objc/Runtime.hpp"
 
 namespace ns
 {
@@ -50,7 +51,6 @@ namespace ns
         METALPP_PRIVATE_SEL(initWithFloat_, "initWithFloat:");
         METALPP_PRIVATE_SEL(initWithDouble_, "initWithDouble:");
         METALPP_PRIVATE_SEL(initWithBool_, "initWithBool:");
-        METALPP_PRIVATE_SEL(isEqualToNumber_, "isEqualToNumber:");
 
         METALPP_PRIVATE_SEL(charValue, "charValue");
         METALPP_PRIVATE_SEL(unsignedCharValue, "unsignedCharValue");
@@ -65,6 +65,9 @@ namespace ns
         METALPP_PRIVATE_SEL(floatValue, "floatValue");
         METALPP_PRIVATE_SEL(doubleValue, "doubleValue");
         METALPP_PRIVATE_SEL(boolValue, "boolValue");
+
+        METALPP_PRIVATE_SEL(compare_, "compare:");
+        METALPP_PRIVATE_SEL(isEqualToNumber_, "isEqualToNumber:");
 
         using Value::Value;
         using Value::operator=;
@@ -199,6 +202,11 @@ namespace ns
         [[nodiscard]] auto boolValue() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(boolValue)) == YES;
+        }
+
+        [[nodiscard]] auto compare(const Number& number) const noexcept
+        {
+            return sendMessage<ComparisonResult>(METALPP_SEL(compare_), number.get());
         }
 
         [[nodiscard]] auto isEqualToNumber(const Number& number) const noexcept

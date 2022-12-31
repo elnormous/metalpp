@@ -13,6 +13,13 @@ namespace ns
     constexpr Integer IntegerMax = NSIntegerMax;
     constexpr Integer IntegerMin = NSIntegerMin;
     constexpr UInteger UIntegerMax = NSUIntegerMax;
+
+    enum class ComparisonResult: Integer
+    {
+        OrderedAscending = -1L,
+        OrderedSame,
+        OrderedDescending
+    };
 }
 
 namespace objc

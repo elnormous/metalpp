@@ -210,6 +210,9 @@ TEST_CASE("Number")
     REQUIRE(intNumber);
     CHECK(intNumber.intValue() == i);
     CHECK(intNumber.isEqualToNumber(ns::Number{i}));
+    CHECK(intNumber.compare(ns::Number{i}) == ns::ComparisonResult::OrderedSame);
+    CHECK(intNumber.compare(ns::Number{i + 1}) == ns::ComparisonResult::OrderedAscending);
+    CHECK(intNumber.compare(ns::Number{i - 1}) == ns::ComparisonResult::OrderedDescending);
 
     const unsigned int ui = 0xFFFFFFFA;
     ns::Number unsignedIntNumber{ui};
