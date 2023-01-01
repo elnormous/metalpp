@@ -181,7 +181,7 @@ public:
             windowSize.width, windowSize.height
         };
 
-        ns::Window window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
+        window = ns::Window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
         std::memcpy(window.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
@@ -190,6 +190,7 @@ public:
         window.setAcceptsMouseMovedEvents(true);
 
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
+        windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
         windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance();
         std::memcpy(windowDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
@@ -344,6 +345,13 @@ public:
     void windowDidResize()
     {
         std::cout << "Window did resize" << '\n';
+    }
+
+    void windowDidChangeScreen()
+    {
+        screen = window.screen();
+
+        std::cout << "Window did change screen" << '\n';
     }
 
     void keyDown(unsigned short keyCode)
@@ -530,6 +538,15 @@ private:
         application->windowDidResize();
     }
 
+    static void windowDidChangeScreen(id self, SEL, id)
+    {
+        ns::Object windowDelegate{self};
+        Application* application;
+        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
+
+        application->windowDidChangeScreen();
+    }
+
     // View
     static BOOL isOpaque(id, SEL)
     {
@@ -674,6 +691,7 @@ private:
     ns::Object appDelegate;
     objc::Class<ns::Object> windowDelegateClass{"WindowDelegate", sizeof(Application*)};
     ns::Object windowDelegate;
+    ns::Window window = nullptr;
     objc::Class<ns::View> viewClass{"View", sizeof(Application*)};
 
     ca::MetalLayer metalLayer;
