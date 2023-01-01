@@ -351,6 +351,11 @@ public:
     {
         screen = window.screen();
 
+        displayLink.stop();
+        displayLink = cv::DisplayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
+        displayLink.setOutputCallback(renderCallback, this);
+        displayLink.start();
+
         std::cout << "Window did change screen" << '\n';
     }
 
