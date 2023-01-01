@@ -161,7 +161,7 @@ public:
                                    "b@:@");
         appDelegateClass.reg();
         appDelegate = appDelegateClass.createInstance();
-        std::memcpy(appDelegate.getIndexedIvars(), thisPointer, sizeof(thisPointer));
+        std::memcpy(appDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
 
         application.activateIgnoringOtherApps(true);
         application.setDelegate(appDelegate);
@@ -182,7 +182,7 @@ public:
         };
 
         ns::Window window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
-        std::memcpy(window.getIndexedIvars(), thisPointer, sizeof(thisPointer));
+        std::memcpy(window.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
@@ -192,7 +192,7 @@ public:
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
         windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance();
-        std::memcpy(windowDelegate.getIndexedIvars(), thisPointer, sizeof(thisPointer));
+        std::memcpy(windowDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         window.setDelegate(windowDelegate);
 
         viewClass.addMethod(sel_registerName("isOpaque"), isOpaque, "B@:");
@@ -214,7 +214,7 @@ public:
         viewClass.reg();
 
         auto view = viewClass.createInstance();
-        std::memcpy(view.getIndexedIvars(), thisPointer, sizeof(thisPointer));
+        std::memcpy(view.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
 
