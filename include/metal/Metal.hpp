@@ -19,6 +19,7 @@
 #include "Sampler.hpp"
 #include "StageInputOutputDescriptor.hpp"
 #include "Texture.hpp"
+#include "Types.hpp"
 #include "VertexDescriptor.hpp"
 
 #endif
