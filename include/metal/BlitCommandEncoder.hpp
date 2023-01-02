@@ -4,6 +4,8 @@
 #include <os/availability.h>
 #include "../objc/Runtime.hpp"
 #include "CommandEncoder.hpp"
+#include "Buffer.hpp"
+#include "Texture.hpp"
 
 namespace mtl
 {
@@ -18,10 +20,18 @@ namespace mtl
     class BlitCommandEncoder final: public CommandEncoder
     {
     public:
+        METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
+        
         using CommandEncoder::CommandEncoder;
         using CommandEncoder::operator=;
 
         BlitCommandEncoder() = delete;
+
+        void generateMipmapsForTexture(const Texture& texture) noexcept
+        {
+            sendMessage(METALPP_SEL(generateMipmapsForTexture_), texture.get());
+        }
+
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

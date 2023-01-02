@@ -10,13 +10,7 @@ TEST_CASE("Device")
     REQUIRE(device);
     CHECK(device.supportsFeatureSet(FeatureSet::macOS_GPUFamily1_v1));
     CHECK(device.supportsFamily(GPUFamily::Common1));
-}
 
-TEST_CASE("Device name")
-{
-    ns::AutoreleasePool pool;
-
-    mtl::Device device = mtl::Device::createSystemDefaultDevice();
     const ns::String name = device.name();
     REQUIRE(name);
     CHECK(name.retainCount());
@@ -107,12 +101,6 @@ TEST_CASE("Command buffer")
     REQUIRE(renderPassDescriptor);
     CHECK(renderPassDescriptor.retainCount() == 1);
 
-    mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
-    REQUIRE(blitCommandEncoder);
-    CHECK(blitCommandEncoder.retainCount() == 2);
-
-    blitCommandEncoder.endEncoding();
-
     mtl::TextureDescriptor textureDescriptor;
     textureDescriptor.setTextureType(mtl::TextureType::Type2D);
     textureDescriptor.setWidth(1024);
@@ -120,9 +108,17 @@ TEST_CASE("Command buffer")
     textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
     textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
     textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setMipmapLevelCount(10);
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
 
+    mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
+    REQUIRE(blitCommandEncoder);
+    CHECK(blitCommandEncoder.retainCount() == 2);
+    blitCommandEncoder.generateMipmapsForTexture(texture);
+
+    blitCommandEncoder.endEncoding();
+    
     mtl::SamplerDescriptor samplerDescriptor;
     mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
 
@@ -330,40 +326,6 @@ TEST_CASE("Function")
     CHECK(computeFunction.name().isEqualToString("ck"));
 }
 
-TEST_CASE("Vertex descriptor")
-{
-    ns::AutoreleasePool pool;
-
-    mtl::VertexDescriptor vertexDescriptor;
-    REQUIRE(vertexDescriptor);
-    CHECK(vertexDescriptor.retainCount() == 1);
-
-    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
-
-    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-    vertexLayout0.setStride(16);
-    CHECK(vertexLayout0.stride() == 16);
-    vertexLayout0.setStepRate(1);
-    CHECK(vertexLayout0.stepRate() == 1);
-    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
-    CHECK(vertexLayout0.stepFunction() == mtl::VertexStepFunction::PerVertex);
-
-    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
-    REQUIRE(vertexAttributes);
-    CHECK(vertexAttributes.retainCount() == 2);
-
-    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-    REQUIRE(vertexAttribute0);
-    CHECK(vertexAttribute0.retainCount() == 2);
-
-    vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
-    CHECK(vertexAttribute0.format() == mtl::VertexFormat::Float3);
-    vertexAttribute0.setOffset(0);
-    CHECK(vertexAttribute0.offset() == 0);
-    vertexAttribute0.setBufferIndex(0);
-    CHECK(vertexAttribute0.bufferIndex() == 0);
-}
-
 TEST_CASE("Render pipeline descriptor")
 {
     ns::AutoreleasePool pool;
@@ -494,6 +456,88 @@ TEST_CASE("Render pipeline state")
     CHECK(renderPipelineState.label().isEqualToString("Render pipeline"));
 }
 
+TEST_CASE("Sampler descriptor")
+{
+    ns::AutoreleasePool pool;
+    mtl::SamplerDescriptor samplerDescriptor;
+    REQUIRE(samplerDescriptor);
+    CHECK(samplerDescriptor.retainCount() == 1);
+
+    CHECK(samplerDescriptor.minFilter() != mtl::SamplerMinMagFilter::Linear);
+    samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
+    CHECK(samplerDescriptor.minFilter() == mtl::SamplerMinMagFilter::Linear);
+
+    CHECK(samplerDescriptor.magFilter() != mtl::SamplerMinMagFilter::Linear);
+    samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
+    CHECK(samplerDescriptor.magFilter() == mtl::SamplerMinMagFilter::Linear);
+
+    CHECK(samplerDescriptor.mipFilter() != mtl::SamplerMipFilter::Linear);
+    samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
+    CHECK(samplerDescriptor.mipFilter() == mtl::SamplerMipFilter::Linear);
+
+    CHECK(samplerDescriptor.maxAnisotropy() != 11);
+    samplerDescriptor.setMaxAnisotropy(11);
+    CHECK(samplerDescriptor.maxAnisotropy() == 11);
+
+    CHECK(samplerDescriptor.sAddressMode() != mtl::SamplerAddressMode::MirrorRepeat);
+    samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::MirrorRepeat);
+    CHECK(samplerDescriptor.sAddressMode() == mtl::SamplerAddressMode::MirrorRepeat);
+
+    CHECK(samplerDescriptor.tAddressMode() != mtl::SamplerAddressMode::ClampToZero);
+    samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToZero);
+    CHECK(samplerDescriptor.tAddressMode() == mtl::SamplerAddressMode::ClampToZero);
+
+    CHECK(samplerDescriptor.rAddressMode() != mtl::SamplerAddressMode::ClampToBorderColor);
+    samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToBorderColor);
+    CHECK(samplerDescriptor.rAddressMode() == mtl::SamplerAddressMode::ClampToBorderColor);
+
+    CHECK(samplerDescriptor.borderColor() != mtl::SamplerBorderColor::OpaqueWhite);
+    samplerDescriptor.setBorderColor(mtl::SamplerBorderColor::OpaqueWhite);
+    CHECK(samplerDescriptor.borderColor() == mtl::SamplerBorderColor::OpaqueWhite);
+
+    CHECK(samplerDescriptor.normalizedCoordinates() != false);
+    samplerDescriptor.setNormalizedCoordinates(false);
+    CHECK(samplerDescriptor.normalizedCoordinates() == false);
+
+    CHECK(samplerDescriptor.lodMinClamp() != 2.0F);
+    samplerDescriptor.setLodMinClamp(2.0F);
+    CHECK(samplerDescriptor.lodMinClamp() == 2.0F);
+
+    CHECK(samplerDescriptor.lodMaxClamp() != 2.0F);
+    samplerDescriptor.setLodMaxClamp(2.0F);
+    CHECK(samplerDescriptor.lodMaxClamp() == 2.0F);
+
+    CHECK(samplerDescriptor.lodAverage() != true);
+    samplerDescriptor.setLodAverage(true);
+    CHECK(samplerDescriptor.lodAverage() == true);
+
+    CHECK(samplerDescriptor.compareFunction() != mtl::CompareFunction::GreaterEqual);
+    samplerDescriptor.setCompareFunction(mtl::CompareFunction::GreaterEqual);
+    CHECK(samplerDescriptor.compareFunction() == mtl::CompareFunction::GreaterEqual);
+
+    CHECK(samplerDescriptor.supportArgumentBuffers() != true);
+    samplerDescriptor.setSupportArgumentBuffers(true);
+    CHECK(samplerDescriptor.supportArgumentBuffers() == true);
+
+    samplerDescriptor.setLabel("Sampler");
+    CHECK(samplerDescriptor.label().isEqualToString("Sampler"));
+}
+
+TEST_CASE("Sampler state")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::SamplerDescriptor samplerDescriptor;
+    samplerDescriptor.setLabel("Sampler");
+
+    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
+    REQUIRE(samplerState);
+    CHECK(samplerState.retainCount());
+
+    CHECK(samplerState.device() == device);
+    CHECK(samplerState.label().isEqualToString("Sampler"));
+}
+
 TEST_CASE("Texture")
 {
     ns::AutoreleasePool pool;
@@ -575,84 +619,36 @@ TEST_CASE("Texture")
     texture.replaceRegion(mtl::Region{0, 0, 0, 1, 1, 1}, 1, level1, 4);
 }
 
-TEST_CASE("Sampler descriptor")
+TEST_CASE("Vertex descriptor")
 {
     ns::AutoreleasePool pool;
-    mtl::SamplerDescriptor samplerDescriptor;
-    REQUIRE(samplerDescriptor);
-    CHECK(samplerDescriptor.retainCount() == 1);
 
-    CHECK(samplerDescriptor.minFilter() != mtl::SamplerMinMagFilter::Linear);
-    samplerDescriptor.setMinFilter(mtl::SamplerMinMagFilter::Linear);
-    CHECK(samplerDescriptor.minFilter() == mtl::SamplerMinMagFilter::Linear);
+    mtl::VertexDescriptor vertexDescriptor;
+    REQUIRE(vertexDescriptor);
+    CHECK(vertexDescriptor.retainCount() == 1);
 
-    CHECK(samplerDescriptor.magFilter() != mtl::SamplerMinMagFilter::Linear);
-    samplerDescriptor.setMagFilter(mtl::SamplerMinMagFilter::Linear);
-    CHECK(samplerDescriptor.magFilter() == mtl::SamplerMinMagFilter::Linear);
+    mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
-    CHECK(samplerDescriptor.mipFilter() != mtl::SamplerMipFilter::Linear);
-    samplerDescriptor.setMipFilter(mtl::SamplerMipFilter::Linear);
-    CHECK(samplerDescriptor.mipFilter() == mtl::SamplerMipFilter::Linear);
+    mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
+    vertexLayout0.setStride(16);
+    CHECK(vertexLayout0.stride() == 16);
+    vertexLayout0.setStepRate(1);
+    CHECK(vertexLayout0.stepRate() == 1);
+    vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
+    CHECK(vertexLayout0.stepFunction() == mtl::VertexStepFunction::PerVertex);
 
-    CHECK(samplerDescriptor.maxAnisotropy() != 11);
-    samplerDescriptor.setMaxAnisotropy(11);
-    CHECK(samplerDescriptor.maxAnisotropy() == 11);
+    mtl::VertexAttributeDescriptorArray vertexAttributes = vertexDescriptor.attributes();
+    REQUIRE(vertexAttributes);
+    CHECK(vertexAttributes.retainCount() == 2);
 
-    CHECK(samplerDescriptor.sAddressMode() != mtl::SamplerAddressMode::MirrorRepeat);
-    samplerDescriptor.setSAddressMode(mtl::SamplerAddressMode::MirrorRepeat);
-    CHECK(samplerDescriptor.sAddressMode() == mtl::SamplerAddressMode::MirrorRepeat);
+    mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
+    REQUIRE(vertexAttribute0);
+    CHECK(vertexAttribute0.retainCount() == 2);
 
-    CHECK(samplerDescriptor.tAddressMode() != mtl::SamplerAddressMode::ClampToZero);
-    samplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToZero);
-    CHECK(samplerDescriptor.tAddressMode() == mtl::SamplerAddressMode::ClampToZero);
-
-    CHECK(samplerDescriptor.rAddressMode() != mtl::SamplerAddressMode::ClampToBorderColor);
-    samplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToBorderColor);
-    CHECK(samplerDescriptor.rAddressMode() == mtl::SamplerAddressMode::ClampToBorderColor);
-
-    CHECK(samplerDescriptor.borderColor() != mtl::SamplerBorderColor::OpaqueWhite);
-    samplerDescriptor.setBorderColor(mtl::SamplerBorderColor::OpaqueWhite);
-    CHECK(samplerDescriptor.borderColor() == mtl::SamplerBorderColor::OpaqueWhite);
-
-    CHECK(samplerDescriptor.normalizedCoordinates() != false);
-    samplerDescriptor.setNormalizedCoordinates(false);
-    CHECK(samplerDescriptor.normalizedCoordinates() == false);
-
-    CHECK(samplerDescriptor.lodMinClamp() != 2.0F);
-    samplerDescriptor.setLodMinClamp(2.0F);
-    CHECK(samplerDescriptor.lodMinClamp() == 2.0F);
-
-    CHECK(samplerDescriptor.lodMaxClamp() != 2.0F);
-    samplerDescriptor.setLodMaxClamp(2.0F);
-    CHECK(samplerDescriptor.lodMaxClamp() == 2.0F);
-
-    CHECK(samplerDescriptor.lodAverage() != true);
-    samplerDescriptor.setLodAverage(true);
-    CHECK(samplerDescriptor.lodAverage() == true);
-
-    CHECK(samplerDescriptor.compareFunction() != mtl::CompareFunction::GreaterEqual);
-    samplerDescriptor.setCompareFunction(mtl::CompareFunction::GreaterEqual);
-    CHECK(samplerDescriptor.compareFunction() == mtl::CompareFunction::GreaterEqual);
-
-    CHECK(samplerDescriptor.supportArgumentBuffers() != true);
-    samplerDescriptor.setSupportArgumentBuffers(true);
-    CHECK(samplerDescriptor.supportArgumentBuffers() == true);
-
-    samplerDescriptor.setLabel("Sampler");
-    CHECK(samplerDescriptor.label().isEqualToString("Sampler"));
-}
-
-TEST_CASE("Sampler state")
-{
-    ns::AutoreleasePool pool;
-    mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    mtl::SamplerDescriptor samplerDescriptor;
-    samplerDescriptor.setLabel("Sampler");
-
-    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
-    REQUIRE(samplerState);
-    CHECK(samplerState.retainCount());
-
-    CHECK(samplerState.device() == device);
-    CHECK(samplerState.label().isEqualToString("Sampler"));
+    vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
+    CHECK(vertexAttribute0.format() == mtl::VertexFormat::Float3);
+    vertexAttribute0.setOffset(0);
+    CHECK(vertexAttribute0.offset() == 0);
+    vertexAttribute0.setBufferIndex(0);
+    CHECK(vertexAttribute0.bufferIndex() == 0);
 }
