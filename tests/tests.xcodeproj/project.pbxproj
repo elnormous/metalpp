@@ -113,6 +113,7 @@
 		30CB1298295E7FEC0090DC8F /* Value.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Value.hpp; sourceTree = "<group>"; };
 		30CE5EEE2962776A005A78AD /* AppKit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppKit.hpp; sourceTree = "<group>"; };
 		30CE5EEF29627864005A78AD /* Foundation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Foundation.hpp; sourceTree = "<group>"; };
+		30CE5EF0296282EE005A78AD /* CoreGraphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreGraphics.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +135,7 @@
 			children = (
 				3023336F29403DAC003114B4 /* Color.hpp */,
 				3023336B2940335F003114B4 /* ColorSpace.hpp */,
+				30CE5EF0296282EE005A78AD /* CoreGraphics.hpp */,
 				303B6AA3294E282600A4DEC6 /* DirectDisplay.hpp */,
 			);
 			path = coregraphics;

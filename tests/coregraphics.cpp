@@ -1,6 +1,5 @@
 #include "doctest.h"
-#include "coregraphics/Color.hpp"
-#include "coregraphics/ColorSpace.hpp"
+#include "coregraphics/CoreGraphics.hpp"
 
 TEST_CASE("Color")
 {
