@@ -1,11 +1,6 @@
 #include "doctest.h"
 #include "foundation/AutoreleasePool.hpp"
-#include "appkit/Application.hpp"
-#include "appkit/Menu.hpp"
-#include "appkit/MenuItem.hpp"
-#include "appkit/Screen.hpp"
-#include "appkit/View.hpp"
-#include "appkit/Window.hpp"
+#include "appkit/AppKit.hpp"
 
 TEST_CASE("Application")
 {

@@ -1,12 +1,6 @@
 #include <fstream>
 #include "doctest.h"
-#include "foundation/AutoreleasePool.hpp"
-#include "foundation/Array.hpp"
-#include "foundation/Bundle.hpp"
-#include "foundation/Dictionary.hpp"
-#include "foundation/Error.hpp"
-#include "foundation/String.hpp"
-#include "foundation/Value.hpp"
+#include "foundation/Foundation.hpp"
 
 TEST_CASE("Array")
 {

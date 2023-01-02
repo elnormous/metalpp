@@ -111,6 +111,8 @@
 		30BD2DBB2952721700DED449 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 		30CB1298295E7FEC0090DC8F /* Value.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Value.hpp; sourceTree = "<group>"; };
+		30CE5EEE2962776A005A78AD /* AppKit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppKit.hpp; sourceTree = "<group>"; };
+		30CE5EEF29627864005A78AD /* Foundation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Foundation.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				30233369293F0637003114B4 /* Date.hpp */,
 				309010EE292B7833002D121D /* Dictionary.hpp */,
 				309010F1292B7833002D121D /* Error.hpp */,
+				30CE5EEF29627864005A78AD /* Foundation.hpp */,
 				3023335229382031003114B4 /* Geometry.hpp */,
 				309010F4292B7833002D121D /* Range.hpp */,
 				309010F2292B7833002D121D /* String.hpp */,
@@ -229,6 +232,7 @@
 		30901108292E9C6B002D121D /* appkit */ = {
 			isa = PBXGroup;
 			children = (
+				30CE5EEE2962776A005A78AD /* AppKit.hpp */,
 				30901109292E9F48002D121D /* Application.hpp */,
 				3023334F2937BA30003114B4 /* Event.hpp */,
 				3023335329382128003114B4 /* Graphics.hpp */,
