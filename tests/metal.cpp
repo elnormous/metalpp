@@ -50,6 +50,9 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.generateMipmapsForTexture(texture);
 
     blitCommandEncoder.endEncoding();
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 }
 
 TEST_CASE("Buffer")
@@ -104,6 +107,9 @@ TEST_CASE("Command queue")
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
     CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 }
 
 TEST_CASE("Command buffer")
@@ -123,65 +129,6 @@ TEST_CASE("Command buffer")
     commandBuffer.setLabel(label);
     CHECK(label.retainCount() > 0);
     CHECK(commandBuffer.label().isEqualToString(labelStr));
-
-    mtl::RenderPassDescriptor renderPassDescriptor;
-    REQUIRE(renderPassDescriptor);
-    CHECK(renderPassDescriptor.retainCount() == 1);
-
-    mtl::TextureDescriptor textureDescriptor;
-    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
-    textureDescriptor.setWidth(1024);
-    textureDescriptor.setHeight(1024);
-    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
-    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
-    textureDescriptor.setMipmapLevelCount(10);
-
-    mtl::Texture texture = device.newTexture(textureDescriptor);
-    
-    mtl::SamplerDescriptor samplerDescriptor;
-    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
-
-    mtl::TextureDescriptor renderTargetDescriptor;
-    renderTargetDescriptor.setTextureType(mtl::TextureType::Type2D);
-    renderTargetDescriptor.setWidth(1024);
-    renderTargetDescriptor.setHeight(1024);
-    renderTargetDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
-    renderTargetDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-    renderTargetDescriptor.setStorageMode(mtl::StorageMode::Managed);
-
-    mtl::Texture renderTarget = device.newTexture(renderTargetDescriptor);
-    renderPassDescriptor.colorAttachments()[0].setTexture(renderTarget);
-    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
-    CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
-    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
-    CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
-
-    mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
-
-    mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
-    REQUIRE(renderCommandEncoder);
-    CHECK(renderCommandEncoder.retainCount() == 2);
-
-    renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
-    renderCommandEncoder.setVertexTexture(texture, 0);
-    renderCommandEncoder.setVertexTextures({texture, texture}, ns::Range{0, 2});
-    renderCommandEncoder.setVertexSamplerState(samplerState, 0);
-    renderCommandEncoder.setVertexSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
-    renderCommandEncoder.setViewport(mtl::Viewport{});
-    renderCommandEncoder.setFrontFacingWinding(mtl::Winding::Clockwise);
-    renderCommandEncoder.setCullMode(mtl::CullMode::Front);
-    renderCommandEncoder.setDepthClipMode(mtl::DepthClipMode::Clip);
-    renderCommandEncoder.setDepthBias(10.0F, 10.0F, 10.0F);
-    renderCommandEncoder.setScissorRect(mtl::ScissorRect{0, 0, 100, 100});
-    renderCommandEncoder.setTriangleFillMode(mtl::TriangleFillMode::Lines);
-    renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
-    renderCommandEncoder.setFragmentTexture(texture, 0);
-    renderCommandEncoder.setFragmentTextures({texture, texture}, ns::Range{0, 2});
-    renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
-    renderCommandEncoder.setFragmentSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
-
-    renderCommandEncoder.endEncoding();
 
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
@@ -344,6 +291,77 @@ TEST_CASE("Function")
     CHECK(computeFunction.patchType() == mtl::PatchType::None);
     CHECK(computeFunction.patchControlPointCount() == -1);
     CHECK(computeFunction.name().isEqualToString("ck"));
+}
+
+TEST_CASE("Render command encoder")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+
+    mtl::RenderPassDescriptor renderPassDescriptor;
+    REQUIRE(renderPassDescriptor);
+    CHECK(renderPassDescriptor.retainCount() == 1);
+
+    mtl::TextureDescriptor textureDescriptor;
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    textureDescriptor.setWidth(1024);
+    textureDescriptor.setHeight(1024);
+    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setMipmapLevelCount(10);
+
+    mtl::Texture texture = device.newTexture(textureDescriptor);
+
+    mtl::SamplerDescriptor samplerDescriptor;
+    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
+
+    mtl::TextureDescriptor renderTargetDescriptor;
+    renderTargetDescriptor.setTextureType(mtl::TextureType::Type2D);
+    renderTargetDescriptor.setWidth(1024);
+    renderTargetDescriptor.setHeight(1024);
+    renderTargetDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+    renderTargetDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    renderTargetDescriptor.setStorageMode(mtl::StorageMode::Managed);
+
+    mtl::Texture renderTarget = device.newTexture(renderTargetDescriptor);
+    renderPassDescriptor.colorAttachments()[0].setTexture(renderTarget);
+    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
+    CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
+    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+    CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+
+    mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
+
+    mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
+    REQUIRE(renderCommandEncoder);
+    CHECK(renderCommandEncoder.retainCount() == 2);
+
+    renderCommandEncoder.setVertexBuffer(buffer, 0, 0);
+    renderCommandEncoder.setVertexTexture(texture, 0);
+    renderCommandEncoder.setVertexTextures({texture, texture}, ns::Range{0, 2});
+    renderCommandEncoder.setVertexSamplerState(samplerState, 0);
+    renderCommandEncoder.setVertexSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
+    renderCommandEncoder.setViewport(mtl::Viewport{});
+    renderCommandEncoder.setFrontFacingWinding(mtl::Winding::Clockwise);
+    renderCommandEncoder.setCullMode(mtl::CullMode::Front);
+    renderCommandEncoder.setDepthClipMode(mtl::DepthClipMode::Clip);
+    renderCommandEncoder.setDepthBias(10.0F, 10.0F, 10.0F);
+    renderCommandEncoder.setScissorRect(mtl::ScissorRect{0, 0, 100, 100});
+    renderCommandEncoder.setTriangleFillMode(mtl::TriangleFillMode::Lines);
+    renderCommandEncoder.setFragmentBuffer(buffer, 0, 0);
+    renderCommandEncoder.setFragmentTexture(texture, 0);
+    renderCommandEncoder.setFragmentTextures({texture, texture}, ns::Range{0, 2});
+    renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
+    renderCommandEncoder.setFragmentSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
+
+    renderCommandEncoder.endEncoding();
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 }
 
 TEST_CASE("Render pipeline descriptor")
