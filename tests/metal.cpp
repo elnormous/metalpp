@@ -25,6 +25,33 @@ TEST_CASE("Device")
     CHECK(device.currentAllocatedSize() > 0);
 }
 
+TEST_CASE("Blit command encoder")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+
+    mtl::TextureDescriptor textureDescriptor;
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    textureDescriptor.setWidth(1024);
+    textureDescriptor.setHeight(1024);
+    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setMipmapLevelCount(10);
+
+    mtl::Texture texture = device.newTexture(textureDescriptor);
+
+    mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
+    REQUIRE(blitCommandEncoder);
+    CHECK(blitCommandEncoder.retainCount() == 2);
+    blitCommandEncoder.generateMipmapsForTexture(texture);
+
+    blitCommandEncoder.endEncoding();
+}
+
 TEST_CASE("Buffer")
 {
     ns::AutoreleasePool pool;
@@ -111,13 +138,6 @@ TEST_CASE("Command buffer")
     textureDescriptor.setMipmapLevelCount(10);
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
-
-    mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
-    REQUIRE(blitCommandEncoder);
-    CHECK(blitCommandEncoder.retainCount() == 2);
-    blitCommandEncoder.generateMipmapsForTexture(texture);
-
-    blitCommandEncoder.endEncoding();
     
     mtl::SamplerDescriptor samplerDescriptor;
     mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
