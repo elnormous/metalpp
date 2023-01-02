@@ -43,12 +43,13 @@ TEST_CASE("Blit command encoder")
     textureDescriptor.setMipmapLevelCount(10);
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
+    mtl::Buffer buffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
 
     mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
     REQUIRE(blitCommandEncoder);
     CHECK(blitCommandEncoder.retainCount() == 2);
     blitCommandEncoder.generateMipmapsForTexture(texture);
-
+    blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
     blitCommandEncoder.endEncoding();
 
     commandBuffer.commit();
@@ -78,6 +79,28 @@ TEST_CASE("Buffer")
     bufferManaged.didModifyRange(ns::Range{0, 1024});
 
     buffer = nullptr;
+}
+
+TEST_CASE("Command buffer")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+    REQUIRE(commandBuffer);
+    CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
+    CHECK(commandBuffer.device() == device);
+
+    char labelStr[] = "Command buffer";
+    ns::String label{labelStr};
+    CHECK(label.retainCount() == 1);
+    commandBuffer.setLabel(label);
+    CHECK(label.retainCount() > 0);
+    CHECK(commandBuffer.label().isEqualToString(labelStr));
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
 }
 
 TEST_CASE("Command queue")
@@ -110,67 +133,6 @@ TEST_CASE("Command queue")
 
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
-}
-
-TEST_CASE("Command buffer")
-{
-    ns::AutoreleasePool pool;
-
-    mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    mtl::CommandQueue commandQueue = device.newCommandQueue();
-    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
-    REQUIRE(commandBuffer);
-    CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
-    CHECK(commandBuffer.device() == device);
-
-    char labelStr[] = "Command buffer";
-    ns::String label{labelStr};
-    CHECK(label.retainCount() == 1);
-    commandBuffer.setLabel(label);
-    CHECK(label.retainCount() > 0);
-    CHECK(commandBuffer.label().isEqualToString(labelStr));
-
-    commandBuffer.commit();
-    commandBuffer.waitUntilCompleted();
-}
-
-TEST_CASE("Depth stencil state")
-{
-    ns::AutoreleasePool pool;
-
-    mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    mtl::DepthStencilDescriptor descriptor;
-    REQUIRE(descriptor);
-    CHECK(descriptor.retainCount());
-    char labelStr[] = "Depth stencil state";
-    ns::String label{labelStr};
-    CHECK(label.retainCount() == 1);
-    descriptor.setLabel(label);
-    CHECK(label.retainCount() == 2);
-    CHECK(descriptor.label().isEqualToString(labelStr));
-    CHECK(descriptor.label().retainCount() == 3);
-    CHECK(descriptor.label().retainCount() == 3);
-    CHECK(descriptor.label().retainCount() == 3);
-
-    mtl::DepthStencilState depthStencilState = device.newDepthStencilState(descriptor);
-    REQUIRE(depthStencilState);
-    CHECK(depthStencilState.retainCount());
-    CHECK(depthStencilState.device() == device);
-
-    CHECK(depthStencilState.label().isEqualToString(labelStr));
-    CHECK(depthStencilState.label().retainCount() > 0);
-
-    const auto retainCount = device.retainCount();
-    {
-        ns::AutoreleasePool autoreleasePool;
-
-        mtl::Device depthStencilStateDevice = depthStencilState.device();
-        CHECK(depthStencilStateDevice == device);
-
-        autoreleasePool.drain();
-        CHECK(device.retainCount() == retainCount + 1);
-    }
-    CHECK(device.retainCount() == retainCount);
 }
 
 TEST_CASE("Compile options")
@@ -211,6 +173,45 @@ TEST_CASE("Compile options")
     CHECK(options.preprocessorMacros());
     CHECK(options.preprocessorMacros().retainCount() == 2);
     CHECK(options.preprocessorMacros().retainCount() == 2);
+}
+
+TEST_CASE("Depth stencil state")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::DepthStencilDescriptor descriptor;
+    REQUIRE(descriptor);
+    CHECK(descriptor.retainCount());
+    char labelStr[] = "Depth stencil state";
+    ns::String label{labelStr};
+    CHECK(label.retainCount() == 1);
+    descriptor.setLabel(label);
+    CHECK(label.retainCount() == 2);
+    CHECK(descriptor.label().isEqualToString(labelStr));
+    CHECK(descriptor.label().retainCount() == 3);
+    CHECK(descriptor.label().retainCount() == 3);
+    CHECK(descriptor.label().retainCount() == 3);
+
+    mtl::DepthStencilState depthStencilState = device.newDepthStencilState(descriptor);
+    REQUIRE(depthStencilState);
+    CHECK(depthStencilState.retainCount());
+    CHECK(depthStencilState.device() == device);
+
+    CHECK(depthStencilState.label().isEqualToString(labelStr));
+    CHECK(depthStencilState.label().retainCount() > 0);
+
+    const auto retainCount = device.retainCount();
+    {
+        ns::AutoreleasePool autoreleasePool;
+
+        mtl::Device depthStencilStateDevice = depthStencilState.device();
+        CHECK(depthStencilStateDevice == device);
+
+        autoreleasePool.drain();
+        CHECK(device.retainCount() == retainCount + 1);
+    }
+    CHECK(device.retainCount() == retainCount);
 }
 
 TEST_CASE("Library")
