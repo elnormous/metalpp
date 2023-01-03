@@ -37,12 +37,12 @@ namespace ns
             return MenuItem{objc::sendMessage<id>(cls, METALPP_SEL(separatorItem))};
         }
 
-        MenuItem():
+        MenuItem() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), adopt}
         {
         }
 
-        MenuItem(const String& title, const SEL action, const String& keyEquivalent):
+        MenuItem(const String& title, const SEL action, const String& keyEquivalent) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)),
                                          METALPP_SEL(initWithTitle_action_keyEquivalent_),
                                          title.get(),

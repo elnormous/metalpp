@@ -20,7 +20,7 @@ namespace ns
 
         Value() = delete;
 
-        Value(const void* value, const char* type):
+        Value(const void* value, const char* type) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithBytes_objCType_), value, type), adopt}
         {
         }
@@ -74,67 +74,67 @@ namespace ns
 
         Number() = delete;
 
-        Number(const char value):
+        Number(const char value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithChar_), value), adopt}
         {
         }
 
-        Number(const unsigned char value):
+        Number(const unsigned char value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedChar_), value), adopt}
         {
         }
 
-        Number(const short value):
+        Number(const short value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithShort_), value), adopt}
         {
         }
 
-        Number(const unsigned short value):
+        Number(const unsigned short value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedShort_), value), adopt}
         {
         }
 
-        Number(const int value):
+        Number(const int value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithInt_), value), adopt}
         {
         }
 
-        Number(const unsigned int value):
+        Number(const unsigned int value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedInt_), value), adopt}
         {
         }
 
-        Number(const long value):
+        Number(const long value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithLong_), value), adopt}
         {
         }
 
-        Number(const unsigned long value):
+        Number(const unsigned long value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedLong_), value), adopt}
         {
         }
 
-        Number(const long long value):
+        Number(const long long value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithLongLong_), value), adopt}
         {
         }
 
-        Number(const unsigned long long value):
+        Number(const unsigned long long value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithUnsignedLongLong_), value), adopt}
         {
         }
 
-        Number(const float value):
+        Number(const float value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithFloat_), value), adopt}
         {
         }
 
-        Number(const double value):
+        Number(const double value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithDouble_), value), adopt}
         {
         }
 
-        Number(const bool value):
+        Number(const bool value) noexcept:
             Value{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithBool_), value ? YES : NO), adopt}
         {
         }
