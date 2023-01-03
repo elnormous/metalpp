@@ -240,7 +240,7 @@ TEST_CASE("Function")
     const char* fragmentShader =
     "constant float constant0 [[function_constant(0)]];\n" \
     "constant float constant1 [[function_constant(1)]];\n" \
-    "constant float flt [[function_constant(2)]];\n" \
+    "constant float constant2 [[function_constant(2)]];\n" \
     "fragment half4 fsh() {" \
     "    return half4(1.0);" \
     "}";
@@ -250,7 +250,7 @@ TEST_CASE("Function")
     float value = 10.0F;
     constantValues.setConstantValue(&value, mtl::DataType::Float, 0);
     constantValues.setConstantValues(&value, mtl::DataType::Float, ns::Range{1, 1});
-    constantValues.setConstantValue(&value, mtl::DataType::Float, "flt");
+    constantValues.setConstantValue(&value, mtl::DataType::Float, "constant2");
 
     mtl::Library fragmentLibrary = device.newLibrary(fragmentShader);
     mtl::Function fragmentFunction = fragmentLibrary.newFunction("fsh", constantValues);
