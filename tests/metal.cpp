@@ -214,6 +214,76 @@ TEST_CASE("Depth stencil state")
     CHECK(device.retainCount() == retainCount);
 }
 
+TEST_CASE("Function")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    const char* vertexShader =
+    "vertex float4 vsh(const device packed_float3 *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {" \
+    "    return float4(vertexArray[vid], 1.0);" \
+    "}";
+
+    mtl::Library vertexLibrary = device.newLibrary(vertexShader);
+    mtl::Function vertexFunction = vertexLibrary.newFunction("vsh");
+    REQUIRE(vertexFunction);
+    CHECK(vertexFunction.device() == device);
+    CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
+    CHECK(vertexFunction.patchType() == mtl::PatchType::None);
+    CHECK(vertexFunction.patchControlPointCount() == -1);
+    //CHECK(vertexFunction.vertexAttributes());
+    CHECK(vertexFunction.name().isEqualToString("vsh"));
+
+    vertexFunction.setLabel("Vertex function");
+    CHECK(vertexFunction.label().isEqualToString("Vertex function"));
+
+    const char* fragmentShader =
+    "constant float constant0 [[function_constant(0)]];\n" \
+    "constant float constant1 [[function_constant(1)]];\n" \
+    "constant float flt [[function_constant(2)]];\n" \
+    "fragment half4 fsh() {" \
+    "    return half4(1.0);" \
+    "}";
+
+    mtl::FunctionConstantValues constantValues;
+    REQUIRE(constantValues);
+    float value = 10.0F;
+    constantValues.setConstantValue(&value, mtl::DataType::Float, 0);
+    constantValues.setConstantValues(&value, mtl::DataType::Float, ns::Range{1, 1});
+    constantValues.setConstantValue(&value, mtl::DataType::Float, "flt");
+
+    mtl::Library fragmentLibrary = device.newLibrary(fragmentShader);
+    mtl::Function fragmentFunction = fragmentLibrary.newFunction("fsh", constantValues);
+    REQUIRE(fragmentFunction);
+    CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
+    CHECK(fragmentFunction.patchType() == mtl::PatchType::None);
+    CHECK(fragmentFunction.patchControlPointCount() == -1);
+    CHECK(fragmentFunction.name().isEqualToString("fsh"));
+
+    const char* postTesselationShader =
+    "[[patch(quad, 16)]]"
+    "vertex float4 ptsh() { return float4{0.0, 0.0, 0.0, 0.0}; }";
+
+    mtl::Library postTesselationLibrary = device.newLibrary(postTesselationShader);
+    mtl::Function postTesselationFunction = postTesselationLibrary.newFunction("ptsh");
+    REQUIRE(postTesselationFunction);
+    CHECK(postTesselationFunction.functionType() == mtl::FunctionType::Vertex);
+    CHECK(postTesselationFunction.patchType() == mtl::PatchType::Quad);
+    CHECK(postTesselationFunction.patchControlPointCount() == 16);
+    CHECK(postTesselationFunction.name().isEqualToString("ptsh"));
+
+    const char* computeKernel =
+    "kernel void ck() {}";
+
+    mtl::Library computeLibrary = device.newLibrary(computeKernel);
+    mtl::Function computeFunction = computeLibrary.newFunction("ck");
+    REQUIRE(computeFunction);
+    CHECK(computeFunction.functionType() == mtl::FunctionType::Kernel);
+    CHECK(computeFunction.patchType() == mtl::PatchType::None);
+    CHECK(computeFunction.patchControlPointCount() == -1);
+    CHECK(computeFunction.name().isEqualToString("ck"));
+}
+
 TEST_CASE("Library")
 {
     ns::AutoreleasePool pool;
@@ -236,62 +306,6 @@ TEST_CASE("Library")
 
     library.setLabel("Library");
     CHECK(library.label().isEqualToString("Library"));
-}
-
-TEST_CASE("Function")
-{
-    ns::AutoreleasePool pool;
-    mtl::Device device = mtl::Device::createSystemDefaultDevice();
-
-    const char* vertexShader =
-    "vertex float4 vsh(const device packed_float3 *vertexArray [[buffer(0)]], unsigned int vid [[vertex_id]]) {" \
-    "    return float4(vertexArray[vid], 1.0);" \
-    "}";
-
-    mtl::Library vertexLibrary = device.newLibrary(vertexShader);
-    mtl::Function vertexFunction = vertexLibrary.newFunction("vsh");
-    CHECK(vertexFunction.device() == device);
-    CHECK(vertexFunction.functionType() == mtl::FunctionType::Vertex);
-    CHECK(vertexFunction.patchType() == mtl::PatchType::None);
-    CHECK(vertexFunction.patchControlPointCount() == -1);
-    //CHECK(vertexFunction.vertexAttributes());
-    CHECK(vertexFunction.name().isEqualToString("vsh"));
-
-    vertexFunction.setLabel("Vertex function");
-    CHECK(vertexFunction.label().isEqualToString("Vertex function"));
-
-    const char* fragmentShader =
-    "fragment half4 fsh() {" \
-    "    return half4(1.0);" \
-    "}";
-
-    mtl::Library fragmentLibrary = device.newLibrary(fragmentShader);
-    mtl::Function fragmentFunction = fragmentLibrary.newFunction("fsh");
-    CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
-    CHECK(fragmentFunction.patchType() == mtl::PatchType::None);
-    CHECK(fragmentFunction.patchControlPointCount() == -1);
-    CHECK(fragmentFunction.name().isEqualToString("fsh"));
-
-    const char* postTesselationShader =
-    "[[patch(quad, 16)]]"
-    "vertex float4 ptsh() { return float4{0.0, 0.0, 0.0, 0.0}; }";
-
-    mtl::Library postTesselationLibrary = device.newLibrary(postTesselationShader);
-    mtl::Function postTesselationFunction = postTesselationLibrary.newFunction("ptsh");
-    CHECK(postTesselationFunction.functionType() == mtl::FunctionType::Vertex);
-    CHECK(postTesselationFunction.patchType() == mtl::PatchType::Quad);
-    CHECK(postTesselationFunction.patchControlPointCount() == 16);
-    CHECK(postTesselationFunction.name().isEqualToString("ptsh"));
-
-    const char* computeKernel =
-    "kernel void ck() {}";
-
-    mtl::Library computeLibrary = device.newLibrary(computeKernel);
-    mtl::Function computeFunction = computeLibrary.newFunction("ck");
-    CHECK(computeFunction.functionType() == mtl::FunctionType::Kernel);
-    CHECK(computeFunction.patchType() == mtl::PatchType::None);
-    CHECK(computeFunction.patchControlPointCount() == -1);
-    CHECK(computeFunction.name().isEqualToString("ck"));
 }
 
 TEST_CASE("Render command encoder")

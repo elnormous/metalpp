@@ -114,6 +114,8 @@
 		30CE5EEE2962776A005A78AD /* AppKit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppKit.hpp; sourceTree = "<group>"; };
 		30CE5EEF29627864005A78AD /* Foundation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Foundation.hpp; sourceTree = "<group>"; };
 		30CE5EF0296282EE005A78AD /* CoreGraphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreGraphics.hpp; sourceTree = "<group>"; };
+		30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FunctionConstantValues.hpp; sourceTree = "<group>"; };
+		30D075FA2963A87800FE26D8 /* Argument.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Argument.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		309010D7292B7833002D121D /* metal */ = {
 			isa = PBXGroup;
 			children = (
+				30D075FA2963A87800FE26D8 /* Argument.hpp */,
 				309010D8292B7833002D121D /* BlitCommandEncoder.hpp */,
 				309010E6292B7833002D121D /* Buffer.hpp */,
 				309010DC292B7833002D121D /* CommandBuffer.hpp */,
@@ -169,6 +172,7 @@
 				309010E4292B7833002D121D /* Device.hpp */,
 				309010E3292B7833002D121D /* Drawable.hpp */,
 				309010DA292B7833002D121D /* DynamicLibrary.hpp */,
+				30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */,
 				309010DD292B7833002D121D /* Library.hpp */,
 				309010DB292B7833002D121D /* Metal.hpp */,
 				309010EA292B7833002D121D /* PixelFormat.hpp */,

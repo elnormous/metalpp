@@ -7,8 +7,10 @@
 #include "../objc/Runtime.hpp"
 #include "../foundation/Array.hpp"
 #include "../foundation/Dictionary.hpp"
+#include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "DynamicLibrary.hpp"
+#include "FunctionConstantValues.hpp"
 
 namespace mtl
 {
@@ -265,6 +267,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(newFunctionWithName_, "newFunctionWithName:");
+        METALPP_PRIVATE_SEL(newFunctionWithName_constantValues_error_, "newFunctionWithName:constantValues:error:");
 
         using Object::Object;
         using Object::operator=;
@@ -289,6 +292,22 @@ namespace mtl
                                                 name.get());
             return Function{function, ns::adopt};
         }
+
+        [[nodiscard]] auto newFunction(const ns::String& name, const FunctionConstantValues& constantValues) const API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            id error = nil;
+
+            const id function = sendMessage<id>(METALPP_SEL(newFunctionWithName_constantValues_error_),
+                                                name.get(),
+                                                constantValues.get(),
+                                                &error);
+
+            if (error != nil)
+                throw ns::Error{error};
+
+            return Function{function, ns::adopt};
+        }
+
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

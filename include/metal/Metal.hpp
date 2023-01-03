@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_METAL_HPP
 #define METALPP_METAL_METAL_HPP
 
+#include "Argument.hpp"
 #include "BlitCommandEncoder.hpp"
 #include "Buffer.hpp"
 #include "CommandBuffer.hpp"
@@ -10,6 +11,7 @@
 #include "Device.hpp"
 #include "Drawable.hpp"
 #include "DynamicLibrary.hpp"
+#include "FunctionConstantValues.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
 #include "RenderCommandEncoder.hpp"
