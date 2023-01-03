@@ -214,7 +214,7 @@ namespace mtl
 
         [[nodiscard]] auto newLibrary(const ns::String& source) const
         {
-            id error;
+            id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
                                                source.get(),
                                                nil,
@@ -228,7 +228,7 @@ namespace mtl
 
         [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
         {
-            id error;
+            id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
                                                source.get(),
                                                compileOptions.get(),
@@ -252,7 +252,7 @@ namespace mtl
 
         [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
-            id error;
+            id error = nil;
             const id renderPipelineState = sendMessage<id>(METALPP_SEL(newRenderPipelineStateWithDescriptor_error_),
                                                            renderPipelineDescriptor.get(),
                                                            &error);
