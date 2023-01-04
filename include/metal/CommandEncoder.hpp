@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/String.hpp"
 
 namespace mtl
 {
@@ -29,6 +30,9 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(endEncoding, "endEncoding");
+        METALPP_PRIVATE_SEL(insertDebugSignpost_, "insertDebugSignpost:");
+        METALPP_PRIVATE_SEL(pushDebugGroup_, "pushDebugGroup:");
+        METALPP_PRIVATE_SEL(popDebugGroup, "popDebugGroup");
 
         using Object::Object;
         using Object::operator=;
@@ -40,6 +44,21 @@ namespace mtl
         void endEncoding() noexcept
         {
             sendMessage(METALPP_SEL(endEncoding));
+        }
+
+        void insertDebugSignpost(const ns::String& string) noexcept
+        {
+            sendMessage(METALPP_SEL(insertDebugSignpost_), string.get());
+        }
+
+        void pushDebugGroup(const ns::String& string) noexcept
+        {
+            sendMessage(METALPP_SEL(pushDebugGroup_), string.get());
+        }
+
+        void popDebugGroup() noexcept
+        {
+            sendMessage(METALPP_SEL(popDebugGroup));
         }
     };
 }

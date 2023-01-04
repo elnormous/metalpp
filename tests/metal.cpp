@@ -52,6 +52,10 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
     blitCommandEncoder.endEncoding();
 
+    blitCommandEncoder.insertDebugSignpost("testSnippet");
+    blitCommandEncoder.pushDebugGroup("testGroup");
+    blitCommandEncoder.popDebugGroup();
+
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
 }
