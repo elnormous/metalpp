@@ -29,6 +29,8 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(endEncoding, "endEncoding");
         METALPP_PRIVATE_SEL(insertDebugSignpost_, "insertDebugSignpost:");
         METALPP_PRIVATE_SEL(pushDebugGroup_, "pushDebugGroup:");
@@ -41,6 +43,16 @@ namespace mtl
 
         [[nodiscard]] Device device() const noexcept;
 
+        [[nodiscard]] auto label() const noexcept
+        {
+            return ns::String{sendMessage<id>(METALPP_SEL(label))};
+        }
+
+        void setLabel(const ns::String& label) noexcept
+        {
+            sendMessage(METALPP_SEL(setLabel_), label.get());
+        }
+        
         void endEncoding() noexcept
         {
             sendMessage(METALPP_SEL(endEncoding));

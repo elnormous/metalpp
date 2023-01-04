@@ -56,6 +56,9 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.pushDebugGroup("testGroup");
     blitCommandEncoder.popDebugGroup();
 
+    blitCommandEncoder.setLabel("test");
+    CHECK(blitCommandEncoder.label().isEqualToString("test"));
+
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
 }
