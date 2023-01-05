@@ -23,6 +23,7 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
         METALPP_PRIVATE_SEL(fillBuffer_range_value_, "fillBuffer:range:value:");
+        METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
         
         using CommandEncoder::CommandEncoder;
         using CommandEncoder::operator=;
@@ -37,6 +38,16 @@ namespace mtl
         void fillBuffer(const Buffer& buffer, const ns::Range& range, std::uint8_t value) noexcept
         {
             sendMessage(METALPP_SEL(fillBuffer_range_value_), buffer.get(), range, value);
+        }
+
+        void copyBuffer(const Buffer& buffer, const ns::UInteger sourceOffset, const Buffer& destinationBuffer, const ns::UInteger destinationOffset, const ns::UInteger size) noexcept
+        {
+            sendMessage(METALPP_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_),
+                        buffer.get(),
+                        sourceOffset,
+                        destinationBuffer.get(),
+                        destinationOffset,
+                        size);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

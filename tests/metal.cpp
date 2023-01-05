@@ -44,20 +44,24 @@ TEST_CASE("Blit command encoder")
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
     mtl::Buffer buffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
+    mtl::Buffer destinationBuffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
 
     mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
     REQUIRE(blitCommandEncoder);
     CHECK(blitCommandEncoder.retainCount() == 2);
+    blitCommandEncoder.setLabel("test");
+    CHECK(blitCommandEncoder.label().isEqualToString("test"));
+
     blitCommandEncoder.generateMipmapsForTexture(texture);
     blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
-    blitCommandEncoder.endEncoding();
+
+    blitCommandEncoder.copyBuffer(buffer, 0, destinationBuffer, 0, 2048);
 
     blitCommandEncoder.insertDebugSignpost("testSnippet");
     blitCommandEncoder.pushDebugGroup("testGroup");
     blitCommandEncoder.popDebugGroup();
 
-    blitCommandEncoder.setLabel("test");
-    CHECK(blitCommandEncoder.label().isEqualToString("test"));
+    blitCommandEncoder.endEncoding();
 
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
