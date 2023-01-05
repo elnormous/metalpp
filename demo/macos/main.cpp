@@ -70,27 +70,27 @@ namespace
                             CVOptionFlags*,
                             void* displayLinkContext);
 
-    matrix_float4x4 projectionMatrix() noexcept
+    simd::float4x4 projectionMatrix() noexcept
     {
-        matrix_float4x4 m = {
-            .columns[0] = { 1, 0, 0, 0 },
-            .columns[1] = { 0, 1.5, 0, 0 },
-            .columns[2] = { 0, 0, 1, 0 },
-            .columns[3] = { 0, 0, 0, 1 }
+        simd::float4x4 m = {
+            simd::float4{1, 0, 0, 0},
+            simd::float4{0, 1.5, 0, 0},
+            simd::float4{0, 0, 1, 0},
+            simd::float4{0, 0, 0, 1}
         };
         return m;
     }
 
-    matrix_float4x4 rotationMatrix2d(const float radians) noexcept
+    simd::float4x4 rotationMatrix2d(const float radians) noexcept
     {
         const float c = std::cosf(radians);
         const float s = std::sinf(radians);
 
-        matrix_float4x4 m = {
-            .columns[0] = {  c, s, 0, 0 },
-            .columns[1] = { -s, c, 0, 0 },
-            .columns[2] = {  0, 0, 1, 0 },
-            .columns[3] = {  0, 0, 0, 1 }
+        simd::float4x4 m = {
+            simd::float4{ c, s, 0, 0},
+            simd::float4{-s, c, 0, 0},
+            simd::float4{ 0, 0, 1, 0},
+            simd::float4{ 0, 0, 0, 1}
         };
         return m;
     }
@@ -682,8 +682,8 @@ private:
 
     struct Uniforms final
     {
-        matrix_float4x4 projectionMatrix;
-        matrix_float4x4 modelMatrix;
+        simd::float4x4 projectionMatrix;
+        simd::float4x4 modelMatrix;
     };
 
     objc::Class<ns::Object> appDelegateClass{"AppDelegate", sizeof(Application*)};
