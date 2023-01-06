@@ -56,10 +56,16 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.generateMipmapsForTexture(texture);
     blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
 
-    blitCommandEncoder.copyTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{1024, 1024, 1},
-                                   destinationTexture, 0, 0, mtl::Origin{0, 0});
+    blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{1024, 1024, 1},
+                                       destinationTexture, 0, 0, mtl::Origin{0, 0});
 
-    blitCommandEncoder.copyBuffer(buffer, 0, destinationBuffer, 0, 2048);
+    blitCommandEncoder.copyFromBuffer(buffer, 0, 32 * 4, 2048, mtl::Size{32, 16, 1},
+                                      destinationTexture, 0, 0, mtl::Origin{0, 0});
+
+    blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{32, 16, 1},
+                                       destinationBuffer, 0, 32 * 4, 2048);
+
+    blitCommandEncoder.copyFromBuffer(buffer, 0, destinationBuffer, 0, 2048);
 
     blitCommandEncoder.insertDebugSignpost("testSnippet");
     blitCommandEncoder.pushDebugGroup("testGroup");
