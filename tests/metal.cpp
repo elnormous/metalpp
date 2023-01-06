@@ -375,8 +375,13 @@ TEST_CASE("Render command encoder")
     CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
     renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
     CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+    renderPassDescriptor.depthAttachment().setClearDepth(0.5);
+    CHECK(renderPassDescriptor.depthAttachment().clearDepth() == 0.5);
 
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
+
+    mtl::DepthStencilDescriptor depthStencilDescriptor;
+    mtl::DepthStencilState depthStencilState = device.newDepthStencilState(depthStencilDescriptor);
 
     mtl::RenderCommandEncoder renderCommandEncoder = commandBuffer.renderCommandEncoder(renderPassDescriptor);
     REQUIRE(renderCommandEncoder);
@@ -399,6 +404,7 @@ TEST_CASE("Render command encoder")
     renderCommandEncoder.setFragmentTextures({texture, texture}, ns::Range{0, 2});
     renderCommandEncoder.setFragmentSamplerState(samplerState, 0);
     renderCommandEncoder.setFragmentSamplerStates({samplerState, samplerState}, ns::Range{0, 2});
+    renderCommandEncoder.setDepthStencilState(depthStencilState);
 
     renderCommandEncoder.endEncoding();
 
