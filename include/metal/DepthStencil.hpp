@@ -49,6 +49,10 @@ namespace mtl
 
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(depthCompareFunction, "depthCompareFunction");
+        METALPP_PRIVATE_SEL(setDepthCompareFunction_, "setDepthCompareFunction:");
+        METALPP_PRIVATE_SEL(isDepthWriteEnabled, "isDepthWriteEnabled");
+        METALPP_PRIVATE_SEL(setDepthWriteEnabled_, "setDepthWriteEnabled:");
 
         DepthStencilDescriptor() noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
@@ -63,6 +67,26 @@ namespace mtl
         void setLabel(const ns::String& label) noexcept
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
+        }
+
+        [[nodiscard]] auto depthCompareFunction() const noexcept
+        {
+            return sendMessage<CompareFunction>(METALPP_SEL(depthCompareFunction));
+        }
+
+        void setDepthCompareFunction(const CompareFunction depthCompareFunction) noexcept
+        {
+            sendMessage(METALPP_SEL(setDepthCompareFunction_), depthCompareFunction);
+        }
+
+        [[nodiscard]] auto depthWriteEnabled() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isDepthWriteEnabled)) == YES;
+        }
+
+        void setDepthWriteEnabled(const bool depthWriteEnabled) noexcept
+        {
+            sendMessage(METALPP_SEL(setDepthWriteEnabled_), depthWriteEnabled ? YES : NO);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
