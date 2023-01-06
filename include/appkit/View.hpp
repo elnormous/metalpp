@@ -97,7 +97,7 @@ namespace ns
             return sendMessage<Rect>(METALPP_SEL(frame));
         }
 
-        void setFrame(const Rect frame) noexcept
+        void setFrame(const Rect& frame) noexcept
         {
             sendMessage(METALPP_SEL(setFrame_), frame);
         }
