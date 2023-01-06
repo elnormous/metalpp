@@ -70,13 +70,22 @@ namespace
                             CVOptionFlags*,
                             void* displayLinkContext);
 
-    simd::float4x4 projectionMatrix() noexcept
+    simd::float4x4 perspectiveMatrix(const float fovY,
+                                     const float aspectRatio,
+                                     const float near,
+                                     const float far) noexcept
     {
+        const auto sy = 1 / std::tan(fovY * 0.5F);
+        const auto  sx = sy / aspectRatio;
+        const auto  zRange = far - near;
+        const auto  sz = -(far + near) / zRange;
+        const auto  tz = -2.0F * far * near / zRange;
+
         simd::float4x4 m = {
-            simd::float4{1, 0, 0, 0},
-            simd::float4{0, 1.5, 0, 0},
-            simd::float4{0, 0, 1, 0},
-            simd::float4{0, 0, 0, 1}
+            simd::float4{sx, 0,  0,  0},
+            simd::float4{0, sy,  0,  0},
+            simd::float4{0,  0, sz, -1.0F},
+            simd::float4{0,  0, tz,  0}
         };
         return m;
     }
@@ -208,7 +217,7 @@ public:
 
         viewClass.reg();
 
-        auto view = viewClass.createInstance();
+        view = viewClass.createInstance();
         std::memcpy(view.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
@@ -232,6 +241,8 @@ public:
         window.setContentView(view);
 
         window.makeKeyAndOrderFront(nullptr);
+
+        aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
 
         metalLayer.setDevice(device); // assign device
         const cg::Size drawableSize{windowSize.width, windowSize.height};
@@ -293,10 +304,10 @@ public:
         indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         static const float quadVertexData[] = {
-             0.5F, -0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-            -0.5F, -0.5F, 0.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-            -0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             0.5F,  0.5F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+             100.0F, -100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+            -100.0F, -100.0F, -200.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+            -100.0F,  100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             100.0F,  100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
@@ -338,7 +349,8 @@ public:
 
     void windowDidResize()
     {
-        std::cout << "Window did resize" << '\n';
+        const auto frame = view.frame();
+        aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
     }
 
     void windowDidChangeScreen()
@@ -425,7 +437,10 @@ public:
         angle += 0.01F;
 
         Uniforms uniforms;
-        uniforms.projectionMatrix = projectionMatrix();
+        uniforms.projectionMatrix = perspectiveMatrix(static_cast<float>(M_PI_2),
+                                                      aspectRatio,
+                                                      1.0F,
+                                                      1000.0F);
         uniforms.modelMatrix = rotationMatrix2d(angle);
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
@@ -692,6 +707,7 @@ private:
     ns::Object windowDelegate;
     ns::Window window = nullptr;
     objc::Class<ns::View> viewClass{"View", sizeof(Application*)};
+    ns::View view = nullptr;
 
     ca::MetalLayer metalLayer;
 
@@ -701,6 +717,7 @@ private:
     cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 
     float angle = 0.0F;
+    std::atomic<float> aspectRatio{};
 
     mtl::RenderPipelineState pipelineState = nullptr;
 
