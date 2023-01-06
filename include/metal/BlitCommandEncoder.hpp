@@ -105,7 +105,9 @@ namespace mtl
             sendMessage(METALPP_SEL(generateMipmapsForTexture_), texture.get());
         }
 
-        void fillBuffer(const Buffer& buffer, const ns::Range& range, std::uint8_t value) noexcept
+        void fillBuffer(const Buffer& buffer,
+                        const ns::Range& range,
+                        const std::uint8_t value) noexcept
         {
             sendMessage(METALPP_SEL(fillBuffer_range_value_), buffer.get(), range, value);
         }

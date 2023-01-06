@@ -42,7 +42,6 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setConstantValue_type_withName_), value, type, name.get());
         }
-
     } API_AVAILABLE(macos(10.12), ios(10.0));
 }
 

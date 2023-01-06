@@ -105,7 +105,7 @@ namespace mtl
             return sendMessage<TextureType>(METALPP_SEL(textureType));
         }
 
-        void setTextureType(TextureType textureType) noexcept
+        void setTextureType(const TextureType textureType) noexcept
         {
             sendMessage(METALPP_SEL(setTextureType_), textureType);
         }
@@ -115,7 +115,7 @@ namespace mtl
             return sendMessage<PixelFormat>(METALPP_SEL(pixelFormat));
         }
 
-        void setPixelFormat(PixelFormat pixelFormat) noexcept
+        void setPixelFormat(const PixelFormat pixelFormat) noexcept
         {
             sendMessage(METALPP_SEL(setPixelFormat_), pixelFormat);
         }
@@ -125,7 +125,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(width));
         }
 
-        void setWidth(ns::UInteger width) noexcept
+        void setWidth(const ns::UInteger width) noexcept
         {
             sendMessage(METALPP_SEL(setWidth_), width);
         }
@@ -135,7 +135,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(height));
         }
 
-        void setHeight(ns::UInteger height) noexcept
+        void setHeight(const ns::UInteger height) noexcept
         {
             sendMessage(METALPP_SEL(setHeight_), height);
         }
@@ -145,7 +145,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(depth));
         }
 
-        void setDepth(ns::UInteger depth) noexcept
+        void setDepth(const ns::UInteger depth) noexcept
         {
             sendMessage(METALPP_SEL(setDepth_), depth);
         }
@@ -155,7 +155,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(mipmapLevelCount));
         }
 
-        void setMipmapLevelCount(ns::UInteger mipmapLevelCount) noexcept
+        void setMipmapLevelCount(const ns::UInteger mipmapLevelCount) noexcept
         {
             sendMessage(METALPP_SEL(setMipmapLevelCount_), mipmapLevelCount);
         }
@@ -165,7 +165,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(sampleCount));
         }
 
-        void setSampleCount(ns::UInteger sampleCount) noexcept
+        void setSampleCount(const ns::UInteger sampleCount) noexcept
         {
             sendMessage(METALPP_SEL(setSampleCount_), sampleCount);
         }
@@ -175,7 +175,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(arrayLength));
         }
 
-        void setArrayLength(ns::UInteger arrayLength) noexcept
+        void setArrayLength(const ns::UInteger arrayLength) noexcept
         {
             sendMessage(METALPP_SEL(setArrayLength_), arrayLength);
         }
@@ -185,7 +185,7 @@ namespace mtl
             return sendMessage<CPUCacheMode>(METALPP_SEL(cpuCacheMode));
         }
 
-        void setCpuCacheMode(CPUCacheMode cpuCacheMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        void setCpuCacheMode(const CPUCacheMode cpuCacheMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             sendMessage(METALPP_SEL(setCpuCacheMode_), cpuCacheMode);
         }
@@ -195,7 +195,7 @@ namespace mtl
             return sendMessage<StorageMode>(METALPP_SEL(storageMode));
         }
 
-        void setStorageMode(StorageMode storageMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        void setStorageMode(const StorageMode storageMode) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             sendMessage(METALPP_SEL(setStorageMode_), storageMode);
         }
@@ -205,7 +205,7 @@ namespace mtl
             return sendMessage<HazardTrackingMode>(METALPP_SEL(hazardTrackingMode));
         }
 
-        void setHazardTrackingMode(HazardTrackingMode hazardTrackingMode) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        void setHazardTrackingMode(const HazardTrackingMode hazardTrackingMode) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             sendMessage(METALPP_SEL(setHazardTrackingMode_), hazardTrackingMode);
         }
@@ -215,7 +215,7 @@ namespace mtl
             return sendMessage<TextureUsage>(METALPP_SEL(usage));
         }
 
-        void setUsage(TextureUsage usage) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        void setUsage(const TextureUsage usage) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             sendMessage(METALPP_SEL(setUsage_), usage);
         }
@@ -225,7 +225,7 @@ namespace mtl
             return sendMessage<BOOL>(METALPP_SEL(allowGPUOptimizedContents)) == YES;
         }
 
-        void setAllowGPUOptimizedContents(bool allowGPUOptimizedContents) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        void setAllowGPUOptimizedContents(const bool allowGPUOptimizedContents) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
             sendMessage(METALPP_SEL(setAllowGPUOptimizedContents_), allowGPUOptimizedContents ? YES : NO);
         }
@@ -235,7 +235,7 @@ namespace mtl
             return sendMessage<TextureCompressionType>(METALPP_SEL(compressionType));
         }
 
-        void setCompressionType(TextureCompressionType compressionType) noexcept API_AVAILABLE(macos(12.5), ios(15.0))
+        void setCompressionType(const TextureCompressionType compressionType) noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
             sendMessage(METALPP_SEL(setCompressionType_), compressionType);
         }

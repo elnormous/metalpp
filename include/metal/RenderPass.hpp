@@ -107,7 +107,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(level));
         }
 
-        void setLevel(ns::UInteger level) noexcept
+        void setLevel(const ns::UInteger level) noexcept
         {
             sendMessage(METALPP_SEL(setLevel_), level);
         }
@@ -117,7 +117,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(slice));
         }
 
-        void setSlice(ns::UInteger slice) noexcept
+        void setSlice(const ns::UInteger slice) noexcept
         {
             sendMessage(METALPP_SEL(setSlice_), slice);
         }
@@ -127,7 +127,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(depthPlane));
         }
 
-        void setDepthPlane(ns::UInteger depthPlane) noexcept
+        void setDepthPlane(const ns::UInteger depthPlane) noexcept
         {
             sendMessage(METALPP_SEL(setDepthPlane_), depthPlane);
         }
@@ -147,7 +147,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(resolveLevel));
         }
 
-        void setResolveLevel(ns::UInteger resolveLevel) noexcept
+        void setResolveLevel(const ns::UInteger resolveLevel) noexcept
         {
             sendMessage(METALPP_SEL(setResolveLevel_), resolveLevel);
         }
@@ -157,7 +157,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(resolveSlice));
         }
 
-        void setResolveSlice(ns::UInteger resolveSlice) noexcept
+        void setResolveSlice(const ns::UInteger resolveSlice) noexcept
         {
             sendMessage(METALPP_SEL(setResolveSlice_), resolveSlice);
         }
@@ -167,7 +167,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(resolveDepthPlane));
         }
 
-        void setResolveDepthPlane(ns::UInteger resolveDepthPlane) noexcept
+        void setResolveDepthPlane(const ns::UInteger resolveDepthPlane) noexcept
         {
             sendMessage(METALPP_SEL(setResolveDepthPlane_), resolveDepthPlane);
         }
@@ -177,7 +177,7 @@ namespace mtl
             return sendMessage<LoadAction>(METALPP_SEL(loadAction));
         }
 
-        void setLoadAction(LoadAction loadAction) noexcept
+        void setLoadAction(const LoadAction loadAction) noexcept
         {
             sendMessage(METALPP_SEL(setLoadAction_), loadAction);
         }
@@ -187,7 +187,7 @@ namespace mtl
             return sendMessage<StoreAction>(METALPP_SEL(storeAction));
         }
 
-        void setStoreAction(StoreAction storeAction) noexcept
+        void setStoreAction(const StoreAction storeAction) noexcept
         {
             sendMessage(METALPP_SEL(setStoreAction_), storeAction);
         }
@@ -197,7 +197,7 @@ namespace mtl
             return sendMessage<StoreActionOptions>(METALPP_SEL(storeActionOptions));
         }
 
-        void setStoreActionOptions(StoreActionOptions storeActionOptions) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        void setStoreActionOptions(const StoreActionOptions storeActionOptions) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
             sendMessage(METALPP_SEL(setStoreActionOptions_), storeActionOptions);
         }
@@ -223,7 +223,7 @@ namespace mtl
             return sendMessage<ClearColor>(METALPP_SEL(clearColor));
         }
 
-        void setClearColor(ClearColor clearColor) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        void setClearColor(const ClearColor clearColor) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
         {
             sendMessage(METALPP_SEL(setClearColor_), clearColor);
         }
@@ -261,7 +261,7 @@ namespace mtl
             return sendMessage<double>(METALPP_SEL(clearDepth));
         }
 
-        void setClearDepth(double clearDepth) noexcept
+        void setClearDepth(const double clearDepth) noexcept
         {
             sendMessage(METALPP_SEL(setClearDepth_), clearDepth);
         }
@@ -271,7 +271,7 @@ namespace mtl
             return sendMessage<MultisampleDepthResolveFilter>(METALPP_SEL(depthResolveFilter));
         }
 
-        void setDepthResolveFilter(MultisampleDepthResolveFilter depthResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(9.0))
+        void setDepthResolveFilter(const MultisampleDepthResolveFilter depthResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(9.0))
         {
             sendMessage(METALPP_SEL(setDepthResolveFilter_), depthResolveFilter);
         }
@@ -306,7 +306,7 @@ namespace mtl
             return sendMessage<uint32_t>(METALPP_SEL(clearStencil));
         }
 
-        void setClearStencil(uint32_t clearStencil) noexcept
+        void setClearStencil(const uint32_t clearStencil) noexcept
         {
             sendMessage(METALPP_SEL(setClearStencil_), clearStencil);
         }
@@ -316,7 +316,7 @@ namespace mtl
             return sendMessage<MultisampleStencilResolveFilter>(METALPP_SEL(stencilResolveFilter));
         }
 
-        void setStencilResolveFilter(MultisampleStencilResolveFilter stencilResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
+        void setStencilResolveFilter(const MultisampleStencilResolveFilter stencilResolveFilter) noexcept API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5))
         {
             sendMessage(METALPP_SEL(setStencilResolveFilter_), stencilResolveFilter);
         }

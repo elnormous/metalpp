@@ -23,7 +23,7 @@ namespace cg
             return ColorSpace{CGColorSpaceCreateDeviceCMYK()};
         }
 
-        ColorSpace(CGColorSpaceRef r) noexcept: ref{r} {}
+        ColorSpace(const CGColorSpaceRef r) noexcept: ref{r} {}
 
         ~ColorSpace()
         {

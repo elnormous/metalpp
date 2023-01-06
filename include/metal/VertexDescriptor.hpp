@@ -117,7 +117,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(stride));
         }
 
-        void setStride(ns::UInteger stride) noexcept
+        void setStride(const ns::UInteger stride) noexcept
         {
             sendMessage(METALPP_SEL(setStride_), stride);
         }
@@ -127,7 +127,7 @@ namespace mtl
             return sendMessage<VertexStepFunction>(METALPP_SEL(stepFunction));
         }
 
-        void setStepFunction(VertexStepFunction stepFunction) noexcept
+        void setStepFunction(const VertexStepFunction stepFunction) noexcept
         {
             sendMessage(METALPP_SEL(setStepFunction_), stepFunction);
         }
@@ -137,7 +137,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(stepRate));
         }
 
-        void setStepRate(ns::UInteger stepRate) noexcept
+        void setStepRate(const ns::UInteger stepRate) noexcept
         {
             sendMessage(METALPP_SEL(setStepRate_), stepRate);
         }

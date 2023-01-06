@@ -194,7 +194,7 @@ namespace mtl
             return sendMessage<BOOL>(METALPP_SEL(fastMathEnabled)) == YES;
         }
 
-        void setFastMathEnabled(bool fastMathEnabled) noexcept
+        void setFastMathEnabled(const bool fastMathEnabled) noexcept
         {
             sendMessage(METALPP_SEL(setFastMathEnabled_), fastMathEnabled ? YES : NO);
         }
@@ -204,7 +204,7 @@ namespace mtl
             return sendMessage<LanguageVersion>(METALPP_SEL(languageVersion));
         }
 
-        void setLanguageVersion(LanguageVersion languageVersion) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        void setLanguageVersion(const LanguageVersion languageVersion) noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             sendMessage(METALPP_SEL(setLanguageVersion_), languageVersion);
         }
@@ -214,7 +214,7 @@ namespace mtl
             return sendMessage<LibraryType>(METALPP_SEL(libraryType));
         }
 
-        void setLibraryType(LibraryType libraryType) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        void setLibraryType(const LibraryType libraryType) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             sendMessage(METALPP_SEL(setLibraryType_), libraryType);
         }
@@ -224,7 +224,7 @@ namespace mtl
             return ns::String{sendMessage<id>(METALPP_SEL(installName))};
         }
 
-        void setInstallName(ns::String installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        void setInstallName(const ns::String& installName) noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             sendMessage(METALPP_SEL(setInstallName_), installName.get());
         }
@@ -244,7 +244,7 @@ namespace mtl
             return sendMessage<BOOL>(METALPP_SEL(preserveInvariance)) == YES;
         }
 
-        void setPreserveInstance(bool preserveInvariance) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
+        void setPreserveInstance(const bool preserveInvariance) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(14.0))
         {
             sendMessage(METALPP_SEL(setPreserveInvariance_), preserveInvariance ? YES : NO);
         }
@@ -254,7 +254,7 @@ namespace mtl
             return sendMessage<LibraryOptimizationLevel>(METALPP_SEL(optimizationLevel));
         }
 
-        void setOptimizationLevel(LibraryOptimizationLevel optimizationLevel) noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        void setOptimizationLevel(const LibraryOptimizationLevel optimizationLevel) noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             sendMessage(METALPP_SEL(setOptimizationLevel_), optimizationLevel);
         }

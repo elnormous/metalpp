@@ -138,7 +138,8 @@ namespace mtl
             sendMessage(METALPP_SEL(setRenderPipelineState_), pipelineState.get());
         }
 
-        void setVertexBuffer(const Buffer& buffer, const ns::UInteger offset, const ns::UInteger index) noexcept
+        void setVertexBuffer(const Buffer& buffer, const ns::UInteger offset,
+                             const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setVertexBuffer_offset_atIndex_),
                         buffer.get(),
@@ -146,7 +147,8 @@ namespace mtl
                         index);
         }
 
-        void setVertexTexture(const Texture& texture, ns::UInteger index) noexcept
+        void setVertexTexture(const Texture& texture,
+                              const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setVertexTexture_atIndex_),
                         texture.get(),
@@ -154,14 +156,16 @@ namespace mtl
         }
 
         template<std::size_t N>
-        void setVertexTextures(const std::reference_wrapper<Texture> (&textures)[N], const ns::Range& range) noexcept
+        void setVertexTextures(const std::reference_wrapper<Texture> (&textures)[N],
+                               const ns::Range& range) noexcept
         {
             sendMessage(METALPP_SEL(setVertexTextures_withRange_),
                         convertToArray(textures).data(),
                         range);
         }
 
-        void setVertexSamplerState(const SamplerState& sampler, ns::UInteger index) noexcept
+        void setVertexSamplerState(const SamplerState& sampler,
+                                   const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setVertexSamplerState_atIndex_),
                         sampler.get(),
@@ -169,7 +173,8 @@ namespace mtl
         }
 
         template<std::size_t N>
-        void setVertexSamplerStates(const std::reference_wrapper<SamplerState> (&samplers)[N], const ns::Range& range) noexcept
+        void setVertexSamplerStates(const std::reference_wrapper<SamplerState> (&samplers)[N],
+                                    const ns::Range& range) noexcept
         {
             sendMessage(METALPP_SEL(setVertexSamplerStates_withRange_),
                         convertToArray(samplers).data(),
@@ -196,7 +201,9 @@ namespace mtl
             sendMessage(METALPP_SEL(setDepthClipMode_), depthClipMode);
         }
 
-        void setDepthBias(const float depthBias, float slopeScale, float clamp) noexcept
+        void setDepthBias(const float depthBias,
+                          const float slopeScale,
+                          const float clamp) noexcept
         {
             sendMessage(METALPP_SEL(setDepthBias_slopeScale_clamp_), depthBias, slopeScale, clamp);
         }
@@ -211,7 +218,9 @@ namespace mtl
             sendMessage(METALPP_SEL(setTriangleFillMode_), fillMode);
         }
 
-        void setFragmentBuffer(const Buffer& buffer, const ns::UInteger offset, ns::UInteger index) noexcept
+        void setFragmentBuffer(const Buffer& buffer,
+                               const ns::UInteger offset,
+                               const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentBuffer_offset_atIndex_),
                         buffer.get(),
@@ -219,7 +228,8 @@ namespace mtl
                         index);
         }
 
-        void setFragmentTexture(const Texture& texture, ns::UInteger index) noexcept
+        void setFragmentTexture(const Texture& texture,
+                                const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentTexture_atIndex_),
                         texture.get(),
@@ -227,14 +237,16 @@ namespace mtl
         }
 
         template<std::size_t N>
-        void setFragmentTextures(const std::reference_wrapper<Texture> (&textures)[N], const ns::Range& range) noexcept
+        void setFragmentTextures(const std::reference_wrapper<Texture> (&textures)[N],
+                                 const ns::Range& range) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentTextures_withRange_),
                         convertToArray(textures).data(),
                         range);
         }
 
-        void setFragmentSamplerState(const SamplerState& sampler, ns::UInteger index) noexcept
+        void setFragmentSamplerState(const SamplerState& sampler,
+                                     const ns::UInteger index) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentSamplerState_atIndex_),
                         sampler.get(),
@@ -242,7 +254,8 @@ namespace mtl
         }
 
         template<std::size_t N>
-        void setFragmentSamplerStates(const std::reference_wrapper<SamplerState> (&samplers)[N], const ns::Range& range) noexcept
+        void setFragmentSamplerStates(const std::reference_wrapper<SamplerState> (&samplers)[N],
+                                      const ns::Range& range) noexcept
         {
             sendMessage(METALPP_SEL(setFragmentSamplerStates_withRange_),
                         convertToArray(samplers).data(),
@@ -254,7 +267,9 @@ namespace mtl
             sendMessage(METALPP_SEL(setDepthStencilState_), depthStencilState.get());
         }
 
-        void drawPrimitives(const PrimitiveType primitiveType, const ns::UInteger vertexStart, const ns::UInteger vertexCount) noexcept
+        void drawPrimitives(const PrimitiveType primitiveType,
+                            const ns::UInteger vertexStart,
+                            const ns::UInteger vertexCount) noexcept
         {
             sendMessage(METALPP_SEL(drawPrimitives_vertexStart_vertexCount_),
                         primitiveType,
@@ -262,7 +277,11 @@ namespace mtl
                         vertexCount);
         }
 
-        void drawIndexedPrimitives(const PrimitiveType primitiveType, const ns::UInteger indexCount, const IndexType indexType, const Buffer& indexBuffer, const ns::UInteger indexBufferOffset) noexcept
+        void drawIndexedPrimitives(const PrimitiveType primitiveType,
+                                   const ns::UInteger indexCount,
+                                   const IndexType indexType,
+                                   const Buffer& indexBuffer,
+                                   const ns::UInteger indexBufferOffset) noexcept
         {
             sendMessage(METALPP_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_),
                         primitiveType,
