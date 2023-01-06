@@ -90,18 +90,27 @@ namespace
         return m;
     }
 
-    simd::float4x4 rotationMatrix2d(const float radians) noexcept
+    simd::float4x4 translationMatrix(const float x, const float y, const float z) noexcept
+    {
+        return simd::float4x4 {
+            simd::float4{ 1, 0, 0, 0},
+            simd::float4{ 0, 1, 0, 0},
+            simd::float4{ 0, 0, 1, 0},
+            simd::float4{ x, y, z, 1}
+        };
+    }
+
+    simd::float4x4 rotationMatrix(const float radians) noexcept
     {
         const float c = std::cosf(radians);
         const float s = std::sinf(radians);
 
-        simd::float4x4 m = {
-            simd::float4{ c, s, 0, 0},
-            simd::float4{-s, c, 0, 0},
-            simd::float4{ 0, 0, 1, 0},
-            simd::float4{ 0, 0, 0, 1}
+        return simd::float4x4 {
+            simd::float4{ c, 0, -s, 0},
+            simd::float4{ 0, 1,  0, 0},
+            simd::float4{ s, 0,  c, 0},
+            simd::float4{ 0, 0,  0, 1}
         };
-        return m;
     }
 
     static const char* shadersSource =
@@ -163,7 +172,7 @@ public:
                                    applicationShouldTerminateAfterLastWindowClosed,
                                    "b@:@");
         appDelegateClass.reg();
-        appDelegate = appDelegateClass.createInstance();
+        appDelegate = appDelegateClass.createInstance(sizeof(Application*));
         std::memcpy(appDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
 
         application.activateIgnoringOtherApps(true);
@@ -195,7 +204,7 @@ public:
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
         windowDelegateClass.reg();
-        windowDelegate = windowDelegateClass.createInstance();
+        windowDelegate = windowDelegateClass.createInstance(sizeof(Application*));
         std::memcpy(windowDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         window.setDelegate(windowDelegate);
 
@@ -214,10 +223,9 @@ public:
         viewClass.addMethod(sel_registerName("mouseDragged:"), mouseDragged, "v@:@");
         viewClass.addMethod(sel_registerName("rightMouseDragged:"), rightMouseDragged, "v@:@");
         viewClass.addMethod(sel_registerName("otherMouseDragged:"), otherMouseDragged, "v@:@");
-
         viewClass.reg();
 
-        view = viewClass.createInstance();
+        view = viewClass.createInstance(sizeof(Application*));
         std::memcpy(view.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
@@ -304,10 +312,10 @@ public:
         indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         static const float quadVertexData[] = {
-             100.0F, -100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-            -100.0F, -100.0F, -200.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-            -100.0F,  100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             100.0F,  100.0F, -200.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+             100.0F, -100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+            -100.0F, -100.0F, 0.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+            -100.0F,  100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             100.0F,  100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
@@ -441,7 +449,7 @@ public:
                                                       aspectRatio,
                                                       1.0F,
                                                       1000.0F);
-        uniforms.modelMatrix = rotationMatrix2d(angle);
+        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -200.0F), rotationMatrix(angle));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
@@ -701,12 +709,12 @@ private:
         simd::float4x4 modelMatrix;
     };
 
-    objc::Class<ns::Object> appDelegateClass{"AppDelegate", sizeof(Application*)};
+    objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
     ns::Object appDelegate;
-    objc::Class<ns::Object> windowDelegateClass{"WindowDelegate", sizeof(Application*)};
+    objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
     ns::Object windowDelegate;
     ns::Window window = nullptr;
-    objc::Class<ns::View> viewClass{"View", sizeof(Application*)};
+    objc::Class<ns::View> viewClass{"View"};
     ns::View view = nullptr;
 
     ca::MetalLayer metalLayer;
