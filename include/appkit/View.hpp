@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../foundation/Geometry.hpp"
 #include "../quartzcore/Layer.hpp"
 
 namespace ns
@@ -55,6 +56,8 @@ namespace ns
         METALPP_PRIVATE_SEL(initWithFrame_, "initWithFrame:");
         METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
         METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
+        METALPP_PRIVATE_SEL(frame, "frame");
+        METALPP_PRIVATE_SEL(setFrame_, "setFrame:");
         METALPP_PRIVATE_SEL(convertPoint_fromView_, "convertPoint:fromView:");
         METALPP_PRIVATE_SEL(convertPoint_toView_, "convertPoint:toView:");
         METALPP_PRIVATE_SEL(convertSize_fromView_, "convertSize:fromView:");
@@ -87,6 +90,16 @@ namespace ns
         void setAutoresizingMask(const AutoresizingMaskOptions autoresizingMask) noexcept
         {
             sendMessage(METALPP_SEL(setAutoresizingMask_), autoresizingMask);
+        }
+
+        [[nodiscard]] auto frame() const noexcept
+        {
+            return sendMessage<Rect>(METALPP_SEL(frame));
+        }
+
+        void setFrame(const Rect frame) noexcept
+        {
+            sendMessage(METALPP_SEL(setFrame_), frame);
         }
         
         [[nodiscard]] auto convertFromView(const Point& point, const View& view) const noexcept

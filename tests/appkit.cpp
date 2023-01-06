@@ -154,6 +154,7 @@ TEST_CASE("View")
     ns::View viewWithFrame{ns::Rect{0, 0, 100, 100}};
     REQUIRE(viewWithFrame);
     CHECK(viewWithFrame.retainCount());
+    CHECK(viewWithFrame.frame() == ns::Rect{0, 0, 100, 100});
 }
 
 TEST_CASE("Window")
