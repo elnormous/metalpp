@@ -7,6 +7,7 @@
 #include "CommandEncoder.hpp"
 #include "Buffer.hpp"
 #include "Texture.hpp"
+#include "Types.hpp"
 
 namespace mtl
 {
@@ -21,6 +22,7 @@ namespace mtl
     class BlitCommandEncoder final: public CommandEncoder
     {
     public:
+        METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:");
         METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
         METALPP_PRIVATE_SEL(fillBuffer_range_value_, "fillBuffer:range:value:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
@@ -29,6 +31,28 @@ namespace mtl
         using CommandEncoder::operator=;
 
         BlitCommandEncoder() = delete;
+
+        void copyTexture(const Texture& sourceTexture,
+                         const ns::UInteger sourceSlice,
+                         const ns::UInteger sourceLevel,
+                         const Origin& sourceOrigin,
+                         const Size& sourceSize,
+                         const Texture& destinationTexture,
+                         const ns::UInteger destinationSlice,
+                         const ns::UInteger destinationLevel,
+                         const Origin& destinationOrigin) noexcept
+        {
+            sendMessage(METALPP_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_),
+                        sourceTexture.get(),
+                        sourceSlice,
+                        sourceLevel,
+                        sourceOrigin,
+                        sourceSize,
+                        destinationTexture.get(),
+                        destinationSlice,
+                        destinationLevel,
+                        destinationOrigin);
+        }
 
         void generateMipmapsForTexture(const Texture& texture) noexcept
         {
@@ -40,10 +64,14 @@ namespace mtl
             sendMessage(METALPP_SEL(fillBuffer_range_value_), buffer.get(), range, value);
         }
 
-        void copyBuffer(const Buffer& buffer, const ns::UInteger sourceOffset, const Buffer& destinationBuffer, const ns::UInteger destinationOffset, const ns::UInteger size) noexcept
+        void copyBuffer(const Buffer& sourceBuffer,
+                        const ns::UInteger sourceOffset,
+                        const Buffer& destinationBuffer,
+                        const ns::UInteger destinationOffset,
+                        const ns::UInteger size) noexcept
         {
             sendMessage(METALPP_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_),
-                        buffer.get(),
+                        sourceBuffer.get(),
                         sourceOffset,
                         destinationBuffer.get(),
                         destinationOffset,

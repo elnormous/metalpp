@@ -43,6 +43,7 @@ TEST_CASE("Blit command encoder")
     textureDescriptor.setMipmapLevelCount(10);
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
+    mtl::Texture destinationTexture = device.newTexture(textureDescriptor);
     mtl::Buffer buffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
     mtl::Buffer destinationBuffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
 
@@ -54,6 +55,9 @@ TEST_CASE("Blit command encoder")
 
     blitCommandEncoder.generateMipmapsForTexture(texture);
     blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
+
+    blitCommandEncoder.copyTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{1024, 1024, 1},
+                                   destinationTexture, 0, 0, mtl::Origin{0, 0});
 
     blitCommandEncoder.copyBuffer(buffer, 0, destinationBuffer, 0, 2048);
 
