@@ -32,10 +32,10 @@ TEST_CASE("Class")
     CHECK(memcmp(object.getInstanceVariable("var"), &data, sizeof(data)) == 0);
 
     const int extraData = -10;
-    objc::Class<ns::Object> clsWithExtraBytes{"test2", sizeof(extraData)};
+    objc::Class<ns::Object> clsWithExtraBytes{"test2"};
     cls.reg();
 
-    auto objectWithExtraBytes = clsWithExtraBytes.createInstance();
+    auto objectWithExtraBytes = clsWithExtraBytes.createInstance(sizeof(extraData));
     memcpy(objectWithExtraBytes.getIndexedIvars(), &extraData, sizeof(extraData));
     CHECK(memcmp(objectWithExtraBytes.getIndexedIvars(), &extraData, sizeof(extraData)) == 0);
 }

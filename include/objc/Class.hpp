@@ -19,8 +19,8 @@ namespace objc
     class Class final
     {
     public:
-        Class(const char* name, const std::size_t extraBytes = 0):
-            cls{objc_allocateClassPair(ParentType::cls, name, extraBytes)}
+        Class(const char* name):
+            cls{objc_allocateClassPair(ParentType::cls, name, 0)}
         {
             if (!cls) throw ClassError("Failed to allocate class pair");
         }
@@ -110,9 +110,9 @@ namespace objc
                 throw ClassError("Failed to add method");
         }
 
-        Type createInstance() const noexcept
+        Type createInstance(const std::size_t extraBytes = 0) const noexcept
         {
-            id object = objc::sendMessage<id>(objc::sendMessage<id>(cls, ns::Object::METALPP_SEL(alloc)), ns::Object::METALPP_SEL(init));
+            id object = objc::sendMessage<id>(class_createInstance(cls, extraBytes), ns::Object::METALPP_SEL(init));
             return Type{object, ns::adopt};
         }
     private:
