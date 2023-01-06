@@ -300,7 +300,7 @@ public:
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
         renderPipelineDescriptor.setFragmentFunction(fragmentFunction);
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
-        //renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+        renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth32Float);
         //renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
@@ -308,14 +308,53 @@ public:
 
         pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
-        static const std::uint16_t indexData[] = {0, 1, 2, 3, 0, 2};
+        mtl::TextureDescriptor depthTextureDescriptor;
+        depthTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
+        depthTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
+        depthTextureDescriptor.setPixelFormat(mtl::PixelFormat::Depth32Float);
+        depthTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
+        depthTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
+        depthTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+
+        depthTexture = device.newTexture(depthTextureDescriptor);
+
+        static const std::uint16_t indexData[] = {
+            0 + 0, 0 + 1, 0 + 2, 0 + 3, 0 + 0, 0 + 2,
+            4 + 0, 4 + 1, 4 + 2, 4 + 3, 4 + 0, 4 + 2
+        };
         indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         static const float quadVertexData[] = {
-             100.0F, -100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-            -100.0F, -100.0F, 0.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-            -100.0F,  100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             100.0F,  100.0F, 0.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+            // back
+             100.0F, -100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+            -100.0F, -100.0F, -100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+            -100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+            // front
+             100.0F, -100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+            -100.0F, -100.0F, 100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+            -100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+             100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+//            // left
+//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+//            // right
+//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+//            // bottom
+//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+//            // top
+//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
+//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
+//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
+//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
@@ -345,6 +384,12 @@ public:
         normalSamplerDescriptor.setTAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         normalSamplerDescriptor.setRAddressMode(mtl::SamplerAddressMode::ClampToEdge);
         normalSampler = device.newSamplerState(normalSamplerDescriptor);
+
+        mtl::DepthStencilDescriptor depthStencilDescriptor;
+        depthStencilDescriptor.setDepthCompareFunction(mtl::CompareFunction::LessEqual);
+        depthStencilDescriptor.setDepthWriteEnabled(true);
+
+        depthStencilState = device.newDepthStencilState(depthStencilDescriptor);
 
         displayLink.setOutputCallback(renderCallback, this);
         displayLink.start();
@@ -449,7 +494,7 @@ public:
                                                       aspectRatio,
                                                       1.0F,
                                                       1000.0F);
-        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -200.0F), rotationMatrix(angle));
+        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -300.0F), rotationMatrix(angle));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
@@ -459,6 +504,11 @@ public:
         renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
         renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
 
+        renderPassDescriptor.depthAttachment().setTexture(depthTexture);
+        renderPassDescriptor.depthAttachment().setLoadAction(mtl::LoadAction::Clear);
+        renderPassDescriptor.depthAttachment().setStoreAction(mtl::StoreAction::Store);
+        renderPassDescriptor.depthAttachment().setClearDepth(1.0);
+
         auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
         renderCommand.setFragmentTexture(diffuseTexture, 0);
         renderCommand.setFragmentSamplerState(diffuseSampler, 0);
@@ -467,7 +517,8 @@ public:
         renderCommand.setRenderPipelineState(pipelineState);
         renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
         renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
-        renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 6, mtl::IndexType::UInt16, indexBuffer, 0);
+        renderCommand.setDepthStencilState(depthStencilState);
+        renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 12, mtl::IndexType::UInt16, indexBuffer, 0);
         renderCommand.endEncoding();
 
         commandBuffer.commit();
@@ -728,6 +779,7 @@ private:
     std::atomic<float> aspectRatio{};
 
     mtl::RenderPipelineState pipelineState = nullptr;
+    mtl::Texture depthTexture = nullptr;
 
     mtl::Buffer indexBuffer = nullptr;
     mtl::Buffer vertexBuffer = nullptr;
@@ -738,6 +790,7 @@ private:
 
     mtl::SamplerState diffuseSampler = nullptr;
     mtl::SamplerState normalSampler = nullptr;
+    mtl::DepthStencilState depthStencilState = nullptr;
 };
 
 namespace

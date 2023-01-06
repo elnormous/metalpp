@@ -236,7 +236,7 @@ namespace mtl
         Max = 2,
     } API_AVAILABLE(macos(10.14), ios(9.0));
 
-    class RenderPassDepthAttachmentDescriptor final: public ns::Object
+    class RenderPassDepthAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
         static constexpr bool copying = true;
@@ -248,11 +248,11 @@ namespace mtl
         METALPP_PRIVATE_SEL(depthResolveFilter, "depthResolveFilter");
         METALPP_PRIVATE_SEL(setDepthResolveFilter_, "setDepthResolveFilter:");
 
-        using Object::Object;
-        using Object::operator=;
+        using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
+        using RenderPassAttachmentDescriptor::operator=;
 
         RenderPassDepthAttachmentDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
+            RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 

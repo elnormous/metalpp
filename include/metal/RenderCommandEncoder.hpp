@@ -8,6 +8,7 @@
 #include "../foundation/Range.hpp"
 #include "Buffer.hpp"
 #include "CommandEncoder.hpp"
+#include "DepthStencil.hpp"
 #include "RenderPipeline.hpp"
 #include "Sampler.hpp"
 #include "StageInputOutputDescriptor.hpp"
@@ -123,6 +124,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setFragmentTextures_withRange_, "setFragmentTextures:withRange:");
         METALPP_PRIVATE_SEL(setFragmentSamplerState_atIndex_, "setFragmentSamplerState:atIndex:");
         METALPP_PRIVATE_SEL(setFragmentSamplerStates_withRange_, "setFragmentSamplerStates:withRange:");
+        METALPP_PRIVATE_SEL(setDepthStencilState_, "setDepthStencilState:");
         METALPP_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_, "drawPrimitives:vertexStart:vertexCount:");
         METALPP_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, "drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
 
@@ -245,6 +247,11 @@ namespace mtl
             sendMessage(METALPP_SEL(setFragmentSamplerStates_withRange_),
                         convertToArray(samplers).data(),
                         range);
+        }
+
+        void setDepthStencilState(const DepthStencilState& depthStencilState)
+        {
+            sendMessage(METALPP_SEL(setDepthStencilState_), depthStencilState.get());
         }
 
         void drawPrimitives(const PrimitiveType primitiveType, const ns::UInteger vertexStart, const ns::UInteger vertexCount) noexcept
