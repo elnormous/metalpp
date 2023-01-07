@@ -196,6 +196,26 @@ TEST_CASE("Compile options")
     CHECK(options.preprocessorMacros().retainCount() == 2);
 }
 
+TEST_CASE("Compute command encoder")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+
+    mtl::ComputeCommandEncoder computeCommandEncoder = commandBuffer.computeCommandEncoder();
+    REQUIRE(computeCommandEncoder);
+    CHECK(computeCommandEncoder.retainCount() == 2);
+    computeCommandEncoder.setLabel("test");
+    CHECK(computeCommandEncoder.label().isEqualToString("test"));
+
+    computeCommandEncoder.endEncoding();
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
+}
+
 TEST_CASE("Depth stencil state")
 {
     ns::AutoreleasePool pool;

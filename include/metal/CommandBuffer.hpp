@@ -7,6 +7,7 @@
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 #include "BlitCommandEncoder.hpp"
+#include "ComputeCommandEncoder.hpp"
 #include "Drawable.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
@@ -68,12 +69,13 @@ namespace mtl
         METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
-        METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
-        METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
         METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
+        METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
+        METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
+        METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
 
         using Object::Object;
         using Object::operator=;
@@ -90,16 +92,6 @@ namespace mtl
         void setLabel(const ns::String& label) noexcept
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
-        }
-
-        [[nodiscard]] auto blitCommandEncoder() const noexcept
-        {
-            return BlitCommandEncoder{sendMessage<id>(METALPP_SEL(blitCommandEncoder))};
-        }
-
-        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
-        {
-            return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
 
         void presentDrawable(const Drawable& drawable) const noexcept
@@ -120,6 +112,21 @@ namespace mtl
         void waitUntilCompleted() noexcept
         {
             sendMessage(METALPP_SEL(waitUntilCompleted));
+        }
+
+        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        {
+            return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
+        }
+
+        [[nodiscard]] auto blitCommandEncoder() const noexcept
+        {
+            return BlitCommandEncoder{sendMessage<id>(METALPP_SEL(blitCommandEncoder))};
+        }
+
+        [[nodiscard]] auto computeCommandEncoder() const noexcept
+        {
+            return ComputeCommandEncoder{sendMessage<id>(METALPP_SEL(computeCommandEncoder))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

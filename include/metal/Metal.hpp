@@ -7,6 +7,7 @@
 #include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
+#include "ComputeCommandEncoder.hpp"
 #include "DepthStencil.hpp"
 #include "Device.hpp"
 #include "Drawable.hpp"
