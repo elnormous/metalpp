@@ -18,9 +18,9 @@ namespace cv
     class DisplayLink final
     {
     public:
-        explicit DisplayLink(const cg::DirectDisplayID displayId)
+        explicit DisplayLink(const cg::DirectDisplayID displayID)
         {
-            if (const auto result = CVDisplayLinkCreateWithCGDisplay(displayId, &ref); result != kCVReturnSuccess)
+            if (const auto result = CVDisplayLinkCreateWithCGDisplay(displayID, &ref); result != kCVReturnSuccess)
                 throw std::system_error{result, errorCategory, "Failed to create display link"};
         }
 
@@ -73,7 +73,14 @@ namespace cv
         {
             return ref ? CFGetRetainCount(ref) : 0;
         }
-        
+
+        void setCurrentCGDisplay(CGDirectDisplayID displayID)
+        {
+            if (const auto result = CVDisplayLinkSetCurrentCGDisplay(ref, displayID); result != kCVReturnSuccess)
+                throw std::system_error{result, errorCategory, "Failed to set current CG display"};
+
+        }
+
         void setOutputCallback(const CVDisplayLinkOutputCallback callback, void* userInfo)
         {
             if (const auto result = CVDisplayLinkSetOutputCallback(ref, callback, userInfo); result != kCVReturnSuccess)

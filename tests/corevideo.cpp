@@ -43,6 +43,8 @@ TEST_CASE("DisplayLink")
     displayLink.setOutputCallback(callback, &flag);
     displayLink.start();
 
+    displayLink.setCurrentCGDisplay(mainDisplayId);
+
     std::unique_lock lock{flag.mutex};
     while (!flag.flag) flag.condition.wait(lock);
 
