@@ -150,6 +150,7 @@ namespace
     "    float4 position [[position]];\n" \
     "    half4  color;\n" \
     "    float2 texCoord;\n" \
+    "    float3 normal;\n" \
     "} VertexOut;\n" \
 
     "vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
@@ -159,6 +160,7 @@ namespace
     "    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * float4(input.position, 1.0);\n" \
     "    out.color = half4(input.color);\n" \
     "    out.texCoord = input.texCoord;\n" \
+    "    out.normal = input.normal;\n" \
     "    return out;\n" \
     "}\n" \
 
@@ -168,7 +170,7 @@ namespace
     "                                 texture2d<float> normalTexture [[texture(1)]],\n" \
     "                                 sampler normalSampler [[sampler(1)]])\n" \
     "{\n" \
-    "    return in.color * half4(diffuseTexture.sample(diffuseSampler, in.texCoord)) * half4(normalTexture.sample(normalSampler, in.texCoord));\n" \
+    "    return in.color * half4(diffuseTexture.sample(diffuseSampler, in.texCoord));\n" \
     "}";
 }
 
