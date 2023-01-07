@@ -140,7 +140,7 @@ namespace
 
     "typedef struct\n" \
     "{\n" \
-    "    float4 position [[attribute(0)]];\n" \
+    "    float3 position [[attribute(0)]];\n" \
     "    half4 color [[attribute(1)]];\n" \
     "    float2 texCoord [[attribute(2)]];\n" \
     "    float3 normal [[attribute(3)]];\n" \
@@ -156,7 +156,7 @@ namespace
     "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
     "{\n" \
     "    VertexOut out;\n" \
-    "    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * input.position;\n" \
+    "    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * float4(input.position, 1.0);\n" \
     "    out.color = half4(input.color);\n" \
     "    out.texCoord = input.texCoord;\n" \
     "    return out;\n" \
@@ -285,7 +285,7 @@ public:
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
         mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-        vertexLayout0.setStride(52);
+        vertexLayout0.setStride(48);
         vertexLayout0.setStepRate(1);
         vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
 
@@ -293,26 +293,26 @@ public:
 
         // position
         mtl::VertexAttributeDescriptor vertexAttribute0 = vertexAttributes[0];
-        vertexAttribute0.setFormat(mtl::VertexFormat::Float4);
+        vertexAttribute0.setFormat(mtl::VertexFormat::Float3);
         vertexAttribute0.setOffset(0);
         vertexAttribute0.setBufferIndex(0);
 
         // color
         mtl::VertexAttributeDescriptor vertexAttribute1 = vertexAttributes[1];
         vertexAttribute1.setFormat(mtl::VertexFormat::Float4);
-        vertexAttribute1.setOffset(16);
+        vertexAttribute1.setOffset(12);
         vertexAttribute1.setBufferIndex(0);
 
         // texCoord
         mtl::VertexAttributeDescriptor vertexAttribute2 = vertexAttributes[2];
         vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
-        vertexAttribute2.setOffset(32);
+        vertexAttribute2.setOffset(28);
         vertexAttribute2.setBufferIndex(0);
 
         // normal
         mtl::VertexAttributeDescriptor vertexAttribute3 = vertexAttributes[3];
         vertexAttribute3.setFormat(mtl::VertexFormat::Float3);
-        vertexAttribute3.setOffset(40);
+        vertexAttribute3.setOffset(36);
         vertexAttribute3.setBufferIndex(0);
 
         mtl::RenderPipelineDescriptor renderPipelineDescriptor;
@@ -354,40 +354,40 @@ public:
 
         static const float quadVertexData[] = {
             // back
-             0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, -1.0F,
-             0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, -1.0F,
-            -0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, -1.0F,
-            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, -1.0F,
+             0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, -1.0F,
+             0.5F * size,  0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+            -0.5F * size,  0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+            -0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, -1.0F,
 
             // front
-            -0.5F * size, -0.5F * size, 0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, 1.0F,
-            -0.5F * size,  0.5F * size, 0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, 1.0F,
-             0.5F * size,  0.5F * size, 0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, 1.0F,
-             0.5F * size, -0.5F * size, 0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+            -0.5F * size, -0.5F * size, 0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+            -0.5F * size,  0.5F * size, 0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, 1.0F,
+             0.5F * size,  0.5F * size, 0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, 1.0F,
+             0.5F * size, -0.5F * size, 0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, 1.0F,
 
             // left
-            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
-            -0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
-            -0.5F * size,  0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
-            -0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size,  0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size,  0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size, -0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
 
             // right
-            0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    1.0F, 0.0F, 0.0F,
-            0.5F * size,  0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    1.0F, 0.0F, 0.0F,
-            0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    1.0F, 0.0F, 0.0F,
-            0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size, -0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size,  0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size,  0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    1.0F, 0.0F, 0.0F,
 
             // bottom
-            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, -1.0F, 0.0F,
-            -0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, -1.0F, 0.0F,
-             0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, -1.0F, 0.0F,
-             0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, -1.0F, 0.0F,
+            -0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, -1.0F, 0.0F,
+            -0.5F * size, -0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, -1.0F, 0.0F,
+             0.5F * size, -0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, -1.0F, 0.0F,
+             0.5F * size, -0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, -1.0F, 0.0F,
 
             // top
-            -0.5F * size, 0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 1.0F, 0.0F,
-            -0.5F * size, 0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 1.0F, 0.0F,
-             0.5F * size, 0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 1.0F, 0.0F,
-             0.5F * size, 0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 1.0F, 0.0F,
+            -0.5F * size, 0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 1.0F, 0.0F,
+            -0.5F * size, 0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 1.0F, 0.0F,
+             0.5F * size, 0.5F * size, -0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 1.0F, 0.0F,
+             0.5F * size, 0.5F * size,  0.5F * size,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 1.0F, 0.0F,
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
