@@ -130,6 +130,7 @@ namespace
     "    float4 position [[attribute(0)]];\n" \
     "    half4 color [[attribute(1)]];\n" \
     "    float2 texCoord [[attribute(2)]];\n" \
+    "    float3 normal [[attribute(3)]];\n" \
     "} VertexIn;\n" \
 
     "typedef struct {\n" \
@@ -271,7 +272,7 @@ public:
         mtl::VertexBufferLayoutDescriptorArray vertexLayouts = vertexDescriptor.layouts();
 
         mtl::VertexBufferLayoutDescriptor vertexLayout0 = vertexLayouts[0];
-        vertexLayout0.setStride(40);
+        vertexLayout0.setStride(52);
         vertexLayout0.setStepRate(1);
         vertexLayout0.setStepFunction(mtl::VertexStepFunction::PerVertex);
 
@@ -294,6 +295,12 @@ public:
         vertexAttribute2.setFormat(mtl::VertexFormat::Float2);
         vertexAttribute2.setOffset(32);
         vertexAttribute2.setBufferIndex(0);
+
+        // normal
+        mtl::VertexAttributeDescriptor vertexAttribute3 = vertexAttributes[3];
+        vertexAttribute3.setFormat(mtl::VertexFormat::Float3);
+        vertexAttribute3.setOffset(40);
+        vertexAttribute3.setBufferIndex(0);
 
         mtl::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.setLabel("renderPipeline");
@@ -326,15 +333,16 @@ public:
 
         static const float quadVertexData[] = {
             // back
-             100.0F, -100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-            -100.0F, -100.0F, -100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-            -100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+            -100.0F, -100.0F, -100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, -1.0F,
+             100.0F, -100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, -1.0F,
+             100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+            -100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+
             // front
-             100.0F, -100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-            -100.0F, -100.0F, 100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-            -100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-             100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+             100.0F, -100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+            -100.0F, -100.0F, 100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+            -100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, 1.0F,
+             100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, 1.0F,
 //            // left
 //             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
 //            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
@@ -518,6 +526,7 @@ public:
         renderCommand.setVertexBuffer(vertexBuffer, 0, 0);
         renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
         renderCommand.setDepthStencilState(depthStencilState);
+        renderCommand.setCullMode(mtl::CullMode::Back);
         renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 12, mtl::IndexType::UInt16, indexBuffer, 0);
         renderCommand.endEncoding();
 
