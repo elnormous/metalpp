@@ -100,7 +100,20 @@ namespace
         };
     }
 
-    simd::float4x4 rotationMatrix(const float radians) noexcept
+    simd::float4x4 rotationMatrixX(const float radians) noexcept
+    {
+        const float c = std::cosf(radians);
+        const float s = std::sinf(radians);
+
+        return simd::float4x4 {
+            simd::float4{ 1,  0, 0, 0},
+            simd::float4{ 0,  c, s, 0},
+            simd::float4{ 0, -s, c, 0},
+            simd::float4{ 0,  0, 0, 1}
+        };
+    }
+
+    simd::float4x4 rotationMatrixY(const float radians) noexcept
     {
         const float c = std::cosf(radians);
         const float s = std::sinf(radians);
@@ -326,43 +339,55 @@ public:
         depthTexture = device.newTexture(depthTextureDescriptor);
 
         static const std::uint16_t indexData[] = {
-            0 + 0, 0 + 1, 0 + 2, 0 + 3, 0 + 0, 0 + 2,
-            4 + 0, 4 + 1, 4 + 2, 4 + 3, 4 + 0, 4 + 2
+            0  + 0, 0  + 1, 0  + 2, 0  + 0, 0  + 2, 0  + 3,
+            4  + 0, 4  + 1, 4  + 2, 4  + 0, 4  + 2, 4  + 3,
+
+            8  + 0, 8  + 1, 8  + 2, 8  + 0, 8  + 2, 8  + 3,
+            12 + 0, 12 + 1, 12 + 2, 12 + 0, 12 + 2, 12 + 3,
+
+            16 + 0, 16 + 1, 16 + 2, 16 + 0, 16 + 2, 16 + 3,
+            20 + 0, 20 + 1, 20 + 2, 20 + 0, 20 + 2, 20 + 3,
         };
         indexBuffer = device.newBuffer(indexData, sizeof(indexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
+        const float size = 200.0F;
+
         static const float quadVertexData[] = {
             // back
-            -100.0F, -100.0F, -100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, -1.0F,
-             100.0F, -100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, -1.0F,
-             100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, -1.0F,
-            -100.0F,  100.0F, -100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+             0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, -1.0F,
+             0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+            -0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, -1.0F,
+            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, -1.0F,
 
             // front
-             100.0F, -100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, 1.0F,
-            -100.0F, -100.0F, 100.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, 1.0F,
-            -100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, 1.0F,
-             100.0F,  100.0F, 100.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, 1.0F,
-//            // left
-//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
-//            // right
-//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
-//            // bottom
-//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
-//            // top
-//             100.0F, -100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,
-//            -100.0F, -100.0F, 50.0F, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,
-//            -100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,
-//             100.0F,  100.0F, 50.0F, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,
+            -0.5F * size, -0.5F * size, 0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+            -0.5F * size,  0.5F * size, 0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 0.0F, 1.0F,
+             0.5F * size,  0.5F * size, 0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 0.0F, 1.0F,
+             0.5F * size, -0.5F * size, 0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 0.0F, 1.0F,
+
+            // left
+            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    0.0F, 0.0F, 1.0F, 1.0F,    0.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size,  0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    -1.0F, 0.0F, 0.0F,
+            -0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    -1.0F, 0.0F, 0.0F,
+
+            // right
+            0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size,  0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size,  0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    1.0F, 0.0F, 0.0F,
+            0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 0.0F, 1.0F, 1.0F,    1.0f, 0.0F,    1.0F, 0.0F, 0.0F,
+
+            // bottom
+            -0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, -1.0F, 0.0F,
+            -0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, -1.0F, 0.0F,
+             0.5F * size, -0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, -1.0F, 0.0F,
+             0.5F * size, -0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, -1.0F, 0.0F,
+
+            // top
+            -0.5F * size, 0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    0.0f, 0.0F,    0.0F, 1.0F, 0.0F,
+            -0.5F * size, 0.5F * size, -0.5F * size, 1.0F,    0.0F, 1.0F, 1.0F, 1.0F,    0.0f, 1.0F,    0.0F, 1.0F, 0.0F,
+             0.5F * size, 0.5F * size, -0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 1.0F,    0.0F, 1.0F, 0.0F,
+             0.5F * size, 0.5F * size,  0.5F * size, 1.0F,    1.0F, 1.0F, 1.0F, 1.0F,    1.0f, 0.0F,    0.0F, 1.0F, 0.0F,
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
@@ -498,7 +523,7 @@ public:
                                                       aspectRatio,
                                                       1.0F,
                                                       1000.0F);
-        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -300.0F), rotationMatrix(angle));
+        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -300.0F), rotationMatrixY(angle));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
@@ -523,7 +548,8 @@ public:
         renderCommand.setVertexBuffer(uniformBuffer, 0, 1);
         renderCommand.setDepthStencilState(depthStencilState);
         renderCommand.setCullMode(mtl::CullMode::Back);
-        renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 12, mtl::IndexType::UInt16, indexBuffer, 0);
+        renderCommand.setFrontFacingWinding(mtl::Winding::Clockwise);
+        renderCommand.drawIndexedPrimitives(mtl::PrimitiveType::Triangle, 36, mtl::IndexType::UInt16, indexBuffer, 0);
         renderCommand.endEncoding();
 
         commandBuffer.commit();
