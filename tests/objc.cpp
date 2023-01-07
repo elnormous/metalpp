@@ -33,7 +33,7 @@ TEST_CASE("Class")
 
     const int extraData = -10;
     objc::Class<ns::Object> clsWithExtraBytes{"test2"};
-    cls.reg();
+    clsWithExtraBytes.reg();
 
     auto objectWithExtraBytes = clsWithExtraBytes.createInstance(sizeof(extraData));
     memcpy(objectWithExtraBytes.getIndexedIvars(), &extraData, sizeof(extraData));
