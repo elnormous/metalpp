@@ -9,6 +9,7 @@
 #include "BlitCommandEncoder.hpp"
 #include "ComputeCommandEncoder.hpp"
 #include "Drawable.hpp"
+#include "ParallelRenderCommandEncoder.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
 
@@ -76,6 +77,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
         METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
+        METALPP_PRIVATE_SEL(parallelRenderCommandEncoderWithDescriptor_, "parallelRenderCommandEncoderWithDescriptor:");
 
         using Object::Object;
         using Object::operator=;
@@ -127,6 +129,11 @@ namespace mtl
         [[nodiscard]] auto computeCommandEncoder() const noexcept
         {
             return ComputeCommandEncoder{sendMessage<id>(METALPP_SEL(computeCommandEncoder))};
+        }
+
+        [[nodiscard]] auto parallelRenderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        {
+            return ParallelRenderCommandEncoder{sendMessage<id>(METALPP_SEL(parallelRenderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

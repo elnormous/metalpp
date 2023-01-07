@@ -428,6 +428,22 @@ TEST_CASE("Render command encoder")
 
     renderCommandEncoder.endEncoding();
 
+    mtl::ParallelRenderCommandEncoder parallelRenderCommandEncoder = commandBuffer.parallelRenderCommandEncoder(renderPassDescriptor);
+    REQUIRE(parallelRenderCommandEncoder);
+    CHECK(parallelRenderCommandEncoder.retainCount() == 2);
+    parallelRenderCommandEncoder.setLabel("test");
+    CHECK(parallelRenderCommandEncoder.label().isEqualToString("test"));
+
+    mtl::RenderCommandEncoder renderCommandEncoder1 = parallelRenderCommandEncoder.renderCommandEncoder();
+    REQUIRE(renderCommandEncoder1);
+    renderCommandEncoder1.endEncoding();
+
+    mtl::RenderCommandEncoder renderCommandEncoder2 = parallelRenderCommandEncoder.renderCommandEncoder();
+    REQUIRE(renderCommandEncoder2);
+    renderCommandEncoder2.endEncoding();
+
+    parallelRenderCommandEncoder.endEncoding();
+
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
 }

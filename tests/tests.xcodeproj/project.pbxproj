@@ -112,6 +112,7 @@
 		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 		30CB1298295E7FEC0090DC8F /* Value.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Value.hpp; sourceTree = "<group>"; };
 		30CD076329696213004DA016 /* ComputeCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ComputeCommandEncoder.hpp; sourceTree = "<group>"; };
+		30CD0764296963A6004DA016 /* ParallelRenderCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParallelRenderCommandEncoder.hpp; sourceTree = "<group>"; };
 		30CE5EEE2962776A005A78AD /* AppKit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppKit.hpp; sourceTree = "<group>"; };
 		30CE5EEF29627864005A78AD /* Foundation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Foundation.hpp; sourceTree = "<group>"; };
 		30CE5EF0296282EE005A78AD /* CoreGraphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreGraphics.hpp; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 				30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */,
 				309010DD292B7833002D121D /* Library.hpp */,
 				309010DB292B7833002D121D /* Metal.hpp */,
+				30CD0764296963A6004DA016 /* ParallelRenderCommandEncoder.hpp */,
 				309010EA292B7833002D121D /* PixelFormat.hpp */,
 				309010E9292B7833002D121D /* RenderCommandEncoder.hpp */,
 				309010E1292B7833002D121D /* RenderPass.hpp */,

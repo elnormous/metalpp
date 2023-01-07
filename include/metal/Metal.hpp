@@ -14,6 +14,7 @@
 #include "DynamicLibrary.hpp"
 #include "FunctionConstantValues.hpp"
 #include "Library.hpp"
+#include "ParallelRenderCommandEncoder.hpp"
 #include "PixelFormat.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
