@@ -283,7 +283,7 @@ namespace mtl
         DepthResolvedSample   = 1,
     } API_AVAILABLE(macos(10.14), ios(12.0), tvos(14.5));
 
-    class RenderPassStencilAttachmentDescriptor final: public ns::Object
+    class RenderPassStencilAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
         METALPP_PRIVATE_CLS("MTLRenderPassStencilAttachmentDescriptor");
@@ -293,11 +293,11 @@ namespace mtl
         METALPP_PRIVATE_SEL(stencilResolveFilter, "stencilResolveFilter");
         METALPP_PRIVATE_SEL(setStencilResolveFilter_, "setStencilResolveFilter:");
 
-        using Object::Object;
-        using Object::operator=;
+        using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
+        using RenderPassAttachmentDescriptor::operator=;
 
         RenderPassStencilAttachmentDescriptor() noexcept:
-            Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
+            RenderPassAttachmentDescriptor{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(init)), ns::adopt}
         {
         }
 
