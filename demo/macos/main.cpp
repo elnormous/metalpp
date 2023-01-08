@@ -63,17 +63,10 @@ namespace
         return texture;
     }
 
-    CVReturn renderCallback(CVDisplayLinkRef,
-                            const CVTimeStamp*,
-                            const CVTimeStamp*,
-                            CVOptionFlags,
-                            CVOptionFlags*,
-                            void* displayLinkContext);
-
-    simd::float4x4 perspectiveMatrix(const float fovY,
-                                     const float aspectRatio,
-                                     const float near,
-                                     const float far) noexcept
+    auto perspectiveMatrix(const float fovY,
+                           const float aspectRatio,
+                           const float near,
+                           const float far) noexcept
     {
         const auto sy = 1 / std::tan(fovY * 0.5F);
         const auto sx = sy / aspectRatio;
@@ -89,7 +82,7 @@ namespace
         };
     }
 
-    simd::float4x4 translationMatrix(const float x, const float y, const float z) noexcept
+    auto translationMatrix(const float x, const float y, const float z) noexcept
     {
         return simd::float4x4{
             simd::float4{1, 0, 0, 0},
@@ -99,10 +92,10 @@ namespace
         };
     }
 
-    simd::float4x4 rotationMatrixX(const float radians) noexcept
+    auto rotationMatrixX(const float radians) noexcept
     {
-        const float c = std::cos(radians);
-        const float s = std::sin(radians);
+        const auto c = std::cos(radians);
+        const auto s = std::sin(radians);
 
         return simd::float4x4{
             simd::float4{1,  0, 0, 0},
@@ -112,10 +105,10 @@ namespace
         };
     }
 
-    simd::float4x4 rotationMatrixY(const float radians) noexcept
+    auto rotationMatrixY(const float radians) noexcept
     {
-        const float c = std::cos(radians);
-        const float s = std::sin(radians);
+        const auto c = std::cos(radians);
+        const auto s = std::sin(radians);
 
         return simd::float4x4{
             simd::float4{c, 0, -s, 0},
@@ -788,6 +781,18 @@ private:
         application->otherMouseDragged(location);
     }
 
+    static CVReturn renderCallback(CVDisplayLinkRef,
+                                   const CVTimeStamp*,
+                                   const CVTimeStamp*,
+                                   CVOptionFlags,
+                                   CVOptionFlags*,
+                                   void* userInfo)
+    {
+        auto application = static_cast<Application*>(userInfo);
+        application->render();
+        return kCVReturnSuccess;
+    }
+
     struct Uniforms final
     {
         simd::float4x4 projectionMatrix;
@@ -827,21 +832,6 @@ private:
     mtl::SamplerState normalSampler = nullptr;
     mtl::DepthStencilState depthStencilState = nullptr;
 };
-
-namespace
-{
-    CVReturn renderCallback(CVDisplayLinkRef,
-                            const CVTimeStamp*,
-                            const CVTimeStamp*,
-                            CVOptionFlags,
-                            CVOptionFlags*,
-                            void* userInfo)
-    {
-        auto application = static_cast<Application*>(userInfo);
-        application->render();
-        return kCVReturnSuccess;
-    }
-}
 
 int main(int argc, const char* argv[])
 {
