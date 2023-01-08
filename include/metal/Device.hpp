@@ -6,6 +6,7 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../dispatch/Data.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "Buffer.hpp"
@@ -119,6 +120,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
         METALPP_PRIVATE_SEL(newSamplerStateWithDescriptor_, "newSamplerStateWithDescriptor:");
         METALPP_PRIVATE_SEL(newDefaultLibrary, "newDefaultLibrary");
+        METALPP_PRIVATE_SEL(newLibraryWithData_error_, "newLibraryWithData:error:");
         METALPP_PRIVATE_SEL(newLibraryWithSource_options_error_, "newLibraryWithSource:options:error:");
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
@@ -212,12 +214,11 @@ namespace mtl
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newLibrary(const ns::String& source)
+        [[nodiscard]] auto newLibrary(const dispatch::Data& data)
         {
             id error = nil;
-            const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
-                                               source.get(),
-                                               nil,
+            const id library = sendMessage<id>(METALPP_SEL(newLibraryWithData_error_),
+                                               data.get(),
                                                &error);
 
             if (error != nil)

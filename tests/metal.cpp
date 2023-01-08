@@ -274,7 +274,7 @@ TEST_CASE("Function")
     "    return float4(vertexArray[vid], 1.0);" \
     "}";
 
-    mtl::Library vertexLibrary = device.newLibrary(vertexShader);
+    mtl::Library vertexLibrary = device.newLibrary(vertexShader, nullptr);
     mtl::Function vertexFunction = vertexLibrary.newFunction("vsh");
     REQUIRE(vertexFunction);
     CHECK(vertexFunction.device() == device);
@@ -302,7 +302,7 @@ TEST_CASE("Function")
     constantValues.setConstantValues(&value, mtl::DataType::Float, ns::Range{1, 1});
     constantValues.setConstantValue(&value, mtl::DataType::Float, "constant2");
 
-    mtl::Library fragmentLibrary = device.newLibrary(fragmentShader);
+    mtl::Library fragmentLibrary = device.newLibrary(fragmentShader, nullptr);
     mtl::Function fragmentFunction = fragmentLibrary.newFunction("fsh", constantValues);
     REQUIRE(fragmentFunction);
     CHECK(fragmentFunction.functionType() == mtl::FunctionType::Fragment);
@@ -314,7 +314,7 @@ TEST_CASE("Function")
     "[[patch(quad, 16)]]"
     "vertex float4 ptsh() { return float4{0.0, 0.0, 0.0, 0.0}; }";
 
-    mtl::Library postTesselationLibrary = device.newLibrary(postTesselationShader);
+    mtl::Library postTesselationLibrary = device.newLibrary(postTesselationShader, nullptr);
     mtl::Function postTesselationFunction = postTesselationLibrary.newFunction("ptsh");
     REQUIRE(postTesselationFunction);
     CHECK(postTesselationFunction.functionType() == mtl::FunctionType::Vertex);
@@ -325,7 +325,7 @@ TEST_CASE("Function")
     const char* computeKernel =
     "kernel void ck() {}";
 
-    mtl::Library computeLibrary = device.newLibrary(computeKernel);
+    mtl::Library computeLibrary = device.newLibrary(computeKernel, nullptr);
     mtl::Function computeFunction = computeLibrary.newFunction("ck");
     REQUIRE(computeFunction);
     CHECK(computeFunction.functionType() == mtl::FunctionType::Kernel);
@@ -536,7 +536,7 @@ TEST_CASE("Render pipeline descriptor")
     "    return half4(1.0);" \
     "}";
 
-    mtl::Library library = device.newLibrary(shader);
+    mtl::Library library = device.newLibrary(shader, nullptr);
     mtl::Function vertexFunction = library.newFunction("vsh");
     mtl::Function fragmentFunction = library.newFunction("fsh");
 
@@ -576,7 +576,7 @@ TEST_CASE("Render pipeline state")
     "    return half4(1.0);" \
     "}";
 
-    mtl::Library library = device.newLibrary(shader);
+    mtl::Library library = device.newLibrary(shader, nullptr);
     mtl::Function vertexFunction = library.newFunction("vsh");
     mtl::Function fragmentFunction = library.newFunction("fsh");
 
