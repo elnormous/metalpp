@@ -76,10 +76,10 @@ namespace
                                      const float far) noexcept
     {
         const auto sy = 1 / std::tan(fovY * 0.5F);
-        const auto  sx = sy / aspectRatio;
-        const auto  zRange = far - near;
-        const auto  sz = -(far + near) / zRange;
-        const auto  tz = -2.0F * far * near / zRange;
+        const auto sx = sy / aspectRatio;
+        const auto zRange = far - near;
+        const auto sz = -(far + near) / zRange;
+        const auto tz = -2.0F * far * near / zRange;
 
         return simd::float4x4{
             simd::float4{sx, 0,  0,  0},
@@ -91,7 +91,7 @@ namespace
 
     simd::float4x4 translationMatrix(const float x, const float y, const float z) noexcept
     {
-        return simd::float4x4 {
+        return simd::float4x4{
             simd::float4{1, 0, 0, 0},
             simd::float4{0, 1, 0, 0},
             simd::float4{0, 0, 1, 0},
@@ -101,27 +101,27 @@ namespace
 
     simd::float4x4 rotationMatrixX(const float radians) noexcept
     {
-        const float c = std::cosf(radians);
-        const float s = std::sinf(radians);
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
 
-        return simd::float4x4 {
-            simd::float4{ 1,  0, 0, 0},
-            simd::float4{ 0,  c, s, 0},
-            simd::float4{ 0, -s, c, 0},
-            simd::float4{ 0,  0, 0, 1}
+        return simd::float4x4{
+            simd::float4{1,  0, 0, 0},
+            simd::float4{0,  c, s, 0},
+            simd::float4{0, -s, c, 0},
+            simd::float4{0,  0, 0, 1}
         };
     }
 
     simd::float4x4 rotationMatrixY(const float radians) noexcept
     {
-        const float c = std::cosf(radians);
-        const float s = std::sinf(radians);
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
 
-        return simd::float4x4 {
-            simd::float4{ c, 0, -s, 0},
-            simd::float4{ 0, 1,  0, 0},
-            simd::float4{ s, 0,  c, 0},
-            simd::float4{ 0, 0,  0, 1}
+        return simd::float4x4{
+            simd::float4{c, 0, -s, 0},
+            simd::float4{0, 1,  0, 0},
+            simd::float4{s, 0,  c, 0},
+            simd::float4{0, 0,  0, 1}
         };
     }
 
