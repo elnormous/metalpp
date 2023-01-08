@@ -525,8 +525,8 @@ public:
                                                       aspectRatio,
                                                       1.0F,
                                                       1000.0F);
-        uniforms.viewMatrix = matrix_identity_float4x4;
-        uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -300.0F), rotationMatrixY(angle));
+        uniforms.viewMatrix = translationMatrix(0.0F, 0.0F, -500.0F);
+        uniforms.modelMatrix = matrix_multiply(translationMatrix(-100.0F, 0.0F, 0.0F), rotationMatrixY(angle));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
