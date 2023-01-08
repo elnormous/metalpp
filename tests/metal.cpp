@@ -120,6 +120,9 @@ TEST_CASE("Command buffer")
     CHECK(label.retainCount() > 0);
     CHECK(commandBuffer.label().isEqualToString(labelStr));
 
+    commandBuffer.pushDebugGroup("testGroup");
+    commandBuffer.popDebugGroup();
+
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
 }

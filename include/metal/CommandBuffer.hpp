@@ -78,6 +78,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
         METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
         METALPP_PRIVATE_SEL(parallelRenderCommandEncoderWithDescriptor_, "parallelRenderCommandEncoderWithDescriptor:");
+        METALPP_PRIVATE_SEL(pushDebugGroup_, "pushDebugGroup:");
+        METALPP_PRIVATE_SEL(popDebugGroup, "popDebugGroup");
 
         using Object::Object;
         using Object::operator=;
@@ -134,6 +136,16 @@ namespace mtl
         [[nodiscard]] auto parallelRenderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
         {
             return ParallelRenderCommandEncoder{sendMessage<id>(METALPP_SEL(parallelRenderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
+        }
+
+        void pushDebugGroup(const ns::String& string) noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            sendMessage(METALPP_SEL(pushDebugGroup_), string.get());
+        }
+
+        void popDebugGroup() noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            sendMessage(METALPP_SEL(popDebugGroup));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
