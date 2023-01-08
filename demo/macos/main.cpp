@@ -81,22 +81,21 @@ namespace
         const auto  sz = -(far + near) / zRange;
         const auto  tz = -2.0F * far * near / zRange;
 
-        simd::float4x4 m = {
+        return simd::float4x4{
             simd::float4{sx, 0,  0,  0},
             simd::float4{0, sy,  0,  0},
             simd::float4{0,  0, sz, -1.0F},
             simd::float4{0,  0, tz,  0}
         };
-        return m;
     }
 
     simd::float4x4 translationMatrix(const float x, const float y, const float z) noexcept
     {
         return simd::float4x4 {
-            simd::float4{ 1, 0, 0, 0},
-            simd::float4{ 0, 1, 0, 0},
-            simd::float4{ 0, 0, 1, 0},
-            simd::float4{ x, y, z, 1}
+            simd::float4{1, 0, 0, 0},
+            simd::float4{0, 1, 0, 0},
+            simd::float4{0, 0, 1, 0},
+            simd::float4{x, y, z, 1}
         };
     }
 
@@ -135,6 +134,7 @@ namespace
     "typedef struct\n" \
     "{\n" \
     "    float4x4 projectionMatrix;\n" \
+    "    float4x4 viewMatrix;\n" \
     "    float4x4 modelMatrix;\n" \
     "} Uniforms;\n" \
 
@@ -157,7 +157,7 @@ namespace
     "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
     "{\n" \
     "    VertexOut out;\n" \
-    "    out.position = uniforms.projectionMatrix * uniforms.modelMatrix * float4(input.position, 1.0);\n" \
+    "    out.position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * float4(input.position, 1.0);\n" \
     "    out.color = half4(input.color);\n" \
     "    out.texCoord = input.texCoord;\n" \
     "    out.normal = input.normal;\n" \
@@ -525,6 +525,7 @@ public:
                                                       aspectRatio,
                                                       1.0F,
                                                       1000.0F);
+        uniforms.viewMatrix = matrix_identity_float4x4;
         uniforms.modelMatrix = matrix_multiply(translationMatrix(0.0F, 0.0F, -300.0F), rotationMatrixY(angle));
         auto bufferPointer = uniformBuffer.contents();
         memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
@@ -790,6 +791,7 @@ private:
     struct Uniforms final
     {
         simd::float4x4 projectionMatrix;
+        simd::float4x4 viewMatrix;
         simd::float4x4 modelMatrix;
     };
 
