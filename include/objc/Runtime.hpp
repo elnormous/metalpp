@@ -1,6 +1,7 @@
 #ifndef METALPP_OBJC_RUNTIME_HPP
 #define METALPP_OBJC_RUNTIME_HPP
 
+#include <climits>
 #include <cstdint>
 #include <type_traits>
 #include <objc/NSObjCRuntime.h>
