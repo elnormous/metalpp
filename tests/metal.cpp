@@ -355,6 +355,94 @@ TEST_CASE("Library")
     CHECK(library.label().isEqualToString("Library"));
 }
 
+TEST_CASE("Parallel command encoder")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    mtl::CommandQueue commandQueue = device.newCommandQueue();
+    mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
+
+    mtl::RenderPassDescriptor renderPassDescriptor;
+    REQUIRE(renderPassDescriptor);
+    CHECK(renderPassDescriptor.retainCount() == 1);
+
+    mtl::TextureDescriptor textureDescriptor;
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    textureDescriptor.setWidth(1024);
+    textureDescriptor.setHeight(1024);
+    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setMipmapLevelCount(10);
+
+    mtl::Texture texture = device.newTexture(textureDescriptor);
+
+    mtl::SamplerDescriptor samplerDescriptor;
+    mtl::SamplerState samplerState = device.newSamplerState(samplerDescriptor);
+
+    mtl::TextureDescriptor renderTargetDescriptor;
+    renderTargetDescriptor.setTextureType(mtl::TextureType::Type2D);
+    renderTargetDescriptor.setWidth(1024);
+    renderTargetDescriptor.setHeight(1024);
+    renderTargetDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+    renderTargetDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    renderTargetDescriptor.setStorageMode(mtl::StorageMode::Managed);
+
+    mtl::Texture renderTarget = device.newTexture(renderTargetDescriptor);
+
+    mtl::TextureDescriptor depthStencilTextureDescriptor;
+    depthStencilTextureDescriptor.setWidth(1024);
+    depthStencilTextureDescriptor.setHeight(1024);
+    depthStencilTextureDescriptor.setPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
+    depthStencilTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    depthStencilTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    depthStencilTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+
+    mtl::Texture depthStencilTexture = device.newTexture(depthStencilTextureDescriptor);
+
+    renderPassDescriptor.colorAttachments()[0].setTexture(renderTarget);
+    renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
+    CHECK(renderPassDescriptor.colorAttachments()[0].loadAction() == mtl::LoadAction::Clear);
+    renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+    CHECK(renderPassDescriptor.colorAttachments()[0].clearColor() == mtl::ClearColor{1.0, 1.0, 0.0, 0.0});
+    renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Unknown);
+    CHECK(renderPassDescriptor.colorAttachments()[0].storeAction() == mtl::StoreAction::Unknown);
+
+    renderPassDescriptor.depthAttachment().setTexture(depthStencilTexture);
+    renderPassDescriptor.depthAttachment().setStoreAction(mtl::StoreAction::Unknown);
+    CHECK(renderPassDescriptor.depthAttachment().storeAction() == mtl::StoreAction::Unknown);
+
+    renderPassDescriptor.stencilAttachment().setTexture(depthStencilTexture);
+    renderPassDescriptor.stencilAttachment().setStoreAction(mtl::StoreAction::Unknown);
+    CHECK(renderPassDescriptor.stencilAttachment().storeAction() == mtl::StoreAction::Unknown);
+
+    mtl::ParallelRenderCommandEncoder parallelRenderCommandEncoder = commandBuffer.parallelRenderCommandEncoder(renderPassDescriptor);
+    REQUIRE(parallelRenderCommandEncoder);
+    CHECK(parallelRenderCommandEncoder.retainCount() == 2);
+    parallelRenderCommandEncoder.setLabel("test");
+    CHECK(parallelRenderCommandEncoder.label().isEqualToString("test"));
+    parallelRenderCommandEncoder.setColorStoreAction(mtl::StoreAction::Store, 0);
+    parallelRenderCommandEncoder.setDepthStoreAction(mtl::StoreAction::Store);
+    parallelRenderCommandEncoder.setStencilStoreAction(mtl::StoreAction::Store);
+    parallelRenderCommandEncoder.setColorStoreActionOptions(mtl::StoreActionOptions::None, 0);
+    parallelRenderCommandEncoder.setDepthStoreActionOptions(mtl::StoreActionOptions::None);
+    parallelRenderCommandEncoder.setStencilStoreActionOptions(mtl::StoreActionOptions::None);
+
+    mtl::RenderCommandEncoder renderCommandEncoder1 = parallelRenderCommandEncoder.renderCommandEncoder();
+    REQUIRE(renderCommandEncoder1);
+    renderCommandEncoder1.endEncoding();
+
+    mtl::RenderCommandEncoder renderCommandEncoder2 = parallelRenderCommandEncoder.renderCommandEncoder();
+    REQUIRE(renderCommandEncoder2);
+    renderCommandEncoder2.endEncoding();
+
+    parallelRenderCommandEncoder.endEncoding();
+
+    commandBuffer.commit();
+    commandBuffer.waitUntilCompleted();
+}
+
 TEST_CASE("Render command encoder")
 {
     ns::AutoreleasePool pool;
@@ -427,22 +515,6 @@ TEST_CASE("Render command encoder")
     renderCommandEncoder.setDepthStencilState(depthStencilState);
 
     renderCommandEncoder.endEncoding();
-
-    mtl::ParallelRenderCommandEncoder parallelRenderCommandEncoder = commandBuffer.parallelRenderCommandEncoder(renderPassDescriptor);
-    REQUIRE(parallelRenderCommandEncoder);
-    CHECK(parallelRenderCommandEncoder.retainCount() == 2);
-    parallelRenderCommandEncoder.setLabel("test");
-    CHECK(parallelRenderCommandEncoder.label().isEqualToString("test"));
-
-    mtl::RenderCommandEncoder renderCommandEncoder1 = parallelRenderCommandEncoder.renderCommandEncoder();
-    REQUIRE(renderCommandEncoder1);
-    renderCommandEncoder1.endEncoding();
-
-    mtl::RenderCommandEncoder renderCommandEncoder2 = parallelRenderCommandEncoder.renderCommandEncoder();
-    REQUIRE(renderCommandEncoder2);
-    renderCommandEncoder2.endEncoding();
-
-    parallelRenderCommandEncoder.endEncoding();
 
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();

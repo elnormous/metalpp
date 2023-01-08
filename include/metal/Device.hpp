@@ -155,27 +155,27 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(currentAllocatedSize));
         }
 
-        [[nodiscard]] auto newCommandQueue() const noexcept
+        [[nodiscard]] auto newCommandQueue() noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueue));
             return CommandQueue{commandQueue, ns::adopt};
         }
 
-        [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
+        [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueueWithMaxCommandBufferCount_),
                                                     maxCommandBufferCount);
             return CommandQueue{commandQueue, ns::adopt};
         }
 
-        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
+        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) noexcept
         {
             const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
                                                          descriptor.get());
             return DepthStencilState{depthStencilState, ns::adopt};
         }
 
-        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_),
                                               length,
@@ -183,7 +183,7 @@ namespace mtl
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) const noexcept
+        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytes_length_options_),
                                               pointer,
@@ -192,27 +192,27 @@ namespace mtl
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
+        [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) noexcept
         {
             const id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_),
                                                descriptor.get());
             return Texture{texture, ns::adopt};
         }
 
-        [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
+        [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) noexcept
         {
             const id samplerState = sendMessage<id>(METALPP_SEL(newSamplerStateWithDescriptor_),
                                                     descriptor.get());
             return SamplerState{samplerState, ns::adopt};
         }
 
-        [[nodiscard]] auto newDefaultLibrary() const noexcept
+        [[nodiscard]] auto newDefaultLibrary() noexcept
         {
             const id library = sendMessage<id>(METALPP_SEL(newDefaultLibrary));
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newLibrary(const ns::String& source) const
+        [[nodiscard]] auto newLibrary(const ns::String& source)
         {
             id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
@@ -226,7 +226,7 @@ namespace mtl
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions) const
+        [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions)
         {
             id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
@@ -250,7 +250,7 @@ namespace mtl
             return sendMessage<BOOL>(METALPP_SEL(supportsFamily_), gpuFamily) == YES;
         }
 
-        [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
+        [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor)
         {
             id error = nil;
             const id renderPipelineState = sendMessage<id>(METALPP_SEL(newRenderPipelineStateWithDescriptor_error_),

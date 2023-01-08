@@ -116,22 +116,22 @@ namespace mtl
             sendMessage(METALPP_SEL(waitUntilCompleted));
         }
 
-        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
         {
             return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
 
-        [[nodiscard]] auto blitCommandEncoder() const noexcept
+        [[nodiscard]] auto blitCommandEncoder() noexcept
         {
             return BlitCommandEncoder{sendMessage<id>(METALPP_SEL(blitCommandEncoder))};
         }
 
-        [[nodiscard]] auto computeCommandEncoder() const noexcept
+        [[nodiscard]] auto computeCommandEncoder() noexcept
         {
             return ComputeCommandEncoder{sendMessage<id>(METALPP_SEL(computeCommandEncoder))};
         }
 
-        [[nodiscard]] auto parallelRenderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) const noexcept
+        [[nodiscard]] auto parallelRenderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
         {
             return ParallelRenderCommandEncoder{sendMessage<id>(METALPP_SEL(parallelRenderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
