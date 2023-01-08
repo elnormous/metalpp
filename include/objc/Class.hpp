@@ -38,14 +38,14 @@ namespace objc
         Class(Class&& other) noexcept:
             cls{other.cls}
         {
-            other.cls = nil;
+            other.cls = nullptr;
         }
 
         Class& operator=(Class&& other) noexcept
         {
             if (&other == this) return *this;
             cls = other.cls;
-            other.cls = nil;
+            other.cls = nullptr;
             return *this;
         }
 

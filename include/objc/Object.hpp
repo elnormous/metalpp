@@ -1,7 +1,6 @@
 #ifndef METALPP_OBJC_OBJECT_HPP
 #define METALPP_OBJC_OBJECT_HPP
 
-#include <cstdint>
 #include <type_traits>
 #include "Private.hpp"
 #include "Runtime.hpp"
