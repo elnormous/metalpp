@@ -124,27 +124,28 @@ namespace
 
     "using namespace metal;\n" \
 
-    "typedef struct\n" \
+    "struct Uniforms\n" \
     "{\n" \
     "    float4x4 projectionMatrix;\n" \
     "    float4x4 viewMatrix;\n" \
     "    float4x4 modelMatrix;\n" \
-    "} Uniforms;\n" \
+    "};\n" \
 
-    "typedef struct\n" \
+    "struct VertexIn\n" \
     "{\n" \
     "    float3 position [[attribute(0)]];\n" \
     "    half4 color [[attribute(1)]];\n" \
     "    float2 texCoord [[attribute(2)]];\n" \
     "    float3 normal [[attribute(3)]];\n" \
-    "} VertexIn;\n" \
+    "};\n" \
 
-    "typedef struct {\n" \
+    "struct VertexOut\n"
+    "{\n" \
     "    float4 position [[position]];\n" \
     "    half4  color;\n" \
     "    float2 texCoord;\n" \
     "    float3 normal;\n" \
-    "} VertexOut;\n" \
+    "};\n" \
 
     "vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
     "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
