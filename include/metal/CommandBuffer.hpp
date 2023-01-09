@@ -75,8 +75,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
         METALPP_PRIVATE_SEL(status, "status");
-        METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
+        METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
         METALPP_PRIVATE_SEL(parallelRenderCommandEncoderWithDescriptor_, "parallelRenderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(pushDebugGroup_, "pushDebugGroup:");
@@ -124,14 +124,14 @@ namespace mtl
             return sendMessage<CommandBufferStatus>(METALPP_SEL(status));
         }
 
-        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
-        {
-            return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
-        }
-
         [[nodiscard]] auto blitCommandEncoder() noexcept
         {
             return BlitCommandEncoder{sendMessage<id>(METALPP_SEL(blitCommandEncoder))};
+        }
+
+        [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
+        {
+            return RenderCommandEncoder{sendMessage<id>(METALPP_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor.get())};
         }
 
         [[nodiscard]] auto computeCommandEncoder() noexcept

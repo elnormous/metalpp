@@ -17,6 +17,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(commandBuffer, "commandBuffer");
+        METALPP_PRIVATE_SEL(commandBufferWithUnretainedReferences, "commandBufferWithUnretainedReferences");
 
         using Object::Object;
         using Object::operator=;
@@ -38,6 +39,11 @@ namespace mtl
         [[nodiscard]] auto commandBuffer() const noexcept
         {
             return CommandBuffer{sendMessage<id>(METALPP_SEL(commandBuffer))};
+        }
+
+        [[nodiscard]] auto commandBufferWithUnretainedReferences() const noexcept
+        {
+            return CommandBuffer{sendMessage<id>(METALPP_SEL(commandBufferWithUnretainedReferences))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
