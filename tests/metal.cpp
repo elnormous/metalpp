@@ -128,6 +128,11 @@ TEST_CASE("Command buffer")
     CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Committed);
     commandBuffer.waitUntilCompleted();
     CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Completed);
+
+    mtl::CommandBuffer commandBufferWithUnretainedReferences = commandQueue.commandBufferWithUnretainedReferences();
+    REQUIRE(commandBufferWithUnretainedReferences);
+    CHECK(commandBufferWithUnretainedReferences.retainCount() == 2);
+    CHECK(commandBufferWithUnretainedReferences.device() == device);
 }
 
 TEST_CASE("Command queue")
