@@ -119,12 +119,15 @@ TEST_CASE("Command buffer")
     commandBuffer.setLabel(label);
     CHECK(label.retainCount() > 0);
     CHECK(commandBuffer.label().isEqualToString(labelStr));
+    CHECK(commandBuffer.status() == mtl::CommandBufferStatus::NotEnqueued);
 
     commandBuffer.pushDebugGroup("testGroup");
     commandBuffer.popDebugGroup();
 
     commandBuffer.commit();
+    CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Committed);
     commandBuffer.waitUntilCompleted();
+    CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Completed);
 }
 
 TEST_CASE("Command queue")

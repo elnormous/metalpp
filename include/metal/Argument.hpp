@@ -8,7 +8,6 @@ namespace mtl
 {
     enum class DataType: ns::UInteger
     {
-
         None = 0,
 
         Struct = 1,
@@ -138,7 +137,6 @@ namespace mtl
 
     enum class ArgumentType: ns::UInteger
     {
-
         Buffer = 0,
         ThreadgroupMemory= 1,
         Texture = 2,

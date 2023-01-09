@@ -74,6 +74,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
+        METALPP_PRIVATE_SEL(status, "status");
         METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
         METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
@@ -116,6 +117,11 @@ namespace mtl
         void waitUntilCompleted() noexcept
         {
             sendMessage(METALPP_SEL(waitUntilCompleted));
+        }
+
+        [[nodiscard]] auto status() const noexcept
+        {
+            return sendMessage<CommandBufferStatus>(METALPP_SEL(status));
         }
 
         [[nodiscard]] auto renderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept
