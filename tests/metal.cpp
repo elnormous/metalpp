@@ -126,6 +126,8 @@ TEST_CASE("Command buffer")
     commandBuffer.pushDebugGroup("testGroup");
     commandBuffer.popDebugGroup();
 
+    commandBuffer.enqueue();
+    CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Enqueued);
     commandBuffer.commit();
     CHECK(commandBuffer.status() == mtl::CommandBufferStatus::Committed);
     commandBuffer.waitUntilCompleted();

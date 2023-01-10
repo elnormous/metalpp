@@ -75,6 +75,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
         METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
+        METALPP_PRIVATE_SEL(enqueue, "enqueue");
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
         METALPP_PRIVATE_SEL(status, "status");
@@ -116,6 +117,11 @@ namespace mtl
         void presentDrawable(const Drawable& drawable, const CFTimeInterval presentationTime) const noexcept
         {
             sendMessage(METALPP_SEL(presentDrawable_atTime_), drawable.get(), presentationTime);
+        }
+
+        void enqueue() noexcept
+        {
+            sendMessage(METALPP_SEL(enqueue));
         }
 
         void commit() noexcept
