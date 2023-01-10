@@ -112,6 +112,8 @@ TEST_CASE("Command buffer")
     REQUIRE(commandBuffer);
     CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
     CHECK(commandBuffer.device() == device);
+    CHECK(commandBuffer.commandQueue() == commandQueue);
+    CHECK(commandBuffer.retainedReferences());
 
     char labelStr[] = "Command buffer";
     ns::String label{labelStr};
@@ -133,6 +135,7 @@ TEST_CASE("Command buffer")
     REQUIRE(commandBufferWithUnretainedReferences);
     CHECK(commandBufferWithUnretainedReferences.retainCount() == 2);
     CHECK(commandBufferWithUnretainedReferences.device() == device);
+    CHECK(!commandBufferWithUnretainedReferences.retainedReferences());
 }
 
 TEST_CASE("Command queue")

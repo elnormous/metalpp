@@ -46,6 +46,11 @@ namespace mtl
             return CommandBuffer{sendMessage<id>(METALPP_SEL(commandBufferWithUnretainedReferences))};
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    inline CommandQueue CommandBuffer::commandQueue() const noexcept
+    {
+        return CommandQueue{sendMessage<id>(METALPP_SEL(commandQueue))};
+    }
 }
 
 #endif

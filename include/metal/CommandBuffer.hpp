@@ -16,6 +16,7 @@
 namespace mtl
 {
     class Device;
+    class CommandQueue;
 
     enum class CommandBufferStatus: ns::UInteger
     {
@@ -68,6 +69,8 @@ namespace mtl
     {
     public:
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(commandQueue, "commandQueue");
+        METALPP_PRIVATE_SEL(retainedReferences, "retainedReferences");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
@@ -88,6 +91,12 @@ namespace mtl
         CommandBuffer() = delete;
 
         [[nodiscard]] Device device() const noexcept;
+        [[nodiscard]] CommandQueue commandQueue() const noexcept;
+
+        [[nodiscard]] auto retainedReferences() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(retainedReferences)) == YES;
+        }
 
         [[nodiscard]] auto label() const noexcept
         {
