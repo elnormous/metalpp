@@ -61,9 +61,9 @@ namespace mtl
     class Function final: public ns::Object
     {
     public:
-        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(functionType, "functionType");
         METALPP_PRIVATE_SEL(patchType, "patchType");
         METALPP_PRIVATE_SEL(patchControlPointCount, "patchControlPointCount");
@@ -77,8 +77,6 @@ namespace mtl
         
         Function() = delete;
 
-        [[nodiscard]] Device device() const noexcept;
-
         [[nodiscard]] auto label() const noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
             return ns::String{sendMessage<id>(METALPP_SEL(label))};
@@ -88,6 +86,8 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
+
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto functionType() const noexcept
         {
@@ -266,9 +266,9 @@ namespace mtl
     class Library final: public ns::Object
     {
     public:
-        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(newFunctionWithName_, "newFunctionWithName:");
         METALPP_PRIVATE_SEL(newFunctionWithName_constantValues_error_, "newFunctionWithName:constantValues:error:");
 
@@ -276,8 +276,6 @@ namespace mtl
         using Object::operator=;
 
         Library() = delete;
-
-        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto label() const noexcept
         {
@@ -288,6 +286,8 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
+
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto newFunction(const ns::String& name) const noexcept
         {

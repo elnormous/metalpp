@@ -87,9 +87,9 @@ namespace mtl
     class Resource: public ns::Object
     {
     public:
-        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(cpuCacheMode, "cpuCacheMode");
         METALPP_PRIVATE_SEL(storageMode, "storageMode");
         METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
@@ -100,8 +100,6 @@ namespace mtl
         
         Resource() = delete;
 
-        [[nodiscard]] Device device() const noexcept;
-
         [[nodiscard]] auto label() const noexcept
         {
             return ns::String{sendMessage<id>(METALPP_SEL(label))};
@@ -111,6 +109,8 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
+
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto cpuCacheMode() const noexcept
         {

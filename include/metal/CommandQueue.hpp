@@ -13,9 +13,9 @@ namespace mtl
     class CommandQueue: public ns::Object
     {
     public:
-        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(commandBuffer, "commandBuffer");
         METALPP_PRIVATE_SEL(commandBufferWithUnretainedReferences, "commandBufferWithUnretainedReferences");
 
@@ -24,8 +24,6 @@ namespace mtl
 
         CommandQueue() = delete;
 
-        [[nodiscard]] Device device() const noexcept;
-        
         [[nodiscard]] auto label() const noexcept
         {
             return ns::String{sendMessage<id>(METALPP_SEL(label))};
@@ -35,6 +33,8 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
+
+        [[nodiscard]] Device device() const noexcept;
 
         [[nodiscard]] auto commandBuffer() const noexcept
         {
