@@ -367,20 +367,20 @@ namespace mtl
     class RenderPipelineState final: public ns::Object
     {
     public:
-        METALPP_PRIVATE_SEL(device, "device");
         METALPP_PRIVATE_SEL(label, "label");
+        METALPP_PRIVATE_SEL(device, "device");
 
         using Object::Object;
         using Object::operator=;
 
         RenderPipelineState() = delete;
 
-        [[nodiscard]] Device device() const noexcept;
-
         [[nodiscard]] auto label() const noexcept
         {
             return ns::String{sendMessage<id>(METALPP_SEL(label))};
         }
+
+        [[nodiscard]] Device device() const noexcept;
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

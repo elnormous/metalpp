@@ -227,6 +227,26 @@ TEST_CASE("Compute command encoder")
     commandBuffer.waitUntilCompleted();
 }
 
+TEST_CASE("Compute pipeline")
+{
+    ns::AutoreleasePool pool;
+
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    const char* computeKernel =
+    "kernel void ck() {}";
+
+    mtl::Library computeLibrary = device.newLibrary(computeKernel, nullptr);
+    mtl::Function computeFunction = computeLibrary.newFunction("ck");
+
+    mtl::ComputePipelineState state = device.newComputePipelineState(computeFunction);
+    REQUIRE(state);
+
+    mtl::ComputePipelineDescriptor descriptor;
+    descriptor.setLabel("test");
+    CHECK(descriptor.label().isEqualToString("test"));
+}
+
 TEST_CASE("Depth stencil state")
 {
     ns::AutoreleasePool pool;

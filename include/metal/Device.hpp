@@ -13,6 +13,7 @@
 #include "CommandBuffer.hpp"
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
+#include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
 #include "Library.hpp"
@@ -125,6 +126,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
+        METALPP_PRIVATE_SEL(newComputePipelineStateWithFunction_error_, "newComputePipelineStateWithFunction:error:");
 
         using Object::Object;
         using Object::operator=;
@@ -263,6 +265,19 @@ namespace mtl
 
             return RenderPipelineState{renderPipelineState, ns::adopt};
         }
+
+        [[nodiscard]] auto newComputePipelineState(const Function& computeFunction)
+        {
+            id error = nil;
+            const id renderPipelineState = sendMessage<id>(METALPP_SEL(newComputePipelineStateWithFunction_error_),
+                                                           computeFunction.get(),
+                                                           &error);
+
+            if (error != nil)
+                throw ns::Error{error};
+
+            return ComputePipelineState{renderPipelineState, ns::adopt};
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     [[nodiscard]] inline Device CommandBuffer::device() const noexcept
@@ -271,6 +286,11 @@ namespace mtl
     }
 
     [[nodiscard]] inline Device CommandEncoder::device() const noexcept
+    {
+        return Device{sendMessage<id>(METALPP_SEL(device))};
+    }
+
+    [[nodiscard]] inline Device ComputePipelineState::device() const noexcept
     {
         return Device{sendMessage<id>(METALPP_SEL(device))};
     }

@@ -8,6 +8,7 @@
 #include "CommandEncoder.hpp"
 #include "CommandQueue.hpp"
 #include "ComputeCommandEncoder.hpp"
+#include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "Device.hpp"
 #include "Drawable.hpp"
