@@ -389,7 +389,7 @@ public:
         };
         vertexBuffer = device.newBuffer(quadVertexData, sizeof(quadVertexData), mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
-        uniformBuffer = device.newBuffer(sizeof(Uniforms), mtl::ResourceOptions::CPUCacheModeDefaultCache);
+        uniformBuffer = device.newBuffer(1024U, mtl::ResourceOptions::CPUCacheModeDefaultCache);
 
         const auto bundle = ns::Bundle::mainBundle();
         const auto diffuseTexturePath = bundle.pathForResource("wall_color", "tex");
@@ -534,8 +534,8 @@ public:
 
         renderPassDescriptor.depthAttachment().setTexture(depthTexture);
         renderPassDescriptor.depthAttachment().setLoadAction(mtl::LoadAction::Clear);
-        renderPassDescriptor.depthAttachment().setStoreAction(mtl::StoreAction::Store);
         renderPassDescriptor.depthAttachment().setClearDepth(1.0);
+        renderPassDescriptor.depthAttachment().setStoreAction(mtl::StoreAction::Store);
 
         auto renderCommand = commandBuffer.renderCommandEncoder(renderPassDescriptor);
         renderCommand.setFragmentTexture(diffuseTexture, 0);

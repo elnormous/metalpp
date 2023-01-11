@@ -3,6 +3,7 @@
 
 #include <os/availability.h>
 #include <CoreFoundation/CFDate.h>
+#include <functional>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
@@ -59,6 +60,9 @@ namespace mtl
         Faulted = 4,
     } API_AVAILABLE(macos(11.0), ios(14.0));
 
+    class CommandBuffer;
+    using CommandBufferHandler = std::function<void(const CommandBuffer&)>;
+
     class CommandBufferDescriptor final: public ns::Object
     {
     public:
@@ -73,10 +77,13 @@ namespace mtl
         METALPP_PRIVATE_SEL(retainedReferences, "retainedReferences");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
-        METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
-        METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
         METALPP_PRIVATE_SEL(enqueue, "enqueue");
         METALPP_PRIVATE_SEL(commit, "commit");
+        METALPP_PRIVATE_SEL(addScheduledHandler_, "addScheduledHandler:");
+        METALPP_PRIVATE_SEL(presentDrawable_, "presentDrawable:");
+        METALPP_PRIVATE_SEL(presentDrawable_atTime_, "presentDrawable:atTime:");
+        METALPP_PRIVATE_SEL(waitUntilScheduled, "waitUntilScheduled");
+        METALPP_PRIVATE_SEL(addCompletedHandler_, "addCompletedHandler:");
         METALPP_PRIVATE_SEL(waitUntilCompleted, "waitUntilCompleted");
         METALPP_PRIVATE_SEL(status, "status");
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
@@ -109,6 +116,23 @@ namespace mtl
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
+        void enqueue() noexcept
+        {
+            sendMessage(METALPP_SEL(enqueue));
+        }
+
+        void commit() noexcept
+        {
+            sendMessage(METALPP_SEL(commit));
+        }
+
+        void addScheduledHandler(CommandBufferHandler handler) noexcept
+        {
+            sendMessage(METALPP_SEL(addScheduledHandler_), ^(id commandBuffer){
+                handler(CommandBuffer{commandBuffer});
+            });
+        }
+
         void presentDrawable(const Drawable& drawable) const noexcept
         {
             sendMessage(METALPP_SEL(presentDrawable_), drawable.get());
@@ -119,14 +143,16 @@ namespace mtl
             sendMessage(METALPP_SEL(presentDrawable_atTime_), drawable.get(), presentationTime);
         }
 
-        void enqueue() noexcept
+        void addCompletedHandler(CommandBufferHandler handler) noexcept
         {
-            sendMessage(METALPP_SEL(enqueue));
+            sendMessage(METALPP_SEL(addCompletedHandler_), ^(id commandBuffer){
+                handler(CommandBuffer{commandBuffer});
+            });
         }
 
-        void commit() noexcept
+        void waitUntilScheduled() noexcept
         {
-            sendMessage(METALPP_SEL(commit));
+            sendMessage(METALPP_SEL(waitUntilScheduled));
         }
 
         void waitUntilCompleted() noexcept
