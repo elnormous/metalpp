@@ -3,6 +3,7 @@
 
 #include <os/availability.h>
 #include "../objc/Private.hpp"
+#include "Buffer.hpp"
 #include "PixelFormat.hpp"
 #include "Resource.hpp"
 #include "Types.hpp"
@@ -330,6 +331,14 @@ namespace mtl
             return sendMessage(METALPP_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_), region, level, pixelBytes, bytesPerRow);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    inline Texture Buffer::newTexture(const TextureDescriptor& descriptor, const ns::UInteger offset, const ns::UInteger bytesPerRow) API_AVAILABLE(macos(10.13), ios(8.0))
+    {
+        return Texture{sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_offset_bytesPerRow_),
+                                       descriptor.get(),
+                                       offset,
+                                       bytesPerRow)};
+    }
 }
 
 #endif

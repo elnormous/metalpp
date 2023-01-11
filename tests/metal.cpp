@@ -838,15 +838,23 @@ TEST_CASE("Texture")
     CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
     CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
 
-    std::uint8_t level0[] = {
-        0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x00U, 0x00U, 0x00U, 0xFFU,
-        0x00U, 0x00U, 0x00U, 0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xFFU
-    };
-    std::uint8_t level1[] = {
-        0xFFU, 0xFFU, 0xFFU, 0xFFU
-    };
-    texture.replaceRegion(mtl::Region{0, 0, 0, 2, 2, 1}, 0, level0, 8);
-    texture.replaceRegion(mtl::Region{0, 0, 0, 1, 1, 1}, 1, level1, 4);
+    std::uint8_t level0[1024 * 768 * 4] = {0xFF};
+    std::uint8_t level1[512 * 384 * 4] = {0xFF};
+    texture.replaceRegion(mtl::Region{0, 0, 0, 1024, 768, 1}, 0, level0, 1024 * 4);
+    texture.replaceRegion(mtl::Region{0, 0, 0, 512, 384, 1}, 1, level1, 512 * 4);
+
+    mtl::Buffer textureBuffer = device.newBuffer(level0, sizeof(level0), mtl::ResourceOptions::StorageModeManaged);
+
+    mtl::TextureDescriptor bufferTextureDescriptor;
+    bufferTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    bufferTextureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    bufferTextureDescriptor.setWidth(1024);
+    bufferTextureDescriptor.setHeight(768);
+    bufferTextureDescriptor.setStorageMode(mtl::StorageMode::Managed);
+    bufferTextureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+
+    mtl::Texture textureFromBuffer = textureBuffer.newTexture(bufferTextureDescriptor, 0, 1024 * 4);
+    REQUIRE(textureFromBuffer);
 }
 
 TEST_CASE("Vertex descriptor")
