@@ -139,7 +139,7 @@ namespace
     "    float3 normal [[attribute(3)]];\n" \
     "};\n" \
 
-    "struct VertexOut\n"
+    "struct VertexOut\n" \
     "{\n" \
     "    float4 position [[position]];\n" \
     "    half4  color;\n" \
