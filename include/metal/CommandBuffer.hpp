@@ -126,7 +126,7 @@ namespace mtl
             sendMessage(METALPP_SEL(commit));
         }
 
-        void addScheduledHandler(CommandBufferHandler handler) noexcept
+        void addScheduledHandler(const CommandBufferHandler handler) noexcept
         {
             sendMessage(METALPP_SEL(addScheduledHandler_), ^(id commandBuffer){
                 handler(CommandBuffer{commandBuffer});
@@ -143,7 +143,7 @@ namespace mtl
             sendMessage(METALPP_SEL(presentDrawable_atTime_), drawable.get(), presentationTime);
         }
 
-        void addCompletedHandler(CommandBufferHandler handler) noexcept
+        void addCompletedHandler(const CommandBufferHandler handler) noexcept
         {
             sendMessage(METALPP_SEL(addCompletedHandler_), ^(id commandBuffer){
                 handler(CommandBuffer{commandBuffer});
