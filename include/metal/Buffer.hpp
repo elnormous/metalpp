@@ -19,6 +19,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(contents, "contents");
         METALPP_PRIVATE_SEL(didModifyRange_, "didModifyRange:");
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_offset_bytesPerRow_, "newTextureWithDescriptor:offset:bytesPerRow:");
+        METALPP_PRIVATE_SEL(addDebugMarker_range_, "addDebugMarker:range:");
+        METALPP_PRIVATE_SEL(removeAllDebugMarkers, "removeAllDebugMarkers");
         METALPP_PRIVATE_SEL(gpuAddress, "gpuAddress");
 
         using Resource::Resource;
@@ -42,6 +44,16 @@ namespace mtl
         }
 
         Texture newTexture(const TextureDescriptor& descriptor, const ns::UInteger offset, const ns::UInteger bytesPerRow) API_AVAILABLE(macos(10.13), ios(8.0));
+
+        void addDebugMarker(const ns::String& string, const ns::Range& range) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(addDebugMarker_range_), string.get(), range);
+        }
+
+        void removeAllDebugMarkers() noexcept API_AVAILABLE(macos(10.12), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(removeAllDebugMarkers));
+        }
 
         [[nodiscard]] auto gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {

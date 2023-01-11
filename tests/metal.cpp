@@ -97,6 +97,8 @@ TEST_CASE("Buffer")
     CHECK(buffer.gpuAddress());
 
     mtl::Buffer bufferManaged = device.newBuffer(1024, mtl::ResourceOptions::StorageModeManaged);
+    bufferManaged.addDebugMarker("test", ns::Range{0, 512});
+    bufferManaged.removeAllDebugMarkers();
     bufferManaged.didModifyRange(ns::Range{0, 1024});
 
     buffer = nullptr;
