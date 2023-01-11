@@ -29,6 +29,8 @@ namespace
     mtl::Texture loadTexture(const ns::String& filename, mtl::Device& device)
     {
         std::ifstream textureFile{filename.cString(), std::ios::binary};
+        if (!textureFile)
+            throw std::runtime_error{"Failed to open texture file"};
         const auto mipmapCount = readUint<std::uint8_t>(textureFile);
         auto width = readUint<std::uint32_t>(textureFile);
         auto height = readUint<std::uint32_t>(textureFile);
