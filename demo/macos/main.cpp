@@ -431,6 +431,7 @@ public:
         application.run();
     }
 
+private:
     void windowDidResize()
     {
         const auto frame = view.frame();
@@ -557,7 +558,7 @@ public:
         //commandBuffer.presentDrawable(drawable);
         drawable.present();
     }
-private:
+
     void createMainMenu()
     {
         ns::Menu mainMenu;
