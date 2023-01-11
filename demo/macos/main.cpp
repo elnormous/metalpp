@@ -524,7 +524,7 @@ public:
         uniforms.viewMatrix = translationMatrix(0.0F, 0.0F, -500.0F);
         uniforms.modelMatrix = matrix_multiply(translationMatrix(-100.0F, 0.0F, 0.0F), rotationMatrixY(angle));
         auto bufferPointer = uniformBuffer.contents();
-        memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
+        std::memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
         mtl::RenderPassDescriptor renderPassDescriptor;
         renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
