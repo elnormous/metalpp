@@ -74,13 +74,13 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.endEncoding();
 
     bool scheduled = false;
-    commandBuffer.addScheduledHandler([&scheduled, &commandBuffer](const mtl::CommandBuffer& buffer) {
+    commandBuffer.addScheduledHandler([&scheduled, &buffer = commandBuffer](const mtl::CommandBuffer& commandBuffer) {
         CHECK(commandBuffer == buffer);
         scheduled = true;
     });
 
     bool completed = false;
-    commandBuffer.addCompletedHandler([&completed, &commandBuffer](const mtl::CommandBuffer& buffer) {
+    commandBuffer.addCompletedHandler([&completed, &buffer = commandBuffer](const mtl::CommandBuffer& commandBuffer) {
         CHECK(commandBuffer == buffer);
         completed = true;
     });
