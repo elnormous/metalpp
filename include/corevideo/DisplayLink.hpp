@@ -71,7 +71,7 @@ namespace cv
         
         [[nodiscard]] auto retainCount() const noexcept
         {
-            return ref ? CFGetRetainCount(ref) : 0;
+            return CFGetRetainCount(ref);
         }
 
         void setCurrentCGDisplay(CGDirectDisplayID displayID)
