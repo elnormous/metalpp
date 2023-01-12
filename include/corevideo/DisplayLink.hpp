@@ -101,7 +101,7 @@ namespace cv
                     throw std::system_error{result, errorCategory, "Failed to stop display link"};
         }
 
-        bool isRunning() const
+        bool isRunning() const noexcept
         {
             return static_cast<bool>(CVDisplayLinkIsRunning(ref));
         }
