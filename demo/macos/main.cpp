@@ -200,8 +200,8 @@ public:
         };
 
         const ns::Rect frame{
-            std::round(screenFrame.size.width / 2.0F - windowSize.width / 2.0F),
-            std::round(screenFrame.size.height / 2.0F - windowSize.height / 2.0F),
+            std::round(screenFrame.size.width / 2.0 - windowSize.width / 2.0),
+            std::round(screenFrame.size.height / 2.0 - windowSize.height / 2.0),
             windowSize.width, windowSize.height
         };
 

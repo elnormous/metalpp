@@ -238,7 +238,7 @@ TEST_CASE("Number")
     REQUIRE(floatNumber);
     CHECK(floatNumber.floatValue() == f);
 
-    const double d = 1.5F;
+    const double d = 1.5;
     ns::Number doubleNumber{d};
     REQUIRE(doubleNumber);
     CHECK(doubleNumber.doubleValue() == d);
