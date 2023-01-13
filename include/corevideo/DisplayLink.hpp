@@ -35,11 +35,7 @@ namespace cv
             other.ref = nullptr;
         }
 
-        DisplayLink(const DisplayLink& other) noexcept:
-            ref{other.ref}
-        {
-            CVDisplayLinkRetain(ref);
-        }
+        DisplayLink(const DisplayLink& other) noexcept: ref{CVDisplayLinkRetain(other.ref)} {}
 
         DisplayLink& operator=(DisplayLink&& other) noexcept
         {
@@ -58,6 +54,8 @@ namespace cv
             ref = other.ref;
             return *this;
         }
+
+        DisplayLink(const CVDisplayLinkRef r) noexcept: ref{CVDisplayLinkRetain(r)} {}
 
         [[nodiscard]] operator CVDisplayLinkRef() const noexcept
         {
@@ -101,7 +99,17 @@ namespace cv
                     throw std::system_error{result, errorCategory, "Failed to stop display link"};
         }
 
-        bool isRunning() const noexcept
+        auto getNominalOutputVideoRefreshPeriod() const noexcept
+        {
+            return CVDisplayLinkGetNominalOutputVideoRefreshPeriod(ref);
+        }
+
+        auto getActualOutputVideoRefreshPeriod() const noexcept
+        {
+            return CVDisplayLinkGetActualOutputVideoRefreshPeriod(ref);
+        }
+
+        auto isRunning() const noexcept
         {
             return static_cast<bool>(CVDisplayLinkIsRunning(ref));
         }

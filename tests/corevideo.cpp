@@ -12,13 +12,17 @@ namespace
         std::condition_variable condition;
     };
 
-    CVReturn callback(CVDisplayLinkRef,
+    CVReturn callback(CVDisplayLinkRef displayLink,
                       const CVTimeStamp*,
                       const CVTimeStamp*,
                       CVOptionFlags,
                       CVOptionFlags*,
                       void* displayLinkContext)
     {
+        const auto dl = cv::DisplayLink{displayLink};
+        CHECK(dl.getActualOutputVideoRefreshPeriod());
+        CHECK(dl.getNominalOutputVideoRefreshPeriod().timeValue);
+
         Flag& flag = *static_cast<Flag*>(displayLinkContext);
 
         std::unique_lock lock{flag.mutex};
