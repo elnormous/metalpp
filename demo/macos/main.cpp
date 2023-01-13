@@ -313,8 +313,6 @@ public:
         vertexAttribute3.setOffset(36);
         vertexAttribute3.setBufferIndex(0);
 
-        const ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
-        
         mtl::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.setLabel("renderPipeline");
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
@@ -329,35 +327,7 @@ public:
 
         pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
-        if (sampleCount > 1)
-        {
-            mtl::TextureDescriptor multisampleTextureDescriptor;
-            multisampleTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
-            multisampleTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
-            multisampleTextureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-            multisampleTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
-            multisampleTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
-            multisampleTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
-            multisampleTextureDescriptor.setSampleCount(sampleCount);
-
-            msaaTexture = device.newTexture(multisampleTextureDescriptor);
-        }
-
-        mtl::TextureDescriptor depthTextureDescriptor;
-        depthTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
-        depthTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
-        depthTextureDescriptor.setPixelFormat(mtl::PixelFormat::Depth32Float);
-        depthTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
-        depthTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
-        if (sampleCount > 1)
-        {
-            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
-            depthTextureDescriptor.setSampleCount(sampleCount);
-        }
-        else
-            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
-
-        depthTexture = device.newTexture(depthTextureDescriptor);
+        createRenderTargets(frame);
 
         static const std::uint16_t indexData[] = {
             0  + 0, 0  + 1, 0  + 2, 0  + 0, 0  + 2, 0  + 3,
@@ -458,7 +428,12 @@ private:
     void windowDidResize()
     {
         const auto frame = view.frame();
+
+        std::scoped_lock lock{renderTargetMutex};
+
         aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
+        metalLayer.setDrawableSize(cg::Size{frame.size.width, frame.size.height});
+        createRenderTargets(frame);
     }
 
     void windowDidChangeScreen()
@@ -533,10 +508,13 @@ private:
     {
         ns::AutoreleasePool pool;
 
-        auto commandQueue = device.newCommandQueue();
-        auto commandBuffer = commandQueue.commandBuffer();
+        std::scoped_lock lock{renderTargetMutex};
 
         auto drawable = metalLayer.nextDrawable();
+        auto currentMetalTexture = drawable.texture();
+
+        auto commandQueue = device.newCommandQueue();
+        auto commandBuffer = commandQueue.commandBuffer();
 
         angle += static_cast<float>(period);
 
@@ -554,12 +532,12 @@ private:
         if (msaaTexture)
         {
             renderPassDescriptor.colorAttachments()[0].setTexture(msaaTexture);
-            renderPassDescriptor.colorAttachments()[0].setResolveTexture(drawable.texture());
+            renderPassDescriptor.colorAttachments()[0].setResolveTexture(currentMetalTexture);
             renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::MultisampleResolve);
         }
         else
         {
-            renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
+            renderPassDescriptor.colorAttachments()[0].setTexture(currentMetalTexture);
             renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
         }
 
@@ -652,6 +630,39 @@ private:
         application.setHelpMenu(helpMenu);
 
         application.setMainMenu(mainMenu);
+    }
+
+    void createRenderTargets(const ns::Rect& frame)
+    {
+        if (sampleCount > 1)
+        {
+            mtl::TextureDescriptor multisampleTextureDescriptor;
+            multisampleTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
+            multisampleTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
+            multisampleTextureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+            multisampleTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
+            multisampleTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
+            multisampleTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+            multisampleTextureDescriptor.setSampleCount(sampleCount);
+
+            msaaTexture = device.newTexture(multisampleTextureDescriptor);
+        }
+
+        mtl::TextureDescriptor depthTextureDescriptor;
+        depthTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
+        depthTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
+        depthTextureDescriptor.setPixelFormat(mtl::PixelFormat::Depth32Float);
+        depthTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
+        depthTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+        if (sampleCount > 1)
+        {
+            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
+            depthTextureDescriptor.setSampleCount(sampleCount);
+        }
+        else
+            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
+
+        depthTexture = device.newTexture(depthTextureDescriptor);
     }
 
     // AppDelegate
@@ -853,7 +864,9 @@ private:
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 
+    ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
     mtl::RenderPipelineState pipelineState = nullptr;
+    std::mutex renderTargetMutex;
     mtl::Texture msaaTexture = nullptr;
     mtl::Texture depthTexture = nullptr;
 
@@ -869,7 +882,7 @@ private:
     mtl::DepthStencilState depthStencilState = nullptr;
 
     float angle = 0.0F;
-    std::atomic<float> aspectRatio{};
+    float aspectRatio = 0.0F;
 };
 
 int main(int argc, const char* argv[])
