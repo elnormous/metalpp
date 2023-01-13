@@ -506,7 +506,7 @@ private:
         std::cout << "Other mouse drag " << location.x << ' ' << location.y << '\n';
     }
 
-    void render()
+    void render(const double period)
     {
         ns::AutoreleasePool pool;
 
@@ -515,7 +515,7 @@ private:
 
         auto drawable = metalLayer.nextDrawable();
 
-        angle += 0.01F;
+        angle += static_cast<float>(period);
 
         Uniforms uniforms;
         uniforms.projectionMatrix = perspectiveMatrix(static_cast<float>(M_PI_2),
@@ -785,15 +785,16 @@ private:
         application->otherMouseDragged(location);
     }
 
-    static CVReturn renderCallback(CVDisplayLinkRef,
+    static CVReturn renderCallback(CVDisplayLinkRef displayLink,
                                    const CVTimeStamp*,
                                    const CVTimeStamp*,
                                    CVOptionFlags,
                                    CVOptionFlags*,
                                    void* userInfo)
     {
+        const auto dl = cv::DisplayLink{displayLink};
         auto application = static_cast<Application*>(userInfo);
-        application->render();
+        application->render(dl.getActualOutputVideoRefreshPeriod());
         return kCVReturnSuccess;
     }
 
