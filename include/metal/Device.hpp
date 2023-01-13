@@ -125,6 +125,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newLibraryWithSource_options_error_, "newLibraryWithSource:options:error:");
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
+        METALPP_PRIVATE_SEL(supportsTextureSampleCount_, "supportsTextureSampleCount:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
         METALPP_PRIVATE_SEL(newComputePipelineStateWithFunction_error_, "newComputePipelineStateWithFunction:error:");
 
@@ -251,6 +252,11 @@ namespace mtl
         [[nodiscard]] auto supportsFamily(const GPUFamily gpuFamily) const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<BOOL>(METALPP_SEL(supportsFamily_), gpuFamily) == YES;
+        }
+
+        [[nodiscard]] auto supportsTextureSampleCount(const ns::UInteger sampleCount) const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsTextureSampleCount_), sampleCount) == YES;
         }
 
         [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor)

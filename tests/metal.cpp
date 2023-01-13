@@ -10,6 +10,7 @@ TEST_CASE("Device")
     REQUIRE(device);
     CHECK(device.supportsFeatureSet(FeatureSet::macOS_GPUFamily1_v1));
     CHECK(device.supportsFamily(GPUFamily::Common1));
+    CHECK(device.supportsTextureSampleCount(1));
 
     const ns::String name = device.name();
     REQUIRE(name);
