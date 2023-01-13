@@ -879,7 +879,6 @@ private:
     ns::Application application = ns::Application::sharedApplication();
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
-    cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 
     ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
     mtl::RenderPipelineState pipelineState = nullptr;
@@ -900,6 +899,8 @@ private:
 
     float angle = 0.0F;
     float aspectRatio = 0.0F;
+
+    cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 };
 
 int main(int argc, const char* argv[])
