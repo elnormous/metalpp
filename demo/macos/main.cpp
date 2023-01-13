@@ -321,18 +321,41 @@ public:
         renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth32Float);
         //renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
 
+        const ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
+        renderPipelineDescriptor.setSampleCount(sampleCount);
+
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
         colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
 
         pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
+        if (sampleCount > 1)
+        {
+            mtl::TextureDescriptor multisampleTextureDescriptor;
+            multisampleTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
+            multisampleTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
+            multisampleTextureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+            multisampleTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
+            multisampleTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
+            multisampleTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+            multisampleTextureDescriptor.setSampleCount(sampleCount);
+
+            msaaTexture = device.newTexture(multisampleTextureDescriptor);
+        }
+
         mtl::TextureDescriptor depthTextureDescriptor;
         depthTextureDescriptor.setWidth(static_cast<ns::UInteger>(frame.size.width));
         depthTextureDescriptor.setHeight(static_cast<ns::UInteger>(frame.size.height));
         depthTextureDescriptor.setPixelFormat(mtl::PixelFormat::Depth32Float);
-        depthTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
         depthTextureDescriptor.setStorageMode(mtl::StorageMode::Private);
         depthTextureDescriptor.setUsage(mtl::TextureUsage::RenderTarget);
+        if (sampleCount > 1)
+        {
+            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2DMultisample);
+            depthTextureDescriptor.setSampleCount(sampleCount);
+        }
+        else
+            depthTextureDescriptor.setTextureType(mtl::TextureType::Type2D);
 
         depthTexture = device.newTexture(depthTextureDescriptor);
 
@@ -528,10 +551,20 @@ private:
         std::memcpy(bufferPointer, &uniforms, sizeof(Uniforms));
 
         mtl::RenderPassDescriptor renderPassDescriptor;
-        renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
+        if (msaaTexture)
+        {
+            renderPassDescriptor.colorAttachments()[0].setTexture(msaaTexture);
+            renderPassDescriptor.colorAttachments()[0].setResolveTexture(drawable.texture());
+            renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::MultisampleResolve);
+        }
+        else
+        {
+            renderPassDescriptor.colorAttachments()[0].setTexture(drawable.texture());
+            renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
+        }
+
         renderPassDescriptor.colorAttachments()[0].setLoadAction(mtl::LoadAction::Clear);
         renderPassDescriptor.colorAttachments()[0].setClearColor(mtl::ClearColor{1.0, 1.0, 1.0, 1.0});
-        renderPassDescriptor.colorAttachments()[0].setStoreAction(mtl::StoreAction::Store);
 
         renderPassDescriptor.depthAttachment().setTexture(depthTexture);
         renderPassDescriptor.depthAttachment().setLoadAction(mtl::LoadAction::Clear);
@@ -820,10 +853,8 @@ private:
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     cv::DisplayLink displayLink{screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue()};
 
-    float angle = 0.0F;
-    std::atomic<float> aspectRatio{};
-
     mtl::RenderPipelineState pipelineState = nullptr;
+    mtl::Texture msaaTexture = nullptr;
     mtl::Texture depthTexture = nullptr;
 
     mtl::Buffer indexBuffer = nullptr;
@@ -836,6 +867,9 @@ private:
     mtl::SamplerState diffuseSampler = nullptr;
     mtl::SamplerState normalSampler = nullptr;
     mtl::DepthStencilState depthStencilState = nullptr;
+
+    float angle = 0.0F;
+    std::atomic<float> aspectRatio{};
 };
 
 int main(int argc, const char* argv[])
