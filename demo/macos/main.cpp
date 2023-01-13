@@ -313,6 +313,8 @@ public:
         vertexAttribute3.setOffset(36);
         vertexAttribute3.setBufferIndex(0);
 
+        const ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
+        
         mtl::RenderPipelineDescriptor renderPipelineDescriptor;
         renderPipelineDescriptor.setLabel("renderPipeline");
         renderPipelineDescriptor.setVertexFunction(vertexFunction);
@@ -320,8 +322,6 @@ public:
         renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
         renderPipelineDescriptor.setDepthAttachmentPixelFormat(mtl::PixelFormat::Depth32Float);
         //renderPipelineDescriptor.setStencilAttachmentPixelFormat(mtl::PixelFormat::Depth24Unorm_Stencil8);
-
-        const ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
         renderPipelineDescriptor.setSampleCount(sampleCount);
 
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
