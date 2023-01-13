@@ -435,7 +435,6 @@ private:
         const auto frame = view.frame();
 
         std::scoped_lock lock{renderTargetMutex};
-
         aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
         metalLayer.setDrawableSize(cg::Size{frame.size.width, frame.size.height});
         createRenderTargets(frame);
@@ -447,8 +446,8 @@ private:
         displayLink.setCurrentCGDisplay(screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue());
 
         const auto frame = view.frame();
-        std::scoped_lock lock{renderTargetMutex};
 
+        std::scoped_lock lock{renderTargetMutex};
         aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
         metalLayer.setDrawableSize(cg::Size{frame.size.width, frame.size.height});
         createRenderTargets(frame);
@@ -676,9 +675,8 @@ private:
     }
 
     // AppDelegate
-    static void applicationWillTerminate(id, SEL, id)
+    static void applicationWillTerminate(id, SEL, id) noexcept
     {
-        std::cout << "Application will terminate\n";
     }
 
     static BOOL applicationShouldTerminateAfterLastWindowClosed(id, SEL, id) noexcept
@@ -715,17 +713,17 @@ private:
     }
 
     // View
-    static BOOL isOpaque(id, SEL)
+    static BOOL isOpaque(id, SEL) noexcept
     {
         return YES;
     }
 
-    static BOOL acceptsFirstResponder(id, SEL)
+    static BOOL acceptsFirstResponder(id, SEL) noexcept
     {
         return YES;
     }
 
-    static BOOL acceptsFirstMouse(id, SEL, [[maybe_unused]] id event)
+    static BOOL acceptsFirstMouse(id, SEL, [[maybe_unused]] id event) noexcept
     {
         return YES;
     }
