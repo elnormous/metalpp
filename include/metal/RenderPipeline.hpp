@@ -287,6 +287,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(setFragmentFunction_, "setFragmentFunction:");
         METALPP_PRIVATE_SEL(vertexDescriptor, "vertexDescriptor");
         METALPP_PRIVATE_SEL(setVertexDescriptor_, "setVertexDescriptor:");
+        METALPP_PRIVATE_SEL(sampleCount, "sampleCount");
+        METALPP_PRIVATE_SEL(setSampleCount_, "setSampleCount:");
         METALPP_PRIVATE_SEL(colorAttachments, "colorAttachments");
         METALPP_PRIVATE_SEL(depthAttachmentPixelFormat, "depthAttachmentPixelFormat");
         METALPP_PRIVATE_SEL(setDepthAttachmentPixelFormat_, "setDepthAttachmentPixelFormat:");
@@ -336,6 +338,16 @@ namespace mtl
         void setVertexDescriptor(const VertexDescriptor& vertexDescriptor) noexcept
         {
             sendMessage(METALPP_SEL(setVertexDescriptor_), vertexDescriptor.get());
+        }
+
+        [[nodiscard]] auto sampleCount() const noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(sampleCount));
+        }
+
+        void setSampleCount(const ns::UInteger sampleCount) noexcept
+        {
+            sendMessage(METALPP_SEL(setSampleCount_), sampleCount);
         }
 
         [[nodiscard]] auto colorAttachments() const noexcept

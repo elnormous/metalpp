@@ -697,6 +697,10 @@ TEST_CASE("Render pipeline state")
     CHECK(colorAttachments[0].writeMask() == (mtl::ColorWriteMask::Blue | mtl::ColorWriteMask::Green));
 
     renderPipelineDescriptor.setVertexDescriptor(vertexDescriptor);
+    //CHECK(renderPipelineDescriptor.vertexDescriptor() == vertexDescriptor);
+
+    renderPipelineDescriptor.setSampleCount(4);
+    CHECK(renderPipelineDescriptor.sampleCount() == 4);
 
     // render pipeline state
     mtl::RenderPipelineState renderPipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
