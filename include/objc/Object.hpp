@@ -34,11 +34,7 @@ namespace ns
             sendMessage(METALPP_SEL(release));
         }
 
-        Object(const Object& other) noexcept:
-            ptr{other.ptr}
-        {
-            sendMessage(METALPP_SEL(retain));
-        }
+        Object(const Object& other) noexcept: ptr{objc::sendMessage<id>(other.ptr, METALPP_SEL(retain))} {}
 
         Object(Object&& other) noexcept:
             ptr{other.ptr}
@@ -64,10 +60,7 @@ namespace ns
         }
 
         Object(std::nullptr_t) noexcept {}
-        Object(const id p) noexcept: ptr{p}
-        {
-            sendMessage(METALPP_SEL(retain));
-        }
+        Object(const id p) noexcept: ptr{objc::sendMessage<id>(p, METALPP_SEL(retain))} {}
         Object(const id p, Adopt) noexcept: ptr{p} {}
 
         Object& operator=(std::nullptr_t) noexcept
