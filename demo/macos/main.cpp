@@ -214,6 +214,7 @@ public:
         window.setAcceptsMouseMovedEvents(true);
 
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
+        windowDelegateClass.addMethod(sel_registerName("windowDidEndLiveResize:"), windowDidEndLiveResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
         windowDelegateClass.reg();
         windowDelegate = windowDelegateClass.createInstance(sizeof(Application*));
@@ -427,6 +428,10 @@ public:
 private:
     void windowDidResize()
     {
+    }
+
+    void windowDidEndLiveResize()
+    {
         const auto frame = view.frame();
 
         std::scoped_lock lock{renderTargetMutex};
@@ -441,7 +446,12 @@ private:
         screen = window.screen();
         displayLink.setCurrentCGDisplay(screen.deviceDescription().objectForKey<ns::Number>("NSScreenNumber").unsignedIntValue());
 
-        std::cout << "Window did change screen" << '\n';
+        const auto frame = view.frame();
+        std::scoped_lock lock{renderTargetMutex};
+
+        aspectRatio = static_cast<float>(frame.size.width / frame.size.height);
+        metalLayer.setDrawableSize(cg::Size{frame.size.width, frame.size.height});
+        createRenderTargets(frame);
     }
 
     void keyDown(unsigned short keyCode)
@@ -684,6 +694,15 @@ private:
         std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
 
         application->windowDidResize();
+    }
+
+    static void windowDidEndLiveResize(id self, SEL, id)
+    {
+        ns::Object windowDelegate{self};
+        Application* application;
+        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
+
+        application->windowDidEndLiveResize();
     }
 
     static void windowDidChangeScreen(id self, SEL, id)
