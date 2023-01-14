@@ -880,7 +880,10 @@ private:
     ns::Screen screen = ns::Screen::mainScreen();
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
-    ns::UInteger sampleCount = device.supportsTextureSampleCount(4) ? 4 : 1;
+    ns::UInteger sampleCount =
+        device.supportsTextureSampleCount(8) ? 8 :
+        device.supportsTextureSampleCount(4) ? 4 :
+        device.supportsTextureSampleCount(2) ? 2 : 1;
     mtl::RenderPipelineState pipelineState = nullptr;
     std::mutex renderTargetMutex;
     mtl::Texture msaaTexture = nullptr;
