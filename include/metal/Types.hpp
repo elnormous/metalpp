@@ -66,6 +66,32 @@ namespace mtl
         Origin origin;
         Size size;
     };
+
+    struct SamplePosition final
+    {
+        SamplePosition() noexcept = default;
+        SamplePosition(const float px, const float py) noexcept: x{px}, y{py} {}
+
+        [[nodiscard]] bool operator==(const SamplePosition& other) const noexcept
+        {
+            return other.x == x && other.y == y;
+        }
+
+        [[nodiscard]] bool operator!=(const SamplePosition& other) const noexcept
+        {
+            return other.x != x || other.y != y;
+        }
+
+        float x = 0.0F;
+        float y = 0.0F;
+    };
+
+    using Coordinate2D = SamplePosition;
+
+    struct ResourceID final
+    {
+        uint64_t _impl;
+    } API_AVAILABLE(macos(13.0), ios(16.0));
 }
 
 #endif

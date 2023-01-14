@@ -5,7 +5,7 @@
 
 namespace ns
 {
-    struct Range
+    struct Range final
     {
         Range() noexcept = default;
         Range(UInteger loc, UInteger len) noexcept: location{loc}, length{len} {}
