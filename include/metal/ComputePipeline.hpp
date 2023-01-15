@@ -2,17 +2,16 @@
 #define METALPP_METAL_COMPUTEPIPELINE_HPP
 
 #include "../objc/Object.hpp"
+#include "../foundation/Object.hpp"
 #include "Types.hpp"
 
 namespace mtl
 {
     class Device;
 
-    class ComputePipelineDescriptor final: public ns::Object
+    class ComputePipelineDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLComputePipelineDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");

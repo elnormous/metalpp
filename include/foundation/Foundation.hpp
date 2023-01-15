@@ -8,6 +8,7 @@
 #include "Dictionary.hpp"
 #include "Error.hpp"
 #include "Geometry.hpp"
+#include "Object.hpp"
 #include "Range.hpp"
 #include "String.hpp"
 #include "Value.hpp"

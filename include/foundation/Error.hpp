@@ -4,16 +4,15 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "Dictionary.hpp"
 #include "String.hpp"
 
 namespace ns
 {
-    class Error: public Object
+    class Error: public Object, public Copying
     {
-    public:
-        static constexpr bool copying = true;
-        
+    public:        
         METALPP_PRIVATE_CLS("NSError");
 
         METALPP_PRIVATE_SEL(initWithDomain_code_userInfo_, "initWithDomain:code:userInfo:");

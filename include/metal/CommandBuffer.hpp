@@ -7,6 +7,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "BlitCommandEncoder.hpp"
 #include "ComputeCommandEncoder.hpp"
 #include "Drawable.hpp"
@@ -63,10 +64,9 @@ namespace mtl
     class CommandBuffer;
     using CommandBufferHandler = std::function<void(const CommandBuffer&)>;
 
-    class CommandBufferDescriptor final: public ns::Object
+    class CommandBufferDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
     };
 
     class CommandBuffer: public ns::Object

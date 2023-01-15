@@ -8,6 +8,7 @@
 #include "../foundation/Array.hpp"
 #include "../foundation/Dictionary.hpp"
 #include "../foundation/Error.hpp"
+#include "../foundation/Object.hpp"
 #include "../foundation/String.hpp"
 #include "DynamicLibrary.hpp"
 #include "FunctionConstantValues.hpp"
@@ -150,11 +151,9 @@ namespace mtl
         Size = 1,
     } API_AVAILABLE(macos(13.0), ios(16.0));
 
-    class CompileOptions final: public ns::Object
+    class CompileOptions final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLCompileOptions");
 
         METALPP_PRIVATE_SEL(preprocessorMacros, "preprocessorMacros");

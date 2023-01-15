@@ -6,6 +6,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "Object.hpp"
 
 namespace ns
 {
@@ -41,11 +42,9 @@ namespace ns
         UTF32LittleEndian = 0x9c000100        // UTF32 encoding with explicit endianness specified
     };
 
-    class String: public Object
+    class String: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-        
         METALPP_PRIVATE_CLS("NSString");
 
         METALPP_PRIVATE_SEL(initWithBytes_length_encoding_, "initWithBytes:length:encoding:");

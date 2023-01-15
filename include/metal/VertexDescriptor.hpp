@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 
 namespace mtl
 {
@@ -90,11 +91,9 @@ namespace mtl
         PerPatchControlPoint API_AVAILABLE(macos(10.12), ios(10.0)) = 4,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class VertexBufferLayoutDescriptor final: public ns::Object
+    class VertexBufferLayoutDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLVertexBufferLayoutDescriptor");
 
         METALPP_PRIVATE_SEL(stride, "stride");
@@ -170,11 +169,9 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class VertexAttributeDescriptor final: public ns::Object
+    class VertexAttributeDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLVertexAttributeDescriptor");
 
         METALPP_PRIVATE_SEL(format, "format");
@@ -250,11 +247,9 @@ namespace mtl
         }
     };
 
-    class VertexDescriptor final: public ns::Object
+    class VertexDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLVertexDescriptor");
 
         METALPP_PRIVATE_SEL(layouts, "layouts");

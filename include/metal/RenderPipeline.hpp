@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "Library.hpp"
 #include "PixelFormat.hpp"
 #include "VertexDescriptor.hpp"
@@ -120,11 +121,9 @@ namespace mtl
         UInt32 = 2,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-    class RenderPipelineColorAttachmentDescriptor final: public ns::Object
+    class RenderPipelineColorAttachmentDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLRenderPipelineColorAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(pixelFormat, "pixelFormat");
@@ -272,11 +271,9 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class RenderPipelineDescriptor final: public ns::Object
+    class RenderPipelineDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLRenderPipelineDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");

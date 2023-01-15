@@ -3,14 +3,13 @@
 
 #include "../objc/Object.hpp"
 #include "../objc/Runtime.hpp"
+#include "Object.hpp"
 
 namespace ns
 {
-    class Value: public Object
+    class Value: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("NSValue");
         METALPP_PRIVATE_SEL(initWithBytes_objCType_, "initWithBytes:objCType:");
         METALPP_PRIVATE_SEL(isEqualToValue_, "isEqualToValue:");
@@ -34,8 +33,6 @@ namespace ns
     class Number: public Value
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("NSNumber");
 
         METALPP_PRIVATE_SEL(initWithChar_, "initWithChar:");

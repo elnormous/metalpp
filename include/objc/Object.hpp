@@ -145,12 +145,6 @@ namespace ns
     private:
         id ptr = nil;
     };
-
-    template<class Type>
-    [[nodiscard]] std::enable_if_t<Type::copying, Type> copy(const Type& object) noexcept
-    {
-        return Type{objc::sendMessage<id>(object.get(), Object::METALPP_SEL(copy)), adopt};
-    }
 }
 
 #endif

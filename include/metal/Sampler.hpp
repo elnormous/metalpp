@@ -4,6 +4,7 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../foundation/Object.hpp"
 #include "DepthStencil.hpp"
 
 namespace mtl
@@ -40,11 +41,9 @@ namespace mtl
         ClampToBorderColor API_AVAILABLE(macos(10.12), ios(14.0)) = 5,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class SamplerDescriptor final: public ns::Object
+    class SamplerDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLSamplerDescriptor");
 
         METALPP_PRIVATE_SEL(minFilter, "minFilter");

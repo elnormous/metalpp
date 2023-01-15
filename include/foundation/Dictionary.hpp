@@ -4,15 +4,14 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "Array.hpp"
+#include "Object.hpp"
 
 namespace ns
 {
     template<class KeyType, class ObjectType>
-    class Dictionary: public Object
+    class Dictionary: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-        
         METALPP_PRIVATE_CLS("NSDictionary");
 
         METALPP_PRIVATE_SEL(initWithObjects_forKeys_, "initWithObjects:forKeys:");

@@ -4,6 +4,7 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../foundation/Object.hpp"
 #include "../foundation/String.hpp"
 
 namespace mtl
@@ -34,17 +35,14 @@ namespace mtl
         DecrementWrap = 7,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    class StencilDescriptor final: public ns::Object
+    class StencilDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
     };
 
-    class DepthStencilDescriptor final: public ns::Object
+    class DepthStencilDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLDepthStencilDescriptor");
 
         METALPP_PRIVATE_SEL(label, "label");

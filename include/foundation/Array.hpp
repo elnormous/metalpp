@@ -4,15 +4,14 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "Object.hpp"
 
 namespace ns
 {
     template<class Type>
-    class Array: public Object
+    class Array: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-        
         METALPP_PRIVATE_CLS("NSArray");
 
         METALPP_PRIVATE_SEL(initWithObjects_, "initWithObjects:");

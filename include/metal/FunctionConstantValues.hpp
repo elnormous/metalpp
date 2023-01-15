@@ -3,17 +3,16 @@
 
 #include <os/availability.h>
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "../foundation/Range.hpp"
 #include "../foundation/String.hpp"
 #include "Argument.hpp"
 
 namespace mtl
 {
-    class FunctionConstantValues final: public ns::Object
+    class FunctionConstantValues final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLFunctionConstantValues");
 
         METALPP_PRIVATE_SEL(setConstantValue_type_atIndex_, "setConstantValue:type:atIndex:");

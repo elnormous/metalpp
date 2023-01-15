@@ -2,7 +2,9 @@
 #define METALPP_METAL_TEXTURE_HPP
 
 #include <os/availability.h>
+#include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../foundation/Object.hpp"
 #include "Buffer.hpp"
 #include "PixelFormat.hpp"
 #include "Resource.hpp"
@@ -57,11 +59,9 @@ namespace mtl
         Lossy = 1,
     } API_AVAILABLE(macos(12.5), ios(15.0));
 
-    class TextureDescriptor final: public ns::Object
+    class TextureDescriptor final: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLTextureDescriptor");
 
         METALPP_PRIVATE_SEL(textureType, "textureType");

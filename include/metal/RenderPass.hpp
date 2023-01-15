@@ -4,6 +4,7 @@
 #include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
+#include "../foundation/Object.hpp"
 #include "Texture.hpp"
 
 namespace mtl
@@ -52,11 +53,9 @@ namespace mtl
         CustomSamplePositions = 1 << 0,
     } API_AVAILABLE(macos(10.13), ios(11.0));
 
-    class RenderPassAttachmentDescriptor: public ns::Object
+    class RenderPassAttachmentDescriptor: public ns::Object, public ns::Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLRenderPassAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(texture, "texture");
@@ -206,8 +205,6 @@ namespace mtl
     class RenderPassColorAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLRenderPassColorAttachmentDescriptor");
 
         using RenderPassAttachmentDescriptor::RenderPassAttachmentDescriptor;
@@ -239,8 +236,6 @@ namespace mtl
     class RenderPassDepthAttachmentDescriptor final: public RenderPassAttachmentDescriptor
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("MTLRenderPassDepthAttachmentDescriptor");
 
         METALPP_PRIVATE_SEL(clearDepth, "clearDepth");
