@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  test:
+    macos:
+      xcode: 14.2.0
+    steps:
+      - checkout
+      - run: git submodule update --init
+      - run:
+          name: Build and run
+          command: |
+            make -C tests/
+            tests/tests
+      - run:
+          name: Generate coverage
+          command: |
+            cd tests
+            gcov main.cpp tests.cpp
