@@ -17,3 +17,12 @@ jobs:
           command: |
             cd tests
             gcov main.cpp tests.cpp
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+workflows:
+  main:
+    jobs:
+      - test:
+          context: SonarCloud
