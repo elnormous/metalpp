@@ -57,7 +57,7 @@ namespace mtl
 
         [[nodiscard]] auto gpuAddress() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
-            return sendMessage<uint64_t>(METALPP_SEL(gpuAddress));
+            return sendMessage<std::uint64_t>(METALPP_SEL(gpuAddress));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

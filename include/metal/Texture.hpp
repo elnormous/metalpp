@@ -24,7 +24,7 @@ namespace mtl
         TypeTextureBuffer API_AVAILABLE(macos(10.14), ios(12.0)) = 9
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    enum class TextureSwizzle: uint8_t
+    enum class TextureSwizzle: std::uint8_t
     {
         Zero = 0,
         One = 1,

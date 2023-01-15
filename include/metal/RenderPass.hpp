@@ -303,10 +303,10 @@ namespace mtl
 
         [[nodiscard]] auto clearStencil() const noexcept
         {
-            return sendMessage<uint32_t>(METALPP_SEL(clearStencil));
+            return sendMessage<std::uint32_t>(METALPP_SEL(clearStencil));
         }
 
-        void setClearStencil(const uint32_t clearStencil) noexcept
+        void setClearStencil(const std::uint32_t clearStencil) noexcept
         {
             sendMessage(METALPP_SEL(setClearStencil_), clearStencil);
         }

@@ -90,7 +90,7 @@ namespace mtl
 
     struct ResourceID final
     {
-        uint64_t _impl;
+        std::uint64_t _impl;
     } API_AVAILABLE(macos(13.0), ios(16.0));
 }
 
