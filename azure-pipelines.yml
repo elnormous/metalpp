@@ -1,0 +1,14 @@
+trigger:
+- master
+
+jobs:
+- job: macOS
+  pool:
+    vmImage: 'macOS-latest'
+  steps:
+  - script: |
+      make -j2 -C tests/
+    displayName: 'make'
+  - script: |
+      tests/tests
+    displayName: 'run'
