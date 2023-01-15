@@ -1,5 +1,5 @@
 DEBUG=0
-CXXFLAGS=-std=c++17 -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror -Wno-deprecated-declarations -I../include
+CXXFLAGS=-std=c++17 -Wall -Wextra -Wshadow -Wconversion -Wpedantic -Werror -Wno-deprecated-declarations -I../include  -mmacosx-version-min=13.0
 LDFLAGS=-framework Cocoa -framework CoreVideo -framework Metal
 SOURCES=main.cpp appkit.hpp coregraphics.cpp corevideo.cpp dispatch.cpp foundation.cpp metal.cpp objc.cpp quartzcore.cpp
 BASE_NAMES=$(basename $(SOURCES))
