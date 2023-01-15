@@ -127,7 +127,9 @@ TEST_CASE("Command buffer")
     ns::AutoreleasePool pool;
 
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    REQUIRE(device);
     mtl::CommandQueue commandQueue = device.newCommandQueue();
+    REQUIRE(commandQueue);
     mtl::CommandBuffer commandBuffer = commandQueue.commandBuffer();
     REQUIRE(commandBuffer);
     CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
