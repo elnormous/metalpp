@@ -790,6 +790,7 @@ TEST_CASE("Sampler state")
 
     CHECK(samplerState.device() == device);
     CHECK(samplerState.label().isEqualToString("Sampler"));
+    CHECK(samplerState.gpuResourceID()._impl);
 }
 
 TEST_CASE("Texture")
@@ -861,6 +862,7 @@ TEST_CASE("Texture")
     CHECK(texture.arrayLength() == 1);
     CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
     CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
+    CHECK(texture.gpuResourceID()._impl);
 
     std::uint8_t level0[1024 * 768 * 4] = {0xFF};
     std::uint8_t level1[512 * 384 * 4] = {0xFF};

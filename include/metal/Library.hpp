@@ -310,7 +310,6 @@ namespace mtl
 
             return Function{function, ns::adopt};
         }
-
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

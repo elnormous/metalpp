@@ -79,13 +79,11 @@ namespace mtl
         Half API_AVAILABLE(macos(10.13), ios(11.0)) = 53,
     } API_AVAILABLE(macos(10.12), ios(10.0));
 
-
     enum class IndexType: ns::UInteger
     {
         UInt16 = 0,
         UInt32 = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
-
 
     enum class StepFunction: ns::UInteger
     {

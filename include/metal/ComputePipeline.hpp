@@ -2,6 +2,7 @@
 #define METALPP_METAL_COMPUTEPIPELINE_HPP
 
 #include "../objc/Object.hpp"
+#include "Types.hpp"
 
 namespace mtl
 {
@@ -35,7 +36,6 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
-
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
     class ComputePipelineState final: public ns::Object
@@ -43,6 +43,7 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
         
         using Object::Object;
         using Object::operator=;
@@ -55,6 +56,11 @@ namespace mtl
         }
 
         [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] auto gpuResourceID() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        {
+            return sendMessage<ResourceID>(METALPP_SEL(gpuResourceID));
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

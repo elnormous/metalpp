@@ -239,6 +239,7 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
 
         using Object::Object;
         using Object::operator=;
@@ -251,6 +252,11 @@ namespace mtl
         }
 
         [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] auto gpuResourceID() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        {
+            return sendMessage<ResourceID>(METALPP_SEL(gpuResourceID));
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 

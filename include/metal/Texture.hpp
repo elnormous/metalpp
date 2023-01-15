@@ -265,6 +265,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(arrayLength, "arrayLength");
         METALPP_PRIVATE_SEL(usage, "usage");
         METALPP_PRIVATE_SEL(compressionType, "compressionType");
+        METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
         METALPP_PRIVATE_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_, "replaceRegion:mipmapLevel:withBytes:bytesPerRow:");
 
         using Resource::Resource;
@@ -320,6 +321,11 @@ namespace mtl
         [[nodiscard]] auto compressionType() const noexcept API_AVAILABLE(macos(12.5), ios(15.0))
         {
             return sendMessage<TextureCompressionType>(METALPP_SEL(compressionType));
+        }
+
+        [[nodiscard]] auto gpuResourceID() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
+        {
+            return sendMessage<ResourceID>(METALPP_SEL(gpuResourceID));
         }
 
         void replaceRegion(const Region& region,
