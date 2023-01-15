@@ -4,17 +4,16 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "Event.hpp"
 
 namespace ns
 {
     class Menu;
 
-    class MenuItem final: public Object
+    class MenuItem final: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-        
         METALPP_PRIVATE_CLS("NSMenuItem");
 
         METALPP_PRIVATE_SEL(separatorItem, "separatorItem");

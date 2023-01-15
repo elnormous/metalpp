@@ -4,16 +4,15 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
+#include "../foundation/Object.hpp"
 #include "../foundation/String.hpp"
 #include "MenuItem.hpp"
 
 namespace ns
 {
-    class Menu final: public Object
+    class Menu final: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-
         METALPP_PRIVATE_CLS("NSMenu");
 
         METALPP_PRIVATE_SEL(initWithTitle_, "initWithTitle:");

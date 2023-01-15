@@ -5,6 +5,7 @@
 #include "../objc/Runtime.hpp"
 #include "../foundation/Date.hpp"
 #include "../foundation/Geometry.hpp"
+#include "../foundation/Object.hpp"
 
 namespace ns
 {
@@ -97,11 +98,9 @@ namespace ns
         return a = static_cast<EventModifierFlags>(static_cast<std::underlying_type_t<EventModifierFlags>>(a) ^ static_cast<std::underlying_type_t<EventModifierFlags>>(b));
     }
 
-    class Event: public Object
+    class Event: public Object, public Copying
     {
     public:
-        static constexpr bool copying = true;
-        
         METALPP_PRIVATE_CLS("NSEvent");
 
         METALPP_PRIVATE_SEL(type, "type");
