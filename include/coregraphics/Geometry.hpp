@@ -1,12 +1,10 @@
-#ifndef METALPP_COREFOUNDATION_TYPES_HPP
-#define METALPP_COREFOUNDATION_TYPES_HPP
+#ifndef METALPP_COREGRAPHICS_GEOMETRY_HPP
+#define METALPP_COREGRAPHICS_GEOMETRY_HPP
 
-#include <CoreFoundation/CFCGTypes.h>
+#include "Base.hpp"
 
 namespace cg
 {
-    using Float = CGFloat;
-
     struct Point final
     {
         Point() noexcept = default;

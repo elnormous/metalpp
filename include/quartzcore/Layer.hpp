@@ -4,8 +4,8 @@
 #include <dlfcn.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
-#include "../corefoundation/Types.hpp"
 #include "../coregraphics/Color.hpp"
+#include "../coregraphics/Geometry.hpp"
 #include "../foundation/String.hpp"
 
 namespace ca

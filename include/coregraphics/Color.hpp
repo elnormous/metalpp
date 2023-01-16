@@ -2,7 +2,7 @@
 #define METALPP_COREGRAPHICS_COLOR_HPP
 
 #include <CoreGraphics/CGColor.h>
-#include "../corefoundation/Types.hpp"
+#include "../coregraphics/Geometry.hpp"
 #include "ColorSpace.hpp"
 
 namespace cg

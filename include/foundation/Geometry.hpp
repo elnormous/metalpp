@@ -1,7 +1,7 @@
 #ifndef METALPP_FOUNDATION_GEOMETRY_HPP
 #define METALPP_FOUNDATION_GEOMETRY_HPP
 
-#include "../corefoundation/Types.hpp"
+#include "../coregraphics/Geometry.hpp"
 
 namespace ns
 {
