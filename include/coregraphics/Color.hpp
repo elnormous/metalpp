@@ -63,7 +63,7 @@ namespace cg
         
         [[nodiscard]] auto retainCount() const noexcept
         {
-            return ref ? CFGetRetainCount(ref) : 0;
+            return CFGetRetainCount(ref);
         }
 
     private:
