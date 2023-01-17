@@ -42,6 +42,8 @@ namespace mtl
 
     enum class ResourceOptions: ns::UInteger
     {
+        None = 0,
+
         CPUCacheModeDefaultCache  = static_cast<ns::UInteger>(CPUCacheMode::DefaultCache)  << CPUCacheModeShift,
         CPUCacheModeWriteCombined = static_cast<ns::UInteger>(CPUCacheMode::WriteCombined) << CPUCacheModeShift,
 

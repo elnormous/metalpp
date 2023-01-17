@@ -394,33 +394,54 @@ TEST_CASE("Indirect command buffer")
     ns::AutoreleasePool pool;
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
 
-    mtl::IndirectCommandBufferDescriptor descriptor;
-    REQUIRE(descriptor);
-    CHECK(descriptor.retainCount() == 1);
+    mtl::IndirectCommandBufferDescriptor drawDescriptor;
+    REQUIRE(drawDescriptor);
+    CHECK(drawDescriptor.retainCount() == 1);
 
-    descriptor.setCommandTypes(mtl::IndirectCommandType::MTLIndirectCommandTypeConcurrentDispatch);
-    CHECK(descriptor.commandTypes() == mtl::IndirectCommandType::MTLIndirectCommandTypeConcurrentDispatch);
-    descriptor.setInheritPipelineState(true);
-    CHECK(descriptor.inheritPipelineState());
-    descriptor.setInheritBuffers(true);
-    CHECK(descriptor.inheritBuffers());
-    descriptor.setMaxVertexBufferBindCount(32);
-    CHECK(descriptor.maxVertexBufferBindCount() == 32);
-    descriptor.setMaxFragmentBufferBindCount(64);
-    CHECK(descriptor.maxFragmentBufferBindCount() == 64);
-    descriptor.setMaxKernelBufferBindCount(16);
-    CHECK(descriptor.maxKernelBufferBindCount() == 16);
-    descriptor.setSupportRayTracing(true);
-    CHECK(descriptor.supportRayTracing());
+    drawDescriptor.setCommandTypes(mtl::IndirectCommandType::MTLIndirectCommandTypeDraw);
+    CHECK(drawDescriptor.commandTypes() == mtl::IndirectCommandType::MTLIndirectCommandTypeDraw);
+    drawDescriptor.setInheritPipelineState(true);
+    CHECK(drawDescriptor.inheritPipelineState());
+    drawDescriptor.setInheritBuffers(true);
+    CHECK(drawDescriptor.inheritBuffers());
+    drawDescriptor.setMaxVertexBufferBindCount(16);
+    CHECK(drawDescriptor.maxVertexBufferBindCount() == 16);
+    drawDescriptor.setMaxFragmentBufferBindCount(8);
+    CHECK(drawDescriptor.maxFragmentBufferBindCount() == 8);
+    drawDescriptor.setMaxKernelBufferBindCount(4);
+    CHECK(drawDescriptor.maxKernelBufferBindCount() == 4);
+    drawDescriptor.setSupportRayTracing(true);
+    CHECK(drawDescriptor.supportRayTracing());
 
-    mtl::IndirectCommandBuffer indirectCommandBuffer = device.newIndirectCommandBuffer(descriptor, 100, mtl::ResourceOptions::StorageModePrivate);
-    REQUIRE(indirectCommandBuffer);
-    CHECK(indirectCommandBuffer.retainCount() == 2);
+    mtl::IndirectCommandBuffer indirectDrawCommandBuffer = device.newIndirectCommandBuffer(drawDescriptor, 100, mtl::ResourceOptions::None);
+    REQUIRE(indirectDrawCommandBuffer);
+    CHECK(indirectDrawCommandBuffer.retainCount() == 2);
 
-    CHECK(indirectCommandBuffer.size());
-    CHECK(indirectCommandBuffer.gpuResourceID()._impl);
+    CHECK(indirectDrawCommandBuffer.size());
+    CHECK(indirectDrawCommandBuffer.gpuResourceID()._impl);
 
-    indirectCommandBuffer.resetWithRange(ns::Range{0, indirectCommandBuffer.size()});
+    indirectDrawCommandBuffer.resetWithRange(ns::Range{0, indirectDrawCommandBuffer.size()});
+
+    // indirect render command
+    mtl::IndirectRenderCommand indirectRenderCommand = indirectDrawCommandBuffer.indirectRenderCommandAtIndex(0);
+    CHECK(indirectRenderCommand);
+
+    indirectRenderCommand.reset();
+
+    // indirect compute command
+    mtl::IndirectCommandBufferDescriptor computeDescriptor;
+    computeDescriptor.setInheritBuffers(false);
+    computeDescriptor.setMaxKernelBufferBindCount(8);
+    computeDescriptor.setInheritPipelineState(true);
+    mtl::IndirectCommandBuffer indirectComputeCommandBuffer = device.newIndirectCommandBuffer(computeDescriptor, 100, mtl::ResourceOptions::None);
+
+    mtl::IndirectComputeCommand indirectComputeCommand = indirectComputeCommandBuffer.indirectComputeCommandAtIndex(0);
+    CHECK(indirectComputeCommand);
+//    indirectComputeCommand.setBarrier();
+//    indirectComputeCommand.clearBarrier();
+//    indirectComputeCommand.setImageblock(32, 32);
+    indirectComputeCommand.reset();
+//    indirectComputeCommand.setThreadgroupMemoryLength(1024, 0);
 }
 
 TEST_CASE("Library")

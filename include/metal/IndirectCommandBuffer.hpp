@@ -7,6 +7,7 @@
 #include "../foundation/Object.hpp"
 #include "../foundation/Range.hpp"
 #include "CommandEncoder.hpp"
+#include "IndirectCommandEncoder.hpp"
 #include "Resource.hpp"
 #include "Types.hpp"
 
@@ -164,6 +165,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(size, "size");
         METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
         METALPP_PRIVATE_SEL(resetWithRange_, "resetWithRange:");
+        METALPP_PRIVATE_SEL(indirectRenderCommandAtIndex_, "indirectRenderCommandAtIndex:");
+        METALPP_PRIVATE_SEL(indirectComputeCommandAtIndex_, "indirectComputeCommandAtIndex:");
 
         [[nodiscard]] auto size() const noexcept
         {
@@ -178,6 +181,16 @@ namespace mtl
         void resetWithRange(const ns::Range range) noexcept
         {
             sendMessage(METALPP_SEL(resetWithRange_), range);
+        }
+
+        [[nodiscard]] auto indirectRenderCommandAtIndex(const ns::UInteger commandIndex) noexcept
+        {
+            return IndirectRenderCommand{sendMessage<id>(METALPP_SEL(indirectRenderCommandAtIndex_), commandIndex)};
+        }
+
+        [[nodiscard]] auto indirectComputeCommandAtIndex(const ns::UInteger commandIndex) noexcept API_AVAILABLE(macos(11.0), macCatalyst(14.0), ios(13.0))
+        {
+            return IndirectComputeCommand{sendMessage<id>(METALPP_SEL(indirectComputeCommandAtIndex_), commandIndex)};
         }
     };
 }
