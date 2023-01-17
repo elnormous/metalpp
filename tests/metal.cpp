@@ -389,6 +389,38 @@ TEST_CASE("Function")
     CHECK(computeFunction.name().isEqualToString("ck"));
 }
 
+TEST_CASE("Indirect command buffer")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    mtl::IndirectCommandBufferDescriptor descriptor;
+    REQUIRE(descriptor);
+    CHECK(descriptor.retainCount() == 1);
+
+    descriptor.setCommandTypes(mtl::IndirectCommandType::MTLIndirectCommandTypeConcurrentDispatch);
+    CHECK(descriptor.commandTypes() == mtl::IndirectCommandType::MTLIndirectCommandTypeConcurrentDispatch);
+    descriptor.setInheritPipelineState(true);
+    CHECK(descriptor.inheritPipelineState());
+    descriptor.setInheritBuffers(true);
+    CHECK(descriptor.inheritBuffers());
+    descriptor.setMaxVertexBufferBindCount(32);
+    CHECK(descriptor.maxVertexBufferBindCount() == 32);
+    descriptor.setMaxFragmentBufferBindCount(64);
+    CHECK(descriptor.maxFragmentBufferBindCount() == 64);
+    descriptor.setMaxKernelBufferBindCount(16);
+    CHECK(descriptor.maxKernelBufferBindCount() == 16);
+    descriptor.setSupportRayTracing(true);
+    CHECK(descriptor.supportRayTracing());
+
+    mtl::IndirectCommandBuffer indirectCommandBuffer = device.newIndirectCommandBuffer(descriptor, 100, mtl::ResourceOptions::StorageModePrivate);
+    REQUIRE(indirectCommandBuffer);
+    CHECK(indirectCommandBuffer.retainCount() == 2);
+
+    CHECK(indirectCommandBuffer.size());
+    CHECK(indirectCommandBuffer.gpuResourceID()._impl);
+}
+
 TEST_CASE("Library")
 {
     ns::AutoreleasePool pool;

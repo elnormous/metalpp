@@ -112,6 +112,8 @@
 		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
 		30C22AC02975464F00DB5D3F /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
 		30C22AC12975468000DB5D3F /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
+		30C84A3A2972920B00800F55 /* IndirectCommandBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndirectCommandBuffer.hpp; sourceTree = "<group>"; };
+		30C84A3B297423AA00800F55 /* IndirectCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndirectCommandEncoder.hpp; sourceTree = "<group>"; };
 		30C84A3C2974255D00800F55 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		30CB1298295E7FEC0090DC8F /* Value.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Value.hpp; sourceTree = "<group>"; };
 		30CD076329696213004DA016 /* ComputeCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ComputeCommandEncoder.hpp; sourceTree = "<group>"; };
@@ -186,6 +188,8 @@
 				309010E3292B7833002D121D /* Drawable.hpp */,
 				309010DA292B7833002D121D /* DynamicLibrary.hpp */,
 				30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */,
+				30C84A3A2972920B00800F55 /* IndirectCommandBuffer.hpp */,
+				30C84A3B297423AA00800F55 /* IndirectCommandEncoder.hpp */,
 				309010DD292B7833002D121D /* Library.hpp */,
 				309010DB292B7833002D121D /* Metal.hpp */,
 				30CD0764296963A6004DA016 /* ParallelRenderCommandEncoder.hpp */,

@@ -16,6 +16,7 @@
 #include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
+#include "IndirectCommandBuffer.hpp"
 #include "Library.hpp"
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
@@ -128,6 +129,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(supportsTextureSampleCount_, "supportsTextureSampleCount:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
         METALPP_PRIVATE_SEL(newComputePipelineStateWithFunction_error_, "newComputePipelineStateWithFunction:error:");
+        METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
 
         using Object::Object;
         using Object::operator=;
@@ -284,6 +286,16 @@ namespace mtl
 
             return ComputePipelineState{renderPipelineState, ns::adopt};
         }
+
+        [[nodiscard]] auto newIndirectCommandBuffer(const IndirectCommandBufferDescriptor& descriptor, const ns::UInteger maxCount, const ResourceOptions options) API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            const id indirectCommandBuffer = sendMessage<id>(METALPP_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_),
+                                                             descriptor.get(),
+                                                             maxCount,
+                                                             options);
+            return IndirectCommandBuffer{indirectCommandBuffer};
+        }
+
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
     [[nodiscard]] inline Device CommandBuffer::device() const noexcept

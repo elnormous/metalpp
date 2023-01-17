@@ -14,6 +14,8 @@
 #include "Drawable.hpp"
 #include "DynamicLibrary.hpp"
 #include "FunctionConstantValues.hpp"
+#include "IndirectCommandBuffer.hpp"
+#include "IndirectCommandEncoder.hpp"
 #include "Library.hpp"
 #include "ParallelRenderCommandEncoder.hpp"
 #include "PixelFormat.hpp"
