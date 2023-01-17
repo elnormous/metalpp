@@ -419,6 +419,8 @@ TEST_CASE("Indirect command buffer")
 
     CHECK(indirectCommandBuffer.size());
     CHECK(indirectCommandBuffer.gpuResourceID()._impl);
+
+    indirectCommandBuffer.resetWithRange(ns::Range{0, indirectCommandBuffer.size()});
 }
 
 TEST_CASE("Library")

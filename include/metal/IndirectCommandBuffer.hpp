@@ -5,6 +5,7 @@
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 #include "../foundation/Object.hpp"
+#include "../foundation/Range.hpp"
 #include "CommandEncoder.hpp"
 #include "Resource.hpp"
 #include "Types.hpp"
@@ -162,6 +163,7 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(size, "size");
         METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
+        METALPP_PRIVATE_SEL(resetWithRange_, "resetWithRange:");
 
         [[nodiscard]] auto size() const noexcept
         {
@@ -171,6 +173,11 @@ namespace mtl
         [[nodiscard]] auto gpuResourceID() const noexcept
         {
             return sendMessage<ResourceID>(METALPP_SEL(gpuResourceID));
+        }
+
+        void resetWithRange(const ns::Range range) noexcept
+        {
+            sendMessage(METALPP_SEL(resetWithRange_), range);
         }
     };
 }
