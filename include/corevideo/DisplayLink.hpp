@@ -87,16 +87,14 @@ namespace cv
 
         void start()
         {
-            if (ref)
-                if (const auto result = CVDisplayLinkStart(ref); result != kCVReturnSuccess)
-                    throw std::system_error{result, errorCategory, "Failed to start display link"};
+            if (const auto result = CVDisplayLinkStart(ref); result != kCVReturnSuccess)
+                throw std::system_error{result, errorCategory, "Failed to start display link"};
         }
 
         void stop()
         {
-            if (ref)
-                if (const auto result = CVDisplayLinkStop(ref); result != kCVReturnSuccess)
-                    throw std::system_error{result, errorCategory, "Failed to stop display link"};
+            if (const auto result = CVDisplayLinkStop(ref); result != kCVReturnSuccess)
+                throw std::system_error{result, errorCategory, "Failed to stop display link"};
         }
 
         auto getNominalOutputVideoRefreshPeriod() const noexcept
