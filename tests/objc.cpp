@@ -4,7 +4,7 @@
 
 namespace
 {
-    int foo(id, SEL, int i)
+    int foo(id, SEL, int i) noexcept
     {
         return i;
     }
