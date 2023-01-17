@@ -8,8 +8,8 @@ TEST_CASE("Device")
 
     mtl::Device device = mtl::Device::createSystemDefaultDevice();
     REQUIRE(device);
-    CHECK(device.supportsFeatureSet(FeatureSet::macOS_GPUFamily1_v1));
-    CHECK(device.supportsFamily(GPUFamily::Common1));
+    CHECK(device.supportsFeatureSet(mtl::FeatureSet::macOS_GPUFamily1_v1));
+    CHECK(device.supportsFamily(mtl::GPUFamily::Common1));
     CHECK(device.supportsTextureSampleCount(1));
 
     const ns::String name = device.name();
@@ -19,7 +19,7 @@ TEST_CASE("Device")
 
     CHECK(device.currentAllocatedSize() == 0);
 
-    CHECK(device.location() != DeviceLocation::Unspecified);
+    CHECK(device.location() != mtl::DeviceLocation::Unspecified);
     CHECK(device.locationNumber());
 
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
