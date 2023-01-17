@@ -173,7 +173,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(size));
         }
 
-        [[nodiscard]] auto gpuResourceID() const noexcept
+        [[nodiscard]] auto gpuResourceID() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
             return sendMessage<ResourceID>(METALPP_SEL(gpuResourceID));
         }
