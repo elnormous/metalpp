@@ -16,6 +16,7 @@
 #include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
+#include "Heap.hpp"
 #include "IndirectCommandBuffer.hpp"
 #include "Library.hpp"
 #include "RenderPipeline.hpp"
@@ -106,6 +107,13 @@ namespace mtl
         External = 2,
         Unspecified = ns::UIntegerMax,
     } API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios);
+
+    enum class SparsePageSize: ns::Integer
+    {
+        Size16 = 101,
+        Size64 = 102,
+        Size256 = 103,
+    } API_AVAILABLE(macos(13.0), ios(16.0));
     
     class Device final: public ns::Object
     {
@@ -117,6 +125,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newCommandQueue, "newCommandQueue");
         METALPP_PRIVATE_SEL(newCommandQueueWithMaxCommandBufferCount_, "newCommandQueueWithMaxCommandBufferCount:");
         METALPP_PRIVATE_SEL(newDepthStencilStateWithDescriptor_, "newDepthStencilStateWithDescriptor:");
+        METALPP_PRIVATE_SEL(newHeapWithDescriptor_, "newHeapWithDescriptor:");
         METALPP_PRIVATE_SEL(newBufferWithLength_options_, "newBufferWithLength:options:");
         METALPP_PRIVATE_SEL(newBufferWithBytes_length_options_, "newBufferWithBytes:length:options:");
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
@@ -180,6 +189,13 @@ namespace mtl
             const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
                                                          descriptor.get());
             return DepthStencilState{depthStencilState, ns::adopt};
+        }
+
+        [[nodiscard]] auto newHeap(const HeapDescriptor& descriptor) API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            const id heap = sendMessage<id>(METALPP_SEL(newHeapWithDescriptor_),
+                                            descriptor.get());
+            return Heap{heap, ns::adopt};
         }
 
         [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) noexcept
@@ -329,6 +345,11 @@ namespace mtl
     }
 
     [[nodiscard]] inline Device Function::device() const noexcept
+    {
+        return Device{sendMessage<id>(METALPP_SEL(device))};
+    }
+
+    [[nodiscard]] inline Device Heap::device() const noexcept
     {
         return Device{sendMessage<id>(METALPP_SEL(device))};
     }

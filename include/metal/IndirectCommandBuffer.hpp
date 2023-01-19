@@ -60,7 +60,7 @@ namespace mtl
         std::uint32_t length;
     } API_AVAILABLE(macos(10.14), macCatalyst(13.0), ios(13.0));
 
-    class IndirectCommandBufferDescriptor: public ns::Object, public ns::Copying
+    class IndirectCommandBufferDescriptor final: public ns::Object, public ns::Copying
     {
     public:
         METALPP_PRIVATE_CLS("MTLIndirectCommandBufferDescriptor");
@@ -159,7 +159,7 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.14), ios(12.0));
 
-    class IndirectCommandBuffer: public Resource
+    class IndirectCommandBuffer final: public Resource
     {
     public:
         METALPP_PRIVATE_SEL(size, "size");

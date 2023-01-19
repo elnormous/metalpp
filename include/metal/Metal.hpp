@@ -14,6 +14,7 @@
 #include "Drawable.hpp"
 #include "DynamicLibrary.hpp"
 #include "FunctionConstantValues.hpp"
+#include "Heap.hpp"
 #include "IndirectCommandBuffer.hpp"
 #include "IndirectCommandEncoder.hpp"
 #include "Library.hpp"

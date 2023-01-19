@@ -389,6 +389,43 @@ TEST_CASE("Function")
     CHECK(computeFunction.name().isEqualToString("ck"));
 }
 
+TEST_CASE("Heap")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    mtl::HeapDescriptor descriptor;
+    REQUIRE(descriptor);
+    CHECK(descriptor.retainCount() == 1);
+
+    descriptor.setSize(1024);
+    CHECK(descriptor.size() == 1024);
+    descriptor.setStorageMode(mtl::StorageMode::Shared);
+    CHECK(descriptor.storageMode() == mtl::StorageMode::Shared);
+    descriptor.setStorageMode(mtl::StorageMode::Private);
+    CHECK(descriptor.storageMode() == mtl::StorageMode::Private);
+    descriptor.setCpuCacheMode(mtl::CPUCacheMode::WriteCombined);
+    CHECK(descriptor.cpuCacheMode() == mtl::CPUCacheMode::WriteCombined);
+    descriptor.setSparsePageSize(mtl::SparsePageSize::Size256);
+    CHECK(descriptor.sparsePageSize() == mtl::SparsePageSize::Size256);
+    descriptor.setHazardTrackingMode(mtl::HazardTrackingMode::Untracked);
+    CHECK(descriptor.hazardTrackingMode() == mtl::HazardTrackingMode::Untracked);
+    descriptor.setResourceOptions(mtl::ResourceOptions::StorageModePrivate);
+    CHECK(descriptor.resourceOptions() == mtl::ResourceOptions::StorageModePrivate);
+    descriptor.setType(mtl::HeapType::Sparse);
+    CHECK(descriptor.type() == mtl::HeapType::Sparse);
+    descriptor.setType(mtl::HeapType::Automatic);
+    CHECK(descriptor.type() == mtl::HeapType::Automatic);
+
+    mtl::Heap heap = device.newHeap(descriptor);
+    REQUIRE(heap);
+    CHECK(heap.retainCount() == 1);
+
+    CHECK(heap.device() == device);
+    heap.setLabel("test");
+    CHECK(heap.label().isEqualToString("test"));
+}
+
 TEST_CASE("Indirect command buffer")
 {
     ns::AutoreleasePool pool;
@@ -858,6 +895,10 @@ TEST_CASE("Texture")
     mtl::TextureDescriptor textureDescriptor;
     REQUIRE(textureDescriptor);
     CHECK(textureDescriptor.retainCount() == 1);
+
+    mtl::TextureDescriptor textureDescriptor2 = textureDescriptor;
+    CHECK(textureDescriptor2 == textureDescriptor);
+
     textureDescriptor.setTextureType(mtl::TextureType::Type2D);
     CHECK(textureDescriptor.textureType() == mtl::TextureType::Type2D);
     textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);

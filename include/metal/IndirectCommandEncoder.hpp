@@ -12,7 +12,7 @@
 
 namespace mtl
 {
-    class IndirectRenderCommand: public ns::Object
+    class IndirectRenderCommand final: public ns::Object
     {
     public:
         METALPP_PRIVATE_SEL(setRenderPipelineState_, "setRenderPipelineState:");
@@ -95,7 +95,7 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.14), ios(12.0));
 
-    class IndirectComputeCommand: public ns::Object
+    class IndirectComputeCommand final: public ns::Object
     {
     public:
         METALPP_PRIVATE_SEL(setComputePipelineState_, "setComputePipelineState:");
