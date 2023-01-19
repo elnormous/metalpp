@@ -1,4 +1,6 @@
 #include <fstream>
+#include <chrono>
+#include <thread>
 #include <iostream>
 #include <type_traits>
 #include <simd/simd.h>

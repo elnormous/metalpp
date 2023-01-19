@@ -6,7 +6,9 @@
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
 #include "../foundation/Object.hpp"
+#include "Buffer.hpp"
 #include "Resource.hpp"
+#include "Texture.hpp"
 
 namespace mtl
 {
@@ -122,6 +124,20 @@ namespace mtl
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(storageMode, "storageMode");
+        METALPP_PRIVATE_SEL(cpuCacheMode, "cpuCacheMode");
+        METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
+        METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
+        METALPP_PRIVATE_SEL(size, "size");
+        METALPP_PRIVATE_SEL(usedSize, "usedSize");
+        METALPP_PRIVATE_SEL(currentAllocatedSize, "currentAllocatedSize");
+        METALPP_PRIVATE_SEL(maxAvailableSizeWithAlignment_, "maxAvailableSizeWithAlignment:");
+        METALPP_PRIVATE_SEL(newBufferWithLength_options_, "newBufferWithLength:options:");
+        METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
+        METALPP_PRIVATE_SEL(setPurgeableState_, "setPurgeableState:");
+        METALPP_PRIVATE_SEL(type, "type");
+        METALPP_PRIVATE_SEL(newBufferWithLength_options_offset_, "newBufferWithLength:options:offset:");
+        METALPP_PRIVATE_SEL(newTextureWithDescriptor_offset_, "newTextureWithDescriptor:offset:");
         
         using Object::Object;
         using Object::operator=;
@@ -139,6 +155,80 @@ namespace mtl
         }
 
         [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] auto storageMode() const noexcept
+        {
+            return sendMessage<StorageMode>(METALPP_SEL(storageMode));
+        }
+
+        [[nodiscard]] auto cpuCacheMode() const noexcept
+        {
+            return sendMessage<CPUCacheMode>(METALPP_SEL(cpuCacheMode));
+        }
+
+        [[nodiscard]] auto hazardTrackingMode() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<HazardTrackingMode>(METALPP_SEL(hazardTrackingMode));
+        }
+
+        [[nodiscard]] auto resourceOptions() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<ResourceOptions>(METALPP_SEL(resourceOptions));
+        }
+
+        [[nodiscard]] auto size() const noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(size));
+        }
+
+        [[nodiscard]] auto usedSize() const noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(usedSize));
+        }
+
+        [[nodiscard]] auto currentAllocatedSize() const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(currentAllocatedSize));
+        }
+
+        [[nodiscard]] auto maxAvailableSize(const ns::UInteger alignment) noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(maxAvailableSizeWithAlignment_), alignment);
+        }
+
+        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) noexcept
+        {
+            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_), length, options);
+            return Buffer{buffer, ns::adopt};
+        }
+
+        [[nodiscard]] auto newTexture(const TextureDescriptor& desc) noexcept
+        {
+            id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_), desc.get());
+            return Texture{texture, ns::adopt};
+        }
+
+        [[nodiscard]] auto setPurgeableState(const PurgeableState state) noexcept
+        {
+            return sendMessage<PurgeableState>(METALPP_SEL(setPurgeableState_), state);
+        }
+
+        [[nodiscard]] auto type() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<HeapType>(METALPP_SEL(type));
+        }
+
+        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options, const ns::UInteger offset) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_offset_), length, options, offset);
+            return Buffer{buffer, ns::adopt};
+        }
+
+        [[nodiscard]] auto newTexture(const TextureDescriptor descriptor, const ns::UInteger offset) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_offset_), descriptor, offset);
+            return Texture{texture, ns::adopt};
+        }
     } API_AVAILABLE(macos(10.13), ios(10.0));
 }
 

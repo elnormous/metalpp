@@ -398,8 +398,8 @@ TEST_CASE("Heap")
     REQUIRE(descriptor);
     CHECK(descriptor.retainCount() == 1);
 
-    descriptor.setSize(1024);
-    CHECK(descriptor.size() == 1024);
+    descriptor.setSize(65536 * 256);
+    CHECK(descriptor.size() == 65536 * 256);
     descriptor.setStorageMode(mtl::StorageMode::Shared);
     CHECK(descriptor.storageMode() == mtl::StorageMode::Shared);
     descriptor.setStorageMode(mtl::StorageMode::Private);
@@ -410,8 +410,9 @@ TEST_CASE("Heap")
     CHECK(descriptor.sparsePageSize() == mtl::SparsePageSize::Size256);
     descriptor.setHazardTrackingMode(mtl::HazardTrackingMode::Untracked);
     CHECK(descriptor.hazardTrackingMode() == mtl::HazardTrackingMode::Untracked);
-    descriptor.setResourceOptions(mtl::ResourceOptions::StorageModePrivate);
-    CHECK(descriptor.resourceOptions() == mtl::ResourceOptions::StorageModePrivate);
+    const mtl::ResourceOptions options = mtl::ResourceOptions::StorageModePrivate | mtl::ResourceOptions::HazardTrackingModeUntracked;
+    descriptor.setResourceOptions(options);
+    CHECK(descriptor.resourceOptions() == options);
     descriptor.setType(mtl::HeapType::Sparse);
     CHECK(descriptor.type() == mtl::HeapType::Sparse);
     descriptor.setType(mtl::HeapType::Automatic);
@@ -424,6 +425,42 @@ TEST_CASE("Heap")
     CHECK(heap.device() == device);
     heap.setLabel("test");
     CHECK(heap.label().isEqualToString("test"));
+
+    CHECK(heap.storageMode() == descriptor.storageMode());
+    CHECK(heap.cpuCacheMode() == descriptor.cpuCacheMode());
+    CHECK(heap.hazardTrackingMode() == descriptor.hazardTrackingMode());
+    CHECK(heap.resourceOptions() == descriptor.resourceOptions());
+    CHECK(heap.size() == descriptor.size());
+    CHECK(heap.usedSize() == 0);
+    CHECK(heap.currentAllocatedSize() == descriptor.size());
+
+    CHECK(heap.maxAvailableSize(4) == descriptor.size());
+
+    mtl::Buffer buffer = heap.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
+    REQUIRE(buffer);
+    CHECK(buffer.retainCount() == 1);
+
+    CHECK(buffer.length() == 1024);
+
+    CHECK(heap.usedSize() == 1024);
+
+    mtl::TextureDescriptor textureDescriptor;
+    textureDescriptor.setTextureType(mtl::TextureType::Type2D);
+    textureDescriptor.setWidth(1024);
+    textureDescriptor.setHeight(1024);
+    textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
+    textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setMipmapLevelCount(1);
+
+    mtl::Texture texture = heap.newTexture(textureDescriptor);
+    REQUIRE(texture);
+    CHECK(texture.retainCount() == 1);
+
+    CHECK(texture.width() == textureDescriptor.width());
+    CHECK(texture.height() == textureDescriptor.height());
+
+    CHECK(heap.usedSize() == 1024 + 1024 * 1024 * 4);
 }
 
 TEST_CASE("Indirect command buffer")
@@ -454,7 +491,7 @@ TEST_CASE("Indirect command buffer")
     REQUIRE(indirectDrawCommandBuffer);
     CHECK(indirectDrawCommandBuffer.retainCount() == 2);
 
-    CHECK(indirectDrawCommandBuffer.size());
+    CHECK(indirectDrawCommandBuffer.size() == 100);
     CHECK(indirectDrawCommandBuffer.gpuResourceID()._impl);
 
     indirectDrawCommandBuffer.resetWithRange(ns::Range{0, indirectDrawCommandBuffer.size()});
@@ -950,16 +987,16 @@ TEST_CASE("Texture")
     REQUIRE(texture);
     CHECK(texture.retainCount() == 1);
 
-    CHECK(texture.textureType() == mtl::TextureType::Type2D);
-    CHECK(texture.pixelFormat() == mtl::PixelFormat::BGRA8Unorm);
-    CHECK(texture.width() == 1024);
-    CHECK(texture.height() == 768);
-    CHECK(texture.depth() == 1);
-    CHECK(texture.mipmapLevelCount() == 2);
-    CHECK(texture.sampleCount() == 1);
-    CHECK(texture.arrayLength() == 1);
-    CHECK(texture.usage() == mtl::TextureUsage::RenderTarget);
-    CHECK(texture.compressionType() == mtl::TextureCompressionType::Lossless);
+    CHECK(texture.textureType() == textureDescriptor.textureType());
+    CHECK(texture.pixelFormat() == textureDescriptor.pixelFormat());
+    CHECK(texture.width() == textureDescriptor.width());
+    CHECK(texture.height() == textureDescriptor.height());
+    CHECK(texture.depth() == textureDescriptor.depth());
+    CHECK(texture.mipmapLevelCount() == textureDescriptor.mipmapLevelCount());
+    CHECK(texture.sampleCount() == textureDescriptor.sampleCount());
+    CHECK(texture.arrayLength() == textureDescriptor.arrayLength());
+    CHECK(texture.usage() == textureDescriptor.usage());
+    CHECK(texture.compressionType() == textureDescriptor.compressionType());
     CHECK(texture.gpuResourceID()._impl);
 
     std::uint8_t level0[1024 * 768 * 4] = {0xFF};

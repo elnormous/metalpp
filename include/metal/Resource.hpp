@@ -10,6 +10,15 @@ namespace mtl
 {
     class Device;
 
+    enum class PurgeableState: ns::UInteger
+    {
+        KeepCurrent = 1,
+
+        NonVolatile = 2,
+        Volatile = 3,
+        Empty = 4,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
     enum class CPUCacheMode: ns::UInteger
     {
         DefaultCache = 0,
