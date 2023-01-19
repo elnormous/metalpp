@@ -34,6 +34,11 @@ TEST_CASE("AutoreleasePool")
     CHECK(obj.retainCount() == 2);
     autoreleasePool.drain();
     CHECK(obj.retainCount() == 1);
+
+    autoreleasePool = ns::AutoreleasePool{};
+    ns::AutoreleasePool autoreleasePoolMoved = std::move(autoreleasePool);
+    ns::AutoreleasePool autoreleasePoolAssignMoved = nullptr;
+    autoreleasePoolAssignMoved = std::move(autoreleasePoolMoved);
 }
 
 TEST_CASE("Bundle")

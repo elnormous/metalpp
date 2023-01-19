@@ -21,6 +21,10 @@ namespace ns
         {
         }
 
+        AutoreleasePool(const Object& other) noexcept = delete;
+        AutoreleasePool& operator=(const Object& other) noexcept = delete;
+        AutoreleasePool(const id p) noexcept = delete;
+
         void drain() noexcept
         {
             objc::sendMessage(release(), METALPP_SEL(drain));
