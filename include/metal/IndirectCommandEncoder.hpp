@@ -1,6 +1,7 @@
 #ifndef METALPP_METAL_INDIRECTCOMMANDENCODER_HPP
 #define METALPP_METAL_INDIRECTCOMMANDENCODER_HPP
 
+#include <os/availability.h>
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../objc/Runtime.hpp"
