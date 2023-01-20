@@ -186,7 +186,7 @@ public:
                                    applicationShouldTerminateAfterLastWindowClosed,
                                    "b@:@");
         appDelegateClass.reg();
-        appDelegate = appDelegateClass.createInstance(sizeof(Application*));
+        appDelegate = appDelegateClass.createInstance(sizeof(thisPointer));
         std::memcpy(appDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
 
         application.activateIgnoringOtherApps(true);
@@ -219,7 +219,7 @@ public:
         windowDelegateClass.addMethod(sel_registerName("windowDidEndLiveResize:"), windowDidEndLiveResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
         windowDelegateClass.reg();
-        windowDelegate = windowDelegateClass.createInstance(sizeof(Application*));
+        windowDelegate = windowDelegateClass.createInstance(sizeof(thisPointer));
         std::memcpy(windowDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         window.setDelegate(windowDelegate);
 
@@ -240,7 +240,7 @@ public:
         viewClass.addMethod(sel_registerName("otherMouseDragged:"), otherMouseDragged, "v@:@");
         viewClass.reg();
 
-        view = viewClass.createInstance(sizeof(Application*));
+        view = viewClass.createInstance(sizeof(thisPointer));
         std::memcpy(view.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
@@ -428,6 +428,11 @@ public:
     }
 
 private:
+    void applicationWillTerminate()
+    {
+        displayLink.stop();
+    }
+
     void windowDidResize()
     {
     }
@@ -677,8 +682,13 @@ private:
     }
 
     // AppDelegate
-    static void applicationWillTerminate(id, SEL, id) noexcept
+    static void applicationWillTerminate(id self, SEL, id) noexcept
     {
+        ns::Application app{self};
+        Application* application;
+        std::memcpy(&application, app.getIndexedIvars(), sizeof(Application*));
+
+        application->applicationWillTerminate();
     }
 
     static BOOL applicationShouldTerminateAfterLastWindowClosed(id, SEL, id) noexcept
@@ -869,9 +879,9 @@ private:
     };
 
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
-    ns::Object appDelegate;
+    ns::Object appDelegate = nullptr;
     objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
-    ns::Object windowDelegate;
+    ns::Object windowDelegate = nullptr;
     ns::Window window = nullptr;
     objc::Class<ns::View> viewClass{"View"};
     ns::View view = nullptr;
