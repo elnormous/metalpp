@@ -10,6 +10,9 @@ TEST_CASE("Application")
     REQUIRE(application);
     CHECK(application.retainCount());
     application.activateIgnoringOtherApps(true);
+    CHECK(!application.active());
+    CHECK(!application.hidden());
+    CHECK(!application.running());
     //application.run();
 
     ns::Object delegate;

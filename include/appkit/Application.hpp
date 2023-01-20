@@ -16,6 +16,9 @@ namespace ns
         METALPP_PRIVATE_SEL(sharedApplication, "sharedApplication");
         METALPP_PRIVATE_SEL(delegate, "delegate");
         METALPP_PRIVATE_SEL(setDelegate_, "setDelegate:");
+        METALPP_PRIVATE_SEL(isActive, "isActive");
+        METALPP_PRIVATE_SEL(isHidden, "isHidden");
+        METALPP_PRIVATE_SEL(isRunning, "isRunning");
         METALPP_PRIVATE_SEL(activateIgnoringOtherApps_, "activateIgnoringOtherApps:");
         METALPP_PRIVATE_SEL(run, "run");
         METALPP_PRIVATE_SEL(mainMenu, "mainMenu");
@@ -45,6 +48,21 @@ namespace ns
         void setDelegate(const Object& delegate) noexcept
         {
             sendMessage(METALPP_SEL(setDelegate_), delegate.get());
+        }
+
+        [[nodiscard]] auto active() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isActive)) == YES;
+        }
+
+        [[nodiscard]] auto hidden() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isHidden)) == YES;
+        }
+
+        [[nodiscard]] auto running() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isRunning)) == YES;
         }
 
         void activateIgnoringOtherApps(const bool flag) noexcept
