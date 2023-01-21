@@ -859,11 +859,12 @@ private:
     };
 
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
-    ns::Object appDelegate = nullptr;
     objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
+    objc::Class<ns::View> viewClass{"View"};
+    
+    ns::Object appDelegate = nullptr;
     ns::Object windowDelegate = nullptr;
     ns::Window window = nullptr;
-    objc::Class<ns::View> viewClass{"View"};
     ns::View view = nullptr;
 
     ca::MetalLayer metalLayer;
