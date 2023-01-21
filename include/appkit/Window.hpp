@@ -274,8 +274,7 @@ namespace ns
 
     [[nodiscard]] Window View::window() const noexcept
     {
-        const id window = sendMessage<id>(METALPP_SEL(window));
-        return Window{window};
+        return Window{sendMessage<id>(METALPP_SEL(window))};
     }
 }
 

@@ -94,8 +94,7 @@ namespace ns
 
         [[nodiscard]] auto superview() const noexcept
         {
-            const id view = sendMessage<id>(METALPP_SEL(superview));
-            return View{view};
+            return View{sendMessage<id>(METALPP_SEL(superview))};
         }
 
         void addSubview(const View& view) noexcept
