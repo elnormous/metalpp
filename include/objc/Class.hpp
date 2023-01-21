@@ -15,7 +15,7 @@ namespace objc
         using runtime_error::runtime_error;
     };
 
-    template<class ParentType = ns::Object, class Type = ParentType>
+    template<class ParentType = ns::Object>
     class Class final
     {
     public:
@@ -48,6 +48,8 @@ namespace objc
             other.cls = nullptr;
             return *this;
         }
+
+        Class(std::nullptr_t) noexcept {}
 
         [[nodiscard]] bool operator==(const ::Class other) const noexcept
         {
@@ -110,6 +112,7 @@ namespace objc
                 throw ClassError("Failed to add method");
         }
 
+        template<class Type = ParentType>
         Type createInstance(const std::size_t extraBytes = 0) const noexcept
         {
             id object = objc::sendMessage<id>(class_createInstance(cls, extraBytes), ns::Object::METALPP_SEL(init));
