@@ -142,6 +142,9 @@ TEST_CASE("View")
     ns::View view;
     REQUIRE(view);
     CHECK(view.retainCount());
+
+    CHECK(!view.superview());
+    CHECK(!view.window());
     CHECK(view.autoresizingMask() == ns::AutoresizingMaskOptions::NotSizable);
     view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable);
     CHECK(view.autoresizingMask() == ns::AutoresizingMaskOptions::WidthSizable);
@@ -160,6 +163,11 @@ TEST_CASE("View")
     CHECK(viewWithFrame.frame() == ns::Rect{0, 0, 100, 100});
     viewWithFrame.setFrame(ns::Rect{10, 10, 200, 200});
     CHECK(viewWithFrame.frame() == ns::Rect{10, 10, 200, 200});
+
+    view.addSubview(viewWithFrame);
+    CHECK(viewWithFrame.superview() == view);
+    viewWithFrame.removeFromSuperview();
+    CHECK(!viewWithFrame.superview());
 }
 
 TEST_CASE("Window")

@@ -5,9 +5,12 @@
 #include "../objc/Private.hpp"
 #include "../foundation/Geometry.hpp"
 #include "../quartzcore/Layer.hpp"
+#include "Graphics.hpp"
 
 namespace ns
 {
+    class Window;
+
     enum class AutoresizingMaskOptions: UInteger
     {
         NotSizable            =  0,
@@ -55,6 +58,11 @@ namespace ns
 
         METALPP_PRIVATE_SEL(initWithFrame_, "initWithFrame:");
         METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
+        METALPP_PRIVATE_SEL(window, "window");
+        METALPP_PRIVATE_SEL(superview, "superview");
+        METALPP_PRIVATE_SEL(addSubview_, "addSubview:");
+        METALPP_PRIVATE_SEL(addSubview_positioned_relativeTo_, "addSubview:positioned:relativeTo:");
+        METALPP_PRIVATE_SEL(removeFromSuperview, "removeFromSuperview");
         METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
         METALPP_PRIVATE_SEL(frame, "frame");
         METALPP_PRIVATE_SEL(setFrame_, "setFrame:");
@@ -80,6 +88,29 @@ namespace ns
         View(const Rect& frameRect) noexcept:
             Object{objc::sendMessage<id>(objc::sendMessage<id>(cls, METALPP_SEL(alloc)), METALPP_SEL(initWithFrame_), frameRect), adopt}
         {
+        }
+
+        [[nodiscard]] Window window() const noexcept;
+
+        [[nodiscard]] auto superview() const noexcept
+        {
+            const id view = sendMessage<id>(METALPP_SEL(superview));
+            return View{view};
+        }
+
+        void addSubview(const View& view) noexcept
+        {
+            sendMessage(METALPP_SEL(addSubview_), view.get());
+        }
+
+        void addSubview(const View& view, const WindowOrderingMode place, View otherView = nullptr) noexcept
+        {
+            sendMessage(METALPP_SEL(addSubview_positioned_relativeTo_), view.get(), place, otherView.get());
+        }
+
+        void removeFromSuperview() noexcept
+        {
+            sendMessage(METALPP_SEL(removeFromSuperview));
         }
 
         [[nodiscard]] auto autoresizingMask() const noexcept

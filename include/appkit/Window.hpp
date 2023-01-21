@@ -271,6 +271,12 @@ namespace ns
     {
         return Window{sendMessage<id>(METALPP_SEL(window))};
     }
+
+    [[nodiscard]] Window View::window() const noexcept
+    {
+        const id window = sendMessage<id>(METALPP_SEL(window));
+        return Window{window};
+    }
 }
 
 #endif
