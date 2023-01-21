@@ -114,7 +114,13 @@ namespace mtl
         Size64 = 102,
         Size256 = 103,
     } API_AVAILABLE(macos(13.0), ios(16.0));
-    
+
+    struct SizeAndAlign
+    {
+        ns::UInteger size;
+        ns::UInteger align;
+    };
+
     class Device final: public ns::Object
     {
     public:
@@ -124,10 +130,12 @@ namespace mtl
         METALPP_PRIVATE_SEL(currentAllocatedSize, "currentAllocatedSize");
         METALPP_PRIVATE_SEL(newCommandQueue, "newCommandQueue");
         METALPP_PRIVATE_SEL(newCommandQueueWithMaxCommandBufferCount_, "newCommandQueueWithMaxCommandBufferCount:");
-        METALPP_PRIVATE_SEL(newDepthStencilStateWithDescriptor_, "newDepthStencilStateWithDescriptor:");
+        METALPP_PRIVATE_SEL(heapTextureSizeAndAlignWithDescriptor_, "heapTextureSizeAndAlignWithDescriptor:");
+        METALPP_PRIVATE_SEL(heapBufferSizeAndAlignWithLength_options_, "heapBufferSizeAndAlignWithLength:options:");
         METALPP_PRIVATE_SEL(newHeapWithDescriptor_, "newHeapWithDescriptor:");
         METALPP_PRIVATE_SEL(newBufferWithLength_options_, "newBufferWithLength:options:");
         METALPP_PRIVATE_SEL(newBufferWithBytes_length_options_, "newBufferWithBytes:length:options:");
+        METALPP_PRIVATE_SEL(newDepthStencilStateWithDescriptor_, "newDepthStencilStateWithDescriptor:");
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
         METALPP_PRIVATE_SEL(newSamplerStateWithDescriptor_, "newSamplerStateWithDescriptor:");
         METALPP_PRIVATE_SEL(newDefaultLibrary, "newDefaultLibrary");
@@ -184,11 +192,14 @@ namespace mtl
             return CommandQueue{commandQueue, ns::adopt};
         }
 
-        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) noexcept
+        [[nodiscard]] auto heapTextureSizeAndAlign(const TextureDescriptor& desc) const noexcept API_AVAILABLE(macos(10.13), ios(10.0))
         {
-            const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
-                                                         descriptor.get());
-            return DepthStencilState{depthStencilState, ns::adopt};
+            return sendMessage<SizeAndAlign>(METALPP_SEL(heapTextureSizeAndAlignWithDescriptor_), desc.get());
+        }
+
+        [[nodiscard]] auto heapBufferSizeAndAlign(const ns::UInteger length, const ResourceOptions options) const noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            return sendMessage<SizeAndAlign>(METALPP_SEL(heapBufferSizeAndAlignWithLength_options_), length, options);
         }
 
         [[nodiscard]] auto newHeap(const HeapDescriptor& descriptor) API_AVAILABLE(macos(10.13), ios(10.0))
@@ -213,6 +224,13 @@ namespace mtl
                                               length,
                                               options);
             return Buffer{buffer, ns::adopt};
+        }
+
+        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) noexcept
+        {
+            const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
+                                                         descriptor.get());
+            return DepthStencilState{depthStencilState, ns::adopt};
         }
 
         [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) noexcept

@@ -436,6 +436,8 @@ TEST_CASE("Heap")
 
     CHECK(heap.maxAvailableSize(4) == descriptor.size());
 
+    CHECK(device.heapBufferSizeAndAlign(1024, mtl::ResourceOptions::StorageModePrivate).size == 1024);
+
     mtl::Buffer buffer = heap.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
     REQUIRE(buffer);
     CHECK(buffer.retainCount() == 1);
@@ -452,6 +454,8 @@ TEST_CASE("Heap")
     textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
     textureDescriptor.setStorageMode(mtl::StorageMode::Private);
     textureDescriptor.setMipmapLevelCount(1);
+
+    CHECK(device.heapTextureSizeAndAlign(textureDescriptor).size == 1024 * 1024 * 4);
 
     mtl::Texture texture = heap.newTexture(textureDescriptor);
     REQUIRE(texture);
