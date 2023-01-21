@@ -184,6 +184,7 @@ TEST_CASE("Window")
     ns::View view;
     window.setContentView(view);
     CHECK(window.contentView() == view);
+    CHECK(view.window() == window);
 
     ns::Object delegate;
     window.setDelegate(delegate);
