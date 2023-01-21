@@ -685,9 +685,7 @@ private:
     static void applicationWillTerminate(id self, SEL, id) noexcept
     {
         ns::Application app{self};
-        Application* application;
-        std::memcpy(&application, app.getIndexedIvars(), sizeof(Application*));
-
+        auto application = *static_cast<Application**>(app.getIndexedIvars());
         application->applicationWillTerminate();
     }
 
@@ -700,27 +698,21 @@ private:
     static void windowDidResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        Application* application;
-        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
-
+        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidResize();
     }
 
     static void windowDidEndLiveResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        Application* application;
-        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
-
+        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidEndLiveResize();
     }
 
     static void windowDidChangeScreen(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        Application* application;
-        std::memcpy(&application, windowDelegate.getIndexedIvars(), sizeof(Application*));
-
+        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidChangeScreen();
     }
 
@@ -744,8 +736,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         application->keyDown(event.keyCode());
     }
 
@@ -753,8 +744,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         application->keyUp(event.keyCode());
     }
 
@@ -762,8 +752,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->mouseDown(location);
     }
@@ -772,8 +761,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->mouseUp(location);
     }
@@ -782,8 +770,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->rightMouseDown(location);
     }
@@ -792,8 +779,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->rightMouseUp(location);
     }
@@ -802,8 +788,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->otherMouseDown(location);
     }
@@ -812,8 +797,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->otherMouseUp(location);
     }
@@ -822,8 +806,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->mouseMoved(location);
     }
@@ -832,8 +815,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->mouseDragged(location);
     }
@@ -842,8 +824,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->rightMouseDragged(location);
     }
@@ -852,8 +833,7 @@ private:
     {
         ns::View view{self};
         ns::Event event{e};
-        Application* application;
-        std::memcpy(&application, view.getIndexedIvars(), sizeof(Application*));
+        const auto application = *static_cast<Application**>(view.getIndexedIvars());
         const auto location = view.convertToView(event.locationInWindow(), nullptr);
         application->otherMouseDragged(location);
     }
