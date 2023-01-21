@@ -861,7 +861,7 @@ private:
     objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
     objc::Class<ns::Object> windowDelegateClass{"WindowDelegate"};
     objc::Class<ns::View> viewClass{"View"};
-    
+
     ns::Object appDelegate = nullptr;
     ns::Object windowDelegate = nullptr;
     ns::Window window = nullptr;
