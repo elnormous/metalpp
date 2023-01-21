@@ -49,15 +49,6 @@ namespace objc
             return *this;
         }
 
-        Class(std::nullptr_t) noexcept {}
-
-        Class& operator=(std::nullptr_t) noexcept
-        {
-            if (cls) objc_disposeClassPair(cls);
-            cls = nullptr;
-            return *this;
-        }
-
         [[nodiscard]] bool operator==(const ::Class other) const noexcept
         {
             return cls == other;
