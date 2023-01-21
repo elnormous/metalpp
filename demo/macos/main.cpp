@@ -177,7 +177,7 @@ class Application final
 public:
     Application()
     {
-        void* thisPointer = this;
+        const auto thisPointer = this;
 
         appDelegateClass.addMethod(sel_registerName("applicationWillTerminate:"),
                                    applicationWillTerminate,
@@ -685,7 +685,7 @@ private:
     static void applicationWillTerminate(id self, SEL, id) noexcept
     {
         ns::Application app{self};
-        auto application = *static_cast<Application**>(app.getIndexedIvars());
+        const auto application = *static_cast<Application**>(app.getIndexedIvars());
         application->applicationWillTerminate();
     }
 
@@ -698,21 +698,21 @@ private:
     static void windowDidResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
+        const auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidResize();
     }
 
     static void windowDidEndLiveResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
+        const auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidEndLiveResize();
     }
 
     static void windowDidChangeScreen(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
-        auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
+        const auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
         application->windowDidChangeScreen();
     }
 
@@ -846,7 +846,7 @@ private:
                                    void* userInfo)
     {
         const auto dl = cv::DisplayLink{displayLink};
-        auto application = static_cast<Application*>(userInfo);
+        const auto application = static_cast<Application*>(userInfo);
         application->render(dl.getActualOutputVideoRefreshPeriod());
         return kCVReturnSuccess;
     }
