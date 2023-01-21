@@ -191,7 +191,7 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(currentAllocatedSize));
         }
 
-        [[nodiscard]] auto maxAvailableSize(const ns::UInteger alignment) noexcept
+        [[nodiscard]] auto maxAvailableSize(const ns::UInteger alignment) const noexcept
         {
             return sendMessage<ns::UInteger>(METALPP_SEL(maxAvailableSizeWithAlignment_), alignment);
         }
