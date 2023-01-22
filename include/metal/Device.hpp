@@ -7,6 +7,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "../dispatch/Data.hpp"
+#include "../foundation/Bundle.hpp"
 #include "../foundation/Error.hpp"
 #include "../foundation/String.hpp"
 #include "Buffer.hpp"
@@ -139,6 +140,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
         METALPP_PRIVATE_SEL(newSamplerStateWithDescriptor_, "newSamplerStateWithDescriptor:");
         METALPP_PRIVATE_SEL(newDefaultLibrary, "newDefaultLibrary");
+        METALPP_PRIVATE_SEL(newDefaultLibraryWithBundle_error_, "newDefaultLibraryWithBundle:error:");
         METALPP_PRIVATE_SEL(newLibraryWithData_error_, "newLibraryWithData:error:");
         METALPP_PRIVATE_SEL(newLibraryWithSource_options_error_, "newLibraryWithSource:options:error:");
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
@@ -250,6 +252,19 @@ namespace mtl
         [[nodiscard]] auto newDefaultLibrary() noexcept
         {
             const id library = sendMessage<id>(METALPP_SEL(newDefaultLibrary));
+            return Library{library, ns::adopt};
+        }
+
+        [[nodiscard]] auto newDefaultLibrary(const ns::Bundle& bundle)
+        {
+            id error = nil;
+            const id library = sendMessage<id>(METALPP_SEL(newDefaultLibraryWithBundle_error_),
+                                               bundle.get(),
+                                               &error);
+
+            if (error != nil)
+                throw ns::Error{error};
+
             return Library{library, ns::adopt};
         }
 
