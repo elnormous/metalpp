@@ -21,6 +21,7 @@
 #include "Heap.hpp"
 #include "IndirectCommandBuffer.hpp"
 #include "Library.hpp"
+#include "PixelFormat.hpp"
 #include "RenderPipeline.hpp"
 #include "Resource.hpp"
 #include "Sampler.hpp"
@@ -150,6 +151,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
         METALPP_PRIVATE_SEL(supportsTextureSampleCount_, "supportsTextureSampleCount:");
+        METALPP_PRIVATE_SEL(minimumLinearTextureAlignmentForPixelFormat_, "minimumLinearTextureAlignmentForPixelFormat:");
+        METALPP_PRIVATE_SEL(minimumTextureBufferAlignmentForPixelFormat_, "minimumTextureBufferAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
 
         using Object::Object;
@@ -342,6 +345,16 @@ namespace mtl
         [[nodiscard]] auto supportsTextureSampleCount(const ns::UInteger sampleCount) const noexcept API_AVAILABLE(macos(10.11), ios(9.0))
         {
             return sendMessage<BOOL>(METALPP_SEL(supportsTextureSampleCount_), sampleCount) == YES;
+        }
+
+        [[nodiscard]] auto minimumLinearTextureAlignment(const PixelFormat format) const noexcept API_AVAILABLE(macos(10.13), ios(11.0))
+        {
+            return sendMessage<ns::Integer>(METALPP_SEL(minimumLinearTextureAlignmentForPixelFormat_), format);
+        }
+
+        [[nodiscard]] auto minimumTextureBufferAlignment(const PixelFormat format) const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            return sendMessage<ns::Integer>(METALPP_SEL(minimumTextureBufferAlignmentForPixelFormat_), format);
         }
 
         [[nodiscard]] auto newIndirectCommandBuffer(const IndirectCommandBufferDescriptor& descriptor, const ns::UInteger maxCount, const ResourceOptions options) API_AVAILABLE(macos(10.14), ios(12.0))

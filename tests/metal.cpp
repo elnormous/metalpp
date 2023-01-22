@@ -11,6 +11,8 @@ TEST_CASE("Device")
     CHECK(device.supportsFeatureSet(mtl::FeatureSet::macOS_GPUFamily1_v1));
     CHECK(device.supportsFamily(mtl::GPUFamily::Common1));
     CHECK(device.supportsTextureSampleCount(1));
+    CHECK(device.minimumLinearTextureAlignment(mtl::PixelFormat::BGRA8Unorm));
+    CHECK(device.minimumTextureBufferAlignment(mtl::PixelFormat::BGRA8Unorm));
 
     const ns::String name = device.name();
     REQUIRE(name);
