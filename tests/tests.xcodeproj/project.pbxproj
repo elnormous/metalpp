@@ -107,6 +107,7 @@
 		30B953122921B911007C8914 /* foundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = foundation.cpp; sourceTree = "<group>"; };
 		30B953142921B9FB007C8914 /* metal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = metal.cpp; sourceTree = "<group>"; };
 		30B953402921ED99007C8914 /* objc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objc.cpp; sourceTree = "<group>"; };
+		30B988D4297DB82A00030D58 /* Fence.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Fence.hpp; sourceTree = "<group>"; };
 		30BD2DB82952687000DED449 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		30BD2DBB2952721700DED449 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
 		30BD2DC329535A9700DED449 /* Types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
@@ -188,6 +189,7 @@
 				309010E4292B7833002D121D /* Device.hpp */,
 				309010E3292B7833002D121D /* Drawable.hpp */,
 				309010DA292B7833002D121D /* DynamicLibrary.hpp */,
+				30B988D4297DB82A00030D58 /* Fence.hpp */,
 				30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */,
 				30C22AC2297943A100DB5D3F /* Heap.hpp */,
 				30C84A3A2972920B00800F55 /* IndirectCommandBuffer.hpp */,

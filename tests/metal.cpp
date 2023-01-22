@@ -319,6 +319,20 @@ TEST_CASE("Depth stencil state")
     CHECK(device.retainCount() == retainCount);
 }
 
+TEST_CASE("Fence")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    mtl::Fence fence = device.newFence();
+    REQUIRE(fence);
+    CHECK(fence.retainCount() == 1);
+
+    CHECK(fence.device() == device);
+    fence.setLabel("test");
+    CHECK(fence.label().isEqualToString("test"));
+}
+
 TEST_CASE("Function")
 {
     ns::AutoreleasePool pool;

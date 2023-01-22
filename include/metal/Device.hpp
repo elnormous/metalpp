@@ -17,6 +17,7 @@
 #include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
+#include "Fence.hpp"
 #include "Heap.hpp"
 #include "IndirectCommandBuffer.hpp"
 #include "Library.hpp"
@@ -145,6 +146,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newLibraryWithSource_options_error_, "newLibraryWithSource:options:error:");
         METALPP_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_, "newRenderPipelineStateWithDescriptor:error:");
         METALPP_PRIVATE_SEL(newComputePipelineStateWithFunction_error_, "newComputePipelineStateWithFunction:error:");
+        METALPP_PRIVATE_SEL(newFence, "newFence");
         METALPP_PRIVATE_SEL(supportsFeatureSet_, "supportsFeatureSet:");
         METALPP_PRIVATE_SEL(supportsFamily_, "supportsFamily:");
         METALPP_PRIVATE_SEL(supportsTextureSampleCount_, "supportsTextureSampleCount:");
@@ -321,6 +323,12 @@ namespace mtl
             return ComputePipelineState{renderPipelineState, ns::adopt};
         }
 
+        [[nodiscard]] auto newFence() API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            const id fence = sendMessage<id>(METALPP_SEL(newFence));
+            return Fence{fence, ns::adopt};
+        }
+
         [[nodiscard]] auto supportsFeatureSet(const FeatureSet featureSet) const noexcept API_DEPRECATED("Use supportsFamily instead", macos(10.11, 13.0), ios(8.0, 16.0), tvos(9.0, 16.0))
         {
             return sendMessage<BOOL>(METALPP_SEL(supportsFeatureSet_), featureSet) == YES;
@@ -372,6 +380,11 @@ namespace mtl
     }
 
     [[nodiscard]] inline Device DynamicLibrary::device() const noexcept
+    {
+        return Device{sendMessage<id>(METALPP_SEL(device))};
+    }
+
+    [[nodiscard]] inline Device Fence::device() const noexcept
     {
         return Device{sendMessage<id>(METALPP_SEL(device))};
     }
