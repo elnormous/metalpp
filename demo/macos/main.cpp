@@ -206,7 +206,6 @@ public:
         };
 
         window = ns::Window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
-        *static_cast<Application**>(window.getIndexedIvars()) = this;
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
