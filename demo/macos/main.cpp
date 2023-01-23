@@ -215,6 +215,7 @@ public:
         window.setTabbingMode(ns::WindowTabbingMode::Disallowed);
         window.setAcceptsMouseMovedEvents(true);
 
+        windowDelegateClass.addMethod(sel_registerName("windowWillClose:"), windowWillClose, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidResize:"), windowDidResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidEndLiveResize:"), windowDidEndLiveResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
@@ -429,6 +430,10 @@ public:
 
 private:
     void applicationWillTerminate()
+    {
+    }
+
+    void windowWillClose()
     {
         displayLink.stop();
     }
@@ -695,6 +700,13 @@ private:
     }
 
     // WindowDelegate
+    static void windowWillClose(id self, SEL, id)
+    {
+        ns::Object windowDelegate{self};
+        const auto application = *static_cast<Application**>(windowDelegate.getIndexedIvars());
+        application->windowWillClose();
+    }
+
     static void windowDidResize(id self, SEL, id)
     {
         ns::Object windowDelegate{self};
