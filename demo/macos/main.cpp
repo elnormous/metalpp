@@ -177,8 +177,6 @@ class Application final
 public:
     Application()
     {
-        const auto thisPointer = this;
-
         appDelegateClass.addMethod(sel_registerName("applicationWillTerminate:"),
                                    applicationWillTerminate,
                                    "v@:@");
@@ -186,8 +184,8 @@ public:
                                    applicationShouldTerminateAfterLastWindowClosed,
                                    "b@:@");
         appDelegateClass.reg();
-        appDelegate = appDelegateClass.createInstance(sizeof(thisPointer));
-        std::memcpy(appDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
+        appDelegate = appDelegateClass.createInstance(sizeof(this));
+        *static_cast<Application**>(appDelegate.getIndexedIvars()) = this;
 
         application.activateIgnoringOtherApps(true);
         application.setDelegate(appDelegate);
@@ -208,7 +206,7 @@ public:
         };
 
         window = ns::Window{frame, windowStyleMask, ns::BackingStoreType::Buffered, false, screen};
-        std::memcpy(window.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
+        *static_cast<Application**>(window.getIndexedIvars()) = this;
         window.setTitle("demo");
         window.setCollectionBehavior(ns::WindowCollectionBehavior::FullScreenPrimary);
 
@@ -220,8 +218,8 @@ public:
         windowDelegateClass.addMethod(sel_registerName("windowDidEndLiveResize:"), windowDidEndLiveResize, "v@:@");
         windowDelegateClass.addMethod(sel_registerName("windowDidChangeScreen:"), windowDidChangeScreen, "v@:@");
         windowDelegateClass.reg();
-        windowDelegate = windowDelegateClass.createInstance(sizeof(thisPointer));
-        std::memcpy(windowDelegate.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
+        windowDelegate = windowDelegateClass.createInstance(sizeof(this));
+        *static_cast<Application**>(windowDelegate.getIndexedIvars()) = this;
         window.setDelegate(windowDelegate);
 
         viewClass.addMethod(sel_registerName("isOpaque"), isOpaque, "B@:");
@@ -241,8 +239,8 @@ public:
         viewClass.addMethod(sel_registerName("otherMouseDragged:"), otherMouseDragged, "v@:@");
         viewClass.reg();
 
-        view = viewClass.createInstance(sizeof(thisPointer));
-        std::memcpy(view.getIndexedIvars(), &thisPointer, sizeof(thisPointer));
+        view = viewClass.createInstance(sizeof(this));
+        *static_cast<Application**>(view.getIndexedIvars()) = this;
         view.setAutoresizingMask(ns::AutoresizingMaskOptions::WidthSizable | ns::AutoresizingMaskOptions::HeightSizable);
         view.setWantsLayer(true);
 
