@@ -6,6 +6,7 @@
 #include "../foundation/Range.hpp"
 #include "CommandEncoder.hpp"
 #include "Buffer.hpp"
+#include "Fence.hpp"
 #include "Texture.hpp"
 #include "Types.hpp"
 
@@ -28,7 +29,9 @@ namespace mtl
         METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
         METALPP_PRIVATE_SEL(fillBuffer_range_value_, "fillBuffer:range:value:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
-        
+        METALPP_PRIVATE_SEL(updateFence_, "updateFence:");
+        METALPP_PRIVATE_SEL(waitForFence_, "waitForFence:");
+
         using CommandEncoder::CommandEncoder;
         using CommandEncoder::operator=;
 
@@ -124,6 +127,16 @@ namespace mtl
                         destinationBuffer.get(),
                         destinationOffset,
                         size);
+        }
+
+        void updateFence(const Fence& fence) noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(updateFence_), fence.get());
+        }
+
+        void waitForFence(const Fence& fence) noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(waitForFence_), fence.get());
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

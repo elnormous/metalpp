@@ -9,6 +9,7 @@
 #include "Buffer.hpp"
 #include "CommandEncoder.hpp"
 #include "DepthStencil.hpp"
+#include "Fence.hpp"
 #include "RenderPipeline.hpp"
 #include "Sampler.hpp"
 #include "StageInputOutputDescriptor.hpp"
@@ -95,6 +96,44 @@ namespace mtl
         Lines = 1,
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
+    enum class RenderStages: ns::UInteger
+    {
+        Vertex   = (1UL << 0),
+        Fragment = (1UL << 1),
+        Tile API_AVAILABLE(macos(12.0), ios(15.0)) = (1UL << 2),
+        Object API_AVAILABLE(macos(13.0), ios(16.0))  = (1UL << 3),
+        Mesh API_AVAILABLE(macos(13.0), ios(16.0))  = (1UL << 4),
+    } API_AVAILABLE(macos(10.13), ios(10.0));
+
+    [[nodiscard]] inline constexpr RenderStages operator&(const RenderStages a, const RenderStages b) noexcept
+    {
+        return static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) & static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+    [[nodiscard]] inline constexpr RenderStages operator|(const RenderStages a, const RenderStages b) noexcept
+    {
+        return static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) | static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+    [[nodiscard]] inline constexpr RenderStages operator^(const RenderStages a, const RenderStages b) noexcept
+    {
+        return static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) ^ static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+    [[nodiscard]] inline constexpr RenderStages operator~(const RenderStages a) noexcept
+    {
+        return static_cast<RenderStages>(~static_cast<std::underlying_type_t<RenderStages>>(a));
+    }
+    inline constexpr RenderStages& operator&=(RenderStages& a, const RenderStages b) noexcept
+    {
+        return a = static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) & static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+    inline constexpr RenderStages& operator|=(RenderStages& a, const RenderStages b) noexcept
+    {
+        return a = static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) | static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+    inline constexpr RenderStages& operator^=(RenderStages& a, const RenderStages b) noexcept
+    {
+        return a = static_cast<RenderStages>(static_cast<std::underlying_type_t<RenderStages>>(a) ^ static_cast<std::underlying_type_t<RenderStages>>(b));
+    }
+
     template<class T, std::size_t N>
     inline auto convertToArray(const T (&objects)[N]) noexcept
     {
@@ -127,6 +166,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(setDepthStencilState_, "setDepthStencilState:");
         METALPP_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_, "drawPrimitives:vertexStart:vertexCount:");
         METALPP_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_, "drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:");
+        METALPP_PRIVATE_SEL(updateFence_afterStages_, "updateFence:afterStages:");
+        METALPP_PRIVATE_SEL(waitForFence_beforeStages_, "waitForFence:beforeStages:");
 
         using CommandEncoder::CommandEncoder;
         using CommandEncoder::operator=;
@@ -289,6 +330,16 @@ namespace mtl
                         indexType,
                         indexBuffer.get(),
                         indexBufferOffset);
+        }
+
+        void updateFence(const Fence& fence, const RenderStages stages) noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(updateFence_afterStages_), fence.get(), stages);
+        }
+
+        void waitForFence(const Fence& fence, const RenderStages stages) noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        {
+            sendMessage(METALPP_SEL(waitForFence_beforeStages_), fence.get(), stages);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
