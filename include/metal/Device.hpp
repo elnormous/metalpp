@@ -201,6 +201,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(minimumTextureBufferAlignmentForPixelFormat_, "minimumTextureBufferAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
         METALPP_PRIVATE_SEL(maxBufferLength, "maxBufferLength");
+        METALPP_PRIVATE_SEL(supportsCounterSampling_, "supportsCounterSampling:");
 
         using Object::Object;
         using Object::operator=;
@@ -416,6 +417,11 @@ namespace mtl
         [[nodiscard]] auto maxBufferLength() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
             return sendMessage<ns::UInteger>(METALPP_SEL(maxBufferLength));
+        }
+
+        [[nodiscard]] auto supportsCounterSampling(const CounterSamplingPoint samplingPoint) const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsCounterSampling_), samplingPoint) == YES;
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 

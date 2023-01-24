@@ -28,6 +28,7 @@ TEST_CASE("Device")
     CHECK(device.currentAllocatedSize() > 0);
 
     CHECK(device.maxBufferLength() > 0);
+    CHECK(device.supportsCounterSampling(mtl::CounterSamplingPoint::AtBlitBoundary));
 }
 
 TEST_CASE("Blit command encoder")
