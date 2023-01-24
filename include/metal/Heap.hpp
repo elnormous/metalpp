@@ -230,6 +230,11 @@ namespace mtl
             return Texture{texture, ns::adopt};
         }
     } API_AVAILABLE(macos(10.13), ios(10.0));
+
+    [[nodiscard]] inline Heap Resource::heap() const noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+    {
+        return Heap{sendMessage<id>(METALPP_SEL(heap))};
+    }
 }
 
 #endif

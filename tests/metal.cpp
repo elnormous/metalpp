@@ -459,6 +459,9 @@ TEST_CASE("Heap")
     REQUIRE(buffer);
     CHECK(buffer.retainCount() == 1);
 
+    CHECK(buffer.heap() == heap);
+    CHECK(buffer.heapOffset() == 0);
+    CHECK(buffer.allocatedSize() == 1024);
     CHECK(buffer.length() == 1024);
 
     CHECK(heap.usedSize() == 1024);
@@ -478,6 +481,9 @@ TEST_CASE("Heap")
     REQUIRE(texture);
     CHECK(texture.retainCount() == 1);
 
+    CHECK(texture.heap() == heap);
+    CHECK(texture.heapOffset() == 0);
+    CHECK(texture.allocatedSize() == 1024 * 1024 * 4);
     CHECK(texture.width() == textureDescriptor.width());
     CHECK(texture.height() == textureDescriptor.height());
 

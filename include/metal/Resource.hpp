@@ -107,6 +107,9 @@ namespace mtl
         METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
         METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
         METALPP_PRIVATE_SEL(setPurgeableState_, "setPurgeableState:");
+        METALPP_PRIVATE_SEL(heap, "heap");
+        METALPP_PRIVATE_SEL(heapOffset, "heapOffset");
+        METALPP_PRIVATE_SEL(allocatedSize, "allocatedSize");
 
         using Object::Object;
         using Object::operator=;
@@ -150,7 +153,17 @@ namespace mtl
             return sendMessage<PurgeableState>(METALPP_SEL(setPurgeableState_), state);
         }
 
+        [[nodiscard]] Heap heap() const noexcept API_AVAILABLE(macos(10.13), ios(10.0));
 
+        [[nodiscard]] auto heapOffset() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(heapOffset));
+        }
+
+        [[nodiscard]] auto allocatedSize() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(allocatedSize));
+        }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
