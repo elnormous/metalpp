@@ -200,6 +200,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(minimumLinearTextureAlignmentForPixelFormat_, "minimumLinearTextureAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(minimumTextureBufferAlignmentForPixelFormat_, "minimumTextureBufferAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
+        METALPP_PRIVATE_SEL(maxBufferLength, "maxBufferLength");
 
         using Object::Object;
         using Object::operator=;
@@ -410,6 +411,11 @@ namespace mtl
                                                              maxCount,
                                                              options);
             return IndirectCommandBuffer{indirectCommandBuffer};
+        }
+
+        [[nodiscard]] auto maxBufferLength() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(maxBufferLength));
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 

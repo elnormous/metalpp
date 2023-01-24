@@ -26,6 +26,8 @@ TEST_CASE("Device")
 
     mtl::Buffer buffer = device.newBuffer(1024, mtl::ResourceOptions::StorageModePrivate);
     CHECK(device.currentAllocatedSize() > 0);
+
+    CHECK(device.maxBufferLength() > 0);
 }
 
 TEST_CASE("Blit command encoder")
