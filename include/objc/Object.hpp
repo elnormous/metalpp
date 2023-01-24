@@ -7,7 +7,7 @@
 
 namespace ns
 {
-    struct Adopt final { explicit Adopt() = default; };
+    struct Adopt final { explicit Adopt() noexcept = default; };
     constexpr Adopt adopt;
 
     class Object
