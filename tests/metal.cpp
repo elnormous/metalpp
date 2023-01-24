@@ -271,9 +271,14 @@ TEST_CASE("Compute pipeline")
     mtl::ComputePipelineState state = device.newComputePipelineState(computeFunction);
     REQUIRE(state);
 
+    CHECK(state.maxTotalThreadsPerThreadgroup());
+    CHECK(state.threadExecutionWidth());
+
     mtl::ComputePipelineDescriptor descriptor;
     descriptor.setLabel("test");
     CHECK(descriptor.label().isEqualToString("test"));
+    descriptor.setComputeFunction(computeFunction);
+    CHECK(descriptor.computeFunction() == computeFunction);
 }
 
 TEST_CASE("Depth stencil state")

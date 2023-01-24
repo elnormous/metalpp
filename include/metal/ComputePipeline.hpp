@@ -3,6 +3,7 @@
 
 #include "../objc/Object.hpp"
 #include "../foundation/Object.hpp"
+#include "Library.hpp"
 #include "Types.hpp"
 
 namespace mtl
@@ -16,6 +17,8 @@ namespace mtl
 
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(computeFunction, "computeFunction");
+        METALPP_PRIVATE_SEL(setComputeFunction_, "setComputeFunction:");
 
         using Object::Object;
         using Object::operator=;
@@ -34,6 +37,16 @@ namespace mtl
         {
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
+
+        [[nodiscard]] auto computeFunction() const noexcept
+        {
+            return Function{sendMessage<id>(METALPP_SEL(computeFunction))};
+        }
+
+        void setComputeFunction(const Function& computeFunction) const noexcept
+        {
+            sendMessage(METALPP_SEL(setComputeFunction_), computeFunction.get());
+        }
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
     class ComputePipelineState final: public ns::Object
@@ -41,6 +54,8 @@ namespace mtl
     public:
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(device, "device");
+        METALPP_PRIVATE_SEL(maxTotalThreadsPerThreadgroup, "maxTotalThreadsPerThreadgroup");
+        METALPP_PRIVATE_SEL(threadExecutionWidth, "threadExecutionWidth");
         METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
         
         using Object::Object;
@@ -54,6 +69,16 @@ namespace mtl
         }
 
         [[nodiscard]] Device device() const noexcept;
+
+        [[nodiscard]] auto maxTotalThreadsPerThreadgroup() const noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(maxTotalThreadsPerThreadgroup));
+        }
+
+        [[nodiscard]] auto threadExecutionWidth() const noexcept
+        {
+            return sendMessage<ns::UInteger>(METALPP_SEL(threadExecutionWidth));
+        }
 
         [[nodiscard]] auto gpuResourceID() const noexcept API_AVAILABLE(macos(13.0), ios(16.0))
         {
