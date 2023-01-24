@@ -488,6 +488,10 @@ TEST_CASE("Heap")
     CHECK(texture.height() == textureDescriptor.height());
 
     CHECK(heap.usedSize() == 1024 + 1024 * 1024 * 4);
+
+    CHECK(!texture.isAliasable());
+    texture.makeAliasable();
+    CHECK(texture.isAliasable());
 }
 
 TEST_CASE("Indirect command buffer")

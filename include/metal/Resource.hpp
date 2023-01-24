@@ -110,6 +110,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(heap, "heap");
         METALPP_PRIVATE_SEL(heapOffset, "heapOffset");
         METALPP_PRIVATE_SEL(allocatedSize, "allocatedSize");
+        METALPP_PRIVATE_SEL(makeAliasable, "makeAliasable");
+        METALPP_PRIVATE_SEL(isAliasable, "isAliasable");
 
         using Object::Object;
         using Object::operator=;
@@ -163,6 +165,16 @@ namespace mtl
         [[nodiscard]] auto allocatedSize() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
             return sendMessage<ns::UInteger>(METALPP_SEL(allocatedSize));
+        }
+
+        void makeAliasable() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            sendMessage(METALPP_SEL(makeAliasable));
+        }
+
+        [[nodiscard]] auto isAliasable() const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isAliasable)) == YES;
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
