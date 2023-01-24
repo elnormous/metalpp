@@ -111,6 +111,52 @@ namespace mtl
         Unspecified = ns::UIntegerMax,
     } API_AVAILABLE(macos(10.15)) API_UNAVAILABLE(ios);
 
+    enum class PipelineOption: ns::UInteger
+    {
+        RenderStagesNone               = 0,
+        RenderStagesArgumentInfo       = 1 << 0,
+        RenderStagesBufferTypeInfo     = 1 << 1,
+        RenderStagesFailOnBinaryArchiveMiss API_AVAILABLE(macos(11.0), ios(14.0)) = 1 << 2,
+    } API_AVAILABLE(macos(10.11), ios(8.0));
+
+    [[nodiscard]] inline constexpr PipelineOption operator&(const PipelineOption a, const PipelineOption b) noexcept
+    {
+        return static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) & static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+    [[nodiscard]] inline constexpr PipelineOption operator|(const PipelineOption a, const PipelineOption b) noexcept
+    {
+        return static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) | static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+    [[nodiscard]] inline constexpr PipelineOption operator^(const PipelineOption a, const PipelineOption b) noexcept
+    {
+        return static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) ^ static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+    [[nodiscard]] inline constexpr PipelineOption operator~(const PipelineOption a) noexcept
+    {
+        return static_cast<PipelineOption>(~static_cast<std::underlying_type_t<PipelineOption>>(a));
+    }
+    inline constexpr PipelineOption& operator&=(PipelineOption& a, const PipelineOption b) noexcept
+    {
+        return a = static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) & static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+    inline constexpr PipelineOption& operator|=(PipelineOption& a, const PipelineOption b) noexcept
+    {
+        return a = static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) | static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+    inline constexpr PipelineOption& operator^=(PipelineOption& a, const PipelineOption b) noexcept
+    {
+        return a = static_cast<PipelineOption>(static_cast<std::underlying_type_t<PipelineOption>>(a) ^ static_cast<std::underlying_type_t<PipelineOption>>(b));
+    }
+
+    enum class CounterSamplingPoint: ns::UInteger
+    {
+        AtStageBoundary,
+        AtDrawBoundary,
+        AtDispatchBoundary,
+        AtTileDispatchBoundary,
+        AtBlitBoundary
+    } API_AVAILABLE(macos(11.0), ios(14.0));
+
     enum class SparsePageSize: ns::Integer
     {
         Size16 = 101,
