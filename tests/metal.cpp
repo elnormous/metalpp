@@ -446,6 +446,7 @@ TEST_CASE("Heap")
     CHECK(heap.cpuCacheMode() == descriptor.cpuCacheMode());
     CHECK(heap.hazardTrackingMode() == descriptor.hazardTrackingMode());
     CHECK(heap.resourceOptions() == descriptor.resourceOptions());
+    CHECK(heap.setPurgeableState(mtl::PurgeableState::KeepCurrent) == mtl::PurgeableState::NonVolatile);
     CHECK(heap.size() == descriptor.size());
     CHECK(heap.usedSize() == 0);
     CHECK(heap.currentAllocatedSize() == descriptor.size());

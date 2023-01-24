@@ -9,6 +9,7 @@
 namespace mtl
 {
     class Device;
+    class Heap;
 
     enum class PurgeableState: ns::UInteger
     {
@@ -105,6 +106,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(storageMode, "storageMode");
         METALPP_PRIVATE_SEL(hazardTrackingMode, "hazardTrackingMode");
         METALPP_PRIVATE_SEL(resourceOptions, "resourceOptions");
+        METALPP_PRIVATE_SEL(setPurgeableState_, "setPurgeableState:");
 
         using Object::Object;
         using Object::operator=;
@@ -142,6 +144,13 @@ namespace mtl
         {
             return sendMessage<ResourceOptions>(METALPP_SEL(resourceOptions));
         }
+
+        [[nodiscard]] auto setPurgeableState(const PurgeableState state) noexcept
+        {
+            return sendMessage<PurgeableState>(METALPP_SEL(setPurgeableState_), state);
+        }
+
+
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }
 
