@@ -28,7 +28,15 @@ TEST_CASE("Device")
     CHECK(device.currentAllocatedSize() > 0);
 
     CHECK(device.maxBufferLength() > 0);
-    CHECK(device.supportsCounterSampling(mtl::CounterSamplingPoint::AtBlitBoundary));
+    CHECK(device.supportsCounterSampling(mtl::CounterSamplingPoint::AtBlitBoundary) == device.supportsCounterSampling(mtl::CounterSamplingPoint::AtBlitBoundary));
+    CHECK(device.supportsVertexAmplificationCount(4) == device.supportsVertexAmplificationCount(4));
+    CHECK(device.supportsDynamicLibraries() == device.supportsDynamicLibraries());
+    CHECK(device.supportsRenderDynamicLibraries() == device.supportsRenderDynamicLibraries());
+    CHECK(device.supportsRaytracing() == device.supportsRaytracing());
+    CHECK(device.supportsFunctionPointers() == device.supportsFunctionPointers());
+    CHECK(device.supportsFunctionPointersFromRender() == device.supportsFunctionPointersFromRender());
+    CHECK(device.supportsRaytracingFromRender() == device.supportsRaytracingFromRender());
+    CHECK(device.supportsPrimitiveMotionBlur() == device.supportsPrimitiveMotionBlur());
 }
 
 TEST_CASE("Blit command encoder")

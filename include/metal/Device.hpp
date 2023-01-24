@@ -202,6 +202,14 @@ namespace mtl
         METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
         METALPP_PRIVATE_SEL(maxBufferLength, "maxBufferLength");
         METALPP_PRIVATE_SEL(supportsCounterSampling_, "supportsCounterSampling:");
+        METALPP_PRIVATE_SEL(supportsVertexAmplificationCount_, "supportsVertexAmplificationCount:");
+        METALPP_PRIVATE_SEL(supportsDynamicLibraries, "supportsDynamicLibraries");
+        METALPP_PRIVATE_SEL(supportsRenderDynamicLibraries, "supportsRenderDynamicLibraries");
+        METALPP_PRIVATE_SEL(supportsRaytracing, "supportsRaytracing");
+        METALPP_PRIVATE_SEL(supportsFunctionPointers, "supportsFunctionPointers");
+        METALPP_PRIVATE_SEL(supportsFunctionPointersFromRender, "supportsFunctionPointersFromRender");
+        METALPP_PRIVATE_SEL(supportsRaytracingFromRender, "supportsRaytracingFromRender");
+        METALPP_PRIVATE_SEL(supportsPrimitiveMotionBlur, "supportsPrimitiveMotionBlur");
 
         using Object::Object;
         using Object::operator=;
@@ -422,6 +430,46 @@ namespace mtl
         [[nodiscard]] auto supportsCounterSampling(const CounterSamplingPoint samplingPoint) const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
         {
             return sendMessage<BOOL>(METALPP_SEL(supportsCounterSampling_), samplingPoint) == YES;
+        }
+
+        [[nodiscard]] auto supportsVertexAmplificationCount(const ns::UInteger count) noexcept API_AVAILABLE(macos(10.15.4), ios(13.0), macCatalyst(13.4))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsVertexAmplificationCount_), count);
+        }
+
+        [[nodiscard]] auto supportsDynamicLibraries() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsDynamicLibraries)) == YES;
+        }
+
+        [[nodiscard]] auto supportsRenderDynamicLibraries() const noexcept API_AVAILABLE(macos(12.0), ios(15.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsRenderDynamicLibraries)) == YES;
+        }
+
+        [[nodiscard]] auto supportsRaytracing() const noexcept  API_AVAILABLE(macos(11.0), ios(14.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsRaytracing)) == YES;
+        }
+
+        [[nodiscard]] auto supportsFunctionPointers() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsFunctionPointers)) == YES;
+        }
+
+        [[nodiscard]] auto supportsFunctionPointersFromRender() const noexcept API_AVAILABLE(macos(12.0), ios(15.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsFunctionPointersFromRender)) == YES;
+        }
+
+        [[nodiscard]] auto supportsRaytracingFromRender() const noexcept API_AVAILABLE(macos(12.0), ios(15.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsRaytracingFromRender)) == YES;
+        }
+
+        [[nodiscard]] auto supportsPrimitiveMotionBlur() const noexcept API_AVAILABLE(macos(11.0), ios(14.0))
+        {
+            return sendMessage<BOOL>(METALPP_SEL(supportsPrimitiveMotionBlur)) == YES;
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
