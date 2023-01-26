@@ -115,6 +115,21 @@ namespace ns
             sendMessage(METALPP_SEL(setServicesMenu_), servicesMenu.get());
         }
     };
+
+    enum class ApplicationTerminateReply: ns::UInteger
+    {
+        TerminateCancel = 0,
+        TerminateNow = 1,
+        TerminateLater = 2
+    };
+
+    enum class ApplicationPrintReply: ns::UInteger
+    {
+        PrintingCancelled = 0,
+        PrintingSuccess = 1,
+        PrintingFailure = 3,
+        PrintingReplyLater = 2
+    };
 }
 
 #endif
