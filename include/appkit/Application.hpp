@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "Menu.hpp"
+#include "Window.hpp"
 
 namespace ns
 {
@@ -16,6 +17,9 @@ namespace ns
         METALPP_PRIVATE_SEL(sharedApplication, "sharedApplication");
         METALPP_PRIVATE_SEL(delegate, "delegate");
         METALPP_PRIVATE_SEL(setDelegate_, "setDelegate:");
+        METALPP_PRIVATE_SEL(windowWithWindowNumber_, "windowWithWindowNumber:");
+        METALPP_PRIVATE_SEL(mainWindow, "mainWindow");
+        METALPP_PRIVATE_SEL(keyWindow, "keyWindow");
         METALPP_PRIVATE_SEL(isActive, "isActive");
         METALPP_PRIVATE_SEL(isHidden, "isHidden");
         METALPP_PRIVATE_SEL(isRunning, "isRunning");
@@ -49,6 +53,21 @@ namespace ns
         void setDelegate(const Object& delegate) noexcept
         {
             sendMessage(METALPP_SEL(setDelegate_), delegate.get());
+        }
+
+        [[nodiscard]] auto windowWithWindowNumber(const ns::Integer windowNum) const noexcept
+        {
+            return Window{sendMessage<id>(METALPP_SEL(windowWithWindowNumber_), windowNum)};
+        }
+
+        [[nodiscard]] auto mainWindow() const noexcept
+        {
+            return Window{sendMessage<id>(METALPP_SEL(mainWindow))};
+        }
+
+        [[nodiscard]] auto keyWindow() const noexcept
+        {
+            return Window{sendMessage<id>(METALPP_SEL(mainWindow))};
         }
 
         [[nodiscard]] auto active() const noexcept

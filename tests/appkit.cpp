@@ -1,9 +1,25 @@
 #include "doctest.h"
 #include "foundation/AutoreleasePool.hpp"
 #include "appkit/AppKit.hpp"
+#include "objc/Class.hpp"
+
+namespace
+{
+    void applicationDidFinishLaunching(id, SEL, id)
+    {
+        ns::Application application = ns::Application::sharedApplication();
+        application.stop(nullptr);
+    }
+}
 
 TEST_CASE("Application")
 {
+    objc::Class<ns::Object> appDelegateClass{"AppDelegate"};
+    appDelegateClass.addMethod(sel_registerName("applicationDidFinishLaunching:"),
+                               applicationDidFinishLaunching,
+                               "v@:@");
+    appDelegateClass.reg();
+
     ns::AutoreleasePool pool;
 
     ns::Application application = ns::Application::sharedApplication();
@@ -13,9 +29,9 @@ TEST_CASE("Application")
     CHECK(!application.active());
     CHECK(!application.hidden());
     CHECK(!application.running());
-    //application.run();
 
-    ns::Object delegate;
+    ns::Object delegate = appDelegateClass.createInstance();
+    CHECK(delegate.retainCount() == 1);
     application.setDelegate(delegate);
     CHECK(application.delegate() == delegate);
 
@@ -31,6 +47,14 @@ TEST_CASE("Application")
     ns::Menu servicesMenu;
     application.setServicesMenu(servicesMenu);
     CHECK(application.servicesMenu() == servicesMenu);
+
+    ns::Window window{ns::Rect{0, 0, 100, 100}, ns::WindowStyleMask::Closable, ns::BackingStoreType::Buffered, false};
+    window.makeKeyAndOrderFront(nullptr);
+
+    CHECK(application.mainWindow() == nullptr);
+    CHECK(application.keyWindow() == nullptr);
+
+    application.run();
 }
 
 TEST_CASE("Array")
