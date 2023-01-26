@@ -21,6 +21,7 @@ namespace ns
         METALPP_PRIVATE_SEL(isRunning, "isRunning");
         METALPP_PRIVATE_SEL(activateIgnoringOtherApps_, "activateIgnoringOtherApps:");
         METALPP_PRIVATE_SEL(run, "run");
+        METALPP_PRIVATE_SEL(stop_, "stop:");
         METALPP_PRIVATE_SEL(mainMenu, "mainMenu");
         METALPP_PRIVATE_SEL(setMainMenu_, "setMainMenu:");
         METALPP_PRIVATE_SEL(helpMenu, "helpMenu");
@@ -73,6 +74,11 @@ namespace ns
         void run() noexcept
         {
             sendMessage(METALPP_SEL(run));
+        }
+
+        void stop(const Object& sender) noexcept
+        {
+            sendMessage(METALPP_SEL(stop_), sender.get());
         }
 
         [[nodiscard]] auto mainMenu() const noexcept
