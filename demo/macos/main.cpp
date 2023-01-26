@@ -686,8 +686,8 @@ private:
     // AppDelegate
     static void applicationWillTerminate(id self, SEL, id) noexcept
     {
-        ns::Application app{self};
-        const auto application = *static_cast<Application**>(app.getIndexedIvars());
+        ns::Object appDelegate{self};
+        const auto application = *static_cast<Application**>(appDelegate.getIndexedIvars());
         application->applicationWillTerminate();
     }
 
