@@ -23,7 +23,9 @@ namespace ns
         METALPP_PRIVATE_SEL(isActive, "isActive");
         METALPP_PRIVATE_SEL(isHidden, "isHidden");
         METALPP_PRIVATE_SEL(isRunning, "isRunning");
+        METALPP_PRIVATE_SEL(deactivate, "deactivate");
         METALPP_PRIVATE_SEL(activateIgnoringOtherApps_, "activateIgnoringOtherApps:");
+        METALPP_PRIVATE_SEL(finishLaunching, "finishLaunching");
         METALPP_PRIVATE_SEL(run, "run");
         METALPP_PRIVATE_SEL(stop_, "stop:");
         METALPP_PRIVATE_SEL(mainMenu, "mainMenu");
@@ -85,9 +87,19 @@ namespace ns
             return sendMessage<BOOL>(METALPP_SEL(isRunning)) == YES;
         }
 
+        void deactivate() noexcept
+        {
+            sendMessage(METALPP_SEL(deactivate));
+        }
+
         void activateIgnoringOtherApps(const bool flag) noexcept
         {
             sendMessage(METALPP_SEL(activateIgnoringOtherApps_), flag ? YES: NO);
+        }
+
+        void finishLaunching() noexcept
+        {
+            sendMessage(METALPP_SEL(finishLaunching));
         }
 
         void run() noexcept
