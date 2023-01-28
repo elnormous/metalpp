@@ -135,12 +135,12 @@ namespace ns
             sendMessage(METALPP_SEL(setHelpMenu_), helpMenu.get());
         }
 
-        [[nodiscard]] auto activationPolicy() noexcept
+        [[nodiscard]] auto activationPolicy() noexcept API_AVAILABLE(macos(10.6))
         {
             return sendMessage<ApplicationActivationPolicy>(METALPP_SEL(activationPolicy));
         }
 
-        auto setActivationPolicy(const ApplicationActivationPolicy activationPolicy) noexcept
+        auto setActivationPolicy(const ApplicationActivationPolicy activationPolicy) noexcept API_AVAILABLE(macos(10.6))
         {
             return sendMessage<BOOL>(METALPP_SEL(setActivationPolicy_), activationPolicy);
         }
