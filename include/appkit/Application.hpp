@@ -5,6 +5,7 @@
 #include "../objc/Object.hpp"
 #include "../objc/Private.hpp"
 #include "Menu.hpp"
+#include "RunningApplication.hpp"
 #include "Window.hpp"
 
 namespace ns
@@ -32,6 +33,8 @@ namespace ns
         METALPP_PRIVATE_SEL(setMainMenu_, "setMainMenu:");
         METALPP_PRIVATE_SEL(helpMenu, "helpMenu");
         METALPP_PRIVATE_SEL(setHelpMenu_, "setHelpMenu:");
+        METALPP_PRIVATE_SEL(activationPolicy, "activationPolicy");
+        METALPP_PRIVATE_SEL(setActivationPolicy_, "setActivationPolicy:");
         METALPP_PRIVATE_SEL(windowsMenu, "windowsMenu");
         METALPP_PRIVATE_SEL(setWindowsMenu_, "setWindowsMenu:");
         METALPP_PRIVATE_SEL(servicesMenu, "servicesMenu");
@@ -130,6 +133,16 @@ namespace ns
         void setHelpMenu(const Menu& helpMenu) noexcept API_AVAILABLE(macos(10.6))
         {
             sendMessage(METALPP_SEL(setHelpMenu_), helpMenu.get());
+        }
+
+        [[nodiscard]] auto activationPolicy() noexcept
+        {
+            return sendMessage<ApplicationActivationPolicy>(METALPP_SEL(activationPolicy));
+        }
+
+        auto setActivationPolicy(const ApplicationActivationPolicy activationPolicy) noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(setActivationPolicy_), activationPolicy);
         }
 
         [[nodiscard]] auto windowsMenu() const noexcept

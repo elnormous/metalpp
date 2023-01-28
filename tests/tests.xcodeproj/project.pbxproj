@@ -60,6 +60,7 @@
 		3023336B2940335F003114B4 /* ColorSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ColorSpace.hpp; sourceTree = "<group>"; };
 		3023336C294033FD003114B4 /* coregraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = coregraphics.cpp; sourceTree = "<group>"; };
 		3023336F29403DAC003114B4 /* Color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
+		303075CD2984CB06007ADF10 /* RunningApplication.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RunningApplication.hpp; sourceTree = "<group>"; };
 		303B6AA3294E282600A4DEC6 /* DirectDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DirectDisplay.hpp; sourceTree = "<group>"; };
 		303B6AA4294E28D400A4DEC6 /* corevideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = corevideo.cpp; sourceTree = "<group>"; };
 		303B6AA6294F720F00A4DEC6 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -259,6 +260,7 @@
 				3023335329382128003114B4 /* Graphics.hpp */,
 				3090111529350B42002D121D /* Menu.hpp */,
 				3023334E293621AC003114B4 /* MenuItem.hpp */,
+				303075CD2984CB06007ADF10 /* RunningApplication.hpp */,
 				309011122930D42A002D121D /* Screen.hpp */,
 				3023335F2938279A003114B4 /* View.hpp */,
 				3023335129381CCC003114B4 /* Window.hpp */,

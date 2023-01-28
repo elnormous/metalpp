@@ -30,6 +30,9 @@ TEST_CASE("Application")
     CHECK(!application.hidden());
     CHECK(!application.running());
 
+    CHECK(application.setActivationPolicy(ns::ApplicationActivationPolicy::Accessory));
+    CHECK(application.activationPolicy() == ns::ApplicationActivationPolicy::Accessory);
+
     ns::Object delegate = appDelegateClass.createInstance();
     CHECK(delegate.retainCount() == 1);
     application.setDelegate(delegate);
