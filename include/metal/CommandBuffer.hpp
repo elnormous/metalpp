@@ -11,6 +11,7 @@
 #include "BlitCommandEncoder.hpp"
 #include "ComputeCommandEncoder.hpp"
 #include "Drawable.hpp"
+#include "Event.hpp"
 #include "ParallelRenderCommandEncoder.hpp"
 #include "RenderCommandEncoder.hpp"
 #include "RenderPass.hpp"
@@ -89,6 +90,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(blitCommandEncoder, "blitCommandEncoder");
         METALPP_PRIVATE_SEL(renderCommandEncoderWithDescriptor_, "renderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(computeCommandEncoder, "computeCommandEncoder");
+        METALPP_PRIVATE_SEL(encodeWaitForEvent_value_, "encodeWaitForEvent:value:");
+        METALPP_PRIVATE_SEL(encodeSignalEvent_value_, "encodeSignalEvent:value:");
         METALPP_PRIVATE_SEL(parallelRenderCommandEncoderWithDescriptor_, "parallelRenderCommandEncoderWithDescriptor:");
         METALPP_PRIVATE_SEL(pushDebugGroup_, "pushDebugGroup:");
         METALPP_PRIVATE_SEL(popDebugGroup, "popDebugGroup");
@@ -178,6 +181,16 @@ namespace mtl
         [[nodiscard]] auto computeCommandEncoder() noexcept
         {
             return ComputeCommandEncoder{sendMessage<id>(METALPP_SEL(computeCommandEncoder))};
+        }
+
+        void encodeWaitForEvent(const Event& event, const std::uint64_t value) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(encodeWaitForEvent_value_), event.get(), value);
+        }
+
+        void encodeSignalEvent(const Event& event, const std::uint64_t value) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(encodeSignalEvent_value_), event.get(), value);
         }
 
         [[nodiscard]] auto parallelRenderCommandEncoder(const RenderPassDescriptor& renderPassDescriptor) noexcept

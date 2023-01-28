@@ -203,6 +203,10 @@ TEST_CASE("Command queue")
     REQUIRE(commandBuffer);
     CHECK(commandBuffer.retainCount() == 2); // one retain is autoreleased
 
+    mtl::Event event = device.newEvent();
+    commandBuffer.encodeSignalEvent(event, 10);
+    commandBuffer.encodeWaitForEvent(event, 10);
+
     commandBuffer.commit();
     commandBuffer.waitUntilCompleted();
 }
