@@ -337,6 +337,20 @@ TEST_CASE("Depth stencil state")
     CHECK(device.retainCount() == retainCount);
 }
 
+TEST_CASE("Event")
+{
+    ns::AutoreleasePool pool;
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+
+    mtl::Event event = device.newEvent();
+    REQUIRE(event);
+    CHECK(event.retainCount() == 1);
+
+    CHECK(event.device() == device);
+    event.setLabel("test");
+    CHECK(event.label().isEqualToString("test"));
+}
+
 TEST_CASE("Fence")
 {
     ns::AutoreleasePool pool;

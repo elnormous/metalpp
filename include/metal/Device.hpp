@@ -17,6 +17,7 @@
 #include "ComputePipeline.hpp"
 #include "DepthStencil.hpp"
 #include "DynamicLibrary.hpp"
+#include "Event.hpp"
 #include "Fence.hpp"
 #include "Heap.hpp"
 #include "IndirectCommandBuffer.hpp"
@@ -200,6 +201,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(minimumLinearTextureAlignmentForPixelFormat_, "minimumLinearTextureAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(minimumTextureBufferAlignmentForPixelFormat_, "minimumTextureBufferAlignmentForPixelFormat:");
         METALPP_PRIVATE_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_, "newIndirectCommandBufferWithDescriptor:maxCommandCount:options:");
+        METALPP_PRIVATE_SEL(newEvent, "newEvent");
         METALPP_PRIVATE_SEL(maxBufferLength, "maxBufferLength");
         METALPP_PRIVATE_SEL(supportsCounterSampling_, "supportsCounterSampling:");
         METALPP_PRIVATE_SEL(supportsVertexAmplificationCount_, "supportsVertexAmplificationCount:");
@@ -422,6 +424,12 @@ namespace mtl
             return IndirectCommandBuffer{indirectCommandBuffer};
         }
 
+        [[nodiscard]] auto newEvent() API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            const id event = sendMessage<id>(METALPP_SEL(newEvent));
+            return Event{event, ns::adopt};
+        }
+
         [[nodiscard]] auto maxBufferLength() const noexcept API_AVAILABLE(macos(10.14), ios(12.0))
         {
             return sendMessage<ns::UInteger>(METALPP_SEL(maxBufferLength));
@@ -499,6 +507,11 @@ namespace mtl
     }
 
     [[nodiscard]] inline Device DynamicLibrary::device() const noexcept
+    {
+        return Device{sendMessage<id>(METALPP_SEL(device))};
+    }
+
+    [[nodiscard]] inline Device Event::device() const noexcept
     {
         return Device{sendMessage<id>(METALPP_SEL(device))};
     }
