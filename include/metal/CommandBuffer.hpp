@@ -78,6 +78,8 @@ namespace mtl
         METALPP_PRIVATE_SEL(retainedReferences, "retainedReferences");
         METALPP_PRIVATE_SEL(label, "label");
         METALPP_PRIVATE_SEL(setLabel_, "setLabel:");
+        METALPP_PRIVATE_SEL(GPUStartTime, "GPUStartTime");
+        METALPP_PRIVATE_SEL(GPUEndTime, "GPUEndTime");
         METALPP_PRIVATE_SEL(enqueue, "enqueue");
         METALPP_PRIVATE_SEL(commit, "commit");
         METALPP_PRIVATE_SEL(addScheduledHandler_, "addScheduledHandler:");
@@ -119,6 +121,16 @@ namespace mtl
             sendMessage(METALPP_SEL(setLabel_), label.get());
         }
 
+        [[nodiscard]] auto GPUStartTime() const noexcept API_AVAILABLE(macos(10.15), macCatalyst(13.0), ios(10.3))
+        {
+            return sendMessage<CFTimeInterval>(METALPP_SEL(GPUStartTime));
+        }
+
+        [[nodiscard]] auto GPUEndTime() const noexcept API_AVAILABLE(macos(10.15), macCatalyst(13.0), ios(10.3))
+        {
+            return sendMessage<CFTimeInterval>(METALPP_SEL(GPUEndTime));
+        }
+
         void enqueue() noexcept
         {
             sendMessage(METALPP_SEL(enqueue));
@@ -146,16 +158,16 @@ namespace mtl
             sendMessage(METALPP_SEL(presentDrawable_atTime_), drawable.get(), presentationTime);
         }
 
+        void waitUntilScheduled() noexcept
+        {
+            sendMessage(METALPP_SEL(waitUntilScheduled));
+        }
+
         void addCompletedHandler(const CommandBufferHandler handler) noexcept
         {
             sendMessage(METALPP_SEL(addCompletedHandler_), ^(id commandBuffer){
                 handler(CommandBuffer{commandBuffer});
             });
-        }
-
-        void waitUntilScheduled() noexcept
-        {
-            sendMessage(METALPP_SEL(waitUntilScheduled));
         }
 
         void waitUntilCompleted() noexcept

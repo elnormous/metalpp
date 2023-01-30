@@ -156,6 +156,10 @@ TEST_CASE("Command buffer")
     commandBuffer.setLabel(label);
     CHECK(label.retainCount() > 0);
     CHECK(commandBuffer.label().isEqualToString(labelStr));
+
+    CHECK(commandBuffer.GPUStartTime() == 0);
+    CHECK(commandBuffer.GPUEndTime() == 0);
+
     CHECK(commandBuffer.status() == mtl::CommandBufferStatus::NotEnqueued);
 
     commandBuffer.pushDebugGroup("testGroup");
