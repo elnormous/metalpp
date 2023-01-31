@@ -7,6 +7,7 @@
 #include "CommandEncoder.hpp"
 #include "Buffer.hpp"
 #include "Fence.hpp"
+#include "Resource.hpp"
 #include "Texture.hpp"
 #include "Types.hpp"
 
@@ -23,6 +24,8 @@ namespace mtl
     class BlitCommandEncoder final: public CommandEncoder
     {
     public:
+        METALPP_PRIVATE_SEL(synchronizeResource_, "synchronizeResource:");
+        METALPP_PRIVATE_SEL(synchronizeTexture_slice_level_, "synchronizeTexture:slice:level:");
         METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_, "copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:");
         METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:");
@@ -36,6 +39,16 @@ namespace mtl
         using CommandEncoder::operator=;
 
         BlitCommandEncoder() = delete;
+
+        void synchronizeResource(const Resource& resource) noexcept API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios)
+        {
+            sendMessage(METALPP_SEL(synchronizeResource_), resource.get());
+        }
+
+        void synchronizeTexture(const Texture& texture, const ns::UInteger slice, const ns::UInteger level) API_AVAILABLE(macos(10.11), macCatalyst(13.0)) API_UNAVAILABLE(ios)
+        {
+            sendMessage(METALPP_SEL(synchronizeTexture_slice_level_), texture.get(), slice, level);
+        }
 
         void copyFromTexture(const Texture& sourceTexture,
                              const ns::UInteger sourceSlice,

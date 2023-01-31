@@ -53,12 +53,12 @@ TEST_CASE("Blit command encoder")
     textureDescriptor.setHeight(1024);
     textureDescriptor.setUsage(mtl::TextureUsage::ShaderRead);
     textureDescriptor.setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
-    textureDescriptor.setStorageMode(mtl::StorageMode::Private);
+    textureDescriptor.setStorageMode(mtl::StorageMode::Managed);
     textureDescriptor.setMipmapLevelCount(10);
 
     mtl::Texture texture = device.newTexture(textureDescriptor);
     mtl::Texture destinationTexture = device.newTexture(textureDescriptor);
-    mtl::Buffer buffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
+    mtl::Buffer buffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModeManaged);
     mtl::Buffer destinationBuffer = device.newBuffer(2048, mtl::ResourceOptions::StorageModePrivate);
 
     mtl::BlitCommandEncoder blitCommandEncoder = commandBuffer.blitCommandEncoder();
@@ -69,6 +69,9 @@ TEST_CASE("Blit command encoder")
 
     blitCommandEncoder.generateMipmapsForTexture(texture);
     blitCommandEncoder.fillBuffer(buffer, ns::Range{0, 2048}, 10);
+
+    blitCommandEncoder.synchronizeResource(buffer);
+    blitCommandEncoder.synchronizeTexture(texture, 0, 0);
 
     blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{1024, 1024, 1},
                                        destinationTexture, 0, 0, mtl::Origin{0, 0});
