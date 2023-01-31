@@ -185,6 +185,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(newHeapWithDescriptor_, "newHeapWithDescriptor:");
         METALPP_PRIVATE_SEL(newBufferWithLength_options_, "newBufferWithLength:options:");
         METALPP_PRIVATE_SEL(newBufferWithBytes_length_options_, "newBufferWithBytes:length:options:");
+        METALPP_PRIVATE_SEL(newBufferWithBytesNoCopy_length_options_deallocator_, "newBufferWithBytesNoCopy:length:options:deallocator:");
         METALPP_PRIVATE_SEL(newDepthStencilStateWithDescriptor_, "newDepthStencilStateWithDescriptor:");
         METALPP_PRIVATE_SEL(newTextureWithDescriptor_, "newTextureWithDescriptor:");
         METALPP_PRIVATE_SEL(newSamplerStateWithDescriptor_, "newSamplerStateWithDescriptor:");
@@ -288,6 +289,16 @@ namespace mtl
                                               pointer,
                                               length,
                                               options);
+            return Buffer{buffer, ns::adopt};
+        }
+
+        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options, const std::function<void(void* pointer, ns::UInteger length)> deallocator) noexcept
+        {
+            const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytesNoCopy_length_options_deallocator_),
+                                              pointer,
+                                              length,
+                                              options,
+                                              ^(void* p, NSUInteger l) { deallocator(p, l); });
             return Buffer{buffer, ns::adopt};
         }
 
