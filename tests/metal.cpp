@@ -132,13 +132,18 @@ TEST_CASE("Buffer")
     bufferManaged.removeAllDebugMarkers();
     bufferManaged.didModifyRange(ns::Range{0, 1024});
 
+    buffer = nullptr;
+
     void* pointer = aligned_alloc(4096, 4096);
-    mtl::Buffer bufferNoCopy = device.newBuffer(pointer, 4096, mtl::ResourceOptions::CPUCacheModeDefaultCache, [](void* pointer, ns::UInteger) {
+    bool freed = false;
+    mtl::Buffer bufferNoCopy = device.newBuffer(pointer, 4096, mtl::ResourceOptions::CPUCacheModeDefaultCache, [&freed](void* pointer, ns::UInteger) {
         free(pointer);
+        freed = true;
     });
     CHECK(bufferNoCopy);
 
-    buffer = nullptr;
+    bufferNoCopy = nullptr;
+    CHECK(freed);
 }
 
 TEST_CASE("Command buffer")
