@@ -324,7 +324,7 @@ public:
         renderPipelineDescriptor.setSampleCount(sampleCount);
 
         const auto colorAttachments = renderPipelineDescriptor.colorAttachments();
-        colorAttachments[0].setPixelFormat(mtl::PixelFormat::BGRA8Unorm);
+        colorAttachments[0].setPixelFormat(metalLayer.pixelFormat());
 
         pipelineState = device.newRenderPipelineState(renderPipelineDescriptor);
 
