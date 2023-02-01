@@ -34,6 +34,10 @@ namespace mtl
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
         METALPP_PRIVATE_SEL(updateFence_, "updateFence:");
         METALPP_PRIVATE_SEL(waitForFence_, "waitForFence:");
+        METALPP_PRIVATE_SEL(optimizeContentsForGPUAccess_, "optimizeContentsForGPUAccess:");
+        METALPP_PRIVATE_SEL(optimizeContentsForGPUAccess_slice_level_, "optimizeContentsForGPUAccess:slice:level:");
+        METALPP_PRIVATE_SEL(optimizeContentsForCPUAccess_, "optimizeContentsForCPUAccess:");
+        METALPP_PRIVATE_SEL(optimizeContentsForCPUAccess_slice_level_, "optimizeContentsForCPUAccess:slice:level:");
 
         using CommandEncoder::CommandEncoder;
         using CommandEncoder::operator=;
@@ -150,6 +154,26 @@ namespace mtl
         void waitForFence(const Fence& fence) noexcept API_AVAILABLE(macos(10.13), ios(10.0))
         {
             sendMessage(METALPP_SEL(waitForFence_), fence.get());
+        }
+
+        void optimizeContentsForGPUAccess(const Texture& texture) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(optimizeContentsForGPUAccess_), texture.get());
+        }
+
+        void optimizeContentsForGPUAccess(const Texture& texture, const ns::UInteger slice, const ns::UInteger level) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(optimizeContentsForGPUAccess_slice_level_), texture.get(), slice, level);
+        }
+
+        void optimizeContentsForCPUAccess(const Texture& texture) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(optimizeContentsForCPUAccess_), texture.get());
+        }
+
+        void optimizeContentsForCPUAccess(const Texture& texture, const ns::UInteger slice, const ns::UInteger level) noexcept API_AVAILABLE(macos(10.14), ios(12.0))
+        {
+            sendMessage(METALPP_SEL(optimizeContentsForCPUAccess_slice_level_), texture.get(), slice, level);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 }

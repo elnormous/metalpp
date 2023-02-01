@@ -72,6 +72,10 @@ TEST_CASE("Blit command encoder")
 
     blitCommandEncoder.synchronizeResource(buffer);
     blitCommandEncoder.synchronizeTexture(texture, 0, 0);
+    blitCommandEncoder.optimizeContentsForGPUAccess(texture);
+    blitCommandEncoder.optimizeContentsForGPUAccess(texture, 0, 0);
+    blitCommandEncoder.optimizeContentsForCPUAccess(texture);
+    blitCommandEncoder.optimizeContentsForCPUAccess(texture, 0, 0);
 
     blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{1024, 1024, 1},
                                        destinationTexture, 0, 0, mtl::Origin{0, 0});
