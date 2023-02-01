@@ -82,7 +82,7 @@ namespace
             simd::float4{sx, 0,  0,  0},
             simd::float4{0, sy,  0,  0},
             simd::float4{0,  0, sz, -1.0F},
-            simd::float4{0,  0, tz,  0}
+            simd::float4{0,  0, tz,  0},
         };
     }
 
@@ -92,7 +92,7 @@ namespace
             simd::float4{1, 0, 0, 0},
             simd::float4{0, 1, 0, 0},
             simd::float4{0, 0, 1, 0},
-            simd::float4{x, y, z, 1}
+            simd::float4{x, y, z, 1},
         };
     }
 
@@ -105,7 +105,7 @@ namespace
             simd::float4{1,  0, 0, 0},
             simd::float4{0,  c, s, 0},
             simd::float4{0, -s, c, 0},
-            simd::float4{0,  0, 0, 1}
+            simd::float4{0,  0, 0, 1},
         };
     }
 
@@ -118,7 +118,20 @@ namespace
             simd::float4{c, 0, -s, 0},
             simd::float4{0, 1,  0, 0},
             simd::float4{s, 0,  c, 0},
-            simd::float4{0, 0,  0, 1}
+            simd::float4{0, 0,  0, 1},
+        };
+    }
+
+    auto rotationMatrixZ(const float radians) noexcept
+    {
+        const auto c = std::cos(radians);
+        const auto s = std::sin(radians);
+
+        return simd::float4x4{
+            simd::float4{ c, s, 0, 0},
+            simd::float4{-s, c, 0, 0},
+            simd::float4{ s, 0, 1, 0},
+            simd::float4{ 0, 0, 0, 1},
         };
     }
 
@@ -152,7 +165,7 @@ namespace
     "};\n" \
 
     "vertex VertexOut vertex_function(const VertexIn input [[stage_in]],\n" \
-    "                                 constant Uniforms &uniforms [[buffer(1)]])\n" \
+    "                                 constant Uniforms& uniforms [[buffer(1)]])\n" \
     "{\n" \
     "    VertexOut out;\n" \
     "    out.position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * float4(input.position, 1.0);\n" \
