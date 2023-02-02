@@ -21,6 +21,35 @@ namespace mtl
         RowLinearPVRTC API_AVAILABLE(ios(9.0), macos(11.0), macCatalyst(14.0)) = 1 << 2,
     } API_AVAILABLE(macos(10.11), ios(9.0));
 
+    [[nodiscard]] inline constexpr BlitOption operator&(const BlitOption a, const BlitOption b) noexcept
+    {
+        return static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) & static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+    [[nodiscard]] inline constexpr BlitOption operator|(const BlitOption a, const BlitOption b) noexcept
+    {
+        return static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) | static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+    [[nodiscard]] inline constexpr BlitOption operator^(const BlitOption a, const BlitOption b) noexcept
+    {
+        return static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) ^ static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+    [[nodiscard]] inline constexpr BlitOption operator~(const BlitOption a) noexcept
+    {
+        return static_cast<BlitOption>(~static_cast<std::underlying_type_t<BlitOption>>(a));
+    }
+    inline constexpr BlitOption& operator&=(BlitOption& a, const BlitOption b) noexcept
+    {
+        return a = static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) & static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+    inline constexpr BlitOption& operator|=(BlitOption& a, const BlitOption b) noexcept
+    {
+        return a = static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) | static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+    inline constexpr BlitOption& operator^=(BlitOption& a, const BlitOption b) noexcept
+    {
+        return a = static_cast<BlitOption>(static_cast<std::underlying_type_t<BlitOption>>(a) ^ static_cast<std::underlying_type_t<BlitOption>>(b));
+    }
+
     class BlitCommandEncoder final: public CommandEncoder
     {
     public:
@@ -28,7 +57,9 @@ namespace mtl
         METALPP_PRIVATE_SEL(synchronizeTexture_slice_level_, "synchronizeTexture:slice:level:");
         METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_, "copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:");
+        METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_options_, "copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:");
         METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:");
+        METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_options_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:");
         METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
         METALPP_PRIVATE_SEL(fillBuffer_range_value_, "fillBuffer:range:value:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
@@ -98,6 +129,30 @@ namespace mtl
                         destinationOrigin);
         }
 
+        void copyFromBuffer(const Buffer& sourceBuffer,
+                            const ns::UInteger sourceOffset,
+                            const ns::UInteger sourceBytesPerRow,
+                            const ns::UInteger sourceBytesPerImage,
+                            const Size& sourceSize,
+                            const Texture& destinationTexture,
+                            const ns::UInteger destinationSlice,
+                            const ns::UInteger destinationLevel,
+                            const Origin& destinationOrigin,
+                            const BlitOption options)
+        {
+            sendMessage(METALPP_SEL(copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_),
+                        sourceBuffer.get(),
+                        sourceOffset,
+                        sourceBytesPerRow,
+                        sourceBytesPerImage,
+                        sourceSize,
+                        destinationTexture.get(),
+                        destinationSlice,
+                        destinationLevel,
+                        destinationOrigin,
+                        options);
+        }
+
         void copyFromTexture(const Texture& sourceTexture,
                              const ns::UInteger sourceSlice,
                              const ns::UInteger sourceLevel,
@@ -118,6 +173,30 @@ namespace mtl
                         destinationOffset,
                         destinationBytesPerRow,
                         destinationBytesPerImage);
+        }
+
+        void copyFromTexture(const Texture& sourceTexture,
+                             const ns::UInteger sourceSlice,
+                             const ns::UInteger sourceLevel,
+                             const Origin& sourceOrigin,
+                             const Size& sourceSize,
+                             const Buffer& destinationBuffer,
+                             const ns::UInteger destinationOffset,
+                             const ns::UInteger destinationBytesPerRow,
+                             const ns::UInteger& destinationBytesPerImage,
+                             const BlitOption options) noexcept
+        {
+            sendMessage(METALPP_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_),
+                        sourceTexture.get(),
+                        sourceSlice,
+                        sourceLevel,
+                        sourceOrigin,
+                        sourceSize,
+                        destinationBuffer.get(),
+                        destinationOffset,
+                        destinationBytesPerRow,
+                        destinationBytesPerImage,
+                        options);
         }
 
         void generateMipmapsForTexture(const Texture& texture) noexcept

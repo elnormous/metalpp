@@ -83,8 +83,14 @@ TEST_CASE("Blit command encoder")
     blitCommandEncoder.copyFromBuffer(buffer, 0, 32 * 4, 2048, mtl::Size{32, 16, 1},
                                       destinationTexture, 0, 0, mtl::Origin{0, 0});
 
+    blitCommandEncoder.copyFromBuffer(buffer, 0, 32 * 4, 2048, mtl::Size{32, 16, 1},
+                                      destinationTexture, 0, 0, mtl::Origin{0, 0}, mtl::BlitOption::None);
+
     blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{32, 16, 1},
                                        destinationBuffer, 0, 32 * 4, 2048);
+
+    blitCommandEncoder.copyFromTexture(texture, 0, 0, mtl::Origin{0, 0}, mtl::Size{32, 16, 1},
+                                       destinationBuffer, 0, 32 * 4, 2048, mtl::BlitOption::None);
 
     blitCommandEncoder.copyFromBuffer(buffer, 0, destinationBuffer, 0, 2048);
 
