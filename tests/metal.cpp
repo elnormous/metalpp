@@ -1095,7 +1095,12 @@ TEST_CASE("Texture")
     std::uint8_t level0[1024 * 768 * 4] = {0xFF};
     std::uint8_t level1[512 * 384 * 4] = {0xFF};
     texture.replaceRegion(mtl::Region{0, 0, 0, 1024, 768, 1}, 0, level0, 1024 * 4);
+    texture.replaceRegion(mtl::Region{0, 0, 0, 1024, 768, 1}, 0, 0, level0, 1024 * 4, 1024 * 768 * 4);
     texture.replaceRegion(mtl::Region{0, 0, 0, 512, 384, 1}, 1, level1, 512 * 4);
+
+    std::uint8_t data[1024 * 768 * 4] = {0x00};
+    texture.getBytes(data, 1024 * 4, mtl::Region{0, 0, 0, 1024, 768, 1}, 0);
+    CHECK(std::memcmp(level0, data, sizeof(data)) == 0);
 
     mtl::Buffer textureBuffer = device.newBuffer(level0, sizeof(level0), mtl::ResourceOptions::StorageModeManaged);
 

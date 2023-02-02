@@ -266,7 +266,9 @@ namespace mtl
         METALPP_PRIVATE_SEL(usage, "usage");
         METALPP_PRIVATE_SEL(compressionType, "compressionType");
         METALPP_PRIVATE_SEL(gpuResourceID, "gpuResourceID");
+        METALPP_PRIVATE_SEL(replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage_, "replaceRegion:mipmapLevel:slice:withBytes:bytesPerRow:bytesPerImage:");
         METALPP_PRIVATE_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_, "replaceRegion:mipmapLevel:withBytes:bytesPerRow:");
+        METALPP_PRIVATE_SEL(getBytes_bytesPerRow_fromRegion_mipmapLevel_, "getBytes:bytesPerRow:fromRegion:mipmapLevel:");
 
         using Resource::Resource;
         using Resource::operator=;
@@ -330,10 +332,24 @@ namespace mtl
 
         void replaceRegion(const Region& region,
                            const ns::UInteger level,
+                           const ns::UInteger slice,
+                           const void* pixelBytes,
+                           const ns::UInteger bytesPerRow,
+                           const ns::UInteger bytesPerImage) noexcept
+        {
+            return sendMessage(METALPP_SEL(replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage_), region, level, slice, pixelBytes, bytesPerRow, bytesPerImage);
+        }
+
+        void getBytes(void* pixelBytes, const ns::UInteger bytesPerRow, const mtl::Region& region, const ns::UInteger level) noexcept
+        {
+            return sendMessage(METALPP_SEL(getBytes_bytesPerRow_fromRegion_mipmapLevel_), pixelBytes, bytesPerRow, region, level);
+        }
+
+        void replaceRegion(const Region& region,
+                           const ns::UInteger level,
                            const void* pixelBytes,
                            const ns::UInteger bytesPerRow) noexcept
         {
-
             return sendMessage(METALPP_SEL(replaceRegion_mipmapLevel_withBytes_bytesPerRow_), region, level, pixelBytes, bytesPerRow);
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
