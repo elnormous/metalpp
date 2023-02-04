@@ -62,6 +62,7 @@ namespace mtl
         METALPP_PRIVATE_SEL(copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_options_, "copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:options:");
         METALPP_PRIVATE_SEL(generateMipmapsForTexture_, "generateMipmapsForTexture:");
         METALPP_PRIVATE_SEL(fillBuffer_range_value_, "fillBuffer:range:value:");
+        METALPP_PRIVATE_SEL(copyFromTexture_toTexture_, "copyFromTexture:toTexture:");
         METALPP_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_, "copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:");
         METALPP_PRIVATE_SEL(updateFence_, "updateFence:");
         METALPP_PRIVATE_SEL(waitForFence_, "waitForFence:");
@@ -209,6 +210,11 @@ namespace mtl
                         const std::uint8_t value) noexcept
         {
             sendMessage(METALPP_SEL(fillBuffer_range_value_), buffer.get(), range, value);
+        }
+
+        void copyFromTexture(const Texture& sourceTexture, const Texture& destinationTexture) API_AVAILABLE(macos(10.15), ios(13.0))
+        {
+            sendMessage(METALPP_SEL(copyFromTexture_toTexture_), sourceTexture.get(), destinationTexture.get());
         }
 
         void copyFromBuffer(const Buffer& sourceBuffer,
