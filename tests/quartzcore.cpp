@@ -26,6 +26,12 @@ TEST_CASE("Layer")
     CHECK(!layer.isOpaque());
     layer.setOpaque(true);
     CHECK(layer.isOpaque());
+
+    layer.setEdgeAntialiasingMask(ca::EdgeAntialiasingMask::LeftEdge);
+    CHECK(layer.edgeAntialiasingMask() == ca::EdgeAntialiasingMask::LeftEdge);
+
+    layer.setAutoresizingMask(ca::AutoresizingMask::MinYMargin);
+    CHECK(layer.autoresizingMask() == ca::AutoresizingMask::MinYMargin);
 }
 
 TEST_CASE("MetalLayer")
