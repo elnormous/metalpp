@@ -119,12 +119,14 @@ namespace ca
         METALPP_PRIVATE_SEL(setMinificationFilter_, "setMinificationFilter:");
         METALPP_PRIVATE_SEL(magnificationFilter, "magnificationFilter");
         METALPP_PRIVATE_SEL(setMagnificationFilter_, "setMagnificationFilter:");
-        METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
-        METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
-        METALPP_PRIVATE_SEL(backgroundColor, "backgroundColor");
-        METALPP_PRIVATE_SEL(setBackgroundColor_, "setBackgroundColor:");
+        METALPP_PRIVATE_SEL(isOpaque, "isOpaque");
+        METALPP_PRIVATE_SEL(setOpaque_, "setOpaque:");
         METALPP_PRIVATE_SEL(edgeAntialiasingMask, "edgeAntialiasingMask");
         METALPP_PRIVATE_SEL(setEdgeAntialiasingMask_, "setEdgeAntialiasingMask:");
+        METALPP_PRIVATE_SEL(backgroundColor, "backgroundColor");
+        METALPP_PRIVATE_SEL(setBackgroundColor_, "setBackgroundColor:");
+        METALPP_PRIVATE_SEL(autoresizingMask, "autoresizingMask");
+        METALPP_PRIVATE_SEL(setAutoresizingMask_, "setAutoresizingMask:");
 
         using Object::Object;
         using Object::operator=;
@@ -182,6 +184,16 @@ namespace ca
         void setMagnificationFilter(const LayerContentsFilter& magnificationFilter) noexcept
         {
             sendMessage(METALPP_SEL(setMagnificationFilter_), magnificationFilter.get());
+        }
+
+        [[nodiscard]] auto isOpaque() const noexcept
+        {
+            return sendMessage<BOOL>(METALPP_SEL(isOpaque)) == YES;
+        }
+
+        void setOpaque(const bool opaque) noexcept
+        {
+            sendMessage(METALPP_SEL(setOpaque_), opaque ? YES : NO);
         }
 
         [[nodiscard]] auto edgeAntialiasingMask() const noexcept

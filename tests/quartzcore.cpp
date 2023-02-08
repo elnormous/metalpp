@@ -22,6 +22,10 @@ TEST_CASE("Layer")
     CHECK(layer.magnificationFilter().isEqualToString(ca::FilterLinear));
     layer.setMagnificationFilter(ca::FilterNearest);
     CHECK(layer.magnificationFilter().isEqualToString(ca::FilterNearest));
+
+    CHECK(!layer.isOpaque());
+    layer.setOpaque(true);
+    CHECK(layer.isOpaque());
 }
 
 TEST_CASE("MetalLayer")
