@@ -26,9 +26,9 @@ TEST_CASE("Application")
     REQUIRE(application);
     CHECK(application.retainCount());
     application.activateIgnoringOtherApps(true);
-    CHECK(!application.active());
-    CHECK(!application.hidden());
-    CHECK(!application.running());
+    CHECK(!application.isActive());
+    CHECK(!application.isHidden());
+    CHECK(!application.isRunning());
 
     CHECK(application.setActivationPolicy(ns::ApplicationActivationPolicy::Accessory));
     CHECK(application.activationPolicy() == ns::ApplicationActivationPolicy::Accessory);
@@ -217,7 +217,7 @@ TEST_CASE("Window")
     window.setDelegate(delegate);
     CHECK(window.delegate() == delegate);
 
-    CHECK(!window.releasedWhenClosed());
+    CHECK(!window.isReleasedWhenClosed());
 
     CHECK(window.screen());
     

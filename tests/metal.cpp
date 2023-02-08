@@ -346,9 +346,9 @@ TEST_CASE("Depth stencil state")
     descriptor.setDepthCompareFunction(mtl::CompareFunction::LessEqual);
     CHECK(descriptor.depthCompareFunction() == mtl::CompareFunction::LessEqual);
     descriptor.setDepthWriteEnabled(true);
-    CHECK(descriptor.depthWriteEnabled());
+    CHECK(descriptor.isDepthWriteEnabled());
     descriptor.setDepthWriteEnabled(false);
-    CHECK(!descriptor.depthWriteEnabled());
+    CHECK(!descriptor.isDepthWriteEnabled());
 
     mtl::DepthStencilState depthStencilState = device.newDepthStencilState(descriptor);
     REQUIRE(depthStencilState);

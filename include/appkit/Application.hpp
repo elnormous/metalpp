@@ -75,17 +75,17 @@ namespace ns
             return Window{sendMessage<id>(METALPP_SEL(mainWindow))};
         }
 
-        [[nodiscard]] auto active() const noexcept
+        [[nodiscard]] auto isActive() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(isActive)) == YES;
         }
 
-        [[nodiscard]] auto hidden() const noexcept
+        [[nodiscard]] auto isHidden() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(isHidden)) == YES;
         }
 
-        [[nodiscard]] auto running() const noexcept
+        [[nodiscard]] auto isRunning() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(isRunning)) == YES;
         }

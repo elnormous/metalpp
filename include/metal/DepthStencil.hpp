@@ -77,7 +77,7 @@ namespace mtl
             sendMessage(METALPP_SEL(setDepthCompareFunction_), depthCompareFunction);
         }
 
-        [[nodiscard]] auto depthWriteEnabled() const noexcept
+        [[nodiscard]] auto isDepthWriteEnabled() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(isDepthWriteEnabled)) == YES;
         }

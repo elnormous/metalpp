@@ -183,7 +183,7 @@ namespace ns
             sendMessage(METALPP_SEL(setDelegate_), delegate.get());
         }
 
-        [[nodiscard]] auto releasedWhenClosed() const noexcept
+        [[nodiscard]] auto isReleasedWhenClosed() const noexcept
         {
             return sendMessage<BOOL>(METALPP_SEL(isReleasedWhenClosed)) == YES;
         }
