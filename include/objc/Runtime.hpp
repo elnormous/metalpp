@@ -81,6 +81,24 @@ namespace objc
         SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSend);
         return proc(self, selector, args...);
     }
+
+    template<typename Ret = void, typename... Args>
+    static inline Ret sendSuperMessage(const void* self, SEL selector, Args... args) noexcept
+    {
+#if defined(__i386__) || defined(__x86_64__)
+        if constexpr (reguiresStret<Ret>::value)
+        {
+            using SendMessageStretProc = void(Ret*, const void*, SEL, Args...);
+            SendMessageStretProc* proc = reinterpret_cast<SendMessageStretProc*>(&objc_msgSendSuper_stret);
+            Ret ret;
+            proc(&ret, self, selector, args...);
+            return ret;
+        }
+#endif
+        using SendMessageProc = Ret(const void*, SEL, Args...);
+        SendMessageProc* proc = reinterpret_cast<SendMessageProc*>(&objc_msgSendSuper);
+        return proc(self, selector, args...);
+    }
 }
 
 #endif

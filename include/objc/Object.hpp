@@ -142,6 +142,12 @@ namespace ns
             return objc::sendMessage<Ret>(ptr, selector, args...);
         }
 
+        template<typename Ret = void, typename... Args>
+        Ret sendSuperMessage(SEL selector, Args... args) const noexcept
+        {
+            return objc::sendSuperMessage<Ret>(ptr, selector, args...);
+        }
+
     private:
         id ptr = nil;
     };
