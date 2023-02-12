@@ -20,6 +20,7 @@ namespace ns
         METALPP_PRIVATE_SEL(addItem_, "addItem:");
         METALPP_PRIVATE_SEL(insertItemWithTitle_action_keyEquivalent_atIndex_, "insertItemWithTitle:action:keyEquivalent:atIndex:");
         METALPP_PRIVATE_SEL(addItemWithTitle_action_keyEquivalent_, "addItemWithTitle:action:keyEquivalent:");
+        METALPP_PRIVATE_SEL(itemWithTitle_, "itemWithTitle:");
         METALPP_PRIVATE_SEL(itemWithTag_, "itemWithTag:");
         
         using Object::Object;
@@ -62,6 +63,11 @@ namespace ns
                                             title.get(),
                                             action,
                                             keyEquivalent.get())};
+        }
+
+        auto itemWithTitle(const String& title) noexcept
+        {
+            return MenuItem{sendMessage<id>(METALPP_SEL(itemWithTitle_), title.get())};
         }
 
         auto itemWithTag(const NSInteger tag) noexcept

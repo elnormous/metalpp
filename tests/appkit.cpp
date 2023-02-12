@@ -98,6 +98,7 @@ TEST_CASE("Menu")
     REQUIRE(menuItem);
     CHECK(menuItem.retainCount());
     menuItem.setTag(9);
+    CHECK(menu.itemWithTitle("test") == menuItem);
     CHECK(menu.itemWithTag(9) == menuItem);
 
     ns::Menu menuWithTitle{"test"};
