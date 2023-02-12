@@ -27,6 +27,8 @@ namespace ns
         METALPP_PRIVATE_SEL(setKeyEquivalent_, "setKeyEquivalent:");
         METALPP_PRIVATE_SEL(keyEquivalentModifierMask, "keyEquivalentModifierMask");
         METALPP_PRIVATE_SEL(setKeyEquivalentModifierMask_, "setKeyEquivalentModifierMask:");
+        METALPP_PRIVATE_SEL(tag, "tag");
+        METALPP_PRIVATE_SEL(setTag_, "setTag:");
 
         using Object::Object;
         using Object::operator=;
@@ -86,6 +88,16 @@ namespace ns
         void setKeyEquivalentModifierMask(const EventModifierFlags keyEquivalentModifierMask) noexcept
         {
             sendMessage(METALPP_SEL(setKeyEquivalentModifierMask_), keyEquivalentModifierMask);
+        }
+
+        [[nodiscard]] auto tag() const noexcept
+        {
+            return sendMessage<NSInteger>(METALPP_SEL(tag));
+        }
+
+        void setTag(const NSInteger tag) noexcept
+        {
+            sendMessage(METALPP_SEL(setTag_), tag);
         }
     };
 }

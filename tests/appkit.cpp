@@ -97,6 +97,8 @@ TEST_CASE("Menu")
     ns::MenuItem menuItem = menu.addItem("test", nullptr, "w");
     REQUIRE(menuItem);
     CHECK(menuItem.retainCount());
+    menuItem.setTag(9);
+    CHECK(menu.itemWithTag(9) == menuItem);
 
     ns::Menu menuWithTitle{"test"};
     REQUIRE(menuWithTitle);
@@ -128,6 +130,8 @@ TEST_CASE("MenuItem")
     CHECK(menuItem.retainCount());
     menuItem.setKeyEquivalentModifierMask(ns::EventModifierFlags::Command | ns::EventModifierFlags::Option);
     CHECK(menuItem.keyEquivalentModifierMask() == (ns::EventModifierFlags::Command | ns::EventModifierFlags::Option));
+    menuItem.setTag(10);
+    CHECK(menuItem.tag() == 10);
 
     ns::Menu submenu;
     menuItem.setSubmenu(submenu);
