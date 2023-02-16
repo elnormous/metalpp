@@ -53,6 +53,11 @@ namespace dispatch
             return queue;
         }
 
+        auto getLabel() const noexcept
+        {
+            return dispatch_queue_get_label(queue);
+        }
+
     private:
         dispatch_queue_t queue = nullptr;
     };

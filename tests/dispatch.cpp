@@ -16,6 +16,8 @@ TEST_CASE("Queue")
 {
     dispatch::Queue queue{"test"};
     REQUIRE(queue);
+
+    CHECK(std::strcmp(queue.getLabel(), "test") == 0);
 }
 
 TEST_CASE("Semaphore")
