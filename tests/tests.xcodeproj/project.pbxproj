@@ -64,6 +64,7 @@
 		303B6AA3294E282600A4DEC6 /* DirectDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DirectDisplay.hpp; sourceTree = "<group>"; };
 		303B6AA4294E28D400A4DEC6 /* corevideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = corevideo.cpp; sourceTree = "<group>"; };
 		303B6AA6294F720F00A4DEC6 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		304F5881299E4E850033F264 /* Queue.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Queue.hpp; sourceTree = "<group>"; };
 		309010D8292B7833002D121D /* BlitCommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlitCommandEncoder.hpp; sourceTree = "<group>"; };
 		309010D9292B7833002D121D /* CommandEncoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CommandEncoder.hpp; sourceTree = "<group>"; };
 		309010DA292B7833002D121D /* DynamicLibrary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DynamicLibrary.hpp; sourceTree = "<group>"; };
@@ -337,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				30CD0767296A6501004DA016 /* Data.hpp */,
+				304F5881299E4E850033F264 /* Queue.hpp */,
 				30CD0766296A6501004DA016 /* Semaphore.hpp */,
 			);
 			path = dispatch;

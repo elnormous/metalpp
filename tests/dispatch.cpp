@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include <thread>
 #include "dispatch/Data.hpp"
+#include "dispatch/Queue.hpp"
 #include "dispatch/Semaphore.hpp"
 
 TEST_CASE("Data")
@@ -9,6 +10,12 @@ TEST_CASE("Data")
     dispatch::Data data{buffer, sizeof(buffer), nullptr, DISPATCH_DATA_DESTRUCTOR_DEFAULT};
     REQUIRE(data);
     CHECK(data.getSize() == sizeof(buffer));
+}
+
+TEST_CASE("Queue")
+{
+    dispatch::Queue queue{"test"};
+    REQUIRE(queue);
 }
 
 TEST_CASE("Semaphore")
