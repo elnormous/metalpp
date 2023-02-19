@@ -11,7 +11,7 @@ namespace dispatch
         explicit Data(const void* buffer,
                       const size_t size,
                       const dispatch_queue_t queue,
-                      const dispatch_block_t destructor):
+                      const dispatch_block_t destructor) noexcept:
             data{dispatch_data_create(buffer, size, queue, destructor)}
         {
         }
