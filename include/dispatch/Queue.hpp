@@ -8,7 +8,7 @@ namespace dispatch
     class Queue final
     {
     public:
-        explicit Queue(const char* name = nullptr):
+        explicit Queue(const char* name = nullptr) noexcept:
             queue{dispatch_queue_create(name, nullptr)}
         {
         }
@@ -62,6 +62,5 @@ namespace dispatch
         dispatch_queue_t queue = nullptr;
     };
 }
-
 
 #endif
