@@ -18,6 +18,12 @@ TEST_CASE("Queue")
     REQUIRE(queue);
 
     CHECK(std::strcmp(queue.getLabel(), "test") == 0);
+
+    const dispatch::Queue currentQueue = dispatch::Queue::current();
+    CHECK(currentQueue);
+
+    const dispatch::Queue mainQueue = dispatch::Queue::main();
+    CHECK(mainQueue);
 }
 
 TEST_CASE("Semaphore")

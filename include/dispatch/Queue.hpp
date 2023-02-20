@@ -8,6 +8,16 @@ namespace dispatch
     class Queue final
     {
     public:
+        [[nodiscard]] static auto current() noexcept
+        {
+            return Queue{dispatch_get_current_queue()};
+        }
+
+        [[nodiscard]] static auto main() noexcept
+        {
+            return Queue{dispatch_get_main_queue()};
+        }
+
         explicit Queue(const char* name = nullptr) noexcept:
             queue{dispatch_queue_create(name, nullptr)}
         {
@@ -28,6 +38,11 @@ namespace dispatch
             queue{other.queue}
         {
             if (queue) dispatch_retain(queue);
+        }
+
+        Queue(const dispatch_queue_t q) noexcept: queue{q}
+        {
+            dispatch_retain(queue);
         }
 
         Queue& operator=(Queue&& other) noexcept
