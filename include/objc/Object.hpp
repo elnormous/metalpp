@@ -90,7 +90,7 @@ namespace ns
             return ptr != other;
         }
 
-        operator id() const noexcept
+        [[nodiscard]] operator id() const noexcept
         {
             return ptr;
         }

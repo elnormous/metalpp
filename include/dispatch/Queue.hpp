@@ -63,7 +63,7 @@ namespace dispatch
             return *this;
         }
 
-        operator dispatch_queue_t() const noexcept
+        [[nodiscard]] operator dispatch_queue_t() const noexcept
         {
             return queue;
         }

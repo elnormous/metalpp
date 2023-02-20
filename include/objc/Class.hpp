@@ -59,7 +59,7 @@ namespace objc
             return cls != other;
         }
 
-        operator ::Class() const noexcept
+        [[nodiscard]] operator ::Class() const noexcept
         {
             return cls;
         }
