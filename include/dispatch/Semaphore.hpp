@@ -30,6 +30,11 @@ namespace dispatch
             if (semaphore) dispatch_retain(semaphore);
         }
 
+        Semaphore(const dispatch_semaphore_t s) noexcept: semaphore{s}
+        {
+            dispatch_retain(semaphore);
+        }
+
         Semaphore& operator=(Semaphore&& other) noexcept
         {
             if (&other == this) return *this;

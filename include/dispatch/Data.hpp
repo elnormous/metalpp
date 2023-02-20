@@ -33,6 +33,11 @@ namespace dispatch
             if (data) dispatch_retain(data);
         }
 
+        Data(const dispatch_data_t d) noexcept: data{d}
+        {
+            dispatch_retain(data);
+        }
+
         Data& operator=(Data&& other) noexcept
         {
             if (&other == this) return *this;
