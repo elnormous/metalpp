@@ -354,7 +354,9 @@ namespace mtl
         }
     } API_AVAILABLE(macos(10.11), ios(8.0));
 
-    inline Texture Buffer::newTexture(const TextureDescriptor& descriptor, const ns::UInteger offset, const ns::UInteger bytesPerRow) API_AVAILABLE(macos(10.13), ios(8.0))
+    inline Texture Buffer::newTexture(const TextureDescriptor& descriptor,
+                                      const ns::UInteger offset,
+                                      const ns::UInteger bytesPerRow) const API_AVAILABLE(macos(10.13), ios(8.0))
     {
         return Texture{sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_offset_bytesPerRow_),
                                        descriptor.get(),

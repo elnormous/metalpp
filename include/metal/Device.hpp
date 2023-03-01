@@ -245,13 +245,13 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(currentAllocatedSize));
         }
 
-        [[nodiscard]] auto newCommandQueue() noexcept
+        [[nodiscard]] auto newCommandQueue() const noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueue));
             return CommandQueue{commandQueue, ns::adopt};
         }
 
-        [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) noexcept
+        [[nodiscard]] auto newCommandQueue(const ns::UInteger maxCommandBufferCount) const noexcept
         {
             const id commandQueue = sendMessage<id>(METALPP_SEL(newCommandQueueWithMaxCommandBufferCount_),
                                                     maxCommandBufferCount);
@@ -263,19 +263,23 @@ namespace mtl
             return sendMessage<SizeAndAlign>(METALPP_SEL(heapTextureSizeAndAlignWithDescriptor_), desc.get());
         }
 
-        [[nodiscard]] auto heapBufferSizeAndAlign(const ns::UInteger length, const ResourceOptions options) const noexcept API_AVAILABLE(macos(10.13), ios(10.0))
+        [[nodiscard]] auto heapBufferSizeAndAlign(const ns::UInteger length, const
+                                                  ResourceOptions options) const noexcept API_AVAILABLE(macos(10.13), ios(10.0))
         {
-            return sendMessage<SizeAndAlign>(METALPP_SEL(heapBufferSizeAndAlignWithLength_options_), length, options);
+            return sendMessage<SizeAndAlign>(METALPP_SEL(heapBufferSizeAndAlignWithLength_options_),
+                                             length,
+                                             options);
         }
 
-        [[nodiscard]] auto newHeap(const HeapDescriptor& descriptor) API_AVAILABLE(macos(10.13), ios(10.0))
+        [[nodiscard]] auto newHeap(const HeapDescriptor& descriptor) const API_AVAILABLE(macos(10.13), ios(10.0))
         {
             const id heap = sendMessage<id>(METALPP_SEL(newHeapWithDescriptor_),
                                             descriptor.get());
             return Heap{heap, ns::adopt};
         }
 
-        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) noexcept
+        [[nodiscard]] auto newBuffer(const ns::UInteger length,
+                                     const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_),
                                               length,
@@ -283,7 +287,9 @@ namespace mtl
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options) noexcept
+        [[nodiscard]] auto newBuffer(const void* pointer,
+                                     const ns::UInteger length,
+                                     const ResourceOptions options) const noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytes_length_options_),
                                               pointer,
@@ -292,7 +298,10 @@ namespace mtl
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newBuffer(const void* pointer, const ns::UInteger length, const ResourceOptions options, const std::function<void(void* pointer, ns::UInteger length)> deallocator) noexcept
+        [[nodiscard]] auto newBuffer(const void* pointer,
+                                     const ns::UInteger length,
+                                     const ResourceOptions options,
+                                     const std::function<void(void* pointer, ns::UInteger length)> deallocator) const noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytesNoCopy_length_options_deallocator_),
                                               pointer,
@@ -302,34 +311,34 @@ namespace mtl
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) noexcept
+        [[nodiscard]] auto newDepthStencilState(const DepthStencilDescriptor& descriptor) const noexcept
         {
             const id depthStencilState = sendMessage<id>(METALPP_SEL(newDepthStencilStateWithDescriptor_),
                                                          descriptor.get());
             return DepthStencilState{depthStencilState, ns::adopt};
         }
 
-        [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) noexcept
+        [[nodiscard]] auto newTexture(const TextureDescriptor& descriptor) const noexcept
         {
             const id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_),
                                                descriptor.get());
             return Texture{texture, ns::adopt};
         }
 
-        [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) noexcept
+        [[nodiscard]] auto newSamplerState(const SamplerDescriptor& descriptor) const noexcept
         {
             const id samplerState = sendMessage<id>(METALPP_SEL(newSamplerStateWithDescriptor_),
                                                     descriptor.get());
             return SamplerState{samplerState, ns::adopt};
         }
 
-        [[nodiscard]] auto newDefaultLibrary() noexcept
+        [[nodiscard]] auto newDefaultLibrary() const noexcept
         {
             const id library = sendMessage<id>(METALPP_SEL(newDefaultLibrary));
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newDefaultLibrary(const ns::Bundle& bundle) API_AVAILABLE(macos(10.12), ios(10.0))
+        [[nodiscard]] auto newDefaultLibrary(const ns::Bundle& bundle) const API_AVAILABLE(macos(10.12), ios(10.0))
         {
             id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newDefaultLibraryWithBundle_error_),
@@ -342,7 +351,7 @@ namespace mtl
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newLibrary(const dispatch::Data& data)
+        [[nodiscard]] auto newLibrary(const dispatch::Data& data) const
         {
             id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithData_error_),
@@ -355,7 +364,8 @@ namespace mtl
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newLibrary(const ns::String& source, const CompileOptions& compileOptions)
+        [[nodiscard]] auto newLibrary(const ns::String& source,
+                                      const CompileOptions& compileOptions) const
         {
             id error = nil;
             const id library = sendMessage<id>(METALPP_SEL(newLibraryWithSource_options_error_),
@@ -369,7 +379,7 @@ namespace mtl
             return Library{library, ns::adopt};
         }
 
-        [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor)
+        [[nodiscard]] auto newRenderPipelineState(const RenderPipelineDescriptor& renderPipelineDescriptor) const
         {
             id error = nil;
             const id renderPipelineState = sendMessage<id>(METALPP_SEL(newRenderPipelineStateWithDescriptor_error_),
@@ -382,7 +392,7 @@ namespace mtl
             return RenderPipelineState{renderPipelineState, ns::adopt};
         }
 
-        [[nodiscard]] auto newComputePipelineState(const Function& computeFunction)
+        [[nodiscard]] auto newComputePipelineState(const Function& computeFunction) const
         {
             id error = nil;
             const id renderPipelineState = sendMessage<id>(METALPP_SEL(newComputePipelineStateWithFunction_error_),
@@ -395,7 +405,7 @@ namespace mtl
             return ComputePipelineState{renderPipelineState, ns::adopt};
         }
 
-        [[nodiscard]] auto newFence() API_AVAILABLE(macos(10.13), ios(10.0))
+        [[nodiscard]] auto newFence() const API_AVAILABLE(macos(10.13), ios(10.0))
         {
             const id fence = sendMessage<id>(METALPP_SEL(newFence));
             return Fence{fence, ns::adopt};
@@ -426,7 +436,9 @@ namespace mtl
             return sendMessage<ns::Integer>(METALPP_SEL(minimumTextureBufferAlignmentForPixelFormat_), format);
         }
 
-        [[nodiscard]] auto newIndirectCommandBuffer(const IndirectCommandBufferDescriptor& descriptor, const ns::UInteger maxCount, const ResourceOptions options) API_AVAILABLE(macos(10.14), ios(12.0))
+        [[nodiscard]] auto newIndirectCommandBuffer(const IndirectCommandBufferDescriptor& descriptor,
+                                                    const ns::UInteger maxCount,
+                                                    const ResourceOptions options) const API_AVAILABLE(macos(10.14), ios(12.0))
         {
             const id indirectCommandBuffer = sendMessage<id>(METALPP_SEL(newIndirectCommandBufferWithDescriptor_maxCommandCount_options_),
                                                              descriptor.get(),
@@ -435,7 +447,7 @@ namespace mtl
             return IndirectCommandBuffer{indirectCommandBuffer};
         }
 
-        [[nodiscard]] auto newEvent() API_AVAILABLE(macos(10.14), ios(12.0))
+        [[nodiscard]] auto newEvent() const API_AVAILABLE(macos(10.14), ios(12.0))
         {
             const id event = sendMessage<id>(METALPP_SEL(newEvent));
             return Event{event, ns::adopt};

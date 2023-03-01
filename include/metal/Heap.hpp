@@ -196,13 +196,16 @@ namespace mtl
             return sendMessage<ns::UInteger>(METALPP_SEL(maxAvailableSizeWithAlignment_), alignment);
         }
 
-        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options) noexcept
+        [[nodiscard]] auto newBuffer(const ns::UInteger length,
+                                     const ResourceOptions options) const noexcept
         {
-            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_), length, options);
+            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_),
+                                        length,
+                                        options);
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newTexture(const TextureDescriptor& desc) noexcept
+        [[nodiscard]] auto newTexture(const TextureDescriptor& desc) const noexcept
         {
             id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_), desc.get());
             return Texture{texture, ns::adopt};
@@ -218,15 +221,23 @@ namespace mtl
             return sendMessage<HeapType>(METALPP_SEL(type));
         }
 
-        [[nodiscard]] auto newBuffer(const ns::UInteger length, const ResourceOptions options, const ns::UInteger offset) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto newBuffer(const ns::UInteger length,
+                                     const ResourceOptions options,
+                                     const ns::UInteger offset) const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_offset_), length, options, offset);
+            id buffer = sendMessage<id>(METALPP_SEL(newBufferWithLength_options_offset_),
+                                        length,
+                                        options,
+                                        offset);
             return Buffer{buffer, ns::adopt};
         }
 
-        [[nodiscard]] auto newTexture(const TextureDescriptor descriptor, const ns::UInteger offset) noexcept API_AVAILABLE(macos(10.15), ios(13.0))
+        [[nodiscard]] auto newTexture(const TextureDescriptor descriptor,
+                                      const ns::UInteger offset) const noexcept API_AVAILABLE(macos(10.15), ios(13.0))
         {
-            id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_offset_), descriptor, offset);
+            id texture = sendMessage<id>(METALPP_SEL(newTextureWithDescriptor_offset_),
+                                         descriptor,
+                                         offset);
             return Texture{texture, ns::adopt};
         }
     } API_AVAILABLE(macos(10.13), ios(10.0));

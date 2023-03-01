@@ -43,7 +43,9 @@ namespace mtl
             sendMessage(METALPP_SEL(didModifyRange_), range);
         }
 
-        Texture newTexture(const TextureDescriptor& descriptor, const ns::UInteger offset, const ns::UInteger bytesPerRow) API_AVAILABLE(macos(10.13), ios(8.0));
+        Texture newTexture(const TextureDescriptor& descriptor,
+                           const ns::UInteger offset,
+                           const ns::UInteger bytesPerRow) const API_AVAILABLE(macos(10.13), ios(8.0));
 
         void addDebugMarker(const ns::String& string, const ns::Range& range) noexcept API_AVAILABLE(macos(10.12), ios(10.0))
         {
