@@ -72,22 +72,22 @@ namespace ns
 
         [[nodiscard]] bool operator==(const Object& other) const noexcept
         {
-            return ptr == other.ptr;
+            return other.ptr == ptr;
         }
 
         [[nodiscard]] bool operator!=(const Object& other) const noexcept
         {
-            return ptr != other.ptr;
+            return other.ptr != ptr;
         }
 
         [[nodiscard]] bool operator==(const id other) const noexcept
         {
-            return ptr == other;
+            return other == ptr;
         }
 
         [[nodiscard]] bool operator!=(const id other) const noexcept
         {
-            return ptr != other;
+            return other != ptr;
         }
 
         [[nodiscard]] operator id() const noexcept

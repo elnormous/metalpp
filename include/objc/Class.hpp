@@ -51,12 +51,12 @@ namespace objc
 
         [[nodiscard]] bool operator==(const ::Class other) const noexcept
         {
-            return cls == other;
+            return other == cls;
         }
 
         [[nodiscard]] bool operator!=(const ::Class other) const noexcept
         {
-            return cls != other;
+            return other != cls;
         }
 
         [[nodiscard]] operator ::Class() const noexcept

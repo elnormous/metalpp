@@ -22,6 +22,9 @@ TEST_CASE("Float")
 {
     CGFloat f = 5.0;
     cg::Float r = f;
+    CHECK(r == r);
+    CHECK_FALSE(r != r);
     CHECK(r == f);
+    CHECK_FALSE(r != f);
     CHECK(r == 5.0);
 }
