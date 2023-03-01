@@ -17,3 +17,11 @@ TEST_CASE("ColorSpace")
     CHECK(colorSpace);
     CHECK(colorSpace.retainCount());
 }
+
+TEST_CASE("Float")
+{
+    CGFloat f = 5.0;
+    cg::Float r = f;
+    CHECK(r == f);
+    CHECK(r == 5.0);
+}
