@@ -41,6 +41,20 @@ TEST_CASE("Point")
     CHECK(r.y == 6.0);
 }
 
+TEST_CASE("Rect")
+{
+    CGRect test = CGRectMake(5.0, 6.0, 7.0, 8.0);
+    cg::Rect r = test;
+    CHECK(r == r);
+    CHECK_FALSE(r != r);
+    CHECK(r == test);
+    CHECK_FALSE(r != test);
+    CHECK(r.origin.x == 5.0);
+    CHECK(r.origin.y == 6.0);
+    CHECK(r.size.width == 7.0);
+    CHECK(r.size.height == 8.0);
+}
+
 TEST_CASE("Size")
 {
     CGSize test = CGSizeMake(5.0, 6.0);
@@ -63,18 +77,4 @@ TEST_CASE("Vector")
     CHECK_FALSE(r != test);
     CHECK(r.dx == 5.0);
     CHECK(r.dy == 6.0);
-}
-
-TEST_CASE("Rect")
-{
-    CGRect test = CGRectMake(5.0, 6.0, 7.0, 8.0);
-    cg::Rect r = test;
-    CHECK(r == r);
-    CHECK_FALSE(r != r);
-    CHECK(r == test);
-    CHECK_FALSE(r != test);
-    CHECK(r.origin.x == 5.0);
-    CHECK(r.origin.y == 6.0);
-    CHECK(r.size.width == 7.0);
-    CHECK(r.size.height == 8.0);
 }

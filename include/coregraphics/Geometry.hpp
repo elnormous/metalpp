@@ -1,6 +1,7 @@
 #ifndef METALPP_COREGRAPHICS_GEOMETRY_HPP
 #define METALPP_COREGRAPHICS_GEOMETRY_HPP
 
+#include <CoreGraphics/CGGeometry.h>
 #include "Base.hpp"
 
 namespace cg
