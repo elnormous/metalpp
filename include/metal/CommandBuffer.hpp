@@ -63,7 +63,6 @@ namespace mtl
     } API_AVAILABLE(macos(11.0), ios(14.0));
 
     class CommandBuffer;
-    using CommandBufferHandler = std::function<void(const CommandBuffer&)>;
 
     class CommandBufferDescriptor final: public ns::Object, public ns::Copying
     {
@@ -141,7 +140,12 @@ namespace mtl
             sendMessage(METALPP_SEL(commit));
         }
 
-        void addScheduledHandler(const CommandBufferHandler handler) noexcept
+        void addScheduledHandler(void (^handler)(id)) noexcept
+        {
+            sendMessage(METALPP_SEL(addScheduledHandler_), handler);
+        }
+
+        void addScheduledHandler(const std::function<void(const CommandBuffer&)> handler) noexcept
         {
             sendMessage(METALPP_SEL(addScheduledHandler_), ^(id commandBuffer){
                 handler(CommandBuffer{commandBuffer});
@@ -163,7 +167,12 @@ namespace mtl
             sendMessage(METALPP_SEL(waitUntilScheduled));
         }
 
-        void addCompletedHandler(const CommandBufferHandler handler) noexcept
+        void addCompletedHandler(void (^handler)(id)) noexcept
+        {
+            sendMessage(METALPP_SEL(addCompletedHandler_), handler);
+        }
+
+        void addCompletedHandler(const std::function<void(const CommandBuffer&)> handler) noexcept
         {
             sendMessage(METALPP_SEL(addCompletedHandler_), ^(id commandBuffer){
                 handler(CommandBuffer{commandBuffer});

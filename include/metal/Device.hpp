@@ -301,6 +301,19 @@ namespace mtl
         [[nodiscard]] auto newBuffer(const void* pointer,
                                      const ns::UInteger length,
                                      const ResourceOptions options,
+                                     void (^deallocator)(void* pointer, ns::UInteger length)) const noexcept
+        {
+            const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytesNoCopy_length_options_deallocator_),
+                                              pointer,
+                                              length,
+                                              options,
+                                              deallocator);
+            return Buffer{buffer, ns::adopt};
+        }
+
+        [[nodiscard]] auto newBuffer(const void* pointer,
+                                     const ns::UInteger length,
+                                     const ResourceOptions options,
                                      const std::function<void(void* pointer, ns::UInteger length)> deallocator) const noexcept
         {
             const id buffer = sendMessage<id>(METALPP_SEL(newBufferWithBytesNoCopy_length_options_deallocator_),
