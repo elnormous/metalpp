@@ -40,6 +40,11 @@ namespace cf
             return Allocator{kCFAllocatorUseContext};
         }
 
+        Allocator(const Allocator& allocator, AllocatorContext& context):
+            ref{CFAllocatorCreate(allocator.ref, &context)}
+        {
+        }
+
         ~Allocator()
         {
             if (ref) CFRelease(ref);
