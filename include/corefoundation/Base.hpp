@@ -10,6 +10,36 @@ namespace cf
     class Allocator final
     {
     public:
+        [[nodiscard]] static auto defaultAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorDefault};
+        }
+
+        [[nodiscard]] static auto systemDefaultAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorSystemDefault};
+        }
+
+        [[nodiscard]] static auto mallocAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorMalloc};
+        }
+
+        [[nodiscard]] static auto mallocZoneAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorMallocZone};
+        }
+
+        [[nodiscard]] static auto nullAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorNull};
+        }
+
+        [[nodiscard]] static auto userContextAllocator() noexcept
+        {
+            return Allocator{kCFAllocatorUseContext};
+        }
+
         ~Allocator()
         {
             if (ref) CFRelease(ref);

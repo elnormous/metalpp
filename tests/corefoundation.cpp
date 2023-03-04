@@ -3,11 +3,27 @@
 
 TEST_CASE("Allocator")
 {
-    cf::Allocator defaultAllocator = kCFAllocatorDefault;
+    cf::Allocator defaultAllocator = cf::Allocator::defaultAllocator();
     REQUIRE(!defaultAllocator);
+    CHECK(defaultAllocator == kCFAllocatorDefault);
 
-    cf::Allocator nullAllocator = nullptr;
-    REQUIRE(!nullAllocator);
+    cf::Allocator nullptrAllocator = nullptr;
+    REQUIRE(!nullptrAllocator);
 
-    CHECK(defaultAllocator == nullAllocator);
+    CHECK(defaultAllocator == nullptrAllocator);
+
+    cf::Allocator systemDefaultAllocator = cf::Allocator::systemDefaultAllocator();
+    CHECK(systemDefaultAllocator == kCFAllocatorSystemDefault);
+
+    cf::Allocator mallocAllocator = cf::Allocator::mallocAllocator();
+    CHECK(mallocAllocator == kCFAllocatorMalloc);
+
+    cf::Allocator mallocZoneAllocator = cf::Allocator::mallocZoneAllocator();
+    CHECK(mallocZoneAllocator == kCFAllocatorMallocZone);
+
+    cf::Allocator nullAllocator = cf::Allocator::nullAllocator();
+    CHECK(nullAllocator == kCFAllocatorNull);
+
+    cf::Allocator userContextAllocator = cf::Allocator::userContextAllocator();
+    CHECK(userContextAllocator == kCFAllocatorUseContext);
 }
