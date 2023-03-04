@@ -64,7 +64,7 @@ namespace cf
         Allocator& operator=(Allocator&& other) noexcept
         {
             if (&other == this) return *this;
-            CFRelease(ref);
+            if (ref) CFRelease(ref);
             ref = other.ref;
             other.ref = nullptr;
             return *this;
@@ -73,8 +73,8 @@ namespace cf
         Allocator& operator=(const Allocator& other) noexcept
         {
             if (&other == this) return *this;
-            CFRetain(other.ref);
-            CFRelease(ref);
+            if (other.ref) CFRetain(other.ref);
+            if (ref) CFRelease(ref);
             ref = other.ref;
             return *this;
         }
