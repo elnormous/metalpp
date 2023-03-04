@@ -21,6 +21,7 @@
 		30BD2DB92952687600DED449 /* test.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30BD2DB82952687000DED449 /* test.txt */; };
 		30BD2DBF295272DD00DED449 /* test2.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 30BD2DBB2952721700DED449 /* test2.txt */; };
 		30CD0769296A67C9004DA016 /* dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30CD0768296A67C9004DA016 /* dispatch.cpp */; };
+		30D22F8229B2FBDA00E48AD4 /* corefoundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30D22F8129B2FBDA00E48AD4 /* corefoundation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -130,6 +131,8 @@
 		30CE5EF0296282EE005A78AD /* CoreGraphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoreGraphics.hpp; sourceTree = "<group>"; };
 		30D075F92963A60100FE26D8 /* FunctionConstantValues.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FunctionConstantValues.hpp; sourceTree = "<group>"; };
 		30D075FA2963A87800FE26D8 /* Argument.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Argument.hpp; sourceTree = "<group>"; };
+		30D22F8029B2FBA700E48AD4 /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
+		30D22F8129B2FBDA00E48AD4 /* corefoundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = corefoundation.cpp; sourceTree = "<group>"; };
 		30D8D1D82985DFC4006A3232 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
 		30DBCDF3296D2A19001579BA /* ComputePipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ComputePipeline.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				30901108292E9C6B002D121D /* appkit */,
+				30D22F7F29B2FB9400E48AD4 /* corefoundation */,
 				3023336A2940333E003114B4 /* coregraphics */,
 				3090110F2930C251002D121D /* corevideo */,
 				30CD0765296A64E9004DA016 /* dispatch */,
@@ -284,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				3090110A292E9FB6002D121D /* appkit.cpp */,
+				30D22F8129B2FBDA00E48AD4 /* corefoundation.cpp */,
 				3023336C294033FD003114B4 /* coregraphics.cpp */,
 				303B6AA4294E28D400A4DEC6 /* corevideo.cpp */,
 				30CD0768296A67C9004DA016 /* dispatch.cpp */,
@@ -342,6 +347,14 @@
 				30CD0766296A6501004DA016 /* Semaphore.hpp */,
 			);
 			path = dispatch;
+			sourceTree = "<group>";
+		};
+		30D22F7F29B2FB9400E48AD4 /* corefoundation */ = {
+			isa = PBXGroup;
+			children = (
+				30D22F8029B2FBA700E48AD4 /* Base.hpp */,
+			);
+			path = corefoundation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,6 +420,7 @@
 				309010FD292B7B72002D121D /* quartzcore.cpp in Sources */,
 				30B19E54292738A0002BA9A2 /* foundation.cpp in Sources */,
 				303B6AA5294E28D400A4DEC6 /* corevideo.cpp in Sources */,
+				30D22F8229B2FBDA00E48AD4 /* corefoundation.cpp in Sources */,
 				30CD0769296A67C9004DA016 /* dispatch.cpp in Sources */,
 				3023336D294033FE003114B4 /* coregraphics.cpp in Sources */,
 				3090110C292EA3F9002D121D /* appkit.cpp in Sources */,
