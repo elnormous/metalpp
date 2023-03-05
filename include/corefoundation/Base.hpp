@@ -92,7 +92,7 @@ namespace cf
 
         Allocator& operator=(std::nullptr_t) noexcept
         {
-            if (ref) CFRetain(ref);
+            if (ref) CFRelease(ref);
             ref = nullptr;
             return *this;
         }
