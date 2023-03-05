@@ -5,6 +5,11 @@
 
 namespace cf
 {
+    using TypeID = CFTypeID;
+    using OptionFlags = CFOptionFlags;
+    using HashCode = CFHashCode;
+    using Index = CFIndex;
+
     using AllocatorContext = CFAllocatorContext;
 
     class Allocator final
@@ -105,6 +110,16 @@ namespace cf
         [[nodiscard]] auto retainCount() const noexcept
         {
             return CFGetRetainCount(ref);
+        }
+
+        void* allocate(const Index size, const OptionFlags hint)
+        {
+            return CFAllocatorAllocate(ref, size, hint);
+        }
+
+        void deallocate(void* ptr)
+        {
+            CFAllocatorDeallocate(ref, ptr);
         }
 
     private:
