@@ -55,7 +55,15 @@ namespace cv
             return *this;
         }
 
+        DisplayLink(std::nullptr_t) noexcept {}
         DisplayLink(const CVDisplayLinkRef r) noexcept: ref{CVDisplayLinkRetain(r)} {}
+
+        DisplayLink& operator=(std::nullptr_t) noexcept
+        {
+            CVDisplayLinkRelease(ref);
+            ref = nullptr;
+            return *this;
+        }
 
         [[nodiscard]] operator CVDisplayLinkRef() const noexcept
         {
