@@ -112,14 +112,24 @@ namespace cf
             return CFGetRetainCount(ref);
         }
 
-        void* allocate(const Index size, const OptionFlags hint)
+        [[nodiscard]] void* allocate(const Index size, const OptionFlags hint) noexcept
         {
             return CFAllocatorAllocate(ref, size, hint);
         }
 
-        void deallocate(void* ptr)
+        void deallocate(void* ptr) noexcept
         {
             CFAllocatorDeallocate(ref, ptr);
+        }
+
+        [[nodiscard]] Index getPreferredSizeForSize(const Index size, const OptionFlags hint) const noexcept
+        {
+            return CFAllocatorGetPreferredSizeForSize(ref, size, hint);
+        }
+
+        [[nodiscard]] void* reallocate(void* ptr, const Index newsize, const OptionFlags hint) noexcept
+        {
+            return CFAllocatorReallocate(ref, ptr, newsize, hint);
         }
 
     private:

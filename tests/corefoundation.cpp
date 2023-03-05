@@ -10,7 +10,13 @@ TEST_CASE("Allocator")
     std::uint8_t data[] = {0, 1, 2, 3, 4, 5, 6, 7};
     void* memory = defaultAllocator.allocate(sizeof(data), 0);
     std::memcpy(memory, data, sizeof(data));
+
+    memory = defaultAllocator.reallocate(memory, sizeof(data), 0);
+    CHECK(std::memcmp(memory, data, sizeof(data)) == 0);
+
     defaultAllocator.deallocate(memory);
+
+    CHECK(defaultAllocator.getPreferredSizeForSize(8, 0));
 
     cf::Allocator nullptrAllocator = nullptr;
     CHECK(!nullptrAllocator);
