@@ -219,8 +219,8 @@ namespace mtl
         
         [[nodiscard]] static auto createSystemDefaultDevice() noexcept
         {
-            static const auto mtlCreateSystemDefaultDevice = reinterpret_cast<id(*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
-            return Device{mtlCreateSystemDefaultDevice(), ns::adopt};
+            static const auto MTLCreateSystemDefaultDeviceProc = reinterpret_cast<id(*)()>(dlsym(RTLD_DEFAULT, "MTLCreateSystemDefaultDevice"));
+            return Device{MTLCreateSystemDefaultDeviceProc(), ns::adopt};
         }
 
         Device() = delete;

@@ -2,6 +2,7 @@
 #include <mutex>
 #include "doctest.h"
 #include "corevideo/DisplayLink.hpp"
+#include "corevideo/MetalTextureCache.hpp"
 
 namespace
 {
@@ -55,4 +56,11 @@ TEST_CASE("DisplayLink")
     while (!flag.flag) flag.condition.wait(lock);
 
     displayLink.stop();
+}
+
+TEST_CASE("MetalTextureCache")
+{
+    mtl::Device device = mtl::Device::createSystemDefaultDevice();
+    cv::MetalTextureCache cache{cf::Allocator::defaultAllocator(), {}, device, {}};
+    REQUIRE(cache);
 }
