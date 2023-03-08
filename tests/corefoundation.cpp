@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "corefoundation/Base.hpp"
+#include "corefoundation/Dictionary.hpp"
 
 TEST_CASE("Allocator")
 {
@@ -49,4 +50,10 @@ TEST_CASE("Allocator")
     cf::Allocator customAllocator{cf::Allocator::defaultAllocator(), context};
     REQUIRE(customAllocator);
     CHECK(customAllocator.retainCount() == 1);
+}
+
+TEST_CASE("Dictionary")
+{
+    cf::Dictionary emptyDictionary{cf::Allocator::defaultAllocator(), nullptr, nullptr, 0};
+    REQUIRE(emptyDictionary);
 }

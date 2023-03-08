@@ -134,6 +134,7 @@
 		30D22F8029B2FBA700E48AD4 /* Base.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Base.hpp; sourceTree = "<group>"; };
 		30D22F8129B2FBDA00E48AD4 /* corefoundation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = corefoundation.cpp; sourceTree = "<group>"; };
 		30D22F8329B4301500E48AD4 /* MetalTextureCache.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MetalTextureCache.hpp; sourceTree = "<group>"; };
+		30D22F8429B8A38300E48AD4 /* Dictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Dictionary.hpp; sourceTree = "<group>"; };
 		30D8D1D82985DFC4006A3232 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
 		30DBCDF3296D2A19001579BA /* ComputePipeline.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ComputePipeline.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -355,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				30D22F8029B2FBA700E48AD4 /* Base.hpp */,
+				30D22F8429B8A38300E48AD4 /* Dictionary.hpp */,
 			);
 			path = corefoundation;
 			sourceTree = "<group>";
