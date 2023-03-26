@@ -72,7 +72,7 @@ namespace
                            const float near,
                            const float far) noexcept
     {
-        const auto sy = 1 / std::tan(fovY * 0.5F);
+        const auto sy = 1.0F / std::tan(fovY * 0.5F);
         const auto sx = sy / aspectRatio;
         const auto zRange = far - near;
         const auto sz = -(far + near) / zRange;
